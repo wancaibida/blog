@@ -2,11 +2,11 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>W2X</title>
   
-  <link href="/blog/atom.xml" rel="self"/>
+  <link href="/atom.xml" rel="self"/>
   
-  <link href="http://wancaibida.github.io/blog/"/>
+  <link href="http://w2x.me/"/>
   <updated>2017-06-13T06:33:45.000Z</updated>
-  <id>http://wancaibida.github.io/blog/</id>
+  <id>http://w2x.me/</id>
   
   <author>
     <name>Gang Chen</name>
@@ -17,8 +17,8 @@
   
   <entry>
     <title>Hibernate学习</title>
-    <link href="http://wancaibida.github.io/blog/2017/06/13/Hibernate%E5%AD%A6%E4%B9%A0/"/>
-    <id>http://wancaibida.github.io/blog/2017/06/13/Hibernate学习/</id>
+    <link href="http://w2x.me/2017/06/13/Hibernate%E5%AD%A6%E4%B9%A0/"/>
+    <id>http://w2x.me/2017/06/13/Hibernate学习/</id>
     <published>2017-06-13T06:25:00.000Z</published>
     <updated>2017-06-13T06:33:45.000Z</updated>
     
@@ -28,17 +28,17 @@
     
     </summary>
     
-      <category term="Java" scheme="http://wancaibida.github.io/blog/categories/Java/"/>
+      <category term="Java" scheme="http://w2x.me/categories/Java/"/>
     
     
-      <category term="Hibernate" scheme="http://wancaibida.github.io/blog/tags/Hibernate/"/>
+      <category term="Hibernate" scheme="http://w2x.me/tags/Hibernate/"/>
     
   </entry>
   
   <entry>
     <title>Groovy学习</title>
-    <link href="http://wancaibida.github.io/blog/2017/06/13/Groovy%E5%AD%A6%E4%B9%A0/"/>
-    <id>http://wancaibida.github.io/blog/2017/06/13/Groovy学习/</id>
+    <link href="http://w2x.me/2017/06/13/Groovy%E5%AD%A6%E4%B9%A0/"/>
+    <id>http://w2x.me/2017/06/13/Groovy学习/</id>
     <published>2017-06-13T06:03:00.000Z</published>
     <updated>2017-06-13T06:21:45.000Z</updated>
     
@@ -48,19 +48,19 @@
     
     </summary>
     
-      <category term="Java" scheme="http://wancaibida.github.io/blog/categories/Java/"/>
+      <category term="Java" scheme="http://w2x.me/categories/Java/"/>
     
     
-      <category term="Groovy" scheme="http://wancaibida.github.io/blog/tags/Groovy/"/>
+      <category term="Hibernate" scheme="http://w2x.me/tags/Hibernate/"/>
     
-      <category term="Hibernate" scheme="http://wancaibida.github.io/blog/tags/Hibernate/"/>
+      <category term="Groovy" scheme="http://w2x.me/tags/Groovy/"/>
     
   </entry>
   
   <entry>
     <title>Tomcat传递环境变量</title>
-    <link href="http://wancaibida.github.io/blog/2017/06/13/how-to-set-tomcat-environment-values/"/>
-    <id>http://wancaibida.github.io/blog/2017/06/13/how-to-set-tomcat-environment-values/</id>
+    <link href="http://w2x.me/2017/06/13/how-to-set-tomcat-environment-values/"/>
+    <id>http://w2x.me/2017/06/13/how-to-set-tomcat-environment-values/</id>
     <published>2017-06-13T00:21:00.000Z</published>
     <updated>2017-06-13T06:36:41.000Z</updated>
     
@@ -72,10 +72,10 @@
     
     </summary>
     
-      <category term="Java" scheme="http://wancaibida.github.io/blog/categories/Java/"/>
+      <category term="Java" scheme="http://w2x.me/categories/Java/"/>
     
     
-      <category term="Tomcat" scheme="http://wancaibida.github.io/blog/tags/Tomcat/"/>
+      <category term="Tomcat" scheme="http://w2x.me/tags/Tomcat/"/>
     
   </entry>
   
