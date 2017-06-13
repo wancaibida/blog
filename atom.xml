@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>W2X</title>
+  
+  <link href="/blog/atom.xml" rel="self"/>
+  
+  <link href="http://wancaibida.github.io/blog/"/>
+  <updated>2017-06-13T06:33:45.000Z</updated>
+  <id>http://wancaibida.github.io/blog/</id>
+  
+  <author>
+    <name>Gang Chen</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Hibernate学习</title>
+    <link href="http://wancaibida.github.io/blog/2017/06/13/Hibernate%E5%AD%A6%E4%B9%A0/"/>
+    <id>http://wancaibida.github.io/blog/2017/06/13/Hibernate学习/</id>
+    <published>2017-06-13T06:25:00.000Z</published>
+    <updated>2017-06-13T06:33:45.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;占位符（named-parameters）对order-by无效&quot;&gt;&lt;a href=&quot;#占位符（named-parameters）对order-by无效&quot; class=&quot;headerlink&quot; title=&quot;占位符（named parameters）对order 
+    
+    </summary>
+    
+      <category term="Java" scheme="http://wancaibida.github.io/blog/categories/Java/"/>
+    
+    
+      <category term="Hibernate" scheme="http://wancaibida.github.io/blog/tags/Hibernate/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Groovy学习</title>
+    <link href="http://wancaibida.github.io/blog/2017/06/13/Groovy%E5%AD%A6%E4%B9%A0/"/>
+    <id>http://wancaibida.github.io/blog/2017/06/13/Groovy学习/</id>
+    <published>2017-06-13T06:03:00.000Z</published>
+    <updated>2017-06-13T06:21:45.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;sort方法作用于Set和List时的区别&quot;&gt;&lt;a href=&quot;#sort方法作用于Set和List时的区别&quot; class=&quot;headerlink&quot; title=&quot;sort方法作用于Set和List时的区别&quot;&gt;&lt;/a&gt;sort方法作用于Set和List时的区别&lt;/
+    
+    </summary>
+    
+      <category term="Java" scheme="http://wancaibida.github.io/blog/categories/Java/"/>
+    
+    
+      <category term="Groovy" scheme="http://wancaibida.github.io/blog/tags/Groovy/"/>
+    
+      <category term="Hibernate" scheme="http://wancaibida.github.io/blog/tags/Hibernate/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Tomcat传递环境变量</title>
+    <link href="http://wancaibida.github.io/blog/2017/06/13/how-to-set-tomcat-environment-values/"/>
+    <id>http://wancaibida.github.io/blog/2017/06/13/how-to-set-tomcat-environment-values/</id>
+    <published>2017-06-13T00:21:00.000Z</published>
+    <updated>2017-06-13T06:04:06.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;ul&gt;
+&lt;li&gt;&lt;p&gt;在Tomcat bin目录下新建setenv.sh, 编辑setenv.sh,添加如下语句&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=
+    
+    </summary>
+    
+      <category term="Java" scheme="http://wancaibida.github.io/blog/categories/Java/"/>
+    
+    
+  </entry>
+  
+</feed>
