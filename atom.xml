@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://w2x.me/"/>
-  <updated>2017-06-13T06:33:45.000Z</updated>
+  <updated>2017-06-14T15:25:29.000Z</updated>
   <id>http://w2x.me/</id>
   
   <author>
@@ -14,6 +14,33 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>PostgreSQL JDBC time类型存取细节</title>
+    <link href="http://w2x.me/2017/06/14/PostgreSQL-JDBC-time%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2%E7%BB%86%E8%8A%82/"/>
+    <id>http://w2x.me/2017/06/14/PostgreSQL-JDBC-time类型转换细节/</id>
+    <published>2017-06-14T14:58:00.000Z</published>
+    <updated>2017-06-14T15:25:29.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;ul&gt;
+&lt;li&gt;PostgreSQL中默认时区为UTC&lt;/li&gt;
+&lt;li&gt;record表中有一类型为Time without timezone的字段event_time&lt;/li&gt;
+&lt;li&gt;本机的时区为UTC+8&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;现象:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;在页
+    
+    </summary>
+    
+      <category term="Database" scheme="http://w2x.me/categories/Database/"/>
+    
+    
+      <category term="PostgreSQL" scheme="http://w2x.me/tags/PostgreSQL/"/>
+    
+  </entry>
   
   <entry>
     <title>Hibernate学习</title>
@@ -51,9 +78,9 @@
       <category term="Java" scheme="http://w2x.me/categories/Java/"/>
     
     
-      <category term="Hibernate" scheme="http://w2x.me/tags/Hibernate/"/>
-    
       <category term="Groovy" scheme="http://w2x.me/tags/Groovy/"/>
+    
+      <category term="Hibernate" scheme="http://w2x.me/tags/Hibernate/"/>
     
   </entry>
   
