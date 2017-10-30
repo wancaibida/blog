@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://w2x.me/"/>
-  <updated>2017-08-06T12:54:19.000Z</updated>
+  <updated>2017-10-30T13:45:20.967Z</updated>
   <id>http://w2x.me/</id>
   
   <author>
@@ -14,6 +14,23 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Spring Boot YAML配置文件设置字段默认值</title>
+    <link href="http://w2x.me/2017/10/30/Spring-Boot-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E8%AE%BE%E7%BD%AE%E9%BB%98%E8%AE%A4%E5%80%BC/"/>
+    <id>http://w2x.me/2017/10/30/Spring-Boot-配置文件设置默认值/</id>
+    <published>2017-10-30T13:19:47.000Z</published>
+    <updated>2017-10-30T13:45:20.967Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;SpringBoot中application.yaml如何设置配置项默认值一直困扰了我很久,官方文档也没有写如何设置默认值,今天有时间研究了下,发现只要加个冒号就可以了,如&lt;code&gt;${配置名:默认值}&lt;/code&gt;.&lt;/p&gt;
+&lt;h2 id=&quot;application-ym
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>Linux下启动Java守护进程方法</title>
