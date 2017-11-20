@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://w2x.me/"/>
-  <updated>2017-10-31T01:20:51.770Z</updated>
+  <updated>2017-11-20T14:10:05.240Z</updated>
   <id>http://w2x.me/</id>
   
   <author>
@@ -14,6 +14,28 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Kubernetes入门</title>
+    <link href="http://w2x.me/2017/11/20/Kubernetes%E5%85%A5%E9%97%A8/"/>
+    <id>http://w2x.me/2017/11/20/Kubernetes入门/</id>
+    <published>2017-11-20T14:09:00.000Z</published>
+    <updated>2017-11-20T14:10:05.240Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;Kubernetes入门&quot;&gt;&lt;a href=&quot;#Kubernetes入门&quot; class=&quot;headerlink&quot; title=&quot;Kubernetes入门&quot;&gt;&lt;/a&gt;Kubernetes入门&lt;/h1&gt;&lt;h2 id=&quot;Kubernetes是什么&quot;&gt;&lt;a href=&quot;#
+    
+    </summary>
+    
+      <category term="Docker" scheme="http://w2x.me/categories/Docker/"/>
+    
+    
+      <category term="Docker" scheme="http://w2x.me/tags/Docker/"/>
+    
+      <category term="Kubernetes" scheme="http://w2x.me/tags/Kubernetes/"/>
+    
+  </entry>
   
   <entry>
     <title>Spring Boot YAML配置文件设置字段默认值</title>
