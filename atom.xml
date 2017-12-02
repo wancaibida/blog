@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://w2x.me/"/>
-  <updated>2017-11-20T14:10:05.240Z</updated>
+  <updated>2017-12-02T06:02:54.948Z</updated>
   <id>http://w2x.me/</id>
   
   <author>
@@ -14,6 +14,32 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Intellij远程调试Tomcat</title>
+    <link href="http://w2x.me/2017/12/02/Intellij%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95Tomcat/"/>
+    <id>http://w2x.me/2017/12/02/Intellij远程调试Tomcat/</id>
+    <published>2017-12-02T06:02:00.000Z</published>
+    <updated>2017-12-02T06:02:54.948Z</updated>
+    
+    <summary type="html">
+    
+      &lt;ol&gt;
+&lt;li&gt;在Tomcat下新建&lt;code&gt;setenv.sh&lt;/code&gt;文件&lt;/li&gt;
+&lt;li&gt;运行&lt;code&gt;chmod 755 setenv.sh&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;将下面的代码添加到&lt;code&gt;setenv.sh&lt;/code&gt;文件中&lt;/p&gt;
+ 
+    
+    </summary>
+    
+      <category term="IDE" scheme="http://w2x.me/categories/IDE/"/>
+    
+    
+      <category term="Tomcat" scheme="http://w2x.me/tags/Tomcat/"/>
+    
+      <category term="Intellij" scheme="http://w2x.me/tags/Intellij/"/>
+    
+  </entry>
   
   <entry>
     <title>Kubernetes入门</title>
