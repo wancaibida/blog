@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://w2x.me/"/>
-  <updated>2017-12-02T06:02:54.948Z</updated>
+  <updated>2017-12-03T07:26:10.605Z</updated>
   <id>http://w2x.me/</id>
   
   <author>
@@ -16,11 +16,34 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>记一个Grails JSON Views的Bug</title>
+    <link href="http://w2x.me/2017/12/03/%E8%AE%B0%E4%B8%80%E4%B8%AAGrails-JSON-Views%E7%9A%84Bug/"/>
+    <id>http://w2x.me/2017/12/03/记一个Grails-JSON-Views的Bug/</id>
+    <published>2017-12-03T07:25:00.000Z</published>
+    <updated>2017-12-03T07:26:10.605Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;最近项目用到了3.2版本的Grails，这个版本中引入了一个新特性JSON views，主要作用是将JSON返回内容视为一种视图,类似于GSP。其好处就是可以在视图层定义返回json的格式，而且可以定义bean的JSON模版，比较灵活。&lt;/p&gt;
+&lt;p&gt;项目中有一个名为&lt;co
+    
+    </summary>
+    
+      <category term="Java" scheme="http://w2x.me/categories/Java/"/>
+    
+    
+      <category term="Grails" scheme="http://w2x.me/tags/Grails/"/>
+    
+      <category term="JSON" scheme="http://w2x.me/tags/JSON/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Intellij远程调试Tomcat</title>
     <link href="http://w2x.me/2017/12/02/Intellij%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95Tomcat/"/>
     <id>http://w2x.me/2017/12/02/Intellij远程调试Tomcat/</id>
     <published>2017-12-02T06:02:00.000Z</published>
-    <updated>2017-12-02T06:02:54.948Z</updated>
+    <updated>2017-12-02T12:59:42.889Z</updated>
     
     <summary type="html">
     
@@ -35,9 +58,9 @@
       <category term="IDE" scheme="http://w2x.me/categories/IDE/"/>
     
     
-      <category term="Tomcat" scheme="http://w2x.me/tags/Tomcat/"/>
-    
       <category term="Intellij" scheme="http://w2x.me/tags/Intellij/"/>
+    
+      <category term="Tomcat" scheme="http://w2x.me/tags/Tomcat/"/>
     
   </entry>
   
@@ -46,7 +69,7 @@
     <link href="http://w2x.me/2017/11/20/Kubernetes%E5%85%A5%E9%97%A8/"/>
     <id>http://w2x.me/2017/11/20/Kubernetes入门/</id>
     <published>2017-11-20T14:09:00.000Z</published>
-    <updated>2017-11-20T14:10:05.240Z</updated>
+    <updated>2017-12-02T12:59:42.914Z</updated>
     
     <summary type="html">
     
@@ -68,7 +91,7 @@
     <link href="http://w2x.me/2017/10/30/Spring-Boot-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E8%AE%BE%E7%BD%AE%E9%BB%98%E8%AE%A4%E5%80%BC/"/>
     <id>http://w2x.me/2017/10/30/Spring-Boot-配置文件设置默认值/</id>
     <published>2017-10-30T13:19:00.000Z</published>
-    <updated>2017-10-31T01:20:51.770Z</updated>
+    <updated>2017-12-02T12:59:42.944Z</updated>
     
     <summary type="html">
     
@@ -93,7 +116,7 @@
     <link href="http://w2x.me/2017/08/06/Linux%E4%B8%8B%E5%90%AF%E5%8A%A8Java%E5%AE%88%E6%8A%A4%E8%BF%9B%E7%A8%8B%E6%96%B9%E6%B3%95/"/>
     <id>http://w2x.me/2017/08/06/Linux下启动Java守护进程方法/</id>
     <published>2017-08-06T12:53:00.000Z</published>
-    <updated>2017-08-06T12:54:19.000Z</updated>
+    <updated>2017-12-02T12:59:42.915Z</updated>
     
     <summary type="html">
     
@@ -115,7 +138,7 @@
     <link href="http://w2x.me/2017/07/03/HPKP-HTTP-Public-Key-Pinning-%E8%AF%A6%E8%A7%A3/"/>
     <id>http://w2x.me/2017/07/03/HPKP-HTTP-Public-Key-Pinning-详解/</id>
     <published>2017-07-03T13:18:00.000Z</published>
-    <updated>2017-07-03T13:20:44.000Z</updated>
+    <updated>2017-12-02T12:59:42.888Z</updated>
     
     <summary type="html">
     
@@ -135,7 +158,7 @@
     <link href="http://w2x.me/2017/06/14/PostgreSQL-JDBC-time%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2%E7%BB%86%E8%8A%82/"/>
     <id>http://w2x.me/2017/06/14/PostgreSQL-JDBC-time类型转换细节/</id>
     <published>2017-06-14T14:58:00.000Z</published>
-    <updated>2017-06-14T15:25:29.000Z</updated>
+    <updated>2017-12-02T12:59:42.916Z</updated>
     
     <summary type="html">
     
@@ -162,7 +185,7 @@
     <link href="http://w2x.me/2017/06/13/Hibernate%E5%AD%A6%E4%B9%A0/"/>
     <id>http://w2x.me/2017/06/13/Hibernate学习/</id>
     <published>2017-06-13T06:25:00.000Z</published>
-    <updated>2017-06-13T06:33:45.000Z</updated>
+    <updated>2017-12-02T12:59:42.887Z</updated>
     
     <summary type="html">
     
@@ -182,7 +205,7 @@
     <link href="http://w2x.me/2017/06/13/Groovy%E5%AD%A6%E4%B9%A0/"/>
     <id>http://w2x.me/2017/06/13/Groovy学习/</id>
     <published>2017-06-13T06:03:00.000Z</published>
-    <updated>2017-06-13T06:21:45.000Z</updated>
+    <updated>2017-12-02T12:59:42.886Z</updated>
     
     <summary type="html">
     
@@ -204,7 +227,7 @@
     <link href="http://w2x.me/2017/06/13/how-to-set-tomcat-environment-values/"/>
     <id>http://w2x.me/2017/06/13/how-to-set-tomcat-environment-values/</id>
     <published>2017-06-13T00:21:00.000Z</published>
-    <updated>2017-06-13T06:36:41.000Z</updated>
+    <updated>2017-12-02T12:59:42.887Z</updated>
     
     <summary type="html">
     
