@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://w2x.me/"/>
-  <updated>2017-12-03T07:26:10.605Z</updated>
+  <updated>2017-12-17T14:06:51.776Z</updated>
   <id>http://w2x.me/</id>
   
   <author>
@@ -14,6 +14,26 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>介绍一款可以用后台播放来『听』视频的软件</title>
+    <link href="http://w2x.me/2017/12/17/%E4%BB%8B%E7%BB%8D%E4%B8%80%E6%AC%BE%E5%8F%AF%E4%BB%A5%E7%94%A8%E5%90%8E%E5%8F%B0%E6%92%AD%E6%94%BE%E6%9D%A5%E3%80%8E%E5%90%AC%E3%80%8F%E8%A7%86%E9%A2%91%E7%9A%84%E8%BD%AF%E4%BB%B6/"/>
+    <id>http://w2x.me/2017/12/17/介绍一款可以用后台播放来『听』视频的软件/</id>
+    <published>2017-12-17T14:06:00.000Z</published>
+    <updated>2017-12-17T14:06:51.776Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;油管上有一些以语言内容为主的视频，如脱口秀、访谈节目、影评等。这些视频比较适合用来听，而官方的客户端又不支持后台播放，网上找了一圈发现有一款名叫&lt;a href=&quot;https://itunes.apple.com/us/app/musi-simple-music-stream
+    
+    </summary>
+    
+      <category term="App" scheme="http://w2x.me/categories/App/"/>
+    
+    
+      <category term="Youtube" scheme="http://w2x.me/tags/Youtube/"/>
+    
+  </entry>
   
   <entry>
     <title>记一个Grails JSON Views的Bug</title>
