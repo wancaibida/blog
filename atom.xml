@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://w2x.me/"/>
-  <updated>2017-12-17T14:06:51.776Z</updated>
+  <updated>2017-12-21T05:21:44.979Z</updated>
   <id>http://w2x.me/</id>
   
   <author>
@@ -14,6 +14,33 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Grails JSON Views 教程</title>
+    <link href="http://w2x.me/2017/12/21/Grails-JSON-Views-%E6%95%99%E7%A8%8B/"/>
+    <id>http://w2x.me/2017/12/21/Grails-JSON-Views-教程/</id>
+    <published>2017-12-21T05:21:00.000Z</published>
+    <updated>2017-12-21T05:21:44.979Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Grails 3.2版本中的rest-api profile加入了JSON View插件，JSON View插件主要用于渲染JSON返回内容，类似于GSP，其好处就是将JSON渲染从控制器层移到了视图层，同时JSON View还能定义模板，继承等。&lt;/p&gt;
+&lt;h2 id=&quot;
+    
+    </summary>
+    
+      <category term="java" scheme="http://w2x.me/categories/java/"/>
+    
+    
+      <category term="grails" scheme="http://w2x.me/tags/grails/"/>
+    
+      <category term="json" scheme="http://w2x.me/tags/json/"/>
+    
+      <category term="view" scheme="http://w2x.me/tags/view/"/>
+    
+      <category term="json-views" scheme="http://w2x.me/tags/json-views/"/>
+    
+  </entry>
   
   <entry>
     <title>介绍一款可以用后台播放来『听』视频的软件</title>
