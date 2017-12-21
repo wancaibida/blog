@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://w2x.me/"/>
-  <updated>2017-12-21T05:21:44.979Z</updated>
+  <updated>2017-12-21T05:38:27.630Z</updated>
   <id>http://w2x.me/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://w2x.me/2017/12/21/Grails-JSON-Views-%E6%95%99%E7%A8%8B/"/>
     <id>http://w2x.me/2017/12/21/Grails-JSON-Views-教程/</id>
     <published>2017-12-21T05:21:00.000Z</published>
-    <updated>2017-12-21T05:21:44.979Z</updated>
+    <updated>2017-12-21T05:38:27.630Z</updated>
     
     <summary type="html">
     
@@ -29,7 +29,7 @@
     
     </summary>
     
-      <category term="java" scheme="http://w2x.me/categories/java/"/>
+      <category term="Java" scheme="http://w2x.me/categories/Java/"/>
     
     
       <category term="grails" scheme="http://w2x.me/tags/grails/"/>
