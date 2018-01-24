@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://w2x.me/"/>
-  <updated>2017-12-21T05:38:27.630Z</updated>
+  <updated>2018-01-24T07:55:17.103Z</updated>
   <id>http://w2x.me/</id>
   
   <author>
@@ -16,11 +16,33 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Alfred argv与query的用法</title>
+    <link href="http://w2x.me/2018/01/24/Alfred-argv%E4%B8%8Equery%E7%9A%84%E7%94%A8%E6%B3%95/"/>
+    <id>http://w2x.me/2018/01/24/Alfred-argv与query的用法/</id>
+    <published>2018-01-24T07:54:00.000Z</published>
+    <updated>2018-01-24T07:55:17.103Z</updated>
+    
+    <summary type="html">
+    
+      &lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/di
+    
+    </summary>
+    
+      <category term="mac os" scheme="http://w2x.me/categories/mac-os/"/>
+    
+    
+      <category term="alfred" scheme="http://w2x.me/tags/alfred/"/>
+    
+      <category term="workflow" scheme="http://w2x.me/tags/workflow/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Grails JSON Views 教程</title>
     <link href="http://w2x.me/2017/12/21/Grails-JSON-Views-%E6%95%99%E7%A8%8B/"/>
     <id>http://w2x.me/2017/12/21/Grails-JSON-Views-教程/</id>
     <published>2017-12-21T05:21:00.000Z</published>
-    <updated>2017-12-21T05:38:27.630Z</updated>
+    <updated>2018-01-24T07:56:13.170Z</updated>
     
     <summary type="html">
     
@@ -29,7 +51,7 @@
     
     </summary>
     
-      <category term="Java" scheme="http://w2x.me/categories/Java/"/>
+      <category term="java" scheme="http://w2x.me/categories/java/"/>
     
     
       <category term="grails" scheme="http://w2x.me/tags/grails/"/>
@@ -47,7 +69,7 @@
     <link href="http://w2x.me/2017/12/17/%E4%BB%8B%E7%BB%8D%E4%B8%80%E6%AC%BE%E5%8F%AF%E4%BB%A5%E7%94%A8%E5%90%8E%E5%8F%B0%E6%92%AD%E6%94%BE%E6%9D%A5%E3%80%8E%E5%90%AC%E3%80%8F%E8%A7%86%E9%A2%91%E7%9A%84%E8%BD%AF%E4%BB%B6/"/>
     <id>http://w2x.me/2017/12/17/介绍一款可以用后台播放来『听』视频的软件/</id>
     <published>2017-12-17T14:06:00.000Z</published>
-    <updated>2017-12-17T14:06:51.776Z</updated>
+    <updated>2018-01-24T08:04:53.517Z</updated>
     
     <summary type="html">
     
@@ -55,10 +77,10 @@
     
     </summary>
     
-      <category term="App" scheme="http://w2x.me/categories/App/"/>
+      <category term="app" scheme="http://w2x.me/categories/app/"/>
     
     
-      <category term="Youtube" scheme="http://w2x.me/tags/Youtube/"/>
+      <category term="youtube" scheme="http://w2x.me/tags/youtube/"/>
     
   </entry>
   
@@ -67,7 +89,7 @@
     <link href="http://w2x.me/2017/12/03/%E8%AE%B0%E4%B8%80%E4%B8%AAGrails-JSON-Views%E7%9A%84Bug/"/>
     <id>http://w2x.me/2017/12/03/记一个Grails-JSON-Views的Bug/</id>
     <published>2017-12-03T07:25:00.000Z</published>
-    <updated>2017-12-03T07:26:10.605Z</updated>
+    <updated>2018-01-24T08:04:16.100Z</updated>
     
     <summary type="html">
     
@@ -76,12 +98,12 @@
     
     </summary>
     
-      <category term="Java" scheme="http://w2x.me/categories/Java/"/>
+      <category term="java" scheme="http://w2x.me/categories/java/"/>
     
     
-      <category term="Grails" scheme="http://w2x.me/tags/Grails/"/>
+      <category term="grails" scheme="http://w2x.me/tags/grails/"/>
     
-      <category term="JSON" scheme="http://w2x.me/tags/JSON/"/>
+      <category term="json" scheme="http://w2x.me/tags/json/"/>
     
   </entry>
   
@@ -90,7 +112,7 @@
     <link href="http://w2x.me/2017/12/02/Intellij%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95Tomcat/"/>
     <id>http://w2x.me/2017/12/02/Intellij远程调试Tomcat/</id>
     <published>2017-12-02T06:02:00.000Z</published>
-    <updated>2017-12-02T12:59:42.889Z</updated>
+    <updated>2018-01-24T08:03:47.537Z</updated>
     
     <summary type="html">
     
@@ -102,12 +124,12 @@
     
     </summary>
     
-      <category term="IDE" scheme="http://w2x.me/categories/IDE/"/>
+      <category term="ide" scheme="http://w2x.me/categories/ide/"/>
     
     
-      <category term="Intellij" scheme="http://w2x.me/tags/Intellij/"/>
+      <category term="intellij" scheme="http://w2x.me/tags/intellij/"/>
     
-      <category term="Tomcat" scheme="http://w2x.me/tags/Tomcat/"/>
+      <category term="tomcat" scheme="http://w2x.me/tags/tomcat/"/>
     
   </entry>
   
@@ -116,7 +138,7 @@
     <link href="http://w2x.me/2017/11/20/Kubernetes%E5%85%A5%E9%97%A8/"/>
     <id>http://w2x.me/2017/11/20/Kubernetes入门/</id>
     <published>2017-11-20T14:09:00.000Z</published>
-    <updated>2017-12-02T12:59:42.914Z</updated>
+    <updated>2018-01-24T08:03:20.638Z</updated>
     
     <summary type="html">
     
@@ -124,12 +146,12 @@
     
     </summary>
     
-      <category term="Docker" scheme="http://w2x.me/categories/Docker/"/>
+      <category term="docker" scheme="http://w2x.me/categories/docker/"/>
     
     
-      <category term="Docker" scheme="http://w2x.me/tags/Docker/"/>
+      <category term="docker" scheme="http://w2x.me/tags/docker/"/>
     
-      <category term="Kubernetes" scheme="http://w2x.me/tags/Kubernetes/"/>
+      <category term="kubernetes" scheme="http://w2x.me/tags/kubernetes/"/>
     
   </entry>
   
@@ -138,7 +160,7 @@
     <link href="http://w2x.me/2017/10/30/Spring-Boot-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E8%AE%BE%E7%BD%AE%E9%BB%98%E8%AE%A4%E5%80%BC/"/>
     <id>http://w2x.me/2017/10/30/Spring-Boot-配置文件设置默认值/</id>
     <published>2017-10-30T13:19:00.000Z</published>
-    <updated>2017-12-02T12:59:42.944Z</updated>
+    <updated>2018-01-24T08:02:49.855Z</updated>
     
     <summary type="html">
     
@@ -147,7 +169,7 @@
     
     </summary>
     
-      <category term="Java" scheme="http://w2x.me/categories/Java/"/>
+      <category term="java" scheme="http://w2x.me/categories/java/"/>
     
     
       <category term="java" scheme="http://w2x.me/tags/java/"/>
@@ -163,7 +185,7 @@
     <link href="http://w2x.me/2017/08/06/Linux%E4%B8%8B%E5%90%AF%E5%8A%A8Java%E5%AE%88%E6%8A%A4%E8%BF%9B%E7%A8%8B%E6%96%B9%E6%B3%95/"/>
     <id>http://w2x.me/2017/08/06/Linux下启动Java守护进程方法/</id>
     <published>2017-08-06T12:53:00.000Z</published>
-    <updated>2017-12-02T12:59:42.915Z</updated>
+    <updated>2018-01-24T08:00:52.529Z</updated>
     
     <summary type="html">
     
@@ -171,12 +193,12 @@
     
     </summary>
     
-      <category term="Linux" scheme="http://w2x.me/categories/Linux/"/>
+      <category term="linux" scheme="http://w2x.me/categories/linux/"/>
     
     
-      <category term="Java" scheme="http://w2x.me/tags/Java/"/>
+      <category term="java" scheme="http://w2x.me/tags/java/"/>
     
-      <category term="Linux" scheme="http://w2x.me/tags/Linux/"/>
+      <category term="linux" scheme="http://w2x.me/tags/linux/"/>
     
   </entry>
   
@@ -185,7 +207,7 @@
     <link href="http://w2x.me/2017/07/03/HPKP-HTTP-Public-Key-Pinning-%E8%AF%A6%E8%A7%A3/"/>
     <id>http://w2x.me/2017/07/03/HPKP-HTTP-Public-Key-Pinning-详解/</id>
     <published>2017-07-03T13:18:00.000Z</published>
-    <updated>2017-12-02T12:59:42.888Z</updated>
+    <updated>2018-01-24T07:57:54.638Z</updated>
     
     <summary type="html">
     
@@ -193,10 +215,10 @@
     
     </summary>
     
-      <category term="Security" scheme="http://w2x.me/categories/Security/"/>
+      <category term="security" scheme="http://w2x.me/categories/security/"/>
     
     
-      <category term="HPKP" scheme="http://w2x.me/tags/HPKP/"/>
+      <category term="hpkp" scheme="http://w2x.me/tags/hpkp/"/>
     
   </entry>
   
@@ -205,7 +227,7 @@
     <link href="http://w2x.me/2017/06/14/PostgreSQL-JDBC-time%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2%E7%BB%86%E8%8A%82/"/>
     <id>http://w2x.me/2017/06/14/PostgreSQL-JDBC-time类型转换细节/</id>
     <published>2017-06-14T14:58:00.000Z</published>
-    <updated>2017-12-02T12:59:42.916Z</updated>
+    <updated>2018-01-24T08:04:41.606Z</updated>
     
     <summary type="html">
     
@@ -220,10 +242,10 @@
     
     </summary>
     
-      <category term="Database" scheme="http://w2x.me/categories/Database/"/>
+      <category term="database" scheme="http://w2x.me/categories/database/"/>
     
     
-      <category term="PostgreSQL" scheme="http://w2x.me/tags/PostgreSQL/"/>
+      <category term="postgresql" scheme="http://w2x.me/tags/postgresql/"/>
     
   </entry>
   
@@ -232,7 +254,7 @@
     <link href="http://w2x.me/2017/06/13/Hibernate%E5%AD%A6%E4%B9%A0/"/>
     <id>http://w2x.me/2017/06/13/Hibernate学习/</id>
     <published>2017-06-13T06:25:00.000Z</published>
-    <updated>2017-12-02T12:59:42.887Z</updated>
+    <updated>2018-01-24T08:02:07.895Z</updated>
     
     <summary type="html">
     
@@ -240,10 +262,10 @@
     
     </summary>
     
-      <category term="Java" scheme="http://w2x.me/categories/Java/"/>
+      <category term="java" scheme="http://w2x.me/categories/java/"/>
     
     
-      <category term="Hibernate" scheme="http://w2x.me/tags/Hibernate/"/>
+      <category term="hibernate" scheme="http://w2x.me/tags/hibernate/"/>
     
   </entry>
   
@@ -252,7 +274,7 @@
     <link href="http://w2x.me/2017/06/13/Groovy%E5%AD%A6%E4%B9%A0/"/>
     <id>http://w2x.me/2017/06/13/Groovy学习/</id>
     <published>2017-06-13T06:03:00.000Z</published>
-    <updated>2017-12-02T12:59:42.886Z</updated>
+    <updated>2018-01-24T08:01:31.094Z</updated>
     
     <summary type="html">
     
@@ -260,12 +282,12 @@
     
     </summary>
     
-      <category term="Java" scheme="http://w2x.me/categories/Java/"/>
+      <category term="java" scheme="http://w2x.me/categories/java/"/>
     
     
-      <category term="Groovy" scheme="http://w2x.me/tags/Groovy/"/>
+      <category term="hibernate" scheme="http://w2x.me/tags/hibernate/"/>
     
-      <category term="Hibernate" scheme="http://w2x.me/tags/Hibernate/"/>
+      <category term="groovy" scheme="http://w2x.me/tags/groovy/"/>
     
   </entry>
   
@@ -274,7 +296,7 @@
     <link href="http://w2x.me/2017/06/13/how-to-set-tomcat-environment-values/"/>
     <id>http://w2x.me/2017/06/13/how-to-set-tomcat-environment-values/</id>
     <published>2017-06-13T00:21:00.000Z</published>
-    <updated>2017-12-02T12:59:42.887Z</updated>
+    <updated>2018-01-24T08:01:07.670Z</updated>
     
     <summary type="html">
     
@@ -284,10 +306,10 @@
     
     </summary>
     
-      <category term="Java" scheme="http://w2x.me/categories/Java/"/>
+      <category term="java" scheme="http://w2x.me/categories/java/"/>
     
     
-      <category term="Tomcat" scheme="http://w2x.me/tags/Tomcat/"/>
+      <category term="tomcat" scheme="http://w2x.me/tags/tomcat/"/>
     
   </entry>
   
