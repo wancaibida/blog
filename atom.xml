@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://w2x.me/"/>
-  <updated>2018-01-24T07:55:17.103Z</updated>
+  <updated>2018-02-12T13:30:40.872Z</updated>
   <id>http://w2x.me/</id>
   
   <author>
@@ -14,6 +14,32 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Sl4j+Logback依赖配置</title>
+    <link href="http://w2x.me/2018/02/12/Sl4j-Logback%E4%BE%9D%E8%B5%96%E9%85%8D%E7%BD%AE/"/>
+    <id>http://w2x.me/2018/02/12/Sl4j-Logback依赖配置/</id>
+    <published>2018-02-12T13:29:00.000Z</published>
+    <updated>2018-02-12T13:30:40.872Z</updated>
+    
+    <summary type="html">
+    
+      &lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/di
+    
+    </summary>
+    
+      <category term="java" scheme="http://w2x.me/categories/java/"/>
+    
+    
+      <category term="java" scheme="http://w2x.me/tags/java/"/>
+    
+      <category term="logback" scheme="http://w2x.me/tags/logback/"/>
+    
+      <category term="sl4j" scheme="http://w2x.me/tags/sl4j/"/>
+    
+      <category term="gradle" scheme="http://w2x.me/tags/gradle/"/>
+    
+  </entry>
   
   <entry>
     <title>Alfred argv与query的用法</title>
