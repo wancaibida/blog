@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="W2X">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.6.0" />
+
+
+
+<link rel="canonical" href="https://w2x.me/page/4/"/>
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.6.0" />
+
+
+
+
+
+
+  
+
+
+  <script id="google_analytics">
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-77440077-1', 'auto');
+        ga('send', 'pageview');
+  </script>
+
+
+  <script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+
+
+
+
+
+
+    <title> W2X </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">W2X</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/">
+        <li class="mobile-menu-item">
+          
+          
+            Home
+          
+        </li>
+      </a>
+    
+      <a href="/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            Archives
+          
+        </li>
+      </a>
+    
+      <a href="/tags/">
+        <li class="mobile-menu-item">
+          
+          
+            Tags
+          
+        </li>
+      </a>
+    
+      <a href="/categories/">
+        <li class="mobile-menu-item">
+          
+          
+            Categories
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">W2X</a>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/">
+            
+            
+              Home
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            
+            
+              Archives
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/tags/">
+            
+            
+              Tags
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/categories/">
+            
+            
+              Categories
+            
+          </a>
+        </li>
+      
+    </ul>
+  
+</nav>
+
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  <section id="posts" class="posts">
+    
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          <a class="post-link" href="/2017/06/13/Groovy学习/">Groovy学习</a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2017-06-13
+        </span>
+        
+          <div class="post-category">
+            
+              <a href="/categories/java/">java</a>
+            
+          </div>
+        
+        
+      </div>
+    </header>
+
+    
+    
+
+    <div class="post-content">
+      
+        
+        
+
+        
+          <h3 id="sort方法作用于Set和List时的区别"><a href="#sort方法作用于Set和List时的区别" class="headerlink" title="sort方法作用于Set和List时的区别"></a>sort方法作用于Set和List时的区别</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">def a = new HashSet()</span><br><span class="line">a &lt;&lt; [3, 1, 2]</span><br><span class="line"></span><br><span class="line">def b = new ArrayList()</span><br><span class="line">b &lt;&lt; [2, 1, 3]</span><br><span class="line"></span><br><span class="line">assert b.sort().is(b) //true</span><br><span class="line">assert a.sort().is(a) //false</span><br></pre></td></tr></table></figure>
+<h3 id="sum-and-flatten-作用于Collection时的区别"><a href="#sum-and-flatten-作用于Collection时的区别" class="headerlink" title="sum and flatten 作用于Collection时的区别"></a>sum and flatten 作用于Collection时的区别</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">[].sum() returns null</span><br><span class="line">[].flatten() returns []</span><br><span class="line">//原因在于调用sum时默认initvalue为null,当list为空时直接返回initvalue</span><br><span class="line">private static Object sum(Iterable self, Object initialValue, boolean first) &#123;</span><br><span class="line">    Object result = initialValue;</span><br><span class="line">    Object[] param = new Object[1];</span><br><span class="line">    for (Object next : self) &#123;</span><br><span class="line">        param[0] = next;</span><br><span class="line">        if (first) &#123;</span><br><span class="line">            result = param[0];</span><br><span class="line">            first = false;</span><br><span class="line">            continue;</span><br><span class="line">        &#125;</span><br><span class="line">        MetaClass metaClass = InvokerHelper.getMetaClass(result);</span><br><span class="line">        result = metaClass.invokeMethod(result, &quot;plus&quot;, param);</span><br><span class="line">    &#125;</span><br><span class="line">    return result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="EqualsAndHashCode注解"><a href="#EqualsAndHashCode注解" class="headerlink" title="@EqualsAndHashCode注解"></a>@EqualsAndHashCode注解</h3><h4 id="当exclude类所有field及property时，会导制所有实例都相等"><a href="#当exclude类所有field及property时，会导制所有实例都相等" class="headerlink" title="当exclude类所有field及property时，会导制所有实例都相等"></a>当exclude类所有field及property时，会导制所有实例都相等</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">@EqualsAndHashCode(excludes = [&apos;x&apos;, &apos;y&apos;])</span><br><span class="line">static class Point &#123;</span><br><span class="line">    int x</span><br><span class="line">    int y</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public static void main(String[] args) &#123;</span><br><span class="line">    def point0 = new Point(x: 1, y: 1)</span><br><span class="line">    def point1 = new Point(x: 2, y: 2)</span><br><span class="line">    assert point0 == point1</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="对ORM类慎用该注解，可能会导制关联丢失，当mutable字段变化时，会导制hash值改变，导制无法定位到槽位，"><a href="#对ORM类慎用该注解，可能会导制关联丢失，当mutable字段变化时，会导制hash值改变，导制无法定位到槽位，" class="headerlink" title="对ORM类慎用该注解，可能会导制关联丢失，当mutable字段变化时，会导制hash值改变，导制无法定位到槽位，"></a>对ORM类慎用该注解，可能会导制关联丢失，当mutable字段变化时，会导制hash值改变，导制无法定位到槽位，</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">@EqualsAndHashCode</span><br><span class="line">static class Point &#123;</span><br><span class="line">    int x</span><br><span class="line">    int y</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public static void main(String[] args) &#123;</span><br><span class="line">    def point0 = new Point(x: 1, y: 1)</span><br><span class="line">    def point1 = new Point(x: 2, y: 2)</span><br><span class="line">    def set = new HashSet()</span><br><span class="line">    set &lt;&lt; point0</span><br><span class="line">    set &lt;&lt; point1</span><br><span class="line"></span><br><span class="line">    assert set.contains(point0)</span><br><span class="line"></span><br><span class="line">    point0.x = 6</span><br><span class="line">    assert set.contains(point0)  //false !!!</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        
+      
+    </div>
+
+    
+
+    
+
+  </article>
+
+    
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          <a class="post-link" href="/2017/06/13/how-to-set-tomcat-environment-values/">Tomcat传递环境变量</a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2017-06-13
+        </span>
+        
+          <div class="post-category">
+            
+              <a href="/categories/java/">java</a>
+            
+          </div>
+        
+        
+      </div>
+    </header>
+
+    
+    
+
+    <div class="post-content">
+      
+        
+        
+
+        
+          <ul>
+<li><p>在Tomcat bin目录下新建setenv.sh, 编辑setenv.sh,添加如下语句</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export JAVA_OPTS=&quot;-DKEY1=VALUE1 -DKEY2=VALUE2 -DKEY3=VALUE3&quot;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Tomcat启动时会自动加载setenv.sh</p>
+</li>
+<li>通过如下代码中获取环境变量<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">System.getProperty(&quot;KEY1&quot;)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+
+        
+      
+    </div>
+
+    
+
+    
+
+  </article>
+
+    
+  </section>
+
+  
+  <nav class="pagination">
+    
+      <a class="prev" href="/page/3/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text">Prev</span>
+      </a>
+    
+    
+  </nav>
+
+
+          </div>
+          
+
+        </div>
+      </main>
+
+      <footer id="footer" class="footer">
+
+  <div class="social-links">
+    
+      
+        
+          <a href="mailto:wancaibida@gmail.com" class="iconfont icon-email" title="email"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        
+          <a href="https://github.com/wancaibida" class="iconfont icon-github" title="github"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+    
+    
+      <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    
+  </div>
+
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://hexo.io/">Hexo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    
+    &copy; 
+     
+      2015 - 
+    
+    2018
+
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">大丈夫没问题</span>
+  </span>
+</div>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  
+
+  
+
+
+    <script type="text/javascript" src="/js/src/even.js?v=2.6.0"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=2.6.0"></script>
+
+  </body>
+</html>

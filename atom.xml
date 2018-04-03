@@ -2,14 +2,15 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>W2X</title>
   
+  
   <link href="/atom.xml" rel="self"/>
   
-  <link href="http://w2x.me/"/>
+  <link href="https://w2x.me/"/>
   <updated>2018-04-01T13:30:53.435Z</updated>
-  <id>http://w2x.me/</id>
+  <id>https://w2x.me/</id>
   
   <author>
-    <name>Gang Chen</name>
+    <name>大丈夫没问题</name>
     
   </author>
   
@@ -17,316 +18,357 @@
   
   <entry>
     <title>Grails 3.2.11 Bugs</title>
-    <link href="http://w2x.me/2018/04/01/Grails-3-2-11-Bugs/"/>
-    <id>http://w2x.me/2018/04/01/Grails-3-2-11-Bugs/</id>
+    <link href="https://w2x.me/2018/04/01/Grails-3-2-11-Bugs/"/>
+    <id>https://w2x.me/2018/04/01/Grails-3-2-11-Bugs/</id>
     <published>2018-04-01T13:30:00.000Z</published>
     <updated>2018-04-01T13:30:53.435Z</updated>
     
     <summary type="html">
     
-      &lt;ul&gt;
+      
+      
+        &lt;ul&gt;
 &lt;li&gt;Functional Testing setup无法回滚&lt;/li&gt;
 &lt;/ul&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/sp
+      
     
     </summary>
     
-      <category term="java" scheme="http://w2x.me/categories/java/"/>
+      <category term="java" scheme="https://w2x.me/categories/java/"/>
     
     
-      <category term="grails" scheme="http://w2x.me/tags/grails/"/>
+      <category term="grails" scheme="https://w2x.me/tags/grails/"/>
     
-      <category term="groovy" scheme="http://w2x.me/tags/groovy/"/>
+      <category term="groovy" scheme="https://w2x.me/tags/groovy/"/>
     
   </entry>
   
   <entry>
     <title>Spring RestTemplate 打印Request及Response内容</title>
-    <link href="http://w2x.me/2018/04/01/Spring-RestTemplate-%E6%89%93%E5%8D%B0Request%E5%8F%8AResponse%E5%86%85%E5%AE%B9/"/>
-    <id>http://w2x.me/2018/04/01/Spring-RestTemplate-打印Request及Response内容/</id>
+    <link href="https://w2x.me/2018/04/01/Spring-RestTemplate-%E6%89%93%E5%8D%B0Request%E5%8F%8AResponse%E5%86%85%E5%AE%B9/"/>
+    <id>https://w2x.me/2018/04/01/Spring-RestTemplate-打印Request及Response内容/</id>
     <published>2018-04-01T13:09:00.000Z</published>
     <updated>2018-04-01T13:31:13.220Z</updated>
     
     <summary type="html">
     
-      &lt;figure class=&quot;highlight groovy&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/d
+      
+      
+        &lt;figure class=&quot;highlight groovy&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span clas
+      
     
     </summary>
     
-      <category term="java" scheme="http://w2x.me/categories/java/"/>
+      <category term="java" scheme="https://w2x.me/categories/java/"/>
     
     
-      <category term="spring" scheme="http://w2x.me/tags/spring/"/>
+      <category term="spring" scheme="https://w2x.me/tags/spring/"/>
     
-      <category term="rest" scheme="http://w2x.me/tags/rest/"/>
+      <category term="rest" scheme="https://w2x.me/tags/rest/"/>
     
   </entry>
   
   <entry>
     <title>Amazon API Gateway 返回406解决方法</title>
-    <link href="http://w2x.me/2018/03/28/Amazon-API-Gateway-%E8%BF%94%E5%9B%9E406%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/"/>
-    <id>http://w2x.me/2018/03/28/Amazon-API-Gateway-返回406解决方法/</id>
+    <link href="https://w2x.me/2018/03/28/Amazon-API-Gateway-%E8%BF%94%E5%9B%9E406%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/"/>
+    <id>https://w2x.me/2018/03/28/Amazon-API-Gateway-返回406解决方法/</id>
     <published>2018-03-28T13:40:00.000Z</published>
     <updated>2018-03-28T13:43:49.410Z</updated>
     
     <summary type="html">
     
-      &lt;p&gt;在Integration Request里添加值为空字符串&lt;code&gt;&amp;#39;&amp;#39;&lt;/code&gt;的&lt;code&gt;Accept&lt;/code&gt;header即可&lt;/p&gt;
+      
+      
+        &lt;p&gt;在Integration Request里添加值为空字符串&lt;code&gt;&amp;#39;&amp;#39;&lt;/code&gt;的&lt;code&gt;Accept&lt;/code&gt;header即可&lt;/p&gt;
 &lt;p&gt;参考：&lt;a href=&quot;https://stackoverflow.com/questions/4
+      
     
     </summary>
     
-      <category term="linux" scheme="http://w2x.me/categories/linux/"/>
+      <category term="linux" scheme="https://w2x.me/categories/linux/"/>
     
     
-      <category term="aws" scheme="http://w2x.me/tags/aws/"/>
+      <category term="aws" scheme="https://w2x.me/tags/aws/"/>
     
   </entry>
   
   <entry>
     <title>Groovy正则表达式用法</title>
-    <link href="http://w2x.me/2018/03/28/Groovy%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%94%A8%E6%B3%95/"/>
-    <id>http://w2x.me/2018/03/28/Groovy正则表达式用法/</id>
+    <link href="https://w2x.me/2018/03/28/Groovy%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%94%A8%E6%B3%95/"/>
+    <id>https://w2x.me/2018/03/28/Groovy正则表达式用法/</id>
     <published>2018-03-28T13:17:00.000Z</published>
     <updated>2018-03-28T13:19:27.652Z</updated>
     
     <summary type="html">
     
-      &lt;p&gt;Matcher example：&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div
+      
+      
+        &lt;p&gt;Matcher example：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;
+      
     
     </summary>
     
-      <category term="java" scheme="http://w2x.me/categories/java/"/>
+      <category term="java" scheme="https://w2x.me/categories/java/"/>
     
     
-      <category term="groovy" scheme="http://w2x.me/tags/groovy/"/>
+      <category term="groovy" scheme="https://w2x.me/tags/groovy/"/>
     
   </entry>
   
   <entry>
     <title>Sl4j+Logback依赖配置</title>
-    <link href="http://w2x.me/2018/02/12/Sl4j-Logback%E4%BE%9D%E8%B5%96%E9%85%8D%E7%BD%AE/"/>
-    <id>http://w2x.me/2018/02/12/Sl4j-Logback依赖配置/</id>
+    <link href="https://w2x.me/2018/02/12/Sl4j-Logback%E4%BE%9D%E8%B5%96%E9%85%8D%E7%BD%AE/"/>
+    <id>https://w2x.me/2018/02/12/Sl4j-Logback依赖配置/</id>
     <published>2018-02-12T13:29:00.000Z</published>
     <updated>2018-02-12T13:30:40.872Z</updated>
     
     <summary type="html">
     
-      &lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/di
+      
+      
+        &lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class
+      
     
     </summary>
     
-      <category term="java" scheme="http://w2x.me/categories/java/"/>
+      <category term="java" scheme="https://w2x.me/categories/java/"/>
     
     
-      <category term="java" scheme="http://w2x.me/tags/java/"/>
+      <category term="java" scheme="https://w2x.me/tags/java/"/>
     
-      <category term="logback" scheme="http://w2x.me/tags/logback/"/>
+      <category term="logback" scheme="https://w2x.me/tags/logback/"/>
     
-      <category term="sl4j" scheme="http://w2x.me/tags/sl4j/"/>
+      <category term="sl4j" scheme="https://w2x.me/tags/sl4j/"/>
     
-      <category term="gradle" scheme="http://w2x.me/tags/gradle/"/>
+      <category term="gradle" scheme="https://w2x.me/tags/gradle/"/>
     
   </entry>
   
   <entry>
     <title>Alfred argv与query的用法</title>
-    <link href="http://w2x.me/2018/01/24/Alfred-argv%E4%B8%8Equery%E7%9A%84%E7%94%A8%E6%B3%95/"/>
-    <id>http://w2x.me/2018/01/24/Alfred-argv与query的用法/</id>
+    <link href="https://w2x.me/2018/01/24/Alfred-argv%E4%B8%8Equery%E7%9A%84%E7%94%A8%E6%B3%95/"/>
+    <id>https://w2x.me/2018/01/24/Alfred-argv与query的用法/</id>
     <published>2018-01-24T07:54:00.000Z</published>
     <updated>2018-01-24T07:55:17.103Z</updated>
     
     <summary type="html">
     
-      &lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/di
+      
+      
+        &lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class
+      
     
     </summary>
     
-      <category term="mac os" scheme="http://w2x.me/categories/mac-os/"/>
+      <category term="mac os" scheme="https://w2x.me/categories/mac-os/"/>
     
     
-      <category term="alfred" scheme="http://w2x.me/tags/alfred/"/>
+      <category term="alfred" scheme="https://w2x.me/tags/alfred/"/>
     
-      <category term="workflow" scheme="http://w2x.me/tags/workflow/"/>
+      <category term="workflow" scheme="https://w2x.me/tags/workflow/"/>
     
   </entry>
   
   <entry>
     <title>Grails JSON Views 教程</title>
-    <link href="http://w2x.me/2017/12/21/Grails-JSON-Views-%E6%95%99%E7%A8%8B/"/>
-    <id>http://w2x.me/2017/12/21/Grails-JSON-Views-教程/</id>
+    <link href="https://w2x.me/2017/12/21/Grails-JSON-Views-%E6%95%99%E7%A8%8B/"/>
+    <id>https://w2x.me/2017/12/21/Grails-JSON-Views-教程/</id>
     <published>2017-12-21T05:21:00.000Z</published>
     <updated>2018-01-24T07:56:13.170Z</updated>
     
     <summary type="html">
     
-      &lt;p&gt;Grails 3.2版本中的rest-api profile加入了JSON View插件，JSON View插件主要用于渲染JSON返回内容，类似于GSP，其好处就是将JSON渲染从控制器层移到了视图层，同时JSON View还能定义模板，继承等。&lt;/p&gt;
+      
+      
+        &lt;p&gt;Grails 3.2版本中的rest-api profile加入了JSON View插件，JSON View插件主要用于渲染JSON返回内容，类似于GSP，其好处就是将JSON渲染从控制器层移到了视图层，同时JSON View还能定义模板，继承等。&lt;/p&gt;
 &lt;h2 id=&quot;
+      
     
     </summary>
     
-      <category term="java" scheme="http://w2x.me/categories/java/"/>
+      <category term="java" scheme="https://w2x.me/categories/java/"/>
     
     
-      <category term="grails" scheme="http://w2x.me/tags/grails/"/>
+      <category term="grails" scheme="https://w2x.me/tags/grails/"/>
     
-      <category term="json" scheme="http://w2x.me/tags/json/"/>
+      <category term="json" scheme="https://w2x.me/tags/json/"/>
     
-      <category term="view" scheme="http://w2x.me/tags/view/"/>
+      <category term="view" scheme="https://w2x.me/tags/view/"/>
     
-      <category term="json-views" scheme="http://w2x.me/tags/json-views/"/>
+      <category term="json-views" scheme="https://w2x.me/tags/json-views/"/>
     
   </entry>
   
   <entry>
     <title>记一个Grails JSON Views的Bug</title>
-    <link href="http://w2x.me/2017/12/03/%E8%AE%B0%E4%B8%80%E4%B8%AAGrails-JSON-Views%E7%9A%84Bug/"/>
-    <id>http://w2x.me/2017/12/03/记一个Grails-JSON-Views的Bug/</id>
+    <link href="https://w2x.me/2017/12/03/%E8%AE%B0%E4%B8%80%E4%B8%AAGrails-JSON-Views%E7%9A%84Bug/"/>
+    <id>https://w2x.me/2017/12/03/记一个Grails-JSON-Views的Bug/</id>
     <published>2017-12-03T07:25:00.000Z</published>
     <updated>2018-01-24T08:04:16.100Z</updated>
     
     <summary type="html">
     
-      &lt;p&gt;最近项目用到了3.2版本的Grails，这个版本中引入了一个新特性JSON views，主要作用是将JSON返回内容视为一种视图,类似于GSP。其好处就是可以在视图层定义返回json的格式，而且可以定义bean的JSON模版，比较灵活。&lt;/p&gt;
+      
+      
+        &lt;p&gt;最近项目用到了3.2版本的Grails，这个版本中引入了一个新特性JSON views，主要作用是将JSON返回内容视为一种视图,类似于GSP。其好处就是可以在视图层定义返回json的格式，而且可以定义bean的JSON模版，比较灵活。&lt;/p&gt;
 &lt;p&gt;项目中有一个名为&lt;co
+      
     
     </summary>
     
-      <category term="java" scheme="http://w2x.me/categories/java/"/>
+      <category term="java" scheme="https://w2x.me/categories/java/"/>
     
     
-      <category term="grails" scheme="http://w2x.me/tags/grails/"/>
+      <category term="grails" scheme="https://w2x.me/tags/grails/"/>
     
-      <category term="json" scheme="http://w2x.me/tags/json/"/>
+      <category term="json" scheme="https://w2x.me/tags/json/"/>
     
   </entry>
   
   <entry>
     <title>Intellij远程调试Tomcat</title>
-    <link href="http://w2x.me/2017/12/02/Intellij%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95Tomcat/"/>
-    <id>http://w2x.me/2017/12/02/Intellij远程调试Tomcat/</id>
+    <link href="https://w2x.me/2017/12/02/Intellij%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95Tomcat/"/>
+    <id>https://w2x.me/2017/12/02/Intellij远程调试Tomcat/</id>
     <published>2017-12-02T06:02:00.000Z</published>
     <updated>2018-01-24T08:03:47.537Z</updated>
     
     <summary type="html">
     
-      &lt;ol&gt;
+      
+      
+        &lt;ol&gt;
 &lt;li&gt;在Tomcat下新建&lt;code&gt;setenv.sh&lt;/code&gt;文件&lt;/li&gt;
 &lt;li&gt;运行&lt;code&gt;chmod 755 setenv.sh&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;将下面的代码添加到&lt;code&gt;setenv.sh&lt;/code&gt;文件中&lt;/p&gt;
  
+      
     
     </summary>
     
-      <category term="ide" scheme="http://w2x.me/categories/ide/"/>
+      <category term="ide" scheme="https://w2x.me/categories/ide/"/>
     
     
-      <category term="intellij" scheme="http://w2x.me/tags/intellij/"/>
+      <category term="intellij" scheme="https://w2x.me/tags/intellij/"/>
     
-      <category term="tomcat" scheme="http://w2x.me/tags/tomcat/"/>
+      <category term="tomcat" scheme="https://w2x.me/tags/tomcat/"/>
     
   </entry>
   
   <entry>
     <title>Kubernetes入门</title>
-    <link href="http://w2x.me/2017/11/20/Kubernetes%E5%85%A5%E9%97%A8/"/>
-    <id>http://w2x.me/2017/11/20/Kubernetes入门/</id>
+    <link href="https://w2x.me/2017/11/20/Kubernetes%E5%85%A5%E9%97%A8/"/>
+    <id>https://w2x.me/2017/11/20/Kubernetes入门/</id>
     <published>2017-11-20T14:09:00.000Z</published>
     <updated>2018-01-24T08:03:20.638Z</updated>
     
     <summary type="html">
     
-      &lt;h1 id=&quot;Kubernetes入门&quot;&gt;&lt;a href=&quot;#Kubernetes入门&quot; class=&quot;headerlink&quot; title=&quot;Kubernetes入门&quot;&gt;&lt;/a&gt;Kubernetes入门&lt;/h1&gt;&lt;h2 id=&quot;Kubernetes是什么&quot;&gt;&lt;a href=&quot;#
+      
+      
+        &lt;h1 id=&quot;Kubernetes入门&quot;&gt;&lt;a href=&quot;#Kubernetes入门&quot; class=&quot;headerlink&quot; title=&quot;Kubernetes入门&quot;&gt;&lt;/a&gt;Kubernetes入门&lt;/h1&gt;&lt;h2 id=&quot;Kubernetes是什么&quot;&gt;&lt;a href=&quot;#
+      
     
     </summary>
     
-      <category term="docker" scheme="http://w2x.me/categories/docker/"/>
+      <category term="docker" scheme="https://w2x.me/categories/docker/"/>
     
     
-      <category term="docker" scheme="http://w2x.me/tags/docker/"/>
+      <category term="docker" scheme="https://w2x.me/tags/docker/"/>
     
-      <category term="kubernetes" scheme="http://w2x.me/tags/kubernetes/"/>
+      <category term="kubernetes" scheme="https://w2x.me/tags/kubernetes/"/>
     
   </entry>
   
   <entry>
     <title>Spring Boot YAML配置文件设置字段默认值</title>
-    <link href="http://w2x.me/2017/10/30/Spring-Boot-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E8%AE%BE%E7%BD%AE%E9%BB%98%E8%AE%A4%E5%80%BC/"/>
-    <id>http://w2x.me/2017/10/30/Spring-Boot-配置文件设置默认值/</id>
+    <link href="https://w2x.me/2017/10/30/Spring-Boot-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E8%AE%BE%E7%BD%AE%E9%BB%98%E8%AE%A4%E5%80%BC/"/>
+    <id>https://w2x.me/2017/10/30/Spring-Boot-配置文件设置默认值/</id>
     <published>2017-10-30T13:19:00.000Z</published>
     <updated>2018-01-24T08:02:49.855Z</updated>
     
     <summary type="html">
     
-      &lt;p&gt;SpringBoot中application.yaml如何设置配置项默认值一直困扰了我很久,官方文档也没有写如何设置默认值,今天有时间研究了下,发现只要加个冒号就可以了,如&lt;code&gt;${配置名:默认值}&lt;/code&gt;.&lt;/p&gt;
+      
+      
+        &lt;p&gt;SpringBoot中application.yaml如何设置配置项默认值一直困扰了我很久,官方文档也没有写如何设置默认值,今天有时间研究了下,发现只要加个冒号就可以了,如&lt;code&gt;${配置名:默认值}&lt;/code&gt;.&lt;/p&gt;
 &lt;h2 id=&quot;application-ym
+      
     
     </summary>
     
-      <category term="java" scheme="http://w2x.me/categories/java/"/>
+      <category term="java" scheme="https://w2x.me/categories/java/"/>
     
     
-      <category term="java" scheme="http://w2x.me/tags/java/"/>
+      <category term="java" scheme="https://w2x.me/tags/java/"/>
     
-      <category term="spring" scheme="http://w2x.me/tags/spring/"/>
+      <category term="spring" scheme="https://w2x.me/tags/spring/"/>
     
-      <category term="yaml" scheme="http://w2x.me/tags/yaml/"/>
+      <category term="yaml" scheme="https://w2x.me/tags/yaml/"/>
     
   </entry>
   
   <entry>
     <title>Linux下启动Java守护进程方法</title>
-    <link href="http://w2x.me/2017/08/06/Linux%E4%B8%8B%E5%90%AF%E5%8A%A8Java%E5%AE%88%E6%8A%A4%E8%BF%9B%E7%A8%8B%E6%96%B9%E6%B3%95/"/>
-    <id>http://w2x.me/2017/08/06/Linux下启动Java守护进程方法/</id>
+    <link href="https://w2x.me/2017/08/06/Linux%E4%B8%8B%E5%90%AF%E5%8A%A8Java%E5%AE%88%E6%8A%A4%E8%BF%9B%E7%A8%8B%E6%96%B9%E6%B3%95/"/>
+    <id>https://w2x.me/2017/08/06/Linux下启动Java守护进程方法/</id>
     <published>2017-08-06T12:53:00.000Z</published>
     <updated>2018-01-24T08:00:52.529Z</updated>
     
     <summary type="html">
     
-      &lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div
+      
+      
+        &lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=
+      
     
     </summary>
     
-      <category term="linux" scheme="http://w2x.me/categories/linux/"/>
+      <category term="linux" scheme="https://w2x.me/categories/linux/"/>
     
     
-      <category term="java" scheme="http://w2x.me/tags/java/"/>
+      <category term="java" scheme="https://w2x.me/tags/java/"/>
     
-      <category term="linux" scheme="http://w2x.me/tags/linux/"/>
+      <category term="linux" scheme="https://w2x.me/tags/linux/"/>
     
   </entry>
   
   <entry>
     <title>HPKP(HTTP Public Key Pinning)详解</title>
-    <link href="http://w2x.me/2017/07/03/HPKP-HTTP-Public-Key-Pinning-%E8%AF%A6%E8%A7%A3/"/>
-    <id>http://w2x.me/2017/07/03/HPKP-HTTP-Public-Key-Pinning-详解/</id>
+    <link href="https://w2x.me/2017/07/03/HPKP-HTTP-Public-Key-Pinning-%E8%AF%A6%E8%A7%A3/"/>
+    <id>https://w2x.me/2017/07/03/HPKP-HTTP-Public-Key-Pinning-详解/</id>
     <published>2017-07-03T13:18:00.000Z</published>
     <updated>2018-01-24T07:57:54.638Z</updated>
     
     <summary type="html">
     
-      &lt;h3 id=&quot;HPKP是什么&quot;&gt;&lt;a href=&quot;#HPKP是什么&quot; class=&quot;headerlink&quot; title=&quot;HPKP是什么&quot;&gt;&lt;/a&gt;HPKP是什么&lt;/h3&gt;&lt;p&gt;HPKP(HTTP Public Key Pinning)又名公钥打孔,可以通过告知客户端将特定的加
+      
+      
+        &lt;h3 id=&quot;HPKP是什么&quot;&gt;&lt;a href=&quot;#HPKP是什么&quot; class=&quot;headerlink&quot; title=&quot;HPKP是什么&quot;&gt;&lt;/a&gt;HPKP是什么&lt;/h3&gt;&lt;p&gt;HPKP(HTTP Public Key Pinning)又名公钥打孔,可以通过告知客户端将特定的加
+      
     
     </summary>
     
-      <category term="security" scheme="http://w2x.me/categories/security/"/>
+      <category term="security" scheme="https://w2x.me/categories/security/"/>
     
     
-      <category term="hpkp" scheme="http://w2x.me/tags/hpkp/"/>
+      <category term="hpkp" scheme="https://w2x.me/tags/hpkp/"/>
     
   </entry>
   
   <entry>
     <title>PostgreSQL JDBC time类型存取细节</title>
-    <link href="http://w2x.me/2017/06/14/PostgreSQL-JDBC-time%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2%E7%BB%86%E8%8A%82/"/>
-    <id>http://w2x.me/2017/06/14/PostgreSQL-JDBC-time类型转换细节/</id>
+    <link href="https://w2x.me/2017/06/14/PostgreSQL-JDBC-time%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2%E7%BB%86%E8%8A%82/"/>
+    <id>https://w2x.me/2017/06/14/PostgreSQL-JDBC-time类型转换细节/</id>
     <published>2017-06-14T14:58:00.000Z</published>
     <updated>2018-01-24T08:04:41.606Z</updated>
     
     <summary type="html">
     
-      &lt;ul&gt;
+      
+      
+        &lt;ul&gt;
 &lt;li&gt;PostgreSQL中默认时区为UTC&lt;/li&gt;
 &lt;li&gt;record表中有一类型为Time without timezone的字段event_time&lt;/li&gt;
 &lt;li&gt;本机的时区为UTC+8&lt;/li&gt;
@@ -334,77 +376,87 @@
 &lt;p&gt;现象:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;在页
+      
     
     </summary>
     
-      <category term="database" scheme="http://w2x.me/categories/database/"/>
+      <category term="database" scheme="https://w2x.me/categories/database/"/>
     
     
-      <category term="postgresql" scheme="http://w2x.me/tags/postgresql/"/>
+      <category term="postgresql" scheme="https://w2x.me/tags/postgresql/"/>
     
   </entry>
   
   <entry>
     <title>Hibernate学习</title>
-    <link href="http://w2x.me/2017/06/13/Hibernate%E5%AD%A6%E4%B9%A0/"/>
-    <id>http://w2x.me/2017/06/13/Hibernate学习/</id>
+    <link href="https://w2x.me/2017/06/13/Hibernate%E5%AD%A6%E4%B9%A0/"/>
+    <id>https://w2x.me/2017/06/13/Hibernate学习/</id>
     <published>2017-06-13T06:25:00.000Z</published>
     <updated>2018-01-24T08:02:07.895Z</updated>
     
     <summary type="html">
     
-      &lt;h3 id=&quot;占位符（named-parameters）对order-by无效&quot;&gt;&lt;a href=&quot;#占位符（named-parameters）对order-by无效&quot; class=&quot;headerlink&quot; title=&quot;占位符（named parameters）对order 
+      
+      
+        &lt;h3 id=&quot;占位符（named-parameters）对order-by无效&quot;&gt;&lt;a href=&quot;#占位符（named-parameters）对order-by无效&quot; class=&quot;headerlink&quot; title=&quot;占位符（named parameters）对order 
+      
     
     </summary>
     
-      <category term="java" scheme="http://w2x.me/categories/java/"/>
+      <category term="java" scheme="https://w2x.me/categories/java/"/>
     
     
-      <category term="hibernate" scheme="http://w2x.me/tags/hibernate/"/>
+      <category term="hibernate" scheme="https://w2x.me/tags/hibernate/"/>
     
   </entry>
   
   <entry>
     <title>Groovy学习</title>
-    <link href="http://w2x.me/2017/06/13/Groovy%E5%AD%A6%E4%B9%A0/"/>
-    <id>http://w2x.me/2017/06/13/Groovy学习/</id>
+    <link href="https://w2x.me/2017/06/13/Groovy%E5%AD%A6%E4%B9%A0/"/>
+    <id>https://w2x.me/2017/06/13/Groovy学习/</id>
     <published>2017-06-13T06:03:00.000Z</published>
     <updated>2018-01-24T08:01:31.094Z</updated>
     
     <summary type="html">
     
-      &lt;h3 id=&quot;sort方法作用于Set和List时的区别&quot;&gt;&lt;a href=&quot;#sort方法作用于Set和List时的区别&quot; class=&quot;headerlink&quot; title=&quot;sort方法作用于Set和List时的区别&quot;&gt;&lt;/a&gt;sort方法作用于Set和List时的区别&lt;/
+      
+      
+        &lt;h3 id=&quot;sort方法作用于Set和List时的区别&quot;&gt;&lt;a href=&quot;#sort方法作用于Set和List时的区别&quot; class=&quot;headerlink&quot; title=&quot;sort方法作用于Set和List时的区别&quot;&gt;&lt;/a&gt;sort方法作用于Set和List时的区别&lt;/
+      
     
     </summary>
     
-      <category term="java" scheme="http://w2x.me/categories/java/"/>
+      <category term="java" scheme="https://w2x.me/categories/java/"/>
     
     
-      <category term="hibernate" scheme="http://w2x.me/tags/hibernate/"/>
+      <category term="groovy" scheme="https://w2x.me/tags/groovy/"/>
     
-      <category term="groovy" scheme="http://w2x.me/tags/groovy/"/>
+      <category term="hibernate" scheme="https://w2x.me/tags/hibernate/"/>
     
   </entry>
   
   <entry>
     <title>Tomcat传递环境变量</title>
-    <link href="http://w2x.me/2017/06/13/how-to-set-tomcat-environment-values/"/>
-    <id>http://w2x.me/2017/06/13/how-to-set-tomcat-environment-values/</id>
+    <link href="https://w2x.me/2017/06/13/how-to-set-tomcat-environment-values/"/>
+    <id>https://w2x.me/2017/06/13/how-to-set-tomcat-environment-values/</id>
     <published>2017-06-13T00:21:00.000Z</published>
     <updated>2018-01-24T08:01:07.670Z</updated>
     
     <summary type="html">
     
-      &lt;ul&gt;
+      
+      
+        &lt;ul&gt;
 &lt;li&gt;&lt;p&gt;在Tomcat bin目录下新建setenv.sh, 编辑setenv.sh,添加如下语句&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class
+      
     
     </summary>
     
-      <category term="java" scheme="http://w2x.me/categories/java/"/>
+      <category term="java" scheme="https://w2x.me/categories/java/"/>
     
     
-      <category term="tomcat" scheme="http://w2x.me/tags/tomcat/"/>
+      <category term="tomcat" scheme="https://w2x.me/tags/tomcat/"/>
     
   </entry>
   
