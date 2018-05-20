@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://w2x.me/"/>
-  <updated>2018-05-20T02:57:05.276Z</updated>
+  <updated>2018-05-20T14:47:43.917Z</updated>
   <id>https://w2x.me/</id>
   
   <author>
@@ -15,6 +15,36 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Java 浮点数存储方式</title>
+    <link href="https://w2x.me/2018/05/20/Java-%E6%B5%AE%E7%82%B9%E6%95%B0%E5%AD%98%E5%82%A8%E6%96%B9%E5%BC%8F/"/>
+    <id>https://w2x.me/2018/05/20/Java-浮点数存储方式/</id>
+    <published>2018-05-20T14:35:00.000Z</published>
+    <updated>2018-05-20T14:47:43.917Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;Java浮点数使用的是IEEE二进制浮点数算术标准。&lt;/p&gt;
+&lt;p&gt;浮点数分为符号，指数，分数三部分。以32位浮点数为例，分为1符号位+8指数位+23分数位。&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;1(bit)&lt;/th&gt;
+&lt;th&gt;8(bit)&lt;/th&gt;
+
+      
+    
+    </summary>
+    
+      <category term="java" scheme="https://w2x.me/categories/java/"/>
+    
+    
+      <category term="java" scheme="https://w2x.me/tags/java/"/>
+    
+  </entry>
   
   <entry>
     <title>Grails 3.2.11 Bugs</title>

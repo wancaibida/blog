@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+
+  <meta name="description" content="Java 浮点数存储方式"/>
+
+
+
+
+  <meta name="keywords" content="java, W2X" />
+
+
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="W2X">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.6.0" />
+
+
+
+<link rel="canonical" href="https://w2x.me/2018/05/20/Java-浮点数存储方式/"/>
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.6.0" />
+
+
+
+
+
+
+  
+
+
+  <script id="google_analytics">
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-77440077-1', 'auto');
+        ga('send', 'pageview');
+  </script>
+
+
+  <script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+
+
+
+
+
+
+    <title> Java 浮点数存储方式 - W2X </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">W2X</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/">
+        <li class="mobile-menu-item">
+          
+          
+            Home
+          
+        </li>
+      </a>
+    
+      <a href="/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            Archives
+          
+        </li>
+      </a>
+    
+      <a href="/tags/">
+        <li class="mobile-menu-item">
+          
+          
+            Tags
+          
+        </li>
+      </a>
+    
+      <a href="/categories/">
+        <li class="mobile-menu-item">
+          
+          
+            Categories
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">W2X</a>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/">
+            
+            
+              Home
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            
+            
+              Archives
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/tags/">
+            
+            
+              Tags
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/categories/">
+            
+            
+              Categories
+            
+          </a>
+        </li>
+      
+    </ul>
+  
+</nav>
+
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          Java 浮点数存储方式
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-05-20
+        </span>
+        
+          <div class="post-category">
+            
+              <a href="/categories/java/">java</a>
+            
+          </div>
+        
+        
+      </div>
+    </header>
+
+    
+    
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#173-7为正数，故符号位为0"><span class="toc-text">173.7为正数，故符号位为0</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#将其转换成1-2-形式"><span class="toc-text">将其转换成1.??? * 2^?形式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#计算尾数部分-由于浮点数最终都是以1-2-的形式保存的，小数点左边永远是1，所以我们只需关心小数点后面部分"><span class="toc-text">计算尾数部分,由于浮点数最终都是以1.??? * 2^?的形式保存的，小数点左边永远是1，所以我们只需关心小数点后面部分</span></a></li></ol>
+    </div>
+  </div>
+
+
+    <div class="post-content">
+      
+        <p>Java浮点数使用的是IEEE二进制浮点数算术标准。</p>
+<p>浮点数分为符号，指数，分数三部分。以32位浮点数为例，分为1符号位+8指数位+23分数位。</p>
+<table>
+<thead>
+<tr>
+<th>1(bit)</th>
+<th>8(bit)</th>
+<th>23(bit)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>符号</td>
+<td>指数</td>
+<td>分数</td>
+</tr>
+</tbody>
+</table>
+<p>以173.7为例：</p>
+<h3 id="173-7为正数，故符号位为0"><a href="#173-7为正数，故符号位为0" class="headerlink" title="173.7为正数，故符号位为0"></a>173.7为正数，故符号位为0</h3><pre><code>&lt;span style=&quot;color:blue&quot;&gt;*0*&lt;/span&gt; 00000000 00000000000000000000000
+</code></pre><h3 id="将其转换成1-2-形式"><a href="#将其转换成1-2-形式" class="headerlink" title="将其转换成1.??? * 2^?形式"></a>将其转换成1.??? * 2^?形式</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">173.7/2=86.85            2^1</span><br><span class="line">86.85/2=43.425           2^2</span><br><span class="line">43.425/2=21.7125         2^3</span><br><span class="line">21.7125/2=10.85625       2^4</span><br><span class="line">10.85625/2=5.428125      2^5</span><br><span class="line">5.428125/2=2.7140625     2^6</span><br><span class="line">2.7140625/2=1.35703125   2^7</span><br></pre></td></tr></table></figure>
+<p>最终格式为1.35703125*2^7 ，指数位的值为7，由于指数部分是由Bias偏移量来表示的，float的偏移量为Bias=2^k-1 -1=2^8-1 -1=127，做指数部分的值为127+7=134，134的二进制值为 1000 0110，则符号位+指数为存储格式如下：</p>
+<p><span style="color:blue"><em>0</em></span> <span style="color:red"><em>1000 0110</em></span> 00000000000000000000000</p>
+<h3 id="计算尾数部分-由于浮点数最终都是以1-2-的形式保存的，小数点左边永远是1，所以我们只需关心小数点后面部分"><a href="#计算尾数部分-由于浮点数最终都是以1-2-的形式保存的，小数点左边永远是1，所以我们只需关心小数点后面部分" class="headerlink" title="计算尾数部分,由于浮点数最终都是以1.??? * 2^?的形式保存的，小数点左边永远是1，所以我们只需关心小数点后面部分"></a>计算尾数部分,由于浮点数最终都是以1.??? * 2^?的形式保存的，小数点左边永远是1，所以我们只需关心小数点后面部分</h3><table>
+<thead>
+<tr>
+<th>Number</th>
+<th>X2</th>
+<th>1/0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0.35703125</td>
+<td>0.7140625</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0.7140625</td>
+<td>1.428125</td>
+<td>1</td>
+</tr>
+<tr>
+<td>0.428125</td>
+<td>0.85625</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0.85625</td>
+<td>1.7125</td>
+<td>1</td>
+</tr>
+<tr>
+<td>0.7125</td>
+<td>1.425</td>
+<td>1</td>
+</tr>
+<tr>
+<td>0.425</td>
+<td>0.85</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0.85</td>
+<td>1.7</td>
+<td>1</td>
+</tr>
+<tr>
+<td>0.7</td>
+<td>1.4</td>
+<td>1</td>
+</tr>
+<tr>
+<td>0.4</td>
+<td>0.8</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0.8</td>
+<td>1.6</td>
+<td>1</td>
+</tr>
+<tr>
+<td>0.6</td>
+<td>1.2</td>
+<td>1</td>
+</tr>
+<tr>
+<td>0.2</td>
+<td>0.4</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0.4</td>
+<td>0.8</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p>由于到了0.4这一步这边是会个循环，0110 0110 …<br>加上尾数部分，最终存储格式如下：<br>    <span style="color:blue"><em>0</em></span> <span style="color:red"><em>1000 0110</em></span> <span style="color:green">01011011011001100110011</span></p>
+<p>我们可以通过<code>Float.floatToIntBits(173.7)</code>来验证结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Float.floatToIntBits(173.7) = 1127068467</span><br><span class="line">1127068467用二进制表示，就是</span><br><span class="line">0 10000110 01011011011001100110011</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+      
+      
+
+  <div class="post-copyright">
+    <p class="copyright-item">
+      <span>Author: </span>
+      <a href="https://w2x.me">大丈夫没问题</a>
+    </p>
+    <p class="copyright-item">
+      <span>Link: </span>
+      <a href="https://w2x.me/2018/05/20/Java-浮点数存储方式/">https://w2x.me/2018/05/20/Java-浮点数存储方式/</a>
+    </p>
+    <p class="copyright-item">
+      <span>License: </span>
+      
+      <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+    </p>
+  </div>
+
+
+
+      
+      
+    
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/java/">java</a>
+            
+          </div>
+        
+        
+        
+  <nav class="post-nav">
+    
+    
+      <a class="next" href="/2018/04/01/Grails-3-2-11-Bugs/">
+        <span class="next-text nav-default">Grails 3.2.11 Bugs</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+      </footer>
+    
+
+  </article>
+
+
+          </div>
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+      </main>
+
+      <footer id="footer" class="footer">
+
+  <div class="social-links">
+    
+      
+        
+          <a href="mailto:wancaibida@gmail.com" class="iconfont icon-email" title="email"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        
+          <a href="https://github.com/wancaibida" class="iconfont icon-github" title="github"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+    
+    
+      <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    
+  </div>
+
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://hexo.io/">Hexo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    
+    &copy; 
+     
+      2015 - 
+    
+    2018
+
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">大丈夫没问题</span>
+  </span>
+</div>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+  <script type="text/javascript">
+    var disqus_config = function () {
+        this.page.url = 'https://w2x.me/2018/05/20/Java-浮点数存储方式/';
+        this.page.identifier = '2018/05/20/Java-浮点数存储方式/';
+        this.page.title = 'Java 浮点数存储方式';
+    };
+    (function() {
+    var d = document, s = d.createElement('script');
+
+    s.src = '//w2x-me.disqus.com/embed.js';
+
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();  
+  </script>
+
+  
+
+  
+
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  
+
+  
+
+
+    <script type="text/javascript" src="/js/src/even.js?v=2.6.0"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=2.6.0"></script>
+
+  </body>
+</html>
