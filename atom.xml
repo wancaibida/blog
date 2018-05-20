@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://w2x.me/"/>
-  <updated>2018-04-01T13:30:53.435Z</updated>
+  <updated>2018-05-20T02:57:05.276Z</updated>
   <id>https://w2x.me/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://w2x.me/2018/04/01/Grails-3-2-11-Bugs/"/>
     <id>https://w2x.me/2018/04/01/Grails-3-2-11-Bugs/</id>
     <published>2018-04-01T13:30:00.000Z</published>
-    <updated>2018-04-01T13:30:53.435Z</updated>
+    <updated>2018-05-20T02:57:05.276Z</updated>
     
     <summary type="html">
     
@@ -358,11 +358,11 @@
   </entry>
   
   <entry>
-    <title>PostgreSQL JDBC time类型存取细节</title>
+    <title>PostgreSQL JDBC 时间类型存取细节</title>
     <link href="https://w2x.me/2017/06/14/PostgreSQL-JDBC-time%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2%E7%BB%86%E8%8A%82/"/>
     <id>https://w2x.me/2017/06/14/PostgreSQL-JDBC-time类型转换细节/</id>
     <published>2017-06-14T14:58:00.000Z</published>
-    <updated>2018-01-24T08:04:41.606Z</updated>
+    <updated>2018-05-20T02:13:09.833Z</updated>
     
     <summary type="html">
     
