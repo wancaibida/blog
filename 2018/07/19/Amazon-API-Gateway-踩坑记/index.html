@@ -17,12 +17,10 @@
 
 
 
-  <meta name="description" content="Java 浮点数存储方式"/>
+  <meta name="description" content="Amazon API Gateway 踩坑记"/>
 
 
 
-
-  <meta name="keywords" content="java, W2X" />
 
 
 
@@ -42,7 +40,7 @@
 
 
 
-<link rel="canonical" href="https://w2x.me/2018/05/20/Java-浮点数存储方式/"/>
+<link rel="canonical" href="https://w2x.me/2018/07/19/Amazon-API-Gateway-踩坑记/"/>
 
 
 <link rel="stylesheet" type="text/css" href="/css/style.css?v=2.6.0" />
@@ -89,7 +87,7 @@
 
 
 
-    <title> Java 浮点数存储方式 - W2X </title>
+    <title> Amazon API Gateway 踩坑记 - W2X </title>
   </head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
@@ -205,20 +203,14 @@
     <header class="post-header">
       <h1 class="post-title">
         
-          Java 浮点数存储方式
+          Amazon API Gateway 踩坑记
         
       </h1>
 
       <div class="post-meta">
         <span class="post-time">
-          2018-05-20
+          2018-07-19
         </span>
-        
-          <div class="post-category">
-            
-              <a href="/categories/java/">java</a>
-            
-          </div>
         
         
       </div>
@@ -229,115 +221,20 @@
   <div class="post-toc" id="post-toc">
     <h2 class="post-toc-title">Contents</h2>
     <div class="post-toc-content">
-      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#173-7为正数，故符号位为0"><span class="toc-text">173.7为正数，故符号位为0</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#将其转换成1-2-形式"><span class="toc-text">将其转换成1.??? * 2^?形式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#计算尾数部分-由于浮点数最终都是以1-2-的形式保存的，小数点左边永远是1，所以我们只需关心小数点后面部分"><span class="toc-text">计算尾数部分,由于浮点数最终都是以1.??? * 2^?的形式保存的，小数点左边永远是1，所以我们只需关心小数点后面部分</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#不支持parmeters-array"><span class="toc-text">不支持parmeters array</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#POST-PUT-返回-406"><span class="toc-text">POST/PUT 返回 406</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#URL-Query-String-Parameter、header需要显示设定"><span class="toc-text">URL Query String Parameter、header需要显示设定</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Grails参数绑定不支持application-x-amz-json-1-0-application-x-amz-json-1-0-content-type"><span class="toc-text">Grails参数绑定不支持application/x-amz-json-1.0/application/x-amz-json-1.0 content type.</span></a></li></ol>
     </div>
   </div>
 
 
     <div class="post-content">
       
-        <p>Java浮点数使用的是IEEE二进制浮点数算术标准。</p>
-<p>浮点数分为符号，指数，分数三部分。以32位浮点数为例，分为1符号位+8指数位+23分数位。</p>
-<table>
-<thead>
-<tr>
-<th>1(bit)</th>
-<th>8(bit)</th>
-<th>23(bit)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>符号</td>
-<td>指数</td>
-<td>分数</td>
-</tr>
-</tbody>
-</table>
-<p>以173.7为例：</p>
-<h3 id="173-7为正数，故符号位为0"><a href="#173-7为正数，故符号位为0" class="headerlink" title="173.7为正数，故符号位为0"></a>173.7为正数，故符号位为0</h3><p><span style="color:blue"><em>0</em></span> 00000000 00000000000000000000000</p>
-<h3 id="将其转换成1-2-形式"><a href="#将其转换成1-2-形式" class="headerlink" title="将其转换成1.??? * 2^?形式"></a>将其转换成1.??? * 2^?形式</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">173.7/2=86.85            2^1</span><br><span class="line">86.85/2=43.425           2^2</span><br><span class="line">43.425/2=21.7125         2^3</span><br><span class="line">21.7125/2=10.85625       2^4</span><br><span class="line">10.85625/2=5.428125      2^5</span><br><span class="line">5.428125/2=2.7140625     2^6</span><br><span class="line">2.7140625/2=1.35703125   2^7</span><br></pre></td></tr></table></figure>
-<p>最终格式为1.35703125*2^7 ，指数位的值为7，由于指数部分是由Bias偏移量来表示的，float的偏移量为Bias=2^k-1 -1=2^8-1 -1=127，做指数部分的值为127+7=134，134的二进制值为 1000 0110，则符号位+指数为存储格式如下：</p>
-<p><span style="color:blue"><em>0</em></span> <span style="color:red"><em>1000 0110</em></span> 00000000000000000000000</p>
-<h3 id="计算尾数部分-由于浮点数最终都是以1-2-的形式保存的，小数点左边永远是1，所以我们只需关心小数点后面部分"><a href="#计算尾数部分-由于浮点数最终都是以1-2-的形式保存的，小数点左边永远是1，所以我们只需关心小数点后面部分" class="headerlink" title="计算尾数部分,由于浮点数最终都是以1.??? * 2^?的形式保存的，小数点左边永远是1，所以我们只需关心小数点后面部分"></a>计算尾数部分,由于浮点数最终都是以1.??? * 2^?的形式保存的，小数点左边永远是1，所以我们只需关心小数点后面部分</h3><table>
-<thead>
-<tr>
-<th>Number</th>
-<th>X2</th>
-<th>1/0</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>0.35703125</td>
-<td>0.7140625</td>
-<td>0</td>
-</tr>
-<tr>
-<td>0.7140625</td>
-<td>1.428125</td>
-<td>1</td>
-</tr>
-<tr>
-<td>0.428125</td>
-<td>0.85625</td>
-<td>0</td>
-</tr>
-<tr>
-<td>0.85625</td>
-<td>1.7125</td>
-<td>1</td>
-</tr>
-<tr>
-<td>0.7125</td>
-<td>1.425</td>
-<td>1</td>
-</tr>
-<tr>
-<td>0.425</td>
-<td>0.85</td>
-<td>0</td>
-</tr>
-<tr>
-<td>0.85</td>
-<td>1.7</td>
-<td>1</td>
-</tr>
-<tr>
-<td>0.7</td>
-<td>1.4</td>
-<td>1</td>
-</tr>
-<tr>
-<td>0.4</td>
-<td>0.8</td>
-<td>0</td>
-</tr>
-<tr>
-<td>0.8</td>
-<td>1.6</td>
-<td>1</td>
-</tr>
-<tr>
-<td>0.6</td>
-<td>1.2</td>
-<td>1</td>
-</tr>
-<tr>
-<td>0.2</td>
-<td>0.4</td>
-<td>0</td>
-</tr>
-<tr>
-<td>0.4</td>
-<td>0.8</td>
-<td>0</td>
-</tr>
-</tbody>
-</table>
-<p>由于到了0.4这一步这边是会个循环，0110 0110 …<br>加上尾数部分，最终存储格式如下：<br>    <span style="color:blue"><em>0</em></span> <span style="color:red"><em>1000 0110</em></span> <span style="color:green"><em>01011011011001100110011</em></span></p>
-<p>我们可以通过<code>Float.floatToIntBits(173.7)</code>来验证结果：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Float.floatToIntBits(173.7) = 1127068467</span><br><span class="line">1127068467用二进制表示，就是</span><br><span class="line">0 10000110 01011011011001100110011</span><br></pre></td></tr></table></figure>
+        <p>最近项目中用到了Amazon API Gateway，当中遇到了不少的坑。本文主要罗列了在使用amazon api gateway中遇的问题，希望能帮助到遇到相同问题的开发者。</p>
+<h2 id="不支持parmeters-array"><a href="#不支持parmeters-array" class="headerlink" title="不支持parmeters array"></a>不支持parmeters array</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET /user/1/addresses?addressId=1&amp;addressId=2</span><br></pre></td></tr></table></figure>
+<p>服务端接收到的只有一个值，解决办法<a href="https://stackoverflow.com/questions/43401777/passing-array-query-parameters-with-api-gateway-to-lambda" target="_blank" rel="noopener">passing-array-query-parameters-with-api-gateway-to-lambda</a></p>
+<h2 id="POST-PUT-返回-406"><a href="#POST-PUT-返回-406" class="headerlink" title="POST/PUT 返回 406"></a>POST/PUT 返回 406</h2><p>当使用json body发送put/post请求时，api gateway有一定机率返回406，查了半天也找出什么原国，后来在stackoverflow上找到了答案，需要在Integration Request中添加Accept头，并且设置其值为空字符串。具体什么原因估计只有AWS api gateway的开发者才知道了。<br><a href="https://stackoverflow.com/questions/42106605/aws-api-gateway-returns-http-406" target="_blank" rel="noopener">aws-api-gateway-returns-http-406</a></p>
+<h2 id="URL-Query-String-Parameter、header需要显示设定"><a href="#URL-Query-String-Parameter、header需要显示设定" class="headerlink" title="URL Query String Parameter、header需要显示设定"></a>URL Query String Parameter、header需要显示设定</h2><p>如果不在Method Request里显示声名URL Query String Parameter的话，请求参数是不会转发到后台的，request header同理。</p>
+<h2 id="Grails参数绑定不支持application-x-amz-json-1-0-application-x-amz-json-1-0-content-type"><a href="#Grails参数绑定不支持application-x-amz-json-1-0-application-x-amz-json-1-0-content-type" class="headerlink" title="Grails参数绑定不支持application/x-amz-json-1.0/application/x-amz-json-1.0 content type."></a>Grails参数绑定不支持<code>application/x-amz-json-1.0</code>/<code>application/x-amz-json-1.0</code> content type.</h2><p>请求转发到后台时，API gateway会将<code>application/json</code>转换成<code>application/x-amz-json-1.0</code>/<code>application/x-amz-json-1.0</code>，需要修改代码，添加对这两个header的支持，不然会无法绑定参数。</p>
+
       
     </div>
 
@@ -352,7 +249,7 @@
     </p>
     <p class="copyright-item">
       <span>Link: </span>
-      <a href="https://w2x.me/2018/05/20/Java-浮点数存储方式/">https://w2x.me/2018/05/20/Java-浮点数存储方式/</a>
+      <a href="https://w2x.me/2018/07/19/Amazon-API-Gateway-踩坑记/">https://w2x.me/2018/07/19/Amazon-API-Gateway-踩坑记/</a>
     </p>
     <p class="copyright-item">
       <span>License: </span>
@@ -370,25 +267,13 @@
     
       <footer class="post-footer">
         
-          <div class="post-tags">
-            
-              <a href="/tags/java/">java</a>
-            
-          </div>
-        
         
         
   <nav class="post-nav">
     
-      <a class="prev" href="/2018/07/19/Amazon-API-Gateway-踩坑记/">
-        <i class="iconfont icon-left"></i>
-        <span class="prev-text nav-default">Amazon API Gateway 踩坑记</span>
-        <span class="prev-text nav-mobile">Prev</span>
-      </a>
     
-    
-      <a class="next" href="/2018/04/01/Grails-3-2-11-Bugs/">
-        <span class="next-text nav-default">Grails 3.2.11 Bugs</span>
+      <a class="next" href="/2018/05/20/Java-浮点数存储方式/">
+        <span class="next-text nav-default">Java 浮点数存储方式</span>
         <span class="prev-text nav-mobile">Next</span>
         <i class="iconfont icon-right"></i>
       </a>
@@ -499,9 +384,9 @@
   
   <script type="text/javascript">
     var disqus_config = function () {
-        this.page.url = 'https://w2x.me/2018/05/20/Java-浮点数存储方式/';
-        this.page.identifier = '2018/05/20/Java-浮点数存储方式/';
-        this.page.title = 'Java 浮点数存储方式';
+        this.page.url = 'https://w2x.me/2018/07/19/Amazon-API-Gateway-踩坑记/';
+        this.page.identifier = '2018/07/19/Amazon-API-Gateway-踩坑记/';
+        this.page.title = 'Amazon API Gateway 踩坑记';
     };
     (function() {
     var d = document, s = d.createElement('script');
