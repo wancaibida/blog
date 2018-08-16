@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://w2x.me/"/>
-  <updated>2018-08-16T05:36:11.225Z</updated>
+  <updated>2018-08-16T06:12:05.748Z</updated>
   <id>https://w2x.me/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://w2x.me/2018/08/16/Groovy-Grails%E8%BF%81%E7%A7%BB%E5%88%B0Kotlin-Spring-Boot%E7%9A%84%E4%B8%80%E4%BA%9B%E7%A0%94%E7%A9%B6/"/>
     <id>https://w2x.me/2018/08/16/Groovy-Grails迁移到Kotlin-Spring-Boot的一些研究/</id>
     <published>2018-08-16T05:35:00.000Z</published>
-    <updated>2018-08-16T05:36:11.225Z</updated>
+    <updated>2018-08-16T06:12:05.748Z</updated>
     
     <summary type="html">
     
@@ -36,15 +36,15 @@
       <category term="java" scheme="https://w2x.me/categories/java/"/>
     
     
-      <category term="java" scheme="https://w2x.me/tags/java/"/>
-    
-      <category term="kotlin" scheme="https://w2x.me/tags/kotlin/"/>
-    
-      <category term="spring" scheme="https://w2x.me/tags/spring/"/>
+      <category term="grails" scheme="https://w2x.me/tags/grails/"/>
     
       <category term="groovy" scheme="https://w2x.me/tags/groovy/"/>
     
-      <category term="grails" scheme="https://w2x.me/tags/grails/"/>
+      <category term="kotlin" scheme="https://w2x.me/tags/kotlin/"/>
+    
+      <category term="java" scheme="https://w2x.me/tags/java/"/>
+    
+      <category term="spring" scheme="https://w2x.me/tags/spring/"/>
     
   </entry>
   
@@ -120,9 +120,9 @@
       <category term="java" scheme="https://w2x.me/categories/java/"/>
     
     
-      <category term="groovy" scheme="https://w2x.me/tags/groovy/"/>
-    
       <category term="grails" scheme="https://w2x.me/tags/grails/"/>
+    
+      <category term="groovy" scheme="https://w2x.me/tags/groovy/"/>
     
   </entry>
   
@@ -511,9 +511,9 @@
       <category term="java" scheme="https://w2x.me/categories/java/"/>
     
     
-      <category term="hibernate" scheme="https://w2x.me/tags/hibernate/"/>
-    
       <category term="groovy" scheme="https://w2x.me/tags/groovy/"/>
+    
+      <category term="hibernate" scheme="https://w2x.me/tags/hibernate/"/>
     
   </entry>
   
