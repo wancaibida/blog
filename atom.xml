@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://w2x.me/"/>
-  <updated>2018-07-20T00:28:22.131Z</updated>
+  <updated>2018-08-16T02:34:21.137Z</updated>
   <id>https://w2x.me/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Groovy+Grails迁移到Kotlin+Spring Boot的一些研究</title>
+    <link href="https://w2x.me/2018/08/16/1/"/>
+    <id>https://w2x.me/2018/08/16/1/</id>
+    <published>2018-08-16T02:25:00.000Z</published>
+    <updated>2018-08-16T02:34:21.137Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;Kotlin是静态语言，可以运行在JVM上且与java百分百可互操作。自从Google将Kotlin正式做为Android开发的语言后，Kotlin的一下子就火了起来。Kotlin不仅可以做为Android的首选开发语言，而且它也非常适合服务端的开发。&lt;/p&gt;
+&lt;h2 id
+      
+    
+    </summary>
+    
+      <category term="java" scheme="https://w2x.me/categories/java/"/>
+    
+    
+      <category term="java" scheme="https://w2x.me/tags/java/"/>
+    
+      <category term="spring" scheme="https://w2x.me/tags/spring/"/>
+    
+      <category term="kotlin" scheme="https://w2x.me/tags/kotlin/"/>
+    
+  </entry>
   
   <entry>
     <title>Amazon API Gateway 踩坑记</title>
