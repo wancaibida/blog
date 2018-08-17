@@ -53,14 +53,14 @@
     <link href="https://w2x.me/2018/07/19/Amazon-API-Gateway-%E8%B8%A9%E5%9D%91%E8%AE%B0/"/>
     <id>https://w2x.me/2018/07/19/Amazon-API-Gateway-踩坑记/</id>
     <published>2018-07-19T12:23:52.000Z</published>
-    <updated>2018-07-20T00:28:22.131Z</updated>
+    <updated>2018-08-17T04:08:47.698Z</updated>
     
     <summary type="html">
     
       
       
-        &lt;p&gt;最近项目中用到了Amazon API Gateway，当中遇到了不少的坑。本文主要罗列了在使用amazon api gateway中遇的问题，希望能帮助到遇到相同问题的开发者。&lt;/p&gt;
-&lt;h2 id=&quot;不支持parmeters-array&quot;&gt;&lt;a href=&quot;#不支
+        &lt;p&gt;最近项目中用到了Amazon API Gateway，当中遇到了不少的坑。本文主要罗列了在使用amazon api gateway中遇的问题，希望能帮助到遇到相同问题的开发者。&lt;/p&gt;
+&lt;h2 id=&quot;不支持parmeters-array&quot;&gt;&lt;a href=&quot;#不支持par
       
     
     </summary>
