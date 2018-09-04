@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://w2x.me/"/>
-  <updated>2018-08-16T06:12:05.748Z</updated>
+  <updated>2018-09-04T02:43:56.309Z</updated>
   <id>https://w2x.me/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>ShadowsocksX-NG实现白名单模式</title>
+    <link href="https://w2x.me/2018/09/04/ShadowsocksX-NG%E5%AE%9E%E7%8E%B0%E7%99%BD%E5%90%8D%E5%8D%95%E6%A8%A1%E5%BC%8F/"/>
+    <id>https://w2x.me/2018/09/04/ShadowsocksX-NG实现白名单模式/</id>
+    <published>2018-09-04T02:39:00.000Z</published>
+    <updated>2018-09-04T02:43:56.309Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;ShadowsocksX-NG &lt;code&gt;Proxy Auto Configure Mode&lt;/code&gt;使用的是黑名单模式，默认直连，符合规则的走代理。要实现白名单模式，默认代理，符合规则的直连，有一种hack方法：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;找到程序文件夹下的a
+      
+    
+    </summary>
+    
+    
+      <category term="ss" scheme="https://w2x.me/tags/ss/"/>
+    
+  </entry>
   
   <entry>
     <title>Groovy+Grails迁移到Kotlin+Spring Boot的一些研究</title>
@@ -514,31 +537,6 @@
       <category term="groovy" scheme="https://w2x.me/tags/groovy/"/>
     
       <category term="hibernate" scheme="https://w2x.me/tags/hibernate/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Tomcat传递环境变量</title>
-    <link href="https://w2x.me/2017/06/13/how-to-set-tomcat-environment-values/"/>
-    <id>https://w2x.me/2017/06/13/how-to-set-tomcat-environment-values/</id>
-    <published>2017-06-13T00:21:00.000Z</published>
-    <updated>2018-01-24T08:01:07.670Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;ul&gt;
-&lt;li&gt;&lt;p&gt;在Tomcat bin目录下新建setenv.sh, 编辑setenv.sh,添加如下语句&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class
-      
-    
-    </summary>
-    
-      <category term="java" scheme="https://w2x.me/categories/java/"/>
-    
-    
-      <category term="tomcat" scheme="https://w2x.me/tags/tomcat/"/>
     
   </entry>
   

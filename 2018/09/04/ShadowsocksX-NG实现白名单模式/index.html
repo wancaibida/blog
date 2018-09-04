@@ -17,12 +17,12 @@
 
 
 
-  <meta name="description" content="Tomcat传递环境变量"/>
+  <meta name="description" content="ShadowsocksX-NG实现白名单模式"/>
 
 
 
 
-  <meta name="keywords" content="tomcat, W2X" />
+  <meta name="keywords" content="ss, W2X" />
 
 
 
@@ -42,7 +42,7 @@
 
 
 
-<link rel="canonical" href="https://w2x.me/2017/06/13/how-to-set-tomcat-environment-values/"/>
+<link rel="canonical" href="https://w2x.me/2018/09/04/ShadowsocksX-NG实现白名单模式/"/>
 
 
 
@@ -99,7 +99,7 @@
   window.config = {"title":"W2X","subtitle":null,"description":null,"author":"大丈夫没问题","language":"en","timezone":"Asia/ShangHai","url":"https://w2x.me","root":"/","permalink":":year/:month/:day/:title/","permalink_defaults":null,"source_dir":"source","public_dir":"public","tag_dir":"tags","archive_dir":"archives","category_dir":"categories","code_dir":"downloads/code","i18n_dir":":lang","skip_render":null,"new_post_name":":title.md","default_layout":"post","titlecase":false,"external_link":true,"filename_case":0,"render_drafts":false,"post_asset_folder":false,"relative_link":false,"future":true,"highlight":{"enable":true,"auto_detect":false,"line_number":true,"tab_replace":null},"default_category":"uncategorized","category_map":null,"tag_map":null,"date_format":"YYYY-MM-DD","time_format":"HH:mm:ss","per_page":10,"pagination_dir":"page","theme":"even","deploy":{"type":"git","repo":"git@github.com-wancaibida:wancaibida/blog.git","branch":"master","message":"message"},"ignore":[],"feed":{"type":"atom","limit":20,"hub":null,"content":null,"content_limit":140,"content_limit_delim":"","path":"atom.xml"},"archive_generator":{"per_page":10,"yearly":true,"monthly":true,"daily":false},"category_generator":{"per_page":10},"index_generator":{"per_page":10,"order_by":"-date"},"tag_generator":{"per_page":10},"marked":{"gfm":true,"pedantic":false,"sanitize":false,"tables":true,"breaks":true,"smartLists":true,"smartypants":true},"server":{"port":4000,"log":false,"ip":"0.0.0.0","compress":false,"header":true},"since":2015,"favicon":"/favicon.ico","rss":"default","menu":{"Home":"/","Archives":"/archives/","Tags":"/tags/","Categories":"/categories/"},"color":"Default","toc":true,"fancybox":true,"pjax":true,"copyright":{"enable":true,"license":"<a rel=\"license\" href=\"http://creativecommons.org/licenses/by-nc/4.0/\" target=\"_blank\">知识共享署名-非商业性使用 4.0 国际许可协议</a>"},"reward":{"enable":false,"qrCode":{"wechat":null,"alipay":null}},"social":{"email":"wancaibida@gmail.com","stack-overflow":null,"twitter":null,"facebook":null,"linkedin":null,"google":null,"github":"https://github.com/wancaibida","weibo":null,"zhihu":null,"douban":null,"pocket":null,"tumblr":null,"instagram":null},"leancloud":{"app_id":null,"app_key":null},"baidu_analytics":null,"baidu_verification":null,"google_analytics":"UA-77440077-1","google_verification":null,"disqus_shortname":"w2x-me","changyan":{"appid":null,"appkey":null},"livere_datauid":null,"version":"2.9.0"};
 </script>
 
-    <title> Tomcat传递环境变量 - W2X </title>
+    <title> ShadowsocksX-NG实现白名单模式 - W2X </title>
   </head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
@@ -215,20 +215,14 @@
     <header class="post-header">
       <h1 class="post-title">
         
-          Tomcat传递环境变量
+          ShadowsocksX-NG实现白名单模式
         
       </h1>
 
       <div class="post-meta">
         <span class="post-time">
-          2017-06-13
+          2018-09-04
         </span>
-        
-          <div class="post-category">
-            
-              <a href="/categories/java/">java</a>
-            
-          </div>
         
         
       </div>
@@ -240,14 +234,17 @@
 
     <div class="post-content">
       
-        <ul>
-<li><p>在Tomcat bin目录下新建setenv.sh, 编辑setenv.sh,添加如下语句</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export JAVA_OPTS=&quot;-DKEY1=VALUE1 -DKEY2=VALUE2 -DKEY3=VALUE3&quot;</span><br></pre></td></tr></table></figure>
+        <p>ShadowsocksX-NG <code>Proxy Auto Configure Mode</code>使用的是黑名单模式，默认直连，符合规则的走代理。要实现白名单模式，默认代理，符合规则的直连，有一种hack方法：</p>
+<ul>
+<li><p>找到程序文件夹下的abp.js文件，路径一般为<code>/Applications/ShadowsocksX-NG.app/Contents/Resources/abp.js</code></p>
 </li>
-<li><p>Tomcat启动时会自动加载setenv.sh</p>
+<li><p>修改<code>FindProxyForURL</code>方法，将<code>direct,proxy</code>对调，改成下面代码中的样子</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">function FindProxyForURL(url, host) &#123;</span><br><span class="line">  if (defaultMatcher.matchesAny(url, host) instanceof BlockingFilter) &#123;</span><br><span class="line">    return direct;</span><br><span class="line">  &#125;</span><br><span class="line">  return proxy;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
-<li>通过如下代码中获取环境变量<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">System.getProperty(&quot;KEY1&quot;)</span><br></pre></td></tr></table></figure>
+<li><p>重启程序</p>
 </li>
+<li>修改程序<code>preferences</code>里的<code>GFW List url</code>，改成白名单规则</li>
+<li>然后点击<code>Update PAC from GFW List</code>更新pac文件即可</li>
 </ul>
 
       
@@ -264,7 +261,7 @@
     </p>
     <p class="copyright-item">
       <span>Link: </span>
-      <a href="https://w2x.me/2017/06/13/how-to-set-tomcat-environment-values/">https://w2x.me/2017/06/13/how-to-set-tomcat-environment-values/</a>
+      <a href="https://w2x.me/2018/09/04/ShadowsocksX-NG实现白名单模式/">https://w2x.me/2018/09/04/ShadowsocksX-NG实现白名单模式/</a>
     </p>
     <p class="copyright-item">
       <span>License: </span>
@@ -284,7 +281,7 @@
         
           <div class="post-tags">
             
-              <a href="/tags/tomcat/">tomcat</a>
+              <a href="/tags/ss/">ss</a>
             
           </div>
         
@@ -292,12 +289,12 @@
         
   <nav class="post-nav">
     
-      <a class="prev" href="/2017/06/13/Groovy学习/">
-        <i class="iconfont icon-left"></i>
-        <span class="prev-text nav-default">Groovy学习</span>
-        <span class="prev-text nav-mobile">Prev</span>
-      </a>
     
+      <a class="next" href="/2018/08/16/Groovy-Grails迁移到Kotlin-Spring-Boot的一些研究/">
+        <span class="next-text nav-default">Groovy+Grails迁移到Kotlin+Spring Boot的一些研究</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
     
   </nav>
 
@@ -405,9 +402,9 @@
   
   <script type="text/javascript">
     var disqus_config = function () {
-        this.page.url = 'https://w2x.me/2017/06/13/how-to-set-tomcat-environment-values/';
-        this.page.identifier = '2017/06/13/how-to-set-tomcat-environment-values/';
-        this.page.title = 'Tomcat传递环境变量';
+        this.page.url = 'https://w2x.me/2018/09/04/ShadowsocksX-NG实现白名单模式/';
+        this.page.identifier = '2018/09/04/ShadowsocksX-NG实现白名单模式/';
+        this.page.title = 'ShadowsocksX-NG实现白名单模式';
     };
     (function() {
     var d = document, s = d.createElement('script');
