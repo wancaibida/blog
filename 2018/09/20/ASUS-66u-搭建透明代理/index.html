@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+
+  <meta name="description" content="ASUS 66u 搭建透明代理"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="W2X">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.9.0" />
+
+
+
+<link rel="canonical" href="https://w2x.me/2018/09/20/ASUS-66u-搭建透明代理/"/>
+
+
+
+  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/lib/nprogress/nprogress.min.css" />
+
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.9.0" />
+
+
+
+  
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-77440077-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-77440077-1');
+</script>
+
+
+  <script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+
+
+
+
+
+<script>
+  window.config = {"title":"W2X","subtitle":null,"description":null,"author":"大丈夫没问题","language":"en","timezone":"Asia/ShangHai","url":"https://w2x.me","root":"/","permalink":":year/:month/:day/:title/","permalink_defaults":null,"source_dir":"source","public_dir":"public","tag_dir":"tags","archive_dir":"archives","category_dir":"categories","code_dir":"downloads/code","i18n_dir":":lang","skip_render":null,"new_post_name":":title.md","default_layout":"post","titlecase":false,"external_link":true,"filename_case":0,"render_drafts":false,"post_asset_folder":false,"relative_link":false,"future":true,"highlight":{"enable":true,"auto_detect":false,"line_number":true,"tab_replace":null,"first_line_number":"always1"},"default_category":"uncategorized","category_map":null,"tag_map":null,"date_format":"YYYY-MM-DD","time_format":"HH:mm:ss","per_page":10,"pagination_dir":"page","theme":"even","deploy":{"type":"git","repo":"git@github.com-wancaibida:wancaibida/blog.git","branch":"master","message":"message"},"ignore":[],"feed":{"type":"atom","limit":20,"hub":null,"content":null,"content_limit":140,"content_limit_delim":"","path":"atom.xml"},"archive_generator":{"per_page":10,"yearly":true,"monthly":true,"daily":false},"category_generator":{"per_page":10},"index_generator":{"per_page":10,"order_by":"-date"},"tag_generator":{"per_page":10},"marked":{"gfm":true,"pedantic":false,"sanitize":false,"tables":true,"breaks":true,"smartLists":true,"smartypants":true},"server":{"port":4000,"log":false,"ip":"0.0.0.0","compress":false,"header":true},"since":2015,"favicon":"/favicon.ico","rss":"default","menu":{"Home":"/","Archives":"/archives/","Tags":"/tags/","Categories":"/categories/"},"color":"Default","toc":true,"fancybox":true,"pjax":true,"copyright":{"enable":true,"license":"<a rel=\"license\" href=\"http://creativecommons.org/licenses/by-nc/4.0/\" target=\"_blank\">知识共享署名-非商业性使用 4.0 国际许可协议</a>"},"reward":{"enable":false,"qrCode":{"wechat":null,"alipay":null}},"social":{"email":"wancaibida@gmail.com","stack-overflow":null,"twitter":null,"facebook":null,"linkedin":null,"google":null,"github":"https://github.com/wancaibida","weibo":null,"zhihu":null,"douban":null,"pocket":null,"tumblr":null,"instagram":null},"leancloud":{"app_id":null,"app_key":null},"baidu_analytics":null,"baidu_verification":null,"google_analytics":"UA-77440077-1","google_verification":null,"disqus_shortname":"w2x-me","changyan":{"appid":null,"appkey":null},"livere_datauid":null,"version":"2.9.0"};
+</script>
+
+    <title> ASUS 66u 搭建透明代理 - W2X </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">W2X</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/">
+        <li class="mobile-menu-item">
+          
+          
+            Home
+          
+        </li>
+      </a>
+    
+      <a href="/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            Archives
+          
+        </li>
+      </a>
+    
+      <a href="/tags/">
+        <li class="mobile-menu-item">
+          
+          
+            Tags
+          
+        </li>
+      </a>
+    
+      <a href="/categories/">
+        <li class="mobile-menu-item">
+          
+          
+            Categories
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">W2X</a>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/">
+            
+            
+              Home
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            
+            
+              Archives
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/tags/">
+            
+            
+              Tags
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/categories/">
+            
+            
+              Categories
+            
+          </a>
+        </li>
+      
+    </ul>
+  
+</nav>
+
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          ASUS 66u 搭建透明代理
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-09-20
+        </span>
+        
+          <div class="post-category">
+            
+              <a href="/categories/ss/">ss</a>
+            
+          </div>
+        
+        
+      </div>
+    </header>
+
+    
+    
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#安装软件"><span class="toc-text">安装软件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#配置ss-redir服务"><span class="toc-text">配置ss-redir服务</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#修改配置文件"><span class="toc-text">修改配置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#修改shadowsocks-json"><span class="toc-text">修改shadowsocks.json</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#配置dnsmasq"><span class="toc-text">配置dnsmasq</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#创建配置文件"><span class="toc-text">创建配置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#创建目录"><span class="toc-text">创建目录</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#配置ss-tunnel服务"><span class="toc-text">配置ss-tunnel服务</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#创建开机启动脚本"><span class="toc-text">创建开机启动脚本</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#配置iptables"><span class="toc-text">配置iptables</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#下载chnroute-txt"><span class="toc-text">下载chnroute.txt</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#生成ipset集合"><span class="toc-text">生成ipset集合</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#启动脚本"><span class="toc-text">启动脚本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#停止脚本"><span class="toc-text">停止脚本</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-text">参考</span></a></li></ol>
+    </div>
+  </div>
+
+
+
+    <div class="post-content">
+      
+        <h2 id="安装软件"><a href="#安装软件" class="headerlink" title="安装软件"></a>安装软件</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">/usr/sbin/entware-setup.sh</span><br><span class="line"></span><br><span class="line">opkg install bind-dig</span><br><span class="line">opkg install shadowsocks-libev-ss-redir</span><br><span class="line">opkg install shadowsocks-libev-ss-tunnel</span><br><span class="line">opkg install libc libssp libev libmbedtls libpcre libpthread libsodium haveged zlib libopenssl</span><br><span class="line">opkg install ipset4</span><br><span class="line"></span><br><span class="line">//ac66u only</span><br><span class="line">opkg install iptables</span><br></pre></td></tr></table></figure>
+<h2 id="配置ss-redir服务"><a href="#配置ss-redir服务" class="headerlink" title="配置ss-redir服务"></a>配置ss-redir服务</h2><h3 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h3><ol>
+<li><code>vim /opt/etc/init.d/S22shadowsocks</code></li>
+<li>将<code>ss-local</code>改为<code>ss-redir</code></li>
+<li>添加启动参数<code>-b 0.0.0.0</code></li>
+<li>将<code>ENABLED</code>值改为 <code>yes</code>,变成开机启动</li>
+</ol>
+<h3 id="修改shadowsocks-json"><a href="#修改shadowsocks-json" class="headerlink" title="修改shadowsocks.json"></a>修改<code>shadowsocks.json</code></h3><p>修改服务器IP，端口，加密码方式。</p>
+<h2 id="配置dnsmasq"><a href="#配置dnsmasq" class="headerlink" title="配置dnsmasq"></a>配置dnsmasq</h2><h3 id="创建配置文件"><a href="#创建配置文件" class="headerlink" title="创建配置文件"></a>创建配置文件</h3><ul>
+<li><code>vim /jffs/configs/dnsmasq.conf.add</code></li>
+<li>添加<code>conf-dir=/opt/etc/dnsmasq.d</code></li>
+</ul>
+<h3 id="创建目录"><a href="#创建目录" class="headerlink" title="创建目录"></a>创建目录</h3><ul>
+<li><p><code>mkdir /opt/etc/dnsmasq.d/</code></p>
+</li>
+<li><p>下载规则文件</p>
+</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /opt/etc/dnsmasq.d/</span><br><span class="line">curl -O https://cokebar.github.io/gfwlist2dnsmasq/dnsmasq_gfwlist.conf</span><br></pre></td></tr></table></figure>
+<h2 id="配置ss-tunnel服务"><a href="#配置ss-tunnel服务" class="headerlink" title="配置ss-tunnel服务"></a>配置ss-tunnel服务</h2><p>ss-tunnel主要用于解决dns污染的问题，dnsmasq会将解析请求转发到ss-tunnel</p>
+<h3 id="创建开机启动脚本"><a href="#创建开机启动脚本" class="headerlink" title="创建开机启动脚本"></a>创建开机启动脚本</h3><ul>
+<li>转到目录<code>/jffs/scripts/</code></li>
+<li>创建名为比如<code>start-ss-tunnel.sh</code>文件，内容如下:</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>!/bin/sh</span><br><span class="line"></span><br><span class="line">/opt/bin/ss-tunnel -c /tmp/mnt/onmp/entware/etc/shadowsocks.json -l 5353 -L 8.8.8.8:53 -u &gt; /dev/null 2&gt;&amp;1 &amp;</span><br></pre></td></tr></table></figure>
+<p>创建<code>service-start</code>文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod +x service-start</span><br></pre></td></tr></table></figure></p>
+<p>将<code>/jffs/scripts/start-ss-tunnel.sh</code> 加到<code>service-start</code>中</p>
+<p>至此<code>ss-tunnel</code>就能开机启动了</p>
+<h2 id="配置iptables"><a href="#配置iptables" class="headerlink" title="配置iptables"></a>配置iptables</h2><h3 id="下载chnroute-txt"><a href="#下载chnroute-txt" class="headerlink" title="下载chnroute.txt"></a>下载chnroute.txt</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget -O- &apos;http://ftp.apnic.net/apnic/stats/apnic/delegated-apnic-latest&apos; | awk -F\| &apos;/CN\|ipv4/ &#123; printf(&quot;%s/%d\n&quot;, $4, 32-log($5)/log(2)) &#125;&apos; &gt; /jffs/configs/chnroute.txt</span><br></pre></td></tr></table></figure>
+<h3 id="生成ipset集合"><a href="#生成ipset集合" class="headerlink" title="生成ipset集合"></a>生成ipset集合</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/sh</span><br><span class="line"></span><br><span class="line">wget -O- &apos;http://ftp.apnic.net/apnic/stats/apnic/delegated-apnic-latest&apos; | awk -F\| &apos;/CN\|ipv4/ &#123; printf(&quot;%s/%d\n&quot;, $4, 32-log($5)/log(2)) &#125;&apos; &gt; /jffs/configs/chnroute.txt</span><br><span class="line"></span><br><span class="line">ipset -N chnroute nethash</span><br><span class="line"></span><br><span class="line">for ip in $(cat &apos;/jffs/configs/chnroute.txt&apos;); do</span><br><span class="line">  ipset -A chnroute $ip</span><br><span class="line">done</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">ipset --save &gt; /jffs/configs/ipset.conf</span><br></pre></td></tr></table></figure>
+<p>因为<code>chnroute.txt</code>文件比较大,生成会比较慢,故将生成的ipset保存到<code>ipset.conf</code>中,每次启动时从<code>ipset.conf</code>中导入IP.</p>
+<h3 id="启动脚本"><a href="#启动脚本" class="headerlink" title="启动脚本"></a>启动脚本</h3><p>SS启动脚本<code>ss-up.sh</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/sh</span><br><span class="line"></span><br><span class="line">alias iptables=&apos;/opt/sbin/iptables&apos;</span><br><span class="line"></span><br><span class="line">ipset -R &lt; /jffs/configs/ipset.conf</span><br><span class="line"></span><br><span class="line"># ipset -N chnroute iphash</span><br><span class="line"></span><br><span class="line"># for ip in $(cat &apos;/jffs/scripts/chnroute.txt&apos;); do</span><br><span class="line">#  ipset -A chnroute $ip</span><br><span class="line"># done</span><br><span class="line"></span><br><span class="line">iptables -t nat -N SHADOWSOCKS</span><br><span class="line">iptables -t mangle -N SHADOWSOCKS</span><br><span class="line"></span><br><span class="line"># 直连服务器 IP</span><br><span class="line">iptables -t nat -A SHADOWSOCKS -d [SS-SERVER-IP]/24 -j RETURN</span><br><span class="line"></span><br><span class="line"># 允许连接保留地址</span><br><span class="line">iptables -t nat -A SHADOWSOCKS -d 0.0.0.0/8 -j RETURN</span><br><span class="line">iptables -t nat -A SHADOWSOCKS -d 10.0.0.0/8 -j RETURN</span><br><span class="line">iptables -t nat -A SHADOWSOCKS -d 127.0.0.0/8 -j RETURN</span><br><span class="line">iptables -t nat -A SHADOWSOCKS -d 169.254.0.0/16 -j RETURN</span><br><span class="line">iptables -t nat -A SHADOWSOCKS -d 172.16.0.0/12 -j RETURN</span><br><span class="line">iptables -t nat -A SHADOWSOCKS -d 192.168.0.0/16 -j RETURN</span><br><span class="line">iptables -t nat -A SHADOWSOCKS -d 224.0.0.0/4 -j RETURN</span><br><span class="line">iptables -t nat -A SHADOWSOCKS -d 240.0.0.0/4 -j RETURN</span><br><span class="line"></span><br><span class="line"># 直连中国 IP</span><br><span class="line">iptables -t nat -A SHADOWSOCKS -p tcp -m set --match-set chnroute dst -j RETURN</span><br><span class="line">iptables -t nat -A SHADOWSOCKS -p icmp -m set --match-set chnroute dst -j RETURN</span><br><span class="line"></span><br><span class="line"># 重定向到 ss-redir 端口</span><br><span class="line">iptables -t nat -A SHADOWSOCKS -p tcp -j REDIRECT --to-ports 1080</span><br><span class="line">iptables -t nat -A SHADOWSOCKS -p udp -j REDIRECT --to-ports 1080</span><br><span class="line">iptables -t nat -A OUTPUT -p tcp -j SHADOWSOCKS</span><br><span class="line"></span><br><span class="line"># Apply the rules</span><br><span class="line">iptables -t nat -A PREROUTING -p tcp -j SHADOWSOCKS</span><br><span class="line">iptables -t mangle -A PREROUTING -j SHADOWSOCKS</span><br></pre></td></tr></table></figure></p>
+<p>将其中的<code>SS-SERVER-IP</code>修改成你的服务器地址</p>
+<p>创建<code>post-mount</code>文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod +x post-mount</span><br></pre></td></tr></table></figure>
+<p>将<code>ss-up.sh</code>加入</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>!/bin/sh</span><br><span class="line">/jffs/scripts/ss-up.sh</span><br></pre></td></tr></table></figure>
+<p>经测试只有将启动脚本加入到<code>post-mount</code>中对能开机启动，可能的原因是<code>ss-up.sh</code>中设及到挂载分区的访问。</p>
+<h3 id="停止脚本"><a href="#停止脚本" class="headerlink" title="停止脚本"></a>停止脚本</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/sh</span><br><span class="line">iptables -t nat -D OUTPUT -p icmp -j SHADOWSOCKS</span><br><span class="line">iptables -t nat -D OUTPUT -p tcp -j SHADOWSOCKS</span><br><span class="line">iptables -t nat -F SHADOWSOCKS</span><br><span class="line">iptables -t nat -X SHADOWSOCKS</span><br><span class="line">ipset -X chnroute</span><br></pre></td></tr></table></figure>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://github.com/shadowsocks/shadowsocks-libev/blob/master/doc/ss-nat.asciidoc" target="_blank" rel="noopener">shadowsocks-libev ss-nat</a></li>
+<li><a href="https://github.com/zfl9/ss-tproxy" target="_blank" rel="noopener">另一个ss-nat</a></li>
+<li><a href="https://zhih.me/format-Upan-partition/" target="_blank" rel="noopener">U盘挂载</a></li>
+<li><a href="https://github.com/cokebar/gfwlist2dnsmasq" target="_blank" rel="noopener">gfwlist2dnsmasq</a></li>
+<li><a href="http://www.path8.net/docs/iptables-tutorial_cn/iptables-tutorial-cn-1.1.19.html" target="_blank" rel="noopener">Iptables 指南 1.1.19</a></li>
+<li><a href="https://www.zfl9.com/ss-redir.html" target="_blank" rel="noopener">ss/ssr/v2ray/socks5 透明代理</a></li>
+<li><a href="https://www.shintaku.cc/posts/gfwlist/" target="_blank" rel="noopener">https://www.shintaku.cc/posts/gfwlist/</a></li>
+<li><a href="https://zzz.buzz/zh/gfw/2016/02/16/deploy-shadowsocks-on-routers/" target="_blank" rel="noopener">https://zzz.buzz/zh/gfw/2016/02/16/deploy-shadowsocks-on-routers</a></li>
+<li><a href="https://raw.githubusercontent.com/shadowsocks/luci-app-shadowsocks/master/files/root/usr/bin/ss-rules" target="_blank" rel="noopener">luci-app-shadowsocks</a></li>
+<li><a href="https://blog.bluerain.io/p/SS-Redir-For-Router.html" target="_blank" rel="noopener">https://blog.bluerain.io/p/SS-Redir-For-Router.html</a></li>
+<li><a href="https://github.com/zw963/asuswrt-merlin-transparent-proxy" target="_blank" rel="noopener">transparent proxy base on ss, ipset, iptables, chinadns on asuswrt merlin</a></li>
+<li><a href="https://medium.com/@oliviaqrs/%E5%88%A9%E7%94%A8shadowsocks%E6%89%93%E9%80%A0%E5%B1%80%E5%9F%9F%E7%BD%91%E7%BF%BB%E5%A2%99%E9%80%8F%E6%98%8E%E7%BD%91%E5%85%B3-fb82ccb2f729" target="_blank" rel="noopener">利用shadowsocks打造局域网翻墙透明网关</a></li>
+<li><a href="https://typeblog.net/set-up-shadowsocks-with-iptables-and-ipset-on-archlinux/" target="_blank" rel="noopener">在 ArchLinux 上配置 shadowsocks + iptables + ipset 实现自动分流</a></li>
+<li><a href="https://github.com/RMerl/asuswrt-merlin/wiki/User-scripts" target="_blank" rel="noopener">asuswrt-merlin/wiki/User-scripts</a></li>
+</ul>
+
+      
+    </div>
+
+    
+      
+      
+
+  <div class="post-copyright">
+    <p class="copyright-item">
+      <span>Author: </span>
+      <a href="https://w2x.me">大丈夫没问题</a>
+    </p>
+    <p class="copyright-item">
+      <span>Link: </span>
+      <a href="https://w2x.me/2018/09/20/ASUS-66u-搭建透明代理/">https://w2x.me/2018/09/20/ASUS-66u-搭建透明代理/</a>
+    </p>
+    <p class="copyright-item">
+      <span>License: </span>
+      
+      <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+    </p>
+  </div>
+
+
+
+      
+      
+    
+
+    
+      <footer class="post-footer">
+        
+        
+        
+  <nav class="post-nav">
+    
+    
+      <a class="next" href="/2018/09/04/ShadowsocksX-NG实现白名单模式/">
+        <span class="next-text nav-default">ShadowsocksX-NG实现白名单模式</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+      </footer>
+    
+
+  </article>
+
+
+          </div>
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+      </main>
+
+      <footer id="footer" class="footer">
+
+  <div class="social-links">
+    
+      
+        
+          <a href="mailto:wancaibida@gmail.com" class="iconfont icon-email" title="email"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        
+          <a href="https://github.com/wancaibida" class="iconfont icon-github" title="github"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+    
+    
+      <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    
+  </div>
+
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://hexo.io/">Hexo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    
+    &copy; 
+     
+      2015 - 
+    
+    2018
+
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">大丈夫没问题</span>
+  </span>
+</div>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+  <script type="text/javascript">
+    var disqus_config = function () {
+        this.page.url = 'https://w2x.me/2018/09/20/ASUS-66u-搭建透明代理/';
+        this.page.identifier = '2018/09/20/ASUS-66u-搭建透明代理/';
+        this.page.title = 'ASUS 66u 搭建透明代理';
+    };
+    (function() {
+    var d = document, s = d.createElement('script');
+
+    s.src = '//w2x-me.disqus.com/embed.js';
+
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();  
+  </script>
+
+  
+
+  
+
+
+
+    
+  
+
+
+
+  
+  
+
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/pjax/jquery.pjax.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/nprogress/nprogress.min.js"></script>
+  
+
+
+    <script type="text/javascript" src="/js/src/even.js?v=2.9.0"></script>
+
+  </body>
+</html>
