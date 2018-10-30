@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://w2x.me/"/>
-  <updated>2018-09-20T08:58:44.966Z</updated>
+  <updated>2018-10-30T01:20:43.984Z</updated>
   <id>https://w2x.me/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Groovy JSON处理的一些细节</title>
+    <link href="https://w2x.me/2018/10/30/Groovy%E5%AF%B9JSON%E5%A4%84%E7%90%86%E7%9A%84%E4%B8%80%E4%BA%9B%E7%BB%86%E8%8A%82/"/>
+    <id>https://w2x.me/2018/10/30/Groovy对JSON处理的一些细节/</id>
+    <published>2018-10-30T01:19:00.000Z</published>
+    <updated>2018-10-30T01:20:43.984Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;最近遇到一项目，需要在手机端存储用户数据，实现离线访问。其中用户数据处理的逻辑如下图:&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://www.websequencediagrams.com/cgi-bin/cdraw?lz=dGl0bGUgVXNlciBkYXRhIHV
+      
+    
+    </summary>
+    
+      <category term="java" scheme="https://w2x.me/categories/java/"/>
+    
+    
+      <category term="groovy" scheme="https://w2x.me/tags/groovy/"/>
+    
+      <category term="java" scheme="https://w2x.me/tags/java/"/>
+    
+  </entry>
   
   <entry>
     <title>ASUS 66u 搭建透明代理</title>
@@ -510,29 +536,6 @@
     
     
       <category term="postgresql" scheme="https://w2x.me/tags/postgresql/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Hibernate学习</title>
-    <link href="https://w2x.me/2017/06/13/Hibernate%E5%AD%A6%E4%B9%A0/"/>
-    <id>https://w2x.me/2017/06/13/Hibernate学习/</id>
-    <published>2017-06-13T06:25:00.000Z</published>
-    <updated>2018-01-24T08:02:07.895Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h3 id=&quot;占位符（named-parameters）对order-by无效&quot;&gt;&lt;a href=&quot;#占位符（named-parameters）对order-by无效&quot; class=&quot;headerlink&quot; title=&quot;占位符（named parameters）对order 
-      
-    
-    </summary>
-    
-      <category term="java" scheme="https://w2x.me/categories/java/"/>
-    
-    
-      <category term="hibernate" scheme="https://w2x.me/tags/hibernate/"/>
     
   </entry>
   

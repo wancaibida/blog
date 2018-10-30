@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+
+  <meta name="description" content="Groovy JSON处理的一些细节"/>
+
+
+
+
+  <meta name="keywords" content="groovy, java, W2X" />
+
+
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="W2X">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.9.0" />
+
+
+
+<link rel="canonical" href="https://w2x.me/2018/10/30/Groovy对JSON处理的一些细节/"/>
+
+
+
+  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/lib/nprogress/nprogress.min.css" />
+
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.9.0" />
+
+
+
+  
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-77440077-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-77440077-1');
+</script>
+
+
+  <script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+
+
+
+
+
+<script>
+  window.config = {"title":"W2X","subtitle":null,"description":null,"author":"大丈夫没问题","language":"en","timezone":"Asia/ShangHai","url":"https://w2x.me","root":"/","permalink":":year/:month/:day/:title/","permalink_defaults":null,"source_dir":"source","public_dir":"public","tag_dir":"tags","archive_dir":"archives","category_dir":"categories","code_dir":"downloads/code","i18n_dir":":lang","skip_render":null,"new_post_name":":title.md","default_layout":"post","titlecase":false,"external_link":true,"filename_case":0,"render_drafts":false,"post_asset_folder":false,"relative_link":false,"future":true,"highlight":{"enable":true,"auto_detect":false,"line_number":true,"tab_replace":null},"default_category":"uncategorized","category_map":null,"tag_map":null,"date_format":"YYYY-MM-DD","time_format":"HH:mm:ss","per_page":10,"pagination_dir":"page","theme":"even","deploy":{"type":"git","repo":"git@github.com-wancaibida:wancaibida/blog.git","branch":"master","message":"message"},"ignore":[],"feed":{"type":"atom","limit":20,"hub":null,"content":null,"content_limit":140,"content_limit_delim":"","path":"atom.xml"},"archive_generator":{"per_page":10,"yearly":true,"monthly":true,"daily":false},"category_generator":{"per_page":10},"index_generator":{"per_page":10,"order_by":"-date"},"tag_generator":{"per_page":10},"marked":{"gfm":true,"pedantic":false,"sanitize":false,"tables":true,"breaks":true,"smartLists":true,"smartypants":true},"server":{"port":4000,"log":false,"ip":"0.0.0.0","compress":false,"header":true},"since":2015,"favicon":"/favicon.ico","rss":"default","menu":{"Home":"/","Archives":"/archives/","Tags":"/tags/","Categories":"/categories/"},"color":"Default","toc":true,"fancybox":true,"pjax":true,"copyright":{"enable":true,"license":"<a rel=\"license\" href=\"http://creativecommons.org/licenses/by-nc/4.0/\" target=\"_blank\">知识共享署名-非商业性使用 4.0 国际许可协议</a>"},"reward":{"enable":false,"qrCode":{"wechat":null,"alipay":null}},"social":{"email":"wancaibida@gmail.com","stack-overflow":null,"twitter":null,"facebook":null,"linkedin":null,"google":null,"github":"https://github.com/wancaibida","weibo":null,"zhihu":null,"douban":null,"pocket":null,"tumblr":null,"instagram":null},"leancloud":{"app_id":null,"app_key":null},"baidu_analytics":null,"baidu_verification":null,"google_analytics":"UA-77440077-1","google_verification":null,"disqus_shortname":"w2x-me","changyan":{"appid":null,"appkey":null},"livere_datauid":null,"version":"2.9.0"};
+</script>
+
+    <title> Groovy JSON处理的一些细节 - W2X </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">W2X</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/">
+        <li class="mobile-menu-item">
+          
+          
+            Home
+          
+        </li>
+      </a>
+    
+      <a href="/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            Archives
+          
+        </li>
+      </a>
+    
+      <a href="/tags/">
+        <li class="mobile-menu-item">
+          
+          
+            Tags
+          
+        </li>
+      </a>
+    
+      <a href="/categories/">
+        <li class="mobile-menu-item">
+          
+          
+            Categories
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">W2X</a>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/">
+            
+            
+              Home
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            
+            
+              Archives
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/tags/">
+            
+            
+              Tags
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/categories/">
+            
+            
+              Categories
+            
+          </a>
+        </li>
+      
+    </ul>
+  
+</nav>
+
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          Groovy JSON处理的一些细节
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-10-30
+        </span>
+        
+          <div class="post-category">
+            
+              <a href="/categories/java/">java</a>
+            
+          </div>
+        
+        
+      </div>
+    </header>
+
+    
+    
+
+
+    <div class="post-content">
+      
+        <p>最近遇到一项目，需要在手机端存储用户数据，实现离线访问。其中用户数据处理的逻辑如下图:</p>
+<p><img src="https://www.websequencediagrams.com/cgi-bin/cdraw?lz=dGl0bGUgVXNlciBkYXRhIHVwZGF0ZSBmbG93CgpTZXJ2ZXItPlMzOiBEb3dubG9hZCB1c2VyIGpzb24gZmlsZQAaCgAnBTogRGVzZXJpYWxpemUAHA8gdG8gbWFwACERVQBtBgBTBW1hcACBAwUARhFTAEcOACAIIHRvAHgUMzogVXAAgRsTIHRvIFMzCgo&amp;s=modern-blue" alt="User data flow"></p>
+<ol>
+<li><p>服务端从亚马逊S3上下载用户JSON文本数据库</p>
+</li>
+<li><p>反序列化用户数据</p>
+</li>
+<li><p>更新用户数据</p>
+</li>
+<li><p>将用户数据序列化为JSON文本</p>
+</li>
+<li><p>保存到亚马逊S3上</p>
+</li>
+</ol>
+<p>由于项目设计缺陷，用户所有的数据都存储一个Map对象里，导致Map对象过大，在项目运行过程中出现了内存不足的异常。为了解决内存不足问题，服务端采用了<a href="https://github.com/FasterXML/jackson-docs/wiki/JacksonStreamingApi" target="_blank" rel="noopener">JacksonStreamingApi</a>优化了JSON序列及反序列化步骤，避免将整个用户文件载入到内存中，至此内存不足的异常就再也没有发生。</p>
+<p>其实这里有个问题，如果是用户数据过大，内存不足异常会在步骤3结束后就会发生，为什么偏偏在步骤4序列化为JSON时抛出呢？这里就要说到 Groovy的<a href="http://docs.groovy-lang.org/2.4.3/html/api/groovy/json/internal/LazyMap.html" target="_blank" rel="noopener">LazyMap</a>了。</p>
+<p>LazyMap代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LazyMap</span> <span class="keyword">extends</span> <span class="title">AbstractMap</span>&lt;<span class="title">String</span>, <span class="title">Object</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span> String JDK_MAP_ALTHASHING_SYSPROP = System.getProperty(<span class="string">"jdk.map.althashing.threshold"</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Holds the actual map that will be lazily created. */</span></span><br><span class="line">    <span class="keyword">private</span> Map&lt;String, Object&gt; map;</span><br><span class="line">    <span class="comment">/* The size of the map. */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> size;</span><br><span class="line">    <span class="comment">/* The keys  stored in the map. */</span></span><br><span class="line">    <span class="keyword">private</span> String[] keys;</span><br><span class="line">    <span class="comment">/* The values stored in the map. */</span></span><br><span class="line">    <span class="keyword">private</span> Object[] values;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">LazyMap</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        keys = <span class="keyword">new</span> String[<span class="number">5</span>];</span><br><span class="line">        values = <span class="keyword">new</span> Object[<span class="number">5</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">put</span><span class="params">(String key, Object value)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (map == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; size; i++) &#123;</span><br><span class="line">                String curKey = keys[i];</span><br><span class="line">                <span class="keyword">if</span> ((key == <span class="keyword">null</span> &amp;&amp; curKey == <span class="keyword">null</span>)</span><br><span class="line">                     || (key != <span class="keyword">null</span> &amp;&amp; key.equals(curKey))) &#123;</span><br><span class="line">                    Object val = values[i];</span><br><span class="line">                    keys[i] = key;</span><br><span class="line">                    values[i] = value;</span><br><span class="line">                    <span class="keyword">return</span> val;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            keys[size] = key;</span><br><span class="line">            values[size] = value;</span><br><span class="line">            size++;</span><br><span class="line">            <span class="keyword">if</span> (size == keys.length) &#123;</span><br><span class="line">                keys = grow(keys);</span><br><span class="line">                values = grow(values);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> map.put(key, value);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">get</span><span class="params">(Object key)</span> </span>&#123;</span><br><span class="line">        buildIfNeeded();</span><br><span class="line">        <span class="keyword">return</span> map.get(key);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">buildIfNeeded</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (map == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="comment">// added to avoid hash collision attack</span></span><br><span class="line">            <span class="keyword">if</span> (Sys.is1_8OrLater() || (Sys.is1_7() &amp;&amp; JDK_MAP_ALTHASHING_SYSPROP != <span class="keyword">null</span>)) &#123;</span><br><span class="line">                map = <span class="keyword">new</span> LinkedHashMap&lt;String, Object&gt;(size, <span class="number">0.01f</span>);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                map = <span class="keyword">new</span> TreeMap&lt;String, Object&gt;();</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> index = <span class="number">0</span>; index &lt; size; index++) &#123;</span><br><span class="line">                map.put(keys[index], values[index]);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">this</span>.keys = <span class="keyword">null</span>;</span><br><span class="line">            <span class="keyword">this</span>.values = <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>从代码中可以看出：对于未进行过读操作(get,containsKey等)的LazyMap对象，keys和values分别存在了两个数组中，一旦调用了读取方法，LazyMap会将数组转化成Map对象，就是这一步操作引起了内存占用变化。</p>
+<p>拿大小约为35MB的用户文件测试，反序列化后，内存中LazyMap对象为73MB(line 1)，一旦对对象进行<code>toJson</code>操作(line 2)，内存占用上升到了559MB(line 3)。</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> main(String[] args) &#123;</span><br><span class="line">        File jsonFile = <span class="keyword">new</span> File(<span class="string">'data-format.json'</span>)</span><br><span class="line">        Object obj = <span class="keyword">new</span> JsonSlurper().parse(jsonFile) <span class="comment">// LazyMap here</span></span><br><span class="line">        showSize(obj) <span class="comment">// line 1</span></span><br><span class="line">        JsonOutput.toJson(obj) <span class="comment">// line 2</span></span><br><span class="line">        showSize(obj) <span class="comment">// line 3</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">void</span> showSize(obj) &#123;</span><br><span class="line">        <span class="keyword">def</span> size = ObjectSizeCalculator.getObjectSize(obj) <span class="regexp">/ 1024 /</span> <span class="number">1024</span></span><br><span class="line">        println(<span class="string">"Object memory size is $size MB"</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// output logs:</span></span><br><span class="line">Object memory size is <span class="number">73.51363372802734375</span> MB</span><br><span class="line">Object memory size is <span class="number">559.32244873046875</span> MB</span><br></pre></td></tr></table></figure>
+<p>由于用户数据文件较大且嵌套了多层Map，加之<code>JsonOutput.toJson</code>方法会遍历LazyMap对象所有节点，相当于对所有节点进行了读操作，导致节点中的数组转换成Map对象，最终引起内存不足异常。</p>
+
+      
+    </div>
+
+    
+      
+      
+
+  <div class="post-copyright">
+    <p class="copyright-item">
+      <span>Author: </span>
+      <a href="https://w2x.me">大丈夫没问题</a>
+    </p>
+    <p class="copyright-item">
+      <span>Link: </span>
+      <a href="https://w2x.me/2018/10/30/Groovy对JSON处理的一些细节/">https://w2x.me/2018/10/30/Groovy对JSON处理的一些细节/</a>
+    </p>
+    <p class="copyright-item">
+      <span>License: </span>
+      
+      <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+    </p>
+  </div>
+
+
+
+      
+      
+    
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/groovy/">groovy</a>
+            
+              <a href="/tags/java/">java</a>
+            
+          </div>
+        
+        
+        
+  <nav class="post-nav">
+    
+    
+      <a class="next" href="/2018/09/20/ASUS-66u-搭建透明代理/">
+        <span class="next-text nav-default">ASUS 66u 搭建透明代理</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+      </footer>
+    
+
+  </article>
+
+
+          </div>
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+      </main>
+
+      <footer id="footer" class="footer">
+
+  <div class="social-links">
+    
+      
+        
+          <a href="mailto:wancaibida@gmail.com" class="iconfont icon-email" title="email"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        
+          <a href="https://github.com/wancaibida" class="iconfont icon-github" title="github"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+    
+    
+      <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    
+  </div>
+
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://hexo.io/">Hexo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    
+    &copy; 
+     
+      2015 - 
+    
+    2018
+
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">大丈夫没问题</span>
+  </span>
+</div>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+  <script type="text/javascript">
+    var disqus_config = function () {
+        this.page.url = 'https://w2x.me/2018/10/30/Groovy对JSON处理的一些细节/';
+        this.page.identifier = '2018/10/30/Groovy对JSON处理的一些细节/';
+        this.page.title = 'Groovy JSON处理的一些细节';
+    };
+    (function() {
+    var d = document, s = d.createElement('script');
+
+    s.src = '//w2x-me.disqus.com/embed.js';
+
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();  
+  </script>
+
+  
+
+  
+
+
+
+    
+  
+
+
+
+  
+  
+
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/pjax/jquery.pjax.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/nprogress/nprogress.min.js"></script>
+  
+
+
+    <script type="text/javascript" src="/js/src/even.js?v=2.9.0"></script>
+
+  </body>
+</html>
