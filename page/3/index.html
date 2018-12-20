@@ -92,7 +92,7 @@
 
 
 <script>
-  window.config = {"title":"W2X","subtitle":null,"description":null,"author":"大丈夫没问题","language":"en","timezone":"Asia/ShangHai","url":"https://w2x.me","root":"/","permalink":":year/:month/:day/:title/","permalink_defaults":null,"source_dir":"source","public_dir":"public","tag_dir":"tags","archive_dir":"archives","category_dir":"categories","code_dir":"downloads/code","i18n_dir":":lang","skip_render":null,"new_post_name":":title.md","default_layout":"post","titlecase":false,"external_link":true,"filename_case":0,"render_drafts":false,"post_asset_folder":false,"relative_link":false,"future":true,"highlight":{"enable":true,"auto_detect":false,"line_number":true,"tab_replace":null},"default_category":"uncategorized","category_map":null,"tag_map":null,"date_format":"YYYY-MM-DD","time_format":"HH:mm:ss","per_page":10,"pagination_dir":"page","theme":"even","deploy":{"type":"git","repo":"git@github.com-wancaibida:wancaibida/blog.git","branch":"master","message":"message"},"ignore":[],"feed":{"type":"atom","limit":20,"hub":null,"content":null,"content_limit":140,"content_limit_delim":"","path":"atom.xml"},"archive_generator":{"per_page":10,"yearly":true,"monthly":true,"daily":false},"category_generator":{"per_page":10},"index_generator":{"per_page":10,"order_by":"-date"},"tag_generator":{"per_page":10},"marked":{"gfm":true,"pedantic":false,"sanitize":false,"tables":true,"breaks":true,"smartLists":true,"smartypants":true},"server":{"port":4000,"log":false,"ip":"0.0.0.0","compress":false,"header":true},"since":2015,"favicon":"/favicon.ico","rss":"default","menu":{"Home":"/","Archives":"/archives/","Tags":"/tags/","Categories":"/categories/"},"color":"Default","toc":true,"fancybox":true,"pjax":true,"copyright":{"enable":true,"license":"<a rel=\"license\" href=\"http://creativecommons.org/licenses/by-nc/4.0/\" target=\"_blank\">知识共享署名-非商业性使用 4.0 国际许可协议</a>"},"reward":{"enable":false,"qrCode":{"wechat":null,"alipay":null}},"social":{"email":"wancaibida@gmail.com","stack-overflow":null,"twitter":null,"facebook":null,"linkedin":null,"google":null,"github":"https://github.com/wancaibida","weibo":null,"zhihu":null,"douban":null,"pocket":null,"tumblr":null,"instagram":null},"leancloud":{"app_id":null,"app_key":null},"baidu_analytics":null,"baidu_verification":null,"google_analytics":"UA-77440077-1","google_verification":null,"disqus_shortname":"w2x-me","changyan":{"appid":null,"appkey":null},"livere_datauid":null,"version":"2.9.0"};
+  window.config = {"title":"W2X","subtitle":null,"description":null,"author":"大丈夫没问题","language":"en","timezone":"Asia/ShangHai","url":"https://w2x.me","root":"/","permalink":":year/:month/:day/:title/","permalink_defaults":null,"source_dir":"source","public_dir":"public","tag_dir":"tags","archive_dir":"archives","category_dir":"categories","code_dir":"downloads/code","i18n_dir":":lang","skip_render":null,"new_post_name":":title.md","default_layout":"post","titlecase":false,"external_link":true,"filename_case":0,"render_drafts":false,"post_asset_folder":false,"relative_link":false,"future":true,"highlight":{"enable":true,"auto_detect":false,"line_number":true,"tab_replace":null},"default_category":"uncategorized","category_map":null,"tag_map":null,"date_format":"YYYY-MM-DD","time_format":"HH:mm:ss","per_page":10,"pagination_dir":"page","theme":"even","deploy":{"type":"git","repo":"git@github.com-wancaibida:wancaibida/blog.git","branch":"master","message":"message"},"ignore":[],"feed":{"type":"atom","limit":20,"hub":null,"content":null,"content_limit":140,"content_limit_delim":"","path":"atom.xml"},"archive_generator":{"per_page":10,"yearly":true,"monthly":true,"daily":false},"category_generator":{"per_page":10},"tag_generator":{"per_page":10},"marked":{"gfm":true,"pedantic":false,"sanitize":false,"tables":true,"breaks":true,"smartLists":true,"smartypants":true},"index_generator":{"per_page":10,"order_by":"-date"},"server":{"port":4000,"log":false,"ip":"0.0.0.0","compress":false,"header":true},"since":2015,"favicon":"/favicon.ico","rss":"default","menu":{"Home":"/","Archives":"/archives/","Tags":"/tags/","Categories":"/categories/"},"color":"Default","toc":true,"fancybox":true,"pjax":true,"copyright":{"enable":true,"license":"<a rel=\"license\" href=\"http://creativecommons.org/licenses/by-nc/4.0/\" target=\"_blank\">知识共享署名-非商业性使用 4.0 国际许可协议</a>"},"reward":{"enable":false,"qrCode":{"wechat":null,"alipay":null}},"social":{"email":"wancaibida@gmail.com","stack-overflow":null,"twitter":null,"facebook":null,"linkedin":null,"google":null,"github":"https://github.com/wancaibida","weibo":null,"zhihu":null,"douban":null,"pocket":null,"tumblr":null,"instagram":null},"leancloud":{"app_id":null,"app_key":null},"baidu_analytics":null,"baidu_verification":null,"google_analytics":"UA-77440077-1","google_verification":null,"disqus_shortname":"w2x-me","changyan":{"appid":null,"appkey":null},"livere_datauid":null,"version":"2.9.0"};
 </script>
 
     <title> W2X </title>
@@ -207,6 +207,69 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts">
+    
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          <a class="post-link" href="/2017/06/14/PostgreSQL-JDBC-time类型转换细节/">PostgreSQL JDBC 时间类型存取细节</a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2017-06-14
+        </span>
+        
+          <div class="post-category">
+            
+              <a href="/categories/database/">database</a>
+            
+          </div>
+        
+        
+      </div>
+    </header>
+
+    
+    
+
+
+    <div class="post-content">
+      
+        
+        
+
+        
+          <ul>
+<li>PostgreSQL中默认时区为UTC</li>
+<li>record表中有一类型为Time without timezone的字段event_time</li>
+<li>本机的时区为UTC+8</li>
+</ul>
+<p>现象:</p>
+<ul>
+<li>在页面提交的时间为 15:00:00+0</li>
+<li>到了数据库时间却显示为 23:00:00+0</li>
+<li>查询出来后页面显示的时间是 15:00:00+0</li>
+<li>控制台打印出来的SQL如下:<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">insert into record (id, event_time) values (nextval (&apos;hibernate_sequence&apos;), &apos;23:00:00.000000 +08:00:00&apos;)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>原因:<br>查看源代码,发现在生成insert语句时,JDBC会通过toString方法将Time类型转成String,而问题就出现在Time转String这里,cal对象是取的JVM的默认时区,而JVM默认时区取的应是本机的时区UTC+8<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">public synchronized String toString(Calendar cal, Time x) &#123;</span><br><span class="line">        if(cal == null) &#123;</span><br><span class="line">            cal = this.defaultCal;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        cal.setTime(x);</span><br><span class="line">        this.sbuf.setLength(0);</span><br><span class="line">        appendTime(this.sbuf, cal, cal.get(14) * 1000000);</span><br><span class="line">        if(this.min74) &#123;</span><br><span class="line">            this.appendTimeZone(this.sbuf, cal);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        showString(&quot;time&quot;, cal, x, this.sbuf.toString());</span><br><span class="line">        return this.sbuf.toString();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<p>所以15:00:00+0在调用toString方法后返回值是23:00:00.000000 +08:00:00,但是数据库中event_time类型时Time without timezone,所为23后面的时区信息将会被忽略,最终数据库的时间变成了UTC+0 的23:00:00点</p>
+<p>而将event_time从数据库中查询出来时,又将其当成了UTC+8的23:00:00,换算成UTC+0时间正好是UTC+0 15:00:00</p>
+<p>所以要避免页面时间与数据库时间不统一的办法就是设置JVM的时区<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-Duser.timezone=UTC</span><br></pre></td></tr></table></figure></p>
+
+        
+      
+    </div>
+
+    
+
+    
+
+  </article>
+
     
       
   <article class="post">

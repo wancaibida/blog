@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://w2x.me/"/>
-  <updated>2018-10-30T01:20:43.984Z</updated>
+  <updated>2018-12-20T03:32:47.153Z</updated>
   <id>https://w2x.me/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Debian jessie 安装 docker</title>
+    <link href="https://w2x.me/2018/12/20/Debian-jessie-%E5%AE%89%E8%A3%85-docker/"/>
+    <id>https://w2x.me/2018/12/20/Debian-jessie-安装-docker/</id>
+    <published>2018-12-20T03:31:00.000Z</published>
+    <updated>2018-12-20T03:32:47.153Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class
+      
+    
+    </summary>
+    
+      <category term="linux" scheme="https://w2x.me/categories/linux/"/>
+    
+      <category term="docker" scheme="https://w2x.me/categories/linux/docker/"/>
+    
+    
+      <category term="docker" scheme="https://w2x.me/tags/docker/"/>
+    
+  </entry>
   
   <entry>
     <title>Groovy JSON处理的一些细节</title>
@@ -506,36 +531,6 @@
     
     
       <category term="hpkp" scheme="https://w2x.me/tags/hpkp/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>PostgreSQL JDBC 时间类型存取细节</title>
-    <link href="https://w2x.me/2017/06/14/PostgreSQL-JDBC-time%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2%E7%BB%86%E8%8A%82/"/>
-    <id>https://w2x.me/2017/06/14/PostgreSQL-JDBC-time类型转换细节/</id>
-    <published>2017-06-14T14:58:00.000Z</published>
-    <updated>2018-05-20T02:13:09.833Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;ul&gt;
-&lt;li&gt;PostgreSQL中默认时区为UTC&lt;/li&gt;
-&lt;li&gt;record表中有一类型为Time without timezone的字段event_time&lt;/li&gt;
-&lt;li&gt;本机的时区为UTC+8&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;现象:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;在页
-      
-    
-    </summary>
-    
-      <category term="database" scheme="https://w2x.me/categories/database/"/>
-    
-    
-      <category term="postgresql" scheme="https://w2x.me/tags/postgresql/"/>
     
   </entry>
   
