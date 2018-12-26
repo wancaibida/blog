@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://w2x.me/"/>
-  <updated>2018-12-20T03:32:47.153Z</updated>
+  <updated>2018-12-26T01:30:46.195Z</updated>
   <id>https://w2x.me/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>路由器透明代理</title>
+    <link href="https://w2x.me/2018/12/26/%E8%B7%AF%E7%94%B1%E5%99%A8%E9%80%8F%E6%98%8E%E4%BB%A3%E7%90%86/"/>
+    <id>https://w2x.me/2018/12/26/路由器透明代理/</id>
+    <published>2018-12-26T01:28:00.000Z</published>
+    <updated>2018-12-26T01:30:46.195Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;作为程序员的都知道，现在比较流行的科学上网方式是$$。$$搭建步骤简单，速度快，相比其他的科学上网方式比较轻量。但这种方式也有一些缺点，比如需要在本机安装客户端，维护服务端信息等缺点，路由器透明代理就是为了解决这些问题而诞生的 。&lt;/p&gt;
+&lt;h3 id=&quot;传统科学上网实现方
+      
+    
+    </summary>
+    
+      <category term="linux" scheme="https://w2x.me/categories/linux/"/>
+    
+    
+      <category term="linux" scheme="https://w2x.me/tags/linux/"/>
+    
+  </entry>
   
   <entry>
     <title>Debian jessie 安装 docker</title>
@@ -508,29 +532,6 @@
       <category term="java" scheme="https://w2x.me/tags/java/"/>
     
       <category term="linux" scheme="https://w2x.me/tags/linux/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>HPKP(HTTP Public Key Pinning)详解</title>
-    <link href="https://w2x.me/2017/07/03/HPKP-HTTP-Public-Key-Pinning-%E8%AF%A6%E8%A7%A3/"/>
-    <id>https://w2x.me/2017/07/03/HPKP-HTTP-Public-Key-Pinning-详解/</id>
-    <published>2017-07-03T13:18:00.000Z</published>
-    <updated>2018-01-24T07:57:54.638Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h3 id=&quot;HPKP是什么&quot;&gt;&lt;a href=&quot;#HPKP是什么&quot; class=&quot;headerlink&quot; title=&quot;HPKP是什么&quot;&gt;&lt;/a&gt;HPKP是什么&lt;/h3&gt;&lt;p&gt;HPKP(HTTP Public Key Pinning)又名公钥打孔,可以通过告知客户端将特定的加
-      
-    
-    </summary>
-    
-      <category term="security" scheme="https://w2x.me/categories/security/"/>
-    
-    
-      <category term="hpkp" scheme="https://w2x.me/tags/hpkp/"/>
     
   </entry>
   

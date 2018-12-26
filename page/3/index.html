@@ -92,7 +92,7 @@
 
 
 <script>
-  window.config = {"title":"W2X","subtitle":null,"description":null,"author":"大丈夫没问题","language":"en","timezone":"Asia/ShangHai","url":"https://w2x.me","root":"/","permalink":":year/:month/:day/:title/","permalink_defaults":null,"source_dir":"source","public_dir":"public","tag_dir":"tags","archive_dir":"archives","category_dir":"categories","code_dir":"downloads/code","i18n_dir":":lang","skip_render":null,"new_post_name":":title.md","default_layout":"post","titlecase":false,"external_link":true,"filename_case":0,"render_drafts":false,"post_asset_folder":false,"relative_link":false,"future":true,"highlight":{"enable":true,"auto_detect":false,"line_number":true,"tab_replace":null},"default_category":"uncategorized","category_map":null,"tag_map":null,"date_format":"YYYY-MM-DD","time_format":"HH:mm:ss","per_page":10,"pagination_dir":"page","theme":"even","deploy":{"type":"git","repo":"git@github.com-wancaibida:wancaibida/blog.git","branch":"master","message":"message"},"ignore":[],"feed":{"type":"atom","limit":20,"hub":null,"content":null,"content_limit":140,"content_limit_delim":"","path":"atom.xml"},"archive_generator":{"per_page":10,"yearly":true,"monthly":true,"daily":false},"category_generator":{"per_page":10},"tag_generator":{"per_page":10},"marked":{"gfm":true,"pedantic":false,"sanitize":false,"tables":true,"breaks":true,"smartLists":true,"smartypants":true},"index_generator":{"per_page":10,"order_by":"-date"},"server":{"port":4000,"log":false,"ip":"0.0.0.0","compress":false,"header":true},"since":2015,"favicon":"/favicon.ico","rss":"default","menu":{"Home":"/","Archives":"/archives/","Tags":"/tags/","Categories":"/categories/"},"color":"Default","toc":true,"fancybox":true,"pjax":true,"copyright":{"enable":true,"license":"<a rel=\"license\" href=\"http://creativecommons.org/licenses/by-nc/4.0/\" target=\"_blank\">知识共享署名-非商业性使用 4.0 国际许可协议</a>"},"reward":{"enable":false,"qrCode":{"wechat":null,"alipay":null}},"social":{"email":"wancaibida@gmail.com","stack-overflow":null,"twitter":null,"facebook":null,"linkedin":null,"google":null,"github":"https://github.com/wancaibida","weibo":null,"zhihu":null,"douban":null,"pocket":null,"tumblr":null,"instagram":null},"leancloud":{"app_id":null,"app_key":null},"baidu_analytics":null,"baidu_verification":null,"google_analytics":"UA-77440077-1","google_verification":null,"disqus_shortname":"w2x-me","changyan":{"appid":null,"appkey":null},"livere_datauid":null,"version":"2.9.0"};
+  window.config = {"title":"W2X","subtitle":null,"description":null,"author":"大丈夫没问题","language":"en","timezone":"Asia/ShangHai","url":"https://w2x.me","root":"/","permalink":":year/:month/:day/:title/","permalink_defaults":null,"source_dir":"source","public_dir":"public","tag_dir":"tags","archive_dir":"archives","category_dir":"categories","code_dir":"downloads/code","i18n_dir":":lang","skip_render":null,"new_post_name":":title.md","default_layout":"post","titlecase":false,"external_link":true,"filename_case":0,"render_drafts":false,"post_asset_folder":false,"relative_link":false,"future":true,"highlight":{"enable":true,"auto_detect":false,"line_number":true,"tab_replace":null},"default_category":"uncategorized","category_map":null,"tag_map":null,"date_format":"YYYY-MM-DD","time_format":"HH:mm:ss","per_page":10,"pagination_dir":"page","theme":"even","deploy":{"type":"git","repo":"git@github.com-wancaibida:wancaibida/blog.git","branch":"master","message":"message"},"ignore":[],"feed":{"type":"atom","limit":20,"hub":null,"content":null,"content_limit":140,"content_limit_delim":"","path":"atom.xml"},"category_generator":{"per_page":10},"archive_generator":{"per_page":10,"yearly":true,"monthly":true,"daily":false},"index_generator":{"per_page":10,"order_by":"-date"},"tag_generator":{"per_page":10},"marked":{"gfm":true,"pedantic":false,"sanitize":false,"tables":true,"breaks":true,"smartLists":true,"smartypants":true},"server":{"port":4000,"log":false,"ip":"0.0.0.0","compress":false,"header":true},"since":2015,"favicon":"/favicon.ico","rss":"default","menu":{"Home":"/","Archives":"/archives/","Tags":"/tags/","Categories":"/categories/"},"color":"Default","toc":true,"fancybox":true,"pjax":true,"copyright":{"enable":true,"license":"<a rel=\"license\" href=\"http://creativecommons.org/licenses/by-nc/4.0/\" target=\"_blank\">知识共享署名-非商业性使用 4.0 国际许可协议</a>"},"reward":{"enable":false,"qrCode":{"wechat":null,"alipay":null}},"social":{"email":"wancaibida@gmail.com","stack-overflow":null,"twitter":null,"facebook":null,"linkedin":null,"google":null,"github":"https://github.com/wancaibida","weibo":null,"zhihu":null,"douban":null,"pocket":null,"tumblr":null,"instagram":null},"leancloud":{"app_id":null,"app_key":null},"baidu_analytics":null,"baidu_verification":null,"google_analytics":"UA-77440077-1","google_verification":null,"disqus_shortname":"w2x-me","changyan":{"appid":null,"appkey":null},"livere_datauid":null,"version":"2.9.0"};
 </script>
 
     <title> W2X </title>
@@ -207,6 +207,81 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts">
+    
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          <a class="post-link" href="/2017/07/03/HPKP-HTTP-Public-Key-Pinning-详解/">HPKP(HTTP Public Key Pinning)详解</a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2017-07-03
+        </span>
+        
+          <div class="post-category">
+            
+              <a href="/categories/security/">security</a>
+            
+          </div>
+        
+        
+      </div>
+    </header>
+
+    
+    
+
+
+    <div class="post-content">
+      
+        
+        
+
+        
+          <h3 id="HPKP是什么"><a href="#HPKP是什么" class="headerlink" title="HPKP是什么"></a>HPKP是什么</h3><p>HPKP(HTTP Public Key Pinning)又名公钥打孔,可以通过告知客户端将特定的加密公钥与特定服务器关联,以减少通过伪造证书进行中间人攻击(MITM)的风险.</p>
+<h3 id="HPKP原理"><a href="#HPKP原理" class="headerlink" title="HPKP原理"></a>HPKP原理</h3><p>HPKP是一种首次信任技术,当客户端第一次访问服务器的时候,服务器通过特定的HTTP头来告知客户端哪些公钥是属于它的,客户端会将该信息存储一段时间,当客户端第二次访问服务端的时候,它会期望当前证书链中至少有一个证书的公钥指纹与通过HPKP已知的公钥指纹相匹配,如果没有找到匹配的公钥指纹,客户端应该警告用户.</p>
+<h3 id="生成HPKP"><a href="#生成HPKP" class="headerlink" title="生成HPKP"></a>生成HPKP</h3><p>公钥指纹可以通过openssl命令来成成:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/sh</span><br><span class="line"> </span><br><span class="line">openssl s_client -connect [YOUR_DOMAIN]:443 -showcerts | awk &apos;/-----BEGIN/&#123;f=&quot;cert.&quot;(n++)&#125; f&#123;print&gt;f&#125; /-----END/&#123;f=&quot;&quot;&#125;&apos;</span><br><span class="line"> </span><br><span class="line"> for c in cert.*; do</span><br><span class="line">   openssl x509 &lt;$c -noout -pubkey | openssl rsa -pubin -outform der | openssl dgst -sha256 -binary | openssl enc -base64</span><br><span class="line"> done</span><br></pre></td></tr></table></figure>
+<p>上面的命令会将当前证书链中的所有公钥指纹以base64格式打印出来.</p>
+<p>公钥指纹也可以通过在线网站<a href="https://report-uri.io/home/pkp_hash" target="_blank" rel="noopener">REPORT URI</a>来生成 </p>
+<h3 id="备份密钥-Backup-Key"><a href="#备份密钥-Backup-Key" class="headerlink" title="备份密钥(Backup Key)"></a>备份密钥(Backup Key)</h3><h4 id="什么是备份密钥"><a href="#什么是备份密钥" class="headerlink" title="什么是备份密钥"></a>什么是备份密钥</h4><p>备份密钥是不属于当前证书链的公钥指纹</p>
+<h4 id="为什么要备份密钥"><a href="#为什么要备份密钥" class="headerlink" title="为什么要备份密钥"></a>为什么要备份密钥</h4><p>假设你只对你的子证书(leaf certificate)做了公钥指纹,你发现你的证书私钥被泄露了,这时你不得不更换当前的证书,这时唯一能恢复的办法就是将当前证书切换到备份密钥指向的备份证书.</p>
+<h3 id="其他类似备份密钥的方法"><a href="#其他类似备份密钥的方法" class="headerlink" title="其他类似备份密钥的方法"></a>其他类似备份密钥的方法</h3><p>备份密钥的缺点也很明显,你需要同时支付至少两份证书的钱.</p>
+<p>另一个办法就是你可以拿另一家证书颁发机构(CA)的公钥指纹做为备份密钥,当你要更换证书的时候,你只需要在这家CA申请一份新的证书.当然这么做也有缺点,当这家CA被黑,攻击者可以给自己颁发一份你网站的证书同时又通过你的HPKP验证,应为这份恶意证书也在CA的证书链上.</p>
+<p>MDN上建议网站要有一个备份密钥</p>
+<blockquote>
+<p>HPKP has the potential to lock out users for a long time if used incorrectly! The use of backup certificates and/or pinning the CA certificate is recommended.</p>
+</blockquote>
+<p>但在Chrome(59.0.3071.115)下测试,如果HPKP头不包含备份密钥Chrome将忽略该头.</p>
+<h3 id="添加HPKP头"><a href="#添加HPKP头" class="headerlink" title="添加HPKP头"></a>添加HPKP头</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">response.setHeader(&apos;Public-Key-Pins&apos;, &apos;pin-sha256=&quot;base64+primary==&quot;; pin-sha256=&quot;base64+backup==&quot;; max-age=5184000; includeSubDomains&apos;)</span><br></pre></td></tr></table></figure>
+<p><strong>sha256</strong><br>公钥的哈希值,base64编码</p>
+<p><strong>max-age</strong><br>在浏览器的存储时间</p>
+<p><strong>includeSubDomains</strong><br>对子域名是否有效</p>
+<p><strong>report-uri</strong><br>验证失败后调用的URL(注:必须不同域名)</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>用HPKP的网站比较少,就发现github在用.</p>
+<p>HPKP缺点也很明显:出错的成本太高,当你不得不切换到备份密钥指向的证书时,如果备份密钥配错了而且你只有一个备份密钥,你的网站将会无法被访问,无法访问的时间取决于max-age的值,比如上面的例子max-age配了两个月,那你的用户将在两个月内无法访问你的网站,这后果是灾难性的.</p>
+<p>个人认为HPKP带来的风险大于收益,不建议使用.</p>
+<h3 id="外部链接"><a href="#外部链接" class="headerlink" title="外部链接"></a>外部链接</h3><p><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Public_Key_Pinning" target="_blank" rel="noopener">HTTP Public Key Pinning (HPKP)</a></p>
+<p><a href="https://timtaubert.de/blog/2014/10/http-public-key-pinning-explained/" target="_blank" rel="noopener">HTTP PUBLIC-KEY-PINNING EXPLAINED
+</a></p>
+<p><a href="https://scotthelme.co.uk/guidance-on-setting-up-hpkp/" target="_blank" rel="noopener">Guidance on setting up HPKP
+</a></p>
+<p><a href="https://blog.qualys.com/ssllabs/2016/09/06/is-http-public-key-pinning-dead" target="_blank" rel="noopener">Is HTTP Public Key Pinning Dead?</a></p>
+
+        
+      
+    </div>
+
+    
+
+    
+
+  </article>
+
     
       
   <article class="post">
