@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+
+  <meta name="description" content="路由器相关的一些研究"/>
+
+
+
+
+  <meta name="keywords" content="linux, openwrt, wifi, W2X" />
+
+
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="W2X">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.9.0" />
+
+
+
+<link rel="canonical" href="https://w2x.me/2019/02/26/路由器相关的一些研究/"/>
+
+
+
+  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/lib/nprogress/nprogress.min.css" />
+
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.9.0" />
+
+
+
+  
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-77440077-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-77440077-1');
+</script>
+
+
+  <script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+
+
+
+
+
+<script>
+  window.config = {"title":"W2X","subtitle":null,"description":null,"author":"大丈夫没问题","language":"en","timezone":"Asia/ShangHai","url":"https://w2x.me","root":"/","permalink":":year/:month/:day/:title/","permalink_defaults":null,"source_dir":"source","public_dir":"public","tag_dir":"tags","archive_dir":"archives","category_dir":"categories","code_dir":"downloads/code","i18n_dir":":lang","skip_render":null,"new_post_name":":title.md","default_layout":"post","titlecase":false,"external_link":true,"filename_case":0,"render_drafts":false,"post_asset_folder":false,"relative_link":false,"future":true,"highlight":{"enable":true,"auto_detect":false,"line_number":true,"tab_replace":null},"default_category":"uncategorized","category_map":null,"tag_map":null,"date_format":"YYYY-MM-DD","time_format":"HH:mm:ss","per_page":10,"pagination_dir":"page","theme":"even","deploy":{"type":"git","repo":"git@github.com-wancaibida:wancaibida/blog.git","branch":"master","message":"message"},"ignore":[],"feed":{"type":"atom","limit":20,"hub":null,"content":null,"content_limit":140,"content_limit_delim":"","path":"atom.xml"},"category_generator":{"per_page":10},"archive_generator":{"per_page":10,"yearly":true,"monthly":true,"daily":false},"tag_generator":{"per_page":10},"index_generator":{"per_page":10,"order_by":"-date"},"marked":{"gfm":true,"pedantic":false,"sanitize":false,"tables":true,"breaks":true,"smartLists":true,"smartypants":true},"server":{"port":4000,"log":false,"ip":"0.0.0.0","compress":false,"header":true},"since":2015,"favicon":"/favicon.ico","rss":"default","menu":{"Home":"/","Archives":"/archives/","Tags":"/tags/","Categories":"/categories/"},"color":"Default","toc":true,"fancybox":true,"pjax":true,"copyright":{"enable":true,"license":"<a rel=\"license\" href=\"http://creativecommons.org/licenses/by-nc/4.0/\" target=\"_blank\">知识共享署名-非商业性使用 4.0 国际许可协议</a>"},"reward":{"enable":false,"qrCode":{"wechat":null,"alipay":null}},"social":{"email":"wancaibida@gmail.com","stack-overflow":null,"twitter":null,"facebook":null,"linkedin":null,"google":null,"github":"https://github.com/wancaibida","weibo":null,"zhihu":null,"douban":null,"pocket":null,"tumblr":null,"instagram":null},"leancloud":{"app_id":null,"app_key":null},"baidu_analytics":null,"baidu_verification":null,"google_analytics":"UA-77440077-1","google_verification":null,"disqus_shortname":"w2x-me","changyan":{"appid":null,"appkey":null},"livere_datauid":null,"version":"2.9.0"};
+</script>
+
+    <title> 路由器相关的一些研究 - W2X </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">W2X</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/">
+        <li class="mobile-menu-item">
+          
+          
+            Home
+          
+        </li>
+      </a>
+    
+      <a href="/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            Archives
+          
+        </li>
+      </a>
+    
+      <a href="/tags/">
+        <li class="mobile-menu-item">
+          
+          
+            Tags
+          
+        </li>
+      </a>
+    
+      <a href="/categories/">
+        <li class="mobile-menu-item">
+          
+          
+            Categories
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">W2X</a>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/">
+            
+            
+              Home
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            
+            
+              Archives
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/tags/">
+            
+            
+              Tags
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/categories/">
+            
+            
+              Categories
+            
+          </a>
+        </li>
+      
+    </ul>
+  
+</nav>
+
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          路由器相关的一些研究
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2019-02-26
+        </span>
+        
+          <div class="post-category">
+            
+              <a href="/categories/linux/">linux</a>
+            
+          </div>
+        
+        
+      </div>
+    </header>
+
+    
+    
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#路由器-AP"><span class="toc-text">路由器/AP</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#斐讯K2P"><span class="toc-text">斐讯K2P</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#联想Newifi"><span class="toc-text">联想Newifi</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#友华wr1200js"><span class="toc-text">友华wr1200js</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Openwrt-和-NAT"><span class="toc-text">Openwrt 和 NAT</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MESH网络"><span class="toc-text">MESH网络</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#无线漫游"><span class="toc-text">无线漫游</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-text">参考</span></a></li></ol>
+    </div>
+  </div>
+
+
+
+    <div class="post-content">
+      
+        <p>家中房间里的5G信号不好，每次都得手动切换到2.4G信号，有点麻烦，所以想在房间里弄一台AP，来实现无线无缝漫游，期间做了不少研究，故在此记录一下。</p>
+<h2 id="路由器-AP"><a href="#路由器-AP" class="headerlink" title="路由器/AP"></a>路由器/AP</h2><p>网上看了一圈AP的价格都不便宜，可能是家用AP需求少且大部分是商用的原因，关键还要上POE。论坛好多推荐<code>ubnt</code>的，看了下普通版都要700+rmb。</p>
+<p>千兆路由器好一点的基本是200左右的价格，但这个价位的厂家路由系统比较挫，还不能刷机。在再加点钱都赶上京东618 ac66u b1 499的价格了。 </p>
+<p>那有没有又便宜要好的路由呢，V站好多人都推荐这几款：</p>
+<ul>
+<li>斐讯K2P</li>
+<li>联想Newifi系列</li>
+<li>友华wr1200js</li>
+</ul>
+<h3 id="斐讯K2P"><a href="#斐讯K2P" class="headerlink" title="斐讯K2P"></a>斐讯K2P</h3><p>这个路由器现在都涨到120+了，如果要买的话要买a1版本的。</p>
+<p>优点是做工好，有千兆网口，信号貌似是最好的。</p>
+<p>缺点是现在比较难买，刷机的话要先上恩山论坛网友开发的<a href="https://breed.hackpascal.net/" target="_blank" rel="noopener">breed</a>, breed 就是路由器上的bootloader，breed一开始是基于u-boot的，现在好像是作者自主开发的，但这东西不开源，存在安全风险。固件可以刷padavan，padavan最初是由这个固件<a href="https://bitbucket.org/padavan/rt-n56u" target="_blank" rel="noopener">https://bitbucket.org/padavan/rt-n56u</a>修改过来的，比较有名的是荒野无灯的，但这个也没开源。github上也有基于padavan开源的，不放心的可以拿来自己编译。</p>
+<h3 id="联想Newifi"><a href="#联想Newifi" class="headerlink" title="联想Newifi"></a>联想Newifi</h3><p>联想这边就看了newifi3，这款路由器配置比k2p还要好，价格比k2p还要便宜，某宝的价格才80+，但这款的bootloader被官方锁了，如果要刷第三方固件的话要先越狱，恩山有越狱文件。刷机也是breed+恩山上一大堆网友上传的固件，风险自负，还有一个缺点就是这款信号比较差。</p>
+<h3 id="友华wr1200js"><a href="#友华wr1200js" class="headerlink" title="友华wr1200js"></a>友华wr1200js</h3><p>友华wr1200js配置和k2p差不多，但做工、信号没有k2p好，最终选择了这款，某宝138入手。这款路由器最大的优点是bootloader没有锁，可以直接上传第三方固件！！还有一个是openwrt完美支持，固件<a href="http://downloads.openwrt.org/releases/18.06.2/targets/ramips/mt7621/openwrt-18.06.2-ramips-mt7621-youhua_wr1200js-initramfs-kernel.bin" target="_blank" rel="noopener">下载地址</a>。</p>
+<h2 id="Openwrt-和-NAT"><a href="#Openwrt-和-NAT" class="headerlink" title="Openwrt 和 NAT"></a>Openwrt 和 NAT</h2><p>喜欢路由器刷机的都知道openwrt，路由器刷了openwrt基本上就告别了硬件nat（貌似MT7621是支持的），由路由器CPU来实现nat，由于路由器CPU的性能都比较弱如果再加上一些附带的功能，路由器CPU就有点力不从心了，这是就推荐openwrt x86了。</p>
+<h2 id="MESH网络"><a href="#MESH网络" class="headerlink" title="MESH网络"></a>MESH网络</h2><p>研究了下mesh网络，研究下来一些mesh设备是通过在开一个无线频道来实现组网的，貌似无线组网的效果都不怎么好，要走有线回程才靠谱。</p>
+<p>一些实现方案：</p>
+<ul>
+<li><a href="https://qmp.cat/Home" target="_blank" rel="noopener">qMp</a></li>
+<li><a href="https://openwrt.org/docs/guide-user/network/wifi/mesh/80211s" target="_blank" rel="noopener">wpad</a></li>
+</ul>
+<h2 id="无线漫游"><a href="#无线漫游" class="headerlink" title="无线漫游"></a>无线漫游</h2><p>比较省钱的无线漫游方式就是路由器设置成AP模式，要相同SSID，要隔开几个频道。</p>
+<p>专业的AP都带管理功能的。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://www.v2ex.com/t/339779" target="_blank" rel="noopener">MT7621 路由性能评测</a></p>
+<p><a href="https://www.jianshu.com/p/bbf372fa8f62" target="_blank" rel="noopener">300m，600m还是1200m——读懂无线路由器的速度标称</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/43278913" target="_blank" rel="noopener">如何选购无线路由器？有几个坑一定要避免</a></p>
+
+      
+    </div>
+
+    
+      
+      
+
+  <div class="post-copyright">
+    <p class="copyright-item">
+      <span>Author: </span>
+      <a href="https://w2x.me">大丈夫没问题</a>
+    </p>
+    <p class="copyright-item">
+      <span>Link: </span>
+      <a href="https://w2x.me/2019/02/26/路由器相关的一些研究/">https://w2x.me/2019/02/26/路由器相关的一些研究/</a>
+    </p>
+    <p class="copyright-item">
+      <span>License: </span>
+      
+      <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+    </p>
+  </div>
+
+
+
+      
+      
+    
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/linux/">linux</a>
+            
+              <a href="/tags/openwrt/">openwrt</a>
+            
+              <a href="/tags/wifi/">wifi</a>
+            
+          </div>
+        
+        
+        
+  <nav class="post-nav">
+    
+    
+      <a class="next" href="/2018/12/26/路由器透明代理/">
+        <span class="next-text nav-default">路由器透明代理</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+      </footer>
+    
+
+  </article>
+
+
+          </div>
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+      </main>
+
+      <footer id="footer" class="footer">
+
+  <div class="social-links">
+    
+      
+        
+          <a href="mailto:wancaibida@gmail.com" class="iconfont icon-email" title="email"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        
+          <a href="https://github.com/wancaibida" class="iconfont icon-github" title="github"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+    
+    
+      <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    
+  </div>
+
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://hexo.io/">Hexo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    
+    &copy; 
+     
+      2015 - 
+    
+    2019
+
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">大丈夫没问题</span>
+  </span>
+</div>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+  <script type="text/javascript">
+    var disqus_config = function () {
+        this.page.url = 'https://w2x.me/2019/02/26/路由器相关的一些研究/';
+        this.page.identifier = '2019/02/26/路由器相关的一些研究/';
+        this.page.title = '路由器相关的一些研究';
+    };
+    (function() {
+    var d = document, s = d.createElement('script');
+
+    s.src = '//w2x-me.disqus.com/embed.js';
+
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();  
+  </script>
+
+  
+
+  
+
+
+
+    
+  
+
+
+
+  
+  
+
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/pjax/jquery.pjax.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/nprogress/nprogress.min.js"></script>
+  
+
+
+    <script type="text/javascript" src="/js/src/even.js?v=2.9.0"></script>
+
+  </body>
+</html>

@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://w2x.me/"/>
-  <updated>2018-12-26T01:30:46.195Z</updated>
+  <updated>2019-02-26T04:24:58.228Z</updated>
   <id>https://w2x.me/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>路由器相关的一些研究</title>
+    <link href="https://w2x.me/2019/02/26/%E8%B7%AF%E7%94%B1%E5%99%A8%E7%9B%B8%E5%85%B3%E7%9A%84%E4%B8%80%E4%BA%9B%E7%A0%94%E7%A9%B6/"/>
+    <id>https://w2x.me/2019/02/26/路由器相关的一些研究/</id>
+    <published>2019-02-26T04:24:00.000Z</published>
+    <updated>2019-02-26T04:24:58.228Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;家中房间里的5G信号不好，每次都得手动切换到2.4G信号，有点麻烦，所以想在房间里弄一台AP，来实现无线无缝漫游，期间做了不少研究，故在此记录一下。&lt;/p&gt;
+&lt;h2 id=&quot;路由器-AP&quot;&gt;&lt;a href=&quot;#路由器-AP&quot; class=&quot;headerlink&quot; title
+      
+    
+    </summary>
+    
+      <category term="linux" scheme="https://w2x.me/categories/linux/"/>
+    
+    
+      <category term="linux" scheme="https://w2x.me/tags/linux/"/>
+    
+      <category term="openwrt" scheme="https://w2x.me/tags/openwrt/"/>
+    
+      <category term="wifi" scheme="https://w2x.me/tags/wifi/"/>
+    
+  </entry>
   
   <entry>
     <title>路由器透明代理</title>
@@ -507,31 +535,6 @@
       <category term="spring" scheme="https://w2x.me/tags/spring/"/>
     
       <category term="yaml" scheme="https://w2x.me/tags/yaml/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Linux下启动Java守护进程方法</title>
-    <link href="https://w2x.me/2017/08/06/Linux%E4%B8%8B%E5%90%AF%E5%8A%A8Java%E5%AE%88%E6%8A%A4%E8%BF%9B%E7%A8%8B%E6%96%B9%E6%B3%95/"/>
-    <id>https://w2x.me/2017/08/06/Linux下启动Java守护进程方法/</id>
-    <published>2017-08-06T12:53:00.000Z</published>
-    <updated>2018-01-24T08:00:52.529Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=
-      
-    
-    </summary>
-    
-      <category term="linux" scheme="https://w2x.me/categories/linux/"/>
-    
-    
-      <category term="java" scheme="https://w2x.me/tags/java/"/>
-    
-      <category term="linux" scheme="https://w2x.me/tags/linux/"/>
     
   </entry>
   
