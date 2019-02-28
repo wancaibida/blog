@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://w2x.me/"/>
-  <updated>2019-02-26T04:24:58.228Z</updated>
+  <updated>2019-02-28T01:49:32.208Z</updated>
   <id>https://w2x.me/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>记wr1200js刷机遇到的问题</title>
+    <link href="https://w2x.me/2019/02/27/%E8%AE%B0wr1200js%E5%88%B7%E6%9C%BA%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/"/>
+    <id>https://w2x.me/2019/02/27/记wr1200js刷机遇到的问题/</id>
+    <published>2019-02-27T13:05:00.000Z</published>
+    <updated>2019-02-28T01:49:32.208Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;前几天入手了一台wr1200js路由器，到手后成功刷上了openwrt。但重启后发现路由器的配置都丢失了，连管理密码都丢了，网上好多人刷了openwrt后也遇到这样的问题，有说法是路由器闪存读写次数过多坏了，但这刚买的因该不会是这问题，后来在重新刷了下&lt;a href=&quot;ht
+      
+    
+    </summary>
+    
+      <category term="linux" scheme="https://w2x.me/categories/linux/"/>
+    
+    
+      <category term="linux" scheme="https://w2x.me/tags/linux/"/>
+    
+      <category term="openwrt" scheme="https://w2x.me/tags/openwrt/"/>
+    
+  </entry>
   
   <entry>
     <title>路由器相关的一些研究</title>
@@ -507,34 +532,6 @@
       <category term="docker" scheme="https://w2x.me/tags/docker/"/>
     
       <category term="kubernetes" scheme="https://w2x.me/tags/kubernetes/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Spring Boot YAML配置文件设置字段默认值</title>
-    <link href="https://w2x.me/2017/10/30/Spring-Boot-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E8%AE%BE%E7%BD%AE%E9%BB%98%E8%AE%A4%E5%80%BC/"/>
-    <id>https://w2x.me/2017/10/30/Spring-Boot-配置文件设置默认值/</id>
-    <published>2017-10-30T13:19:00.000Z</published>
-    <updated>2018-01-24T08:02:49.855Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;SpringBoot中application.yaml如何设置配置项默认值一直困扰了我很久,官方文档也没有写如何设置默认值,今天有时间研究了下,发现只要加个冒号就可以了,如&lt;code&gt;${配置名:默认值}&lt;/code&gt;.&lt;/p&gt;
-&lt;h2 id=&quot;application-ym
-      
-    
-    </summary>
-    
-      <category term="java" scheme="https://w2x.me/categories/java/"/>
-    
-    
-      <category term="java" scheme="https://w2x.me/tags/java/"/>
-    
-      <category term="spring" scheme="https://w2x.me/tags/spring/"/>
-    
-      <category term="yaml" scheme="https://w2x.me/tags/yaml/"/>
     
   </entry>
   
