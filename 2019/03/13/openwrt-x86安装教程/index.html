@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+<meta name="theme-color" content="#f8f5ec">
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+
+  <meta name="description" content="openwrt x86安装教程">
+
+
+
+
+  <meta name="keywords" content="linux, openwrt, W2X">
+
+
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="W2X">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.10.2">
+
+
+
+<link rel="canonical" href="https://w2x.me/2019/03/13/openwrt-x86安装教程/">
+
+
+
+  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css">
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/lib/nprogress/nprogress.min.css">
+
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.10.2">
+
+
+
+  
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-77440077-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-77440077-1');
+</script>
+
+
+  <script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+
+
+
+
+
+
+<script>
+  window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":true};
+</script>
+
+    <title> openwrt x86安装教程 - W2X </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">W2X</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/">
+        <li class="mobile-menu-item">
+          
+          
+            Home
+          
+        </li>
+      </a>
+    
+      <a href="/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            Archives
+          
+        </li>
+      </a>
+    
+      <a href="/tags/">
+        <li class="mobile-menu-item">
+          
+          
+            Tags
+          
+        </li>
+      </a>
+    
+      <a href="/categories/">
+        <li class="mobile-menu-item">
+          
+          
+            Categories
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">W2X</a>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/">
+            
+            
+              Home
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            
+            
+              Archives
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/tags/">
+            
+            
+              Tags
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/categories/">
+            
+            
+              Categories
+            
+          </a>
+        </li>
+      
+    </ul>
+  
+</nav>
+
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          openwrt x86安装教程
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2019-03-13
+        </span>
+        
+          <span class="post-category">
+            
+              <a href="/categories/linux/">linux</a>
+            
+          </span>
+        
+        
+      </div>
+    </header>
+
+    
+    
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#镜像下载"><span class="toc-text">镜像下载</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#combined-squashfs-和-combined-ex4-的区别："><span class="toc-text">combined-squashfs 和 combined-ex4 的区别：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#制作linux启动盘"><span class="toc-text">制作linux启动盘</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装镜像"><span class="toc-text">安装镜像</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#分区扩容（可选）"><span class="toc-text">分区扩容（可选）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装应用"><span class="toc-text">安装应用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#一些常见问题"><span class="toc-text">一些常见问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#一些定时任务脚本"><span class="toc-text">一些定时任务脚本</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-text">参考</span></a></li></ol>
+    </div>
+  </div>
+
+
+
+    <div class="post-content">
+      
+        <p>网上Openwrt x86虚拟机安装的教程一大堆，却很少见到非虚拟机的教程，现在正好有机会重新刷机，就顺便把步骤记录一下，免得再次踩坑。</p>
+<h2 id="镜像下载"><a href="#镜像下载" class="headerlink" title="镜像下载"></a>镜像下载</h2><p>第一步就是下载openwrt x86的镜像，这里两个镜像可以选择，带<code>squashfs</code>的刷机后会有一个只读的分区，带<code>ext4</code>的所有分区都是可读写的。本教程是以<code>combined-ex4</code>为例子的。</p>
+<p>下载地址：<a href="https://downloads.openwrt.org/releases/18.06.2/targets/x86/64/openwrt-18.06.2-x86-64-combined-ext4.img.gz" target="_blank" rel="noopener">openwrt-18.06.2-x86-64-combined-ext4.img.gz</a></p>
+<blockquote>
+<h3 id="combined-squashfs-和-combined-ex4-的区别："><a href="#combined-squashfs-和-combined-ex4-的区别：" class="headerlink" title="combined-squashfs 和 combined-ex4 的区别："></a>combined-squashfs 和 combined-ex4 的区别：</h3></blockquote>
+<blockquote>
+<p><strong>combined-squashfs.img.gz</strong> This disk image uses the traditional OpenWrt layout, a squashfs read-only root filesystem and a read-write partition where settings and packages you install are stored. Due to how this image is assembled, you will have only 230-ish MB of space to store additional packages and configuration, and Extroot does not work.</p>
+</blockquote>
+<blockquote>
+<p><strong>combined-ext4.img.gz</strong> This disk image uses a single read-write ext4 partition with no read-only squashfs root filesystem, which allows to enlarge the partition. Features like Failsafe Mode or Factory Reset won’t be available as they need a read-only squashfs partition to function.</p>
+</blockquote>
+<h2 id="制作linux启动盘"><a href="#制作linux启动盘" class="headerlink" title="制作linux启动盘"></a>制作linux启动盘</h2><p>我们需要两个U盘，其中一个就是用来做linux启动盘，这里以<a href="http://www.system-rescue-cd.org/" target="_blank" rel="noopener">SystemRescueCd</a>为例，制作USB启动盘的教程可一参考这里：<a href="http://www.system-rescue-cd.org/Installing-SystemRescueCd-on-a-USB-stick/" target="_blank" rel="noopener">Installing-SystemRescueCd-on-a-USB-stick/</a></p>
+<p>USB启动盘制作好后，将下载下来的openwrt安装包拷贝到另一个U盘。</p>
+<h2 id="安装镜像"><a href="#安装镜像" class="headerlink" title="安装镜像"></a>安装镜像</h2><p>将两个U盘插入软路由，以linux启动盘启动，成功进入系统后执行以下命令将第二个U盘挂载到系统里：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir /mnt/usb</span><br><span class="line">mount /dev/sdx /mnt/usb</span><br></pre></td></tr></table></figure>
+<p>解压并将镜像刷到软路由内存里：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd /mnt/usb</span><br><span class="line">gunzip openwrt-18.06.2-x86-64-combined-ext4.img.gz</span><br><span class="line">dd if=openwrt-18.06.2-x86-64-combined-ext4.img of=/dev/sdX</span><br></pre></td></tr></table></figure>
+<p>其中<code>sdx</code>就是你软路由的安装盘。</p>
+<p>PS：官网里的步骤并没有提到解压这一步骤，实际操作中直接<code>dd</code>的话，openwrt是无法启动的，可能是linux系统的差异。</p>
+<h3 id="分区扩容（可选）"><a href="#分区扩容（可选）" class="headerlink" title="分区扩容（可选）"></a>分区扩容（可选）</h3><p>刷入openwrt后，执行<code>fdisk -l</code>，就会看到软路由的<code>sdx</code>盘被分成了两个分区，你会发现第二个分区只有256M，这里就可以调节第二个分区的大小，将硬盘的剩余容量全部划分到第二个分区：</p>
+<ol>
+<li><code>fdisk -l /dev/sdx</code>将第二个分区的起始扇区号<code>start</code>的值记下来</li>
+<li><code>fdisk /dev/sdx</code> 进入修改硬盘分区信息</li>
+<li>输入<code>d</code>，然后回车</li>
+<li>这里会提示你要删除哪个分区，输入<code>2</code>，然后回车</li>
+<li>输入<code>n</code>，然后回车，选择分区类型<code>primary</code>或<code>extended</code>都可以。</li>
+<li>选择分区后会让你输入分区开始扇区号，这里输入之前记下来的扇区号</li>
+<li>输入<code>w</code>，这时候会提示你<code>Partition #2 contains a ext4 signature. Do you want to remove the signature?</code>，<strong>这一步很重要</strong>，这里要选<code>no</code></li>
+<li>输入<code>w</code>，然后回车</li>
+<li>分区完成后执行<code>resize2fs /dev/sdx2</code>，分区扩容就大功告成了。</li>
+</ol>
+<h2 id="安装应用"><a href="#安装应用" class="headerlink" title="安装应用"></a>安装应用</h2><p>至此重启软路由，从硬盘启动后就可以进入openwrt系统了。这里我们会安装一些应用，但这里有个坑就是应用的安装源是<code>http</code>的，可能会被劫持，所以要修改成https的。先执行以下命令，安装必备的包：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">opkg update</span><br><span class="line">opkg install ca-certificates ca-bundle</span><br><span class="line">opkg install libustream-mbedtls</span><br><span class="line">opkg install git-http curl</span><br></pre></td></tr></table></figure>
+<p>修改源为<code>https</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//将http改为https</span><br><span class="line">vim /etc/opkg/distfeeds.conf</span><br><span class="line">opkg update</span><br><span class="line">//安装一些调试用的软件</span><br><span class="line">opkg install bind-dig</span><br></pre></td></tr></table></figure>
+<h2 id="一些常见问题"><a href="#一些常见问题" class="headerlink" title="一些常见问题"></a>一些常见问题</h2><ol>
+<li><p>Samba添加用户与设置密码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/passwd</span><br><span class="line">smbpasswd -a samba</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>dnsmasq</code>和<code>dnsmasq-full</code>的区别</p>
+<p> <code>dnsmasq-full</code>多了<code>ipset</code>功能</p>
+</li>
+<li><p><code>dnsmqsq --no-resolv</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">--no-resolv</span><br><span class="line">Don&apos;t read /etc/resolv.conf. Get upstream servers only from the command line or the dnsmasq configuration file.</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>ss-tunnel</code> dns解析不了</p>
+<p>一般原因有以下几点：</p>
+<ol>
+<li><p><code>ss-tunnel</code> 未加上<code>-u</code>参数，开启<code>udn relay</code></p>
+</li>
+<li><p><code>ss-server</code> 未加上<code>-u</code>参数，开启<code>udn relay</code></p>
+</li>
+<li><p>服务端未开启端口</p>
+</li>
+</ol>
+<p>调试用的命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">//dnstracer</span><br><span class="line">dnstracer -vo  -s 127.0.0.1 google.com</span><br><span class="line"></span><br><span class="line">//dns测试</span><br><span class="line">dig +trace google.com </span><br><span class="line">// dns请求也可以直接发送给ss-tunnel</span><br><span class="line">dig google.com @127.0.0.1 -p 5353</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>开启<code>ss-rules</code>后域名无法解析</p>
+<p>具体什么原因不是很清楚，可能是<code>iptables</code>对<code>udp</code>转发有点问题，<code>ss-redir for UDP</code>这项打勾去掉即可。</p>
+</li>
+</ol>
+<h2 id="一些定时任务脚本"><a href="#一些定时任务脚本" class="headerlink" title="一些定时任务脚本"></a>一些定时任务脚本</h2><p>写了一些定时<a href="https://github.com/wancaibida/openwrt-scripts" target="_blank" rel="noopener">任务脚本</a>，这里记录一下。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://openwrt.org/docs/guide-user/installation/openwrt_x86" target="_blank" rel="noopener">https://openwrt.org/docs/guide-user/installation/openwrt_x86</a></li>
+<li><a href="http://www.thekelleys.org.uk/dnsmasq/docs/dnsmasq-man.html" target="_blank" rel="noopener">dnsmasq-man.html</a></li>
+<li><a href="https://medium.com/@cnnbysy/openwrt-18-06-1-配置科学上网-30e231958c38" target="_blank" rel="noopener">openwrt 18.06.1 配置科学上网</a></li>
+<li><a href="https://alalin.me/archives/805" target="_blank" rel="noopener">OpenWrt $$ 安装&amp;配置指南</a></li>
+<li><a href="https://icymind.com/learn-from-gfw/" target="_blank" rel="noopener">那些从墙上学会的知识</a></li>
+<li><a href="https://openwrt.org/docs/guide-user/services/nas/samba_configuration" target="_blank" rel="noopener">samba 配置</a></li>
+</ul>
+
+      
+    </div>
+
+    
+      
+      
+
+  <div class="post-copyright">
+    <p class="copyright-item">
+      <span>Author: </span>
+      <a href="https://w2x.me">大丈夫没问题</a>
+    </p>
+    <p class="copyright-item">
+      <span>Link: </span>
+      <a href="https://w2x.me/2019/03/13/openwrt-x86安装教程/">https://w2x.me/2019/03/13/openwrt-x86安装教程/</a>
+    </p>
+    <p class="copyright-item">
+      <span>License: </span>
+      
+      <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+    </p>
+  </div>
+
+
+
+      
+      
+    
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/linux/">linux</a>
+            
+              <a href="/tags/openwrt/">openwrt</a>
+            
+          </div>
+        
+        
+        
+  <nav class="post-nav">
+    
+    
+      <a class="next" href="/2019/02/28/hexo-deploy-git提交历史丢失的解决方法/">
+        <span class="next-text nav-default">hexo-deploy-git提交历史丢失的解决方法</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+
+      </footer>
+    
+
+  </article>
+
+
+          </div>
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+      </main>
+
+      <footer id="footer" class="footer">
+
+  <div class="social-links">
+    
+      
+        
+          <a href="mailto:wancaibida@gmail.com" class="iconfont icon-email" title="email"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        
+          <a href="https://github.com/wancaibida" class="iconfont icon-github" title="github"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+
+    
+      <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    
+  </div>
+
+
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://hexo.io/">Hexo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    
+    &copy; 
+     
+      2015 - 
+    
+    2019
+
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">大丈夫没问题</span>
+  </span>
+</div>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+  <script type="text/javascript">
+    var disqus_config = function () {
+        this.page.url = 'https://w2x.me/2019/03/13/openwrt-x86安装教程/';
+        this.page.identifier = '2019/03/13/openwrt-x86安装教程/';
+        this.page.title = 'openwrt x86安装教程';
+    };
+    (function() {
+    var d = document, s = d.createElement('script');
+
+    s.src = '//w2x-me.disqus.com/embed.js';
+
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();  
+  </script>
+
+  
+
+  
+
+
+
+    
+  
+
+
+
+  
+  
+
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/pjax/jquery.pjax.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/nprogress/nprogress.min.js"></script>
+  
+
+
+    <script type="text/javascript" src="/js/src/even.js?v=2.10.2"></script>
+
+  </body>
+</html>
