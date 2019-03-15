@@ -240,7 +240,7 @@
   <div class="post-toc" id="post-toc">
     <h2 class="post-toc-title">Contents</h2>
     <div class="post-toc-content">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#镜像下载"><span class="toc-text">镜像下载</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#combined-squashfs-和-combined-ex4-的区别："><span class="toc-text">combined-squashfs 和 combined-ex4 的区别：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#制作linux启动盘"><span class="toc-text">制作linux启动盘</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装镜像"><span class="toc-text">安装镜像</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#分区扩容（可选）"><span class="toc-text">分区扩容（可选）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装应用"><span class="toc-text">安装应用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#一些常见问题"><span class="toc-text">一些常见问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#一些定时任务脚本"><span class="toc-text">一些定时任务脚本</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-text">参考</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#镜像下载"><span class="toc-text">镜像下载</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#combined-squashfs-和-combined-ex4-的区别："><span class="toc-text">combined-squashfs 和 combined-ex4 的区别：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#制作linux启动盘"><span class="toc-text">制作linux启动盘</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装镜像"><span class="toc-text">安装镜像</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#分区扩容（可选）"><span class="toc-text">分区扩容（可选）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#系统配置"><span class="toc-text">系统配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#应用安装"><span class="toc-text">应用安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#一些常见问题"><span class="toc-text">一些常见问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#一些定时任务脚本"><span class="toc-text">一些定时任务脚本</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-text">参考</span></a></li></ol>
     </div>
   </div>
 
@@ -279,7 +279,13 @@
 <li>输入<code>w</code>，然后回车</li>
 <li>分区完成后执行<code>resize2fs /dev/sdx2</code>，分区扩容就大功告成了。</li>
 </ol>
-<h2 id="安装应用"><a href="#安装应用" class="headerlink" title="安装应用"></a>安装应用</h2><p>至此重启软路由，从硬盘启动后就可以进入openwrt系统了。这里我们会安装一些应用，但这里有个坑就是应用的安装源是<code>http</code>的，可能会被劫持，所以要修改成https的。先执行以下命令，安装必备的包：</p>
+<h2 id="系统配置"><a href="#系统配置" class="headerlink" title="系统配置"></a>系统配置</h2><ul>
+<li>重启进入Openwrt系统后，系统会开放一个lan口，将网线接入这个lan口后就可以通过<code>192.168.1.1</code>来访问路由器管理界面了。</li>
+<li>进入管理界面后需要设置管理员密码，同时你可以上传<code>ssh key</code>，免得每次<code>ssh</code>都需要输入密码。</li>
+<li>在<code>interfaces</code>页面，<code>LAN</code>标签页面，在<code>Physical settings</code>-&gt;<code>Interface</code>你可以修改路由的lan口，将另外几个没开放的lan口都勾选。</li>
+<li>在<code>WAN</code>标签页面，<code>Protocol</code>选择<code>PPPoE</code>，输入宽带密码，<code>save and apply</code>就可以上网了。</li>
+</ul>
+<h2 id="应用安装"><a href="#应用安装" class="headerlink" title="应用安装"></a>应用安装</h2><p>我们会安装一些应用，但这里有个坑就是应用的安装源是<code>http</code>的，可能会被劫持，所以要修改成https的。先执行以下命令，安装必备的包：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">opkg update</span><br><span class="line">opkg install ca-certificates ca-bundle</span><br><span class="line">opkg install libustream-mbedtls</span><br><span class="line">opkg install git-http curl</span><br></pre></td></tr></table></figure>
 <p>修改源为<code>https</code></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//将http改为https</span><br><span class="line">vim /etc/opkg/distfeeds.conf</span><br><span class="line">opkg update</span><br><span class="line">//安装一些调试用的软件</span><br><span class="line">opkg install bind-dig</span><br></pre></td></tr></table></figure>
