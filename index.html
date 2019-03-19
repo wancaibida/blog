@@ -216,6 +216,59 @@
     <header class="post-header">
       <h1 class="post-title">
         
+          <a class="post-link" href="/2019/03/19/AWS-S3-Permissions-on-the-destination-queue-do-not-allow-S3-to-publish-notifications-from-this-bucket-问题的解决方法/">AWS S3 'Permissions on the destination queue do not allow S3 to publish notifications from this bucket' 问题的解决方法</a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2019-03-20
+        </span>
+        
+          <span class="post-category">
+            
+              <a href="/categories/linux/">linux</a>
+            
+          </span>
+        
+        
+      </div>
+    </header>
+
+    
+    
+
+
+    <div class="post-content">
+      
+        
+        
+
+        
+          <p>在AWS平台给S3配置发送存储事件到SQS时遇到了如下错误提示：</p>
+<blockquote>
+<p> Unable to validate the following destination configurations. Permissions on the destination queue do not allow S3 to publish notifications from this bucket.</p>
+</blockquote>
+<p>在IAM那里捣鼓了半天，给S3加上了SQS相关的权限后依然提示错误信息。 正当毫无头绪的时发现SQS有个<code>Permission</code>标签，在这里配置相关权限后就可以解决错误提示了。</p>
+<p><img src="http://static.w2x.me/63817F26122AE59511F30628B2EB41A2.jpg" alt="Image"></p>
+<p>原来SQS默认是不接受发送过来的事件的，印象当中之前是不需要配置的，也不知道这功能是啥时候加上去的，感觉AWS的权限系统有时太复杂了。。。</p>
+
+        
+      
+    </div>
+
+    
+
+    
+
+  </article>
+
+      
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
           <a class="post-link" href="/2019/03/13/openwrt-x86安装教程/">Openwrt x86安装教程</a>
         
       </h1>
@@ -922,96 +975,6 @@
 <li>修改程序<code>preferences</code>里的<code>GFW List url</code>，改成白名单规则</li>
 <li>然后点击<code>Update PAC from GFW List</code>更新pac文件即可</li>
 </ul>
-
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-      
-        
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2018/08/16/Groovy-Grails迁移到Kotlin-Spring-Boot的一些研究/">Groovy+Grails迁移到Kotlin+Spring Boot的一些研究</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2018-08-16
-        </span>
-        
-          <span class="post-category">
-            
-              <a href="/categories/java/">java</a>
-            
-          </span>
-        
-        
-      </div>
-    </header>
-
-    
-    
-
-
-    <div class="post-content">
-      
-        
-        
-
-        
-          <p>Kotlin是静态语言，可以运行在JVM上且与java百分百可互操作。自从Google将Kotlin正式做为Android开发的语言后，Kotlin的一下子就火了起来。Kotlin不仅可以做为Android的首选开发语言，而且它也非常适合服务端的开发。</p>
-<h2 id="为什么选择Kotlin"><a href="#为什么选择Kotlin" class="headerlink" title="为什么选择Kotlin"></a>为什么选择Kotlin</h2><h3 id="与Java百分百可互操作groovy-grails-to-kotlin-springbootgroovy-grails-to-kotlin-springboot"><a href="#与Java百分百可互操作groovy-grails-to-kotlin-springbootgroovy-grails-to-kotlin-springboot" class="headerlink" title="与Java百分百可互操作groovy-grails-to-kotlin-springbootgroovy-grails-to-kotlin-springboot"></a>与Java百分百可互操作groovy-grails-to-kotlin-springbootgroovy-grails-to-kotlin-springboot</h3><p>Kotlin可以使用JVM平台上的任何库与框架，Kotlin编写的代码也可以供Java调用</p>
-<h3 id="简洁"><a href="#简洁" class="headerlink" title="简洁"></a>简洁</h3><p>Kotlin的代码非常简洁:</p>
-<h4 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h4><p>变量声明：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">val a: Int = 1  // immediate assignment</span><br><span class="line">val b = 2   // `Int` type is inferred</span><br><span class="line">val c: Int  // Type required when no initializer is provided</span><br><span class="line">c = 3       // deferred assignment</span><br></pre></td></tr></table></figure>
-<p>可变变量：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var x = 5 // `Int` type is inferred</span><br><span class="line">x += 1</span><br></pre></td></tr></table></figure>
-<p>可空值与不可空值：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">val s: String? = null //May be null</span><br><span class="line">val s2: String = &quot;&quot; //May not be null</span><br></pre></td></tr></table></figure>
-<h4 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">fun sum(a: Int, b: Int): Int &#123;</span><br><span class="line">    return a + b</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//Function with an expression body and inferred return type:</span><br><span class="line">fun sum(a: Int, b: Int) = a + b</span><br></pre></td></tr></table></figure>
-<p>扩展函数</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">fun String.lastChar(): Char = this.get(this.length - 1)</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; println(&quot;Kotlin&quot;.lastChar())</span><br><span class="line">n</span><br></pre></td></tr></table></figure>
-<p>infix函数</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">infix fun Any.to(other: Any) = Pair(this, other)</span><br><span class="line"></span><br><span class="line">val (number, name) = 1 to &quot;one&quot;</span><br></pre></td></tr></table></figure>
-<h4 id="类"><a href="#类" class="headerlink" title="类"></a>类</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">class Greeter(val name: String) &#123;</span><br><span class="line">   fun greet() &#123; </span><br><span class="line">      println(&quot;Hello, $name&quot;)</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fun main(args: Array&lt;String&gt;) &#123;</span><br><span class="line">    val greeter = Greeter(&quot;John&quot;)</span><br><span class="line">    greeter.greet()</span><br><span class="line">    println(greeter.name)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>数据类（data class）</p>
-<p>自带equals hashcode tostring copy等方法</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data class User(val name: String, val age: Int)</span><br></pre></td></tr></table></figure>
-<h3 id="DSL-Domain-specific-language"><a href="#DSL-Domain-specific-language" class="headerlink" title="DSL(Domain-specific language)"></a>DSL(Domain-specific language)</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">open class Tag(val name: String) &#123;</span><br><span class="line">    private val children = mutableListOf&lt;Tag&gt;()</span><br><span class="line"></span><br><span class="line">    protected fun &lt;T : Tag&gt; doInit(child: T, init: T.() -&gt; Unit) &#123;</span><br><span class="line">        child.init()</span><br><span class="line">        children.add(child)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    override fun toString() = &quot;&lt;$name&gt;$&#123;children.joinToString(&quot;&quot;)&#125;&lt;/$name&gt;&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class TABLE : Tag(&quot;table&quot;) &#123;</span><br><span class="line">    fun tr(init: TR.() -&gt; Unit) = doInit(TR(), init)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class TR : Tag(&quot;tr&quot;) &#123;</span><br><span class="line">    fun td(init: TD.() -&gt; Unit) = doInit(TD(), init)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class TD : Tag(&quot;td&quot;)</span><br><span class="line"></span><br><span class="line">fun table(init: TABLE.() -&gt; Unit) = TABLE().apply(init)</span><br><span class="line"></span><br><span class="line">fun createTable() = table &#123;</span><br><span class="line">    tr &#123;</span><br><span class="line">        td &#123;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; println(createTable())</span><br><span class="line">&lt;table&gt;&lt;tr&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;</span><br></pre></td></tr></table></figure>
-<h3 id="空安全"><a href="#空安全" class="headerlink" title="空安全"></a>空安全</h3><p>空安全(null safe)可以说是kotlin杀手级的特性了,它能排除一切空指针的可能，让你写出更安全的代码。</p>
-<p>如下面这段代码会直接编译不通过：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var output: String</span><br><span class="line">output = null   // Compilation error</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">val name: String? = null    // Nullable type</span><br><span class="line">println(name.length())      // Compilation error</span><br></pre></td></tr></table></figure>
-<p>自动类型转换：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">fun calculateTotal(obj: Any) &#123;</span><br><span class="line">    if (obj is Invoice)</span><br><span class="line">        obj.calculateTotal()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="静态类型-Statically-Typed"><a href="#静态类型-Statically-Typed" class="headerlink" title="静态类型(Statically Typed)"></a>静态类型(Statically Typed)</h3><p>动态语言是一把双刃剑，groovy的代码非常简洁，弥补了java语言太啰嗦的缺点，同时groovy的闭包也非常好，正因为如此我们选择了groovy。但时做为动态语言，许多行为是在代码运行时才会确定，编译错误在写代码时无法检测到，除非加上<code>@TypeChecked</code>注解。</p>
-<p>Kotlin的代码非常简洁，更重要的是它是静态类型语言，能检测到编译错误，减少了代码中潜在的问题。</p>
-<h2 id="为什么选择Spring-Boot"><a href="#为什么选择Spring-Boot" class="headerlink" title="为什么选择Spring Boot"></a>为什么选择Spring Boot</h2><ul>
-<li>从2015年初开始，Sring Boot的热度就超过了Grails,可参考:<a href="https://insights.stackoverflow.com/trends?tags=grails%2Cspring-boot" target="_blank" rel="noopener">Grails &amp;&amp; Spring Boot Stack Overflow Trends</a></li>
-<li>Grails 2.x版本有上千个插件，但升级到Grails 3.x之后，这些插件就不再被支持，更糟糕的是没有人将这些插件迁移到Grails 3.x，Grails 3.x现在只有244个插件。</li>
-<li>尽管Grails 3是基于Spring Boot的，但其自身也带来了些奇怪的bug, 有时候解决框架bug的时间甚至超过了使用框架节省的时间。</li>
-</ul>
-<h2 id="Kotlin-Spring-Boot的一些不足"><a href="#Kotlin-Spring-Boot的一些不足" class="headerlink" title="Kotlin+Spring Boot的一些不足"></a>Kotlin+Spring Boot的一些不足</h2><h3 id="没有Gorm查询"><a href="#没有Gorm查询" class="headerlink" title="没有Gorm查询"></a>没有Gorm查询</h3><p>Grails框架的最大亮点是Gorm：动态方法和DSL查询:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">//will be translated to hql automatically</span><br><span class="line">def person = Person.findByFirstName(&apos;xxx&apos;)</span><br><span class="line">equals:</span><br><span class="line">&quot;FROM Person WHERE firstname = ?&quot;</span><br><span class="line"></span><br><span class="line">Person.withCretia &#123;</span><br><span class="line"> or &#123;</span><br><span class="line">      ilike(&apos;name&apos;,&apos;%j%&apos;)</span><br><span class="line">      gte(&apos;age&apos;,22)</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br><span class="line">equals:</span><br><span class="line">&quot;FROM person WHERE name ilike ? OR age &gt;= ?&quot;</span><br></pre></td></tr></table></figure>
-<p>在Spring Boot中你只能自己写查询语句或者使用类似<a href="https://docs.spring.io/spring-data/jpa/docs/2.0.8.RELEASE/reference/html/#core.extensions" target="_blank" rel="noopener">spring data jpa query dsl</a>插件:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">internal interface TodoRepository : Repository&lt;Todo, Long&gt; &#123;</span><br><span class="line"></span><br><span class="line">    fun findFirst3ByTitleOrderByTitleAsc(title: String): List&lt;Todo&gt;</span><br><span class="line"></span><br><span class="line">    fun findTop3ByTitleOrderByTitleAsc(title: String): List&lt;Todo&gt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="数据库迁移（Database-Migration）"><a href="#数据库迁移（Database-Migration）" class="headerlink" title="数据库迁移（Database Migration）"></a>数据库迁移（Database Migration）</h3><p>Grails 的<a href="https://plugins.grails.org/plugin/grails/database-migration" target="_blank" rel="noopener">database migration</a>在数据库表结构和数据迁移两方面都非常强，它可以对比项目中的实体和数据库表来自动生成表结构修改语句，同时你可以写sql来完成数据迁移。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">changeSet(author: &quot;xxx (generated)&quot;, id: &quot;1521527665533-1&quot;) &#123;</span><br><span class="line">        addColumn(tableName: &quot;staff&quot;) &#123;</span><br><span class="line">            column(name: &quot;date_created&quot;, type: &quot;TIMESTAMP WITHOUT TIME ZONE&quot;) &#123;</span><br><span class="line">                constraints(nullable: &quot;true&quot;)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">changeSet(author: &quot;xxxx&quot;, id: &quot;1521528248&quot;) &#123;</span><br><span class="line">        grailsChange &#123;</span><br><span class="line">            change &#123;</span><br><span class="line">                sql.execute(&apos;&apos;&apos;</span><br><span class="line">                            UPDATE staff</span><br><span class="line">                            SET date_created = now()</span><br><span class="line">                         &apos;&apos;&apos;)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<p>而在Spring Boot方面，数据库迁移插件有flyway和liquibase,两者各有千秋，flyway在数据迁移上比较强，但缺少自动生成表结构修改语句功能。liquibase正好相反，它有自动生成表结构修改语句功能，但在写数据迁移sql方面比较弱。</p>
-<h3 id="表单校验"><a href="#表单校验" class="headerlink" title="表单校验"></a>表单校验</h3><p>在自定义校验方法上Grails非常方便，只需要一个闭句就可以了：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">class User &#123;</span><br><span class="line">    String name</span><br><span class="line">    static constraints = &#123;</span><br><span class="line">        name unique: true, validator: &#123; val, obj -&gt;</span><br><span class="line"></span><br><span class="line">            if (!val.matches(&apos;[A-Z0-9-]+&apos;)) &#123;</span><br><span class="line">                return &apos;acronym.format.error&apos;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            true</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>而在Spring Boot方面比如用hiberate validator你需要定义类，定义注解，写很多代码来实现自定义校验。</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>在项目开发速度上，Groovy+Grails上占优，如果时间比较紧的话，Groovy+Grails会是一个不错的选择，它能在较短时间内做出项目。如果你需要一个bug少，更稳定的项目或者你的项目用不到Gorm的话，你可以选择Kotlin+Spring Boot.</p>
-<p>简而言之，100分做为满分的话，Groovy+Grails能在最短的时间内达到80分，而要达到90甚至95分的话，选择Kotlin+Spring Boot无疑。</p>
 
         
       

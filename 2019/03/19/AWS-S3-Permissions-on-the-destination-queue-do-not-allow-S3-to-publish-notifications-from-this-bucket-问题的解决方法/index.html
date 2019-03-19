@@ -17,8 +17,12 @@
 
 
 
+  <meta name="description" content="AWS S3 'Permissions on the destination queue do not allow S3 to publish notifications from this bucket' 问题的解决方法">
 
 
+
+
+  <meta name="keywords" content="aws, linux, W2X">
 
 
 
@@ -38,7 +42,7 @@
 
 
 
-<link rel="canonical" href="https://w2x.me/archives/2017/06/">
+<link rel="canonical" href="https://w2x.me/2019/03/19/AWS-S3-Permissions-on-the-destination-queue-do-not-allow-S3-to-publish-notifications-from-this-bucket-问题的解决方法/">
 
 
 
@@ -96,11 +100,7 @@
   window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":true};
 </script>
 
-    <title>
-  
-    Archives - W2X
-  
-</title>
+    <title> AWS S3 'Permissions on the destination queue do not allow S3 to publish notifications from this bucket' 问题的解决方法 - W2X </title>
   </head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
@@ -212,119 +212,116 @@
           <div id="content" class="content">
             
   
-  
-  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          AWS S3 'Permissions on the destination queue do not allow S3 to publish notifications from this bucket' 问题的解决方法
+        
+      </h1>
 
-  <section id="archive" class="archive">
-    
-      
-        <div class="archive-title">
-          <span class="archive-post-counter">
-            30 Posts In Total
+      <div class="post-meta">
+        <span class="post-time">
+          2019-03-20
+        </span>
+        
+          <span class="post-category">
+            
+              <a href="/categories/linux/">linux</a>
+            
           </span>
-        </div>
+        
+        
+      </div>
+    </header>
+
+    
+    
+
+
+    <div class="post-content">
+      
+        <p>在AWS平台给S3配置发送存储事件到SQS时遇到了如下错误提示：</p>
+<blockquote>
+<p> Unable to validate the following destination configurations. Permissions on the destination queue do not allow S3 to publish notifications from this bucket.</p>
+</blockquote>
+<p>在IAM那里捣鼓了半天，给S3加上了SQS相关的权限后依然提示错误信息。 正当毫无头绪的时发现SQS有个<code>Permission</code>标签，在这里配置相关权限后就可以解决错误提示了。</p>
+<p><img src="http://static.w2x.me/63817F26122AE59511F30628B2EB41A2.jpg" alt="Image"></p>
+<p>原来SQS默认是不接受发送过来的事件的，印象当中之前是不需要配置的，也不知道这功能是啥时候加上去的，感觉AWS的权限系统有时太复杂了。。。</p>
+
+      
+    </div>
+
+    
+      
+      
+
+  <div class="post-copyright">
+    <p class="copyright-item">
+      <span>Author: </span>
+      <a href="https://w2x.me">大丈夫没问题</a>
+    </p>
+    <p class="copyright-item">
+      <span>Link: </span>
+      <a href="https://w2x.me/2019/03/19/AWS-S3-Permissions-on-the-destination-queue-do-not-allow-S3-to-publish-notifications-from-this-bucket-问题的解决方法/">https://w2x.me/2019/03/19/AWS-S3-Permissions-on-the-destination-queue-do-not-allow-S3-to-publish-notifications-from-this-bucket-问题的解决方法/</a>
+    </p>
+    <p class="copyright-item">
+      <span>License: </span>
+      
+      <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+    </p>
+  </div>
+
+
+
+      
       
     
 
     
-      
+      <footer class="post-footer">
         
-        
-
-        
-          
-          <div class="collection-title">
-            <h2 class="archive-year">2017</h2>
+          <div class="post-tags">
+            
+              <a href="/tags/aws/">aws</a>
+            
+              <a href="/tags/linux/">linux</a>
+            
           </div>
         
-      
-
-      <div class="archive-post">
-        <span class="archive-post-time">
-          
-            06-14
-          
-        </span>
-        <span class="archive-post-title">
-          <a href="/2017/06/14/PostgreSQL-JDBC-time类型转换细节/" class="archive-post-link">
-            PostgreSQL JDBC 时间类型存取细节
-          </a>
-        </span>
-      </div>
+        
+        
+  <nav class="post-nav">
     
-      
-        
-        
-
-        
-      
-
-      <div class="archive-post">
-        <span class="archive-post-time">
-          
-            06-13
-          
-        </span>
-        <span class="archive-post-title">
-          <a href="/2017/06/13/Hibernate学习/" class="archive-post-link">
-            Hibernate学习
-          </a>
-        </span>
-      </div>
     
-      
-        
-        
-
-        
-      
-
-      <div class="archive-post">
-        <span class="archive-post-time">
-          
-            06-13
-          
-        </span>
-        <span class="archive-post-title">
-          <a href="/2017/06/13/Groovy学习/" class="archive-post-link">
-            Groovy学习
-          </a>
-        </span>
-      </div>
-    
-      
-        
-        
-
-        
-      
-
-      <div class="archive-post">
-        <span class="archive-post-time">
-          
-            06-13
-          
-        </span>
-        <span class="archive-post-title">
-          <a href="/2017/06/13/how-to-set-tomcat-environment-values/" class="archive-post-link">
-            Tomcat传递环境变量
-          </a>
-        </span>
-      </div>
-    
-  </section>
-
-  
-  <nav class="pagination">
-    
+      <a class="next" href="/2019/03/13/openwrt-x86安装教程/">
+        <span class="next-text nav-default">Openwrt x86安装教程</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
     
   </nav>
 
 
+      </footer>
+    
+
+  </article>
 
 
           </div>
           
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
 
         </div>
       </main>
@@ -408,6 +405,27 @@
     </div>
 
     
+  
+  <script type="text/javascript">
+    var disqus_config = function () {
+        this.page.url = 'https://w2x.me/2019/03/19/AWS-S3-Permissions-on-the-destination-queue-do-not-allow-S3-to-publish-notifications-from-this-bucket-问题的解决方法/';
+        this.page.identifier = '2019/03/19/AWS-S3-Permissions-on-the-destination-queue-do-not-allow-S3-to-publish-notifications-from-this-bucket-问题的解决方法/';
+        this.page.title = 'AWS S3 'Permissions on the destination queue do not allow S3 to publish notifications from this bucket' 问题的解决方法';
+    };
+    (function() {
+    var d = document, s = d.createElement('script');
+
+    s.src = '//w2x-me.disqus.com/embed.js';
+
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();  
+  </script>
+
+  
+
+  
+
 
 
     
