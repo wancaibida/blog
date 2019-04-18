@@ -216,6 +216,63 @@
     <header class="post-header">
       <h1 class="post-title">
         
+          <a class="post-link" href="/2019/04/18/Spring-Boot连接MongoDB/">Spring Boot连接MongoDB</a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2019-04-18
+        </span>
+        
+          <span class="post-category">
+            
+              <a href="/categories/java/">java</a>
+            
+          </span>
+        
+        
+      </div>
+    </header>
+
+    
+    
+
+
+    <div class="post-content">
+      
+        
+        
+
+        
+          <p>最近在做的项目用到了Mongo DB，发现在开启用户认证的情况下，用URI的方式连接总是提示认证失败，只有在分别设置了<code>username ,password , database</code>等字段才能连接成功。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">spring:</span><br><span class="line">    data:</span><br><span class="line">        mongodb:</span><br><span class="line">            authentication-database: $&#123;MONGODB_AUTHENTICATION_DATABASE:admin&#125;</span><br><span class="line">            username: $&#123;MONGODB_USERNAME:username&#125;</span><br><span class="line">            password: $&#123;MONGODB_PASSWORD:password&#125;</span><br><span class="line">            database: $&#123;MONGODB_DATABASE:database&#125;</span><br></pre></td></tr></table></figure>
+<p>之前一直认为Spring Boot连接Mongo DB的方式和连JDBC差不多，今天抽空研究了下，发现URI中的数据库名其实是存储用户认证信息的数据库，实际数据库要通过<code>database</code>设定：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">spring:</span><br><span class="line">    data:</span><br><span class="line">        mongodb:</span><br><span class="line">            database: $&#123;MONGODB_DATABASE:database&#125;</span><br><span class="line">            uri: $&#123;MONGODB_URI:mongodb://username:password@localhost:27017/authentication_database&#125;</span><br></pre></td></tr></table></figure>
+<p><a href="https://docs.mongodb.com/manual/reference/connection-string/" target="_blank" rel="noopener">官方文档</a>：</p>
+<blockquote>
+<p>/database</p>
+</blockquote>
+<blockquote>
+<p>Optional. The name of the database to authenticate if the connection string includes authentication credentials in the form of <code>username:password@</code>. If <code>/database</code> is not specified and the connection string includes credentials, the driver will authenticate to the <code>admin</code> database. See also <a href="https://docs.mongodb.com/manual/reference/connection-string/#urioption.authSource" target="_blank" rel="noopener"><code>authSource</code></a>.</p>
+</blockquote>
+
+        
+      
+    </div>
+
+    
+
+    
+
+  </article>
+
+      
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
           <a class="post-link" href="/2019/03/19/AWS-S3-Permissions-on-the-destination-queue-do-not-allow-S3-to-publish-notifications-from-this-bucket-问题的解决方法/">AWS S3 'Permissions on the destination queue do not allow S3 to publish notifications from this bucket' 问题的解决方法</a>
         
       </h1>
@@ -922,58 +979,6 @@
 <li><a href="https://medium.com/@oliviaqrs/%E5%88%A9%E7%94%A8shadowsocks%E6%89%93%E9%80%A0%E5%B1%80%E5%9F%9F%E7%BD%91%E7%BF%BB%E5%A2%99%E9%80%8F%E6%98%8E%E7%BD%91%E5%85%B3-fb82ccb2f729" target="_blank" rel="noopener">利用shadowsocks打造局域网翻墙透明网关</a></li>
 <li><a href="https://typeblog.net/set-up-shadowsocks-with-iptables-and-ipset-on-archlinux/" target="_blank" rel="noopener">在 ArchLinux 上配置 shadowsocks + iptables + ipset 实现自动分流</a></li>
 <li><a href="https://github.com/RMerl/asuswrt-merlin/wiki/User-scripts" target="_blank" rel="noopener">asuswrt-merlin/wiki/User-scripts</a></li>
-</ul>
-
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-      
-        
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2018/09/04/ShadowsocksX-NG实现白名单模式/">ShadowsocksX-NG实现白名单模式</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2018-09-04
-        </span>
-        
-        
-      </div>
-    </header>
-
-    
-    
-
-
-    <div class="post-content">
-      
-        
-        
-
-        
-          <p>ShadowsocksX-NG <code>Proxy Auto Configure Mode</code>使用的是黑名单模式，默认直连，符合规则的走代理。要实现白名单模式，默认代理，符合规则的直连，有一种hack方法：</p>
-<ul>
-<li><p>找到程序文件夹下的abp.js文件，路径一般为<code>/Applications/ShadowsocksX-NG.app/Contents/Resources/abp.js</code></p>
-</li>
-<li><p>修改<code>FindProxyForURL</code>方法，将<code>direct,proxy</code>对调，改成下面代码中的样子</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">function FindProxyForURL(url, host) &#123;</span><br><span class="line">  if (defaultMatcher.matchesAny(url, host) instanceof BlockingFilter) &#123;</span><br><span class="line">    return direct;</span><br><span class="line">  &#125;</span><br><span class="line">  return proxy;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>重启程序</p>
-</li>
-<li>修改程序<code>preferences</code>里的<code>GFW List url</code>，改成白名单规则</li>
-<li>然后点击<code>Update PAC from GFW List</code>更新pac文件即可</li>
 </ul>
 
         
