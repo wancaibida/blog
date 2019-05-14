@@ -248,7 +248,7 @@
           <p>Manjaro从地址栏访问samba共享的方式总有点问题，会时不时提示没有文件夹修改权限。最近有时间研究了下，发现命令行挂载的方式比较靠谱。</p>
 <p>由于路由器刷的是<code>openwrt</code>，软件源里安装的samba服务端版本似乎是比较老的版本，<code>manjaro</code>命令行挂载似乎用的是较新的samba协议，调了半天发现客户端这边要加下版本号。</p>
 <p>挂载命令：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo mount.cifs //192.168.1.1/share0 /mnt/share0 -o user=xxxx,pass=xxxx,uid=1000,gid=1000,sec=ntlmssp,vers=1.0 --verbose</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd /mnt</span><br><span class="line">sudo mkdir share0</span><br><span class="line">sudo mount.cifs //192.168.1.1/share0 /mnt/share0 -o user=SAMBA_USERNAME,pass=SAMBA_PASSWORD,uid=1000,gid=1000,sec=ntlmssp,vers=1.0 --verbose</span><br></pre></td></tr></table></figure>
 <p>命令行挂载调通后，要实现开机自动挂载就容易的多了，官方文档提供的多种的挂载方式，这里以<code>systemd</code>为例：</p>
 <ol>
 <li>在<code>/etc/samba/</code>下建立<code>credentials</code>文件夹：<code>sudo mkdir credentials</code>，创建比如名为<code>share0</code>的文件： <code>sudo vim share0</code>，内容如下：</li>
