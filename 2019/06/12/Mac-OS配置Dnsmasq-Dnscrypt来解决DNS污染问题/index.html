@@ -17,12 +17,12 @@
 
 
 
-  <meta name="description" content="Manjaro自动挂载samba文件夹">
+  <meta name="description" content="Mac OS配置Dnsmasq+Dnscrypt来解决DNS污染问题">
 
 
 
 
-  <meta name="keywords" content="samba, manjaro, W2X">
+  <meta name="keywords" content="linux, mac, dnsmasq, dns, W2X">
 
 
 
@@ -42,7 +42,7 @@
 
 
 
-<link rel="canonical" href="https://w2x.me/2019/05/04/Manjaro自动挂载samba文件夹/">
+<link rel="canonical" href="https://w2x.me/2019/06/12/Mac-OS配置Dnsmasq-Dnscrypt来解决DNS污染问题/">
 
 
 
@@ -100,7 +100,7 @@
   window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":true};
 </script>
 
-    <title> Manjaro自动挂载samba文件夹 - W2X </title>
+    <title> Mac OS配置Dnsmasq+Dnscrypt来解决DNS污染问题 - W2X </title>
   </head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
@@ -216,13 +216,13 @@
     <header class="post-header">
       <h1 class="post-title">
         
-          Manjaro自动挂载samba文件夹
+          Mac OS配置Dnsmasq+Dnscrypt来解决DNS污染问题
         
       </h1>
 
       <div class="post-meta">
         <span class="post-time">
-          2019-05-04
+          2019-06-12
         </span>
         
           <span class="post-category">
@@ -237,31 +237,28 @@
 
     
     
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#安装"><span class="toc-text">安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#配置"><span class="toc-text">配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Dnsmasq"><span class="toc-text">Dnsmasq</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#编辑配置文件"><span class="toc-text">编辑配置文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#国内域名文件"><span class="toc-text">国内域名文件</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Dnscrypt"><span class="toc-text">Dnscrypt</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#启动服务"><span class="toc-text">启动服务</span></a></li></ol>
+    </div>
+  </div>
+
 
 
     <div class="post-content">
       
-        <p>Manjaro从地址栏访问samba共享的方式总有点问题，会时不时提示没有文件夹修改权限。最近有时间研究了下，发现命令行挂载的方式比较靠谱。</p>
-<p>由于路由器刷的是<code>openwrt</code>，软件源里安装的samba服务端版本似乎是比较老的版本，<code>manjaro</code>命令行挂载似乎用的是较新的samba协议，调了半天发现客户端这边要加下版本号。</p>
-<p>挂载命令：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd /mnt</span><br><span class="line">sudo mkdir share0</span><br><span class="line">sudo mount.cifs //192.168.1.1/share0 /mnt/share0 -o user=SAMBA_USERNAME,pass=SAMBA_PASSWORD,uid=1000,gid=1000,sec=ntlmssp,vers=1.0 --verbose</span><br></pre></td></tr></table></figure>
-<p>命令行挂载调通后，要实现开机自动挂载就容易的多了，官方文档提供的多种的挂载方式，这里以<code>systemd</code>为例：</p>
-<ol>
-<li>在<code>/etc/samba/</code>下建立<code>credentials</code>文件夹：<code>sudo mkdir credentials</code>，创建比如名为<code>share0</code>的文件： <code>sudo vim share0</code>，内容如下：</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">username=your samba username</span><br><span class="line">password=your samba password</span><br></pre></td></tr></table></figure>
-<ol start="2">
-<li><p>创建systemd unit文件：<code>sudo /etc/systemd/system/mnt-share0.mount</code>，内容如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=Mount Share at boot</span><br><span class="line"></span><br><span class="line">[Mount]</span><br><span class="line">What=//192.168.1.1/share0</span><br><span class="line">Where=/mnt/share0</span><br><span class="line">Options=x-systemd.automount,credentials=/etc/samba/credentials/share0,iocharset=utf8,uid=1000,gid=1000,sec=ntlmssp,vers=1.0,rw</span><br><span class="line">Type=cifs</span><br><span class="line">TimeoutSec=30</span><br><span class="line">ForceUnmount=true</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
-<p>Note：这里有一点要注意的是你的挂载路径（<code>where</code>）必须与你的文件名（<code>mnt-share0</code>）对应，比如你挂载到<code>/mnt/share</code>， 那你的文件就必须为<code>mnt-share0.mount</code></p>
-</li>
-<li><p>启用服务<code>sudo systemctl enable mnt-share0.mount</code></p>
-</li>
-<li>启动服务<code>sudo systemctl start mnt-share0.mount</code></li>
-</ol>
-<p>到这里samba文件夹就能开机自动挂载，官方还提供了其他的自动挂载方式，详情可参考文档。</p>
-<p>参考：</p>
-<p><a href="https://wiki.archlinux.org/index.php/samba#As_systemd_unit" target="_blank" rel="noopener"><a href="https://wiki.archlinux.org/index.php/samba#As_systemd_unit" target="_blank" rel="noopener">https://wiki.archlinux.org/index.php/samba#As_systemd_unit</a></a></p>
+        <p>天朝的网络是越来越糟糕了，前阵子访问amazon s3域名居然返回了<code>127.0.0.1</code>。与其天天更新DNS列表，不如直接上DNS白名单模式了。</p>
+<p>解决方案就是用<code>Dnsmasq+Dnscrypt</code>，<code>Dnsmasq</code>负责监听本地53端口，解析国内域名，将除了国内域名以外的解析请求转发到<code>Dnscrypt</code>监听的端口，<code>Dnscrypt</code>就收到的DNS解析请求转发到国外的DNS服务器。</p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">brew install dnsmasq</span><br><span class="line">brew install dnscrypt-proxy</span><br></pre></td></tr></table></figure>
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><h3 id="Dnsmasq"><a href="#Dnsmasq" class="headerlink" title="Dnsmasq"></a>Dnsmasq</h3><h4 id="编辑配置文件"><a href="#编辑配置文件" class="headerlink" title="编辑配置文件"></a>编辑配置文件</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">vim /usr/local/etc/dnsmasq.conf</span><br><span class="line"></span><br><span class="line">no-resolv</span><br><span class="line">conf-dir=/usr/local/etc/dnsmasq.d</span><br><span class="line">server=127.0.0.1#5300</span><br></pre></td></tr></table></figure>
+<p>dnsmasq会将DNS解析请求转发到dnscrypt监听的5300端口</p>
+<h4 id="国内域名文件"><a href="#国内域名文件" class="headerlink" title="国内域名文件"></a>国内域名文件</h4><p>执行下面脚本将中国域名DNS信息保存到dnsmasq文件夹<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/sh</span><br><span class="line"></span><br><span class="line">/usr/bin/curl -o /usr/local/etc/dnsmasq.d/accelerated-domains.china.conf https://raw.githubusercontent.com/felixonmars/dnsmasq-china-list/master/accelerated-domains.china.conf</span><br></pre></td></tr></table></figure></p>
+<p>这里用的是电信的DNS服务器，如果你是联通的网络，你可以执行下面的脚本将配置文件中的DNS服务器换成联通的<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed -i -e &apos;s/114.114.114.114/221.6.4.66/g&apos; /usr/local/etc/dnsmasq.d/accelerated-domains.china.conf</span><br></pre></td></tr></table></figure></p>
+<h3 id="Dnscrypt"><a href="#Dnscrypt" class="headerlink" title="Dnscrypt"></a>Dnscrypt</h3><p>Dnscryp配置 <code>vim /usr/local/etc/dnscrypt-proxy.toml</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">listen_addresses = [&apos;127.0.0.1:5300&apos;, &apos;[::1]:5300&apos;]</span><br><span class="line">fallback_resolver = &apos;221.6.4.66:53&apos;</span><br><span class="line">server_names = [&apos;google&apos;, &apos;cloudflare&apos;, &apos;cloudflare-ipv6&apos;]</span><br></pre></td></tr></table></figure></p>
+<p>这里本来想配5353端口的，但发现这个端口被chrome占用了。</p>
+<h2 id="启动服务"><a href="#启动服务" class="headerlink" title="启动服务"></a>启动服务</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo brew services restart dnsmasq</span><br><span class="line">sudo brew services restart dnscrypt-proxy</span><br></pre></td></tr></table></figure>
+<p>重启后将本机DNS指向127.0.0.1即可。</p>
 
       
     </div>
@@ -277,7 +274,7 @@
     </p>
     <p class="copyright-item">
       <span>Link: </span>
-      <a href="https://w2x.me/2019/05/04/Manjaro自动挂载samba文件夹/">https://w2x.me/2019/05/04/Manjaro自动挂载samba文件夹/</a>
+      <a href="https://w2x.me/2019/06/12/Mac-OS配置Dnsmasq-Dnscrypt来解决DNS污染问题/">https://w2x.me/2019/06/12/Mac-OS配置Dnsmasq-Dnscrypt来解决DNS污染问题/</a>
     </p>
     <p class="copyright-item">
       <span>License: </span>
@@ -297,9 +294,13 @@
         
           <div class="post-tags">
             
-              <a href="/tags/samba/">samba</a>
+              <a href="/tags/linux/">linux</a>
             
-              <a href="/tags/manjaro/">manjaro</a>
+              <a href="/tags/mac/">mac</a>
+            
+              <a href="/tags/dnsmasq/">dnsmasq</a>
+            
+              <a href="/tags/dns/">dns</a>
             
           </div>
         
@@ -307,15 +308,9 @@
         
   <nav class="post-nav">
     
-      <a class="prev" href="/2019/06/12/Mac-OS配置Dnsmasq-Dnscrypt来解决DNS污染问题/">
-        <i class="iconfont icon-left"></i>
-        <span class="prev-text nav-default">Mac OS配置Dnsmasq+Dnscrypt来解决DNS污染问题</span>
-        <span class="prev-text nav-mobile">Prev</span>
-      </a>
     
-    
-      <a class="next" href="/2019/04/23/AWS-Lambda-自定义VPC/">
-        <span class="next-text nav-default">AWS Lambda 自定义VPC</span>
+      <a class="next" href="/2019/05/04/Manjaro自动挂载samba文件夹/">
+        <span class="next-text nav-default">Manjaro自动挂载samba文件夹</span>
         <span class="prev-text nav-mobile">Next</span>
         <i class="iconfont icon-right"></i>
       </a>
@@ -428,9 +423,9 @@
   
   <script type="text/javascript">
     var disqus_config = function () {
-        this.page.url = 'https://w2x.me/2019/05/04/Manjaro自动挂载samba文件夹/';
-        this.page.identifier = '2019/05/04/Manjaro自动挂载samba文件夹/';
-        this.page.title = 'Manjaro自动挂载samba文件夹';
+        this.page.url = 'https://w2x.me/2019/06/12/Mac-OS配置Dnsmasq-Dnscrypt来解决DNS污染问题/';
+        this.page.identifier = '2019/06/12/Mac-OS配置Dnsmasq-Dnscrypt来解决DNS污染问题/';
+        this.page.title = 'Mac OS配置Dnsmasq+Dnscrypt来解决DNS污染问题';
     };
     (function() {
     var d = document, s = d.createElement('script');
