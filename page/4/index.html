@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head><meta name="generator" content="Hexo 3.8.0">
+  <head><meta name="generator" content="Hexo 3.9.0">
     
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -210,6 +210,52 @@
   
   <section id="posts" class="posts">
     
+      
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          <a class="post-link" href="/2017/08/06/Linux下启动Java守护进程方法/">Linux下启动Java守护进程方法</a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2017-08-06
+        </span>
+        
+          <span class="post-category">
+            
+              <a href="/categories/linux/">linux</a>
+            
+          </span>
+        
+        
+      </div>
+    </header>
+
+    
+    
+
+
+    <div class="post-content">
+      
+        
+        
+
+        
+          <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/sh</span></span><br><span class="line"></span><br><span class="line">DESC=<span class="string">"Java Service"</span></span><br><span class="line">NAME=java-service</span><br><span class="line">PIDFILE=/tmp/<span class="variable">$NAME</span>.pid</span><br><span class="line">PATH_TO_JAR=~/java-service.jar</span><br><span class="line">PATH_TO_JAVA=/usr/<span class="built_in">local</span>/jdk1.8.0_131/bin/java</span><br><span class="line">SERVICE_CONFIG=<span class="string">'-Dserver.port=8080 -DLOG_PATH=/var/log'</span></span><br><span class="line">COMMAND=<span class="string">"<span class="variable">$PATH_TO_JAVA</span> -- <span class="variable">$SERVICE_CONFIG</span> -jar <span class="variable">$PATH_TO_JAR</span>"</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">d_start</span></span>() &#123;</span><br><span class="line">    start-stop-daemon --start --quiet --background --make-pidfile --pidfile <span class="variable">$PIDFILE</span>  --<span class="built_in">exec</span> <span class="variable">$COMMAND</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">d_stop</span></span>() &#123;</span><br><span class="line">    start-stop-daemon --stop --quiet --pidfile <span class="variable">$PIDFILE</span></span><br><span class="line">    <span class="keyword">if</span> [ -e <span class="variable">$PIDFILE</span> ]</span><br><span class="line">        <span class="keyword">then</span> rm <span class="variable">$PIDFILE</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">case</span> <span class="variable">$1</span> <span class="keyword">in</span></span><br><span class="line">    start)</span><br><span class="line">    <span class="built_in">echo</span> -n <span class="string">"Starting <span class="variable">$DESC</span>: <span class="variable">$NAME</span>"</span></span><br><span class="line">    d_start</span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"."</span></span><br><span class="line">    ;;</span><br><span class="line">    stop)</span><br><span class="line">    <span class="built_in">echo</span> -n <span class="string">"Stopping <span class="variable">$DESC</span>: <span class="variable">$NAME</span>"</span></span><br><span class="line">    d_stop</span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"."</span></span><br><span class="line">    ;;</span><br><span class="line">    restart)</span><br><span class="line">    <span class="built_in">echo</span> -n <span class="string">"Restarting <span class="variable">$DESC</span>: <span class="variable">$NAME</span>"</span></span><br><span class="line">    d_stop</span><br><span class="line">    sleep 1</span><br><span class="line">    d_start</span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"."</span></span><br><span class="line">    ;;</span><br><span class="line">    *)</span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"usage: <span class="variable">$NAME</span> &#123;start|stop|restart&#125;"</span></span><br><span class="line">    <span class="built_in">exit</span> 1</span><br><span class="line">    ;;</span><br><span class="line"><span class="keyword">esac</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">exit</span> 0</span><br></pre></td></tr></table></figure>
+        
+      
+    </div>
+
+    
+
+    
+
+  </article>
+
       
         
   <article class="post">

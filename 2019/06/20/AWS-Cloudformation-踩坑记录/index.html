@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><meta name="generator" content="Hexo 3.9.0">
+    
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+<meta name="theme-color" content="#f8f5ec">
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+
+  <meta name="description" content="AWS Cloudformation 踩坑记录">
+
+
+
+
+  <meta name="keywords" content="aws, cloudformation, mustache, W2X">
+
+
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="W2X">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.10.2">
+
+
+
+<link rel="canonical" href="https://w2x.me/2019/06/20/AWS-Cloudformation-踩坑记录/">
+
+
+
+  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css">
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/lib/nprogress/nprogress.min.css">
+
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.10.2">
+
+
+
+  
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-77440077-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-77440077-1');
+</script>
+
+
+  <script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+
+
+
+
+
+
+<script>
+  window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":true};
+</script>
+
+    <title> AWS Cloudformation 踩坑记录 - W2X </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">W2X</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/">
+        <li class="mobile-menu-item">
+          
+          
+            Home
+          
+        </li>
+      </a>
+    
+      <a href="/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            Archives
+          
+        </li>
+      </a>
+    
+      <a href="/tags/">
+        <li class="mobile-menu-item">
+          
+          
+            Tags
+          
+        </li>
+      </a>
+    
+      <a href="/categories/">
+        <li class="mobile-menu-item">
+          
+          
+            Categories
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">W2X</a>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/">
+            
+            
+              Home
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            
+            
+              Archives
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/tags/">
+            
+            
+              Tags
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/categories/">
+            
+            
+              Categories
+            
+          </a>
+        </li>
+      
+    </ul>
+  
+</nav>
+
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          AWS Cloudformation 踩坑记录
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2019-06-20
+        </span>
+        
+          <span class="post-category">
+            
+              <a href="/categories/linux/">linux</a>
+            
+          </span>
+        
+        
+      </div>
+    </header>
+
+    
+    
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Conditions变量无法直接当布尔类型使用"><span class="toc-text">Conditions变量无法直接当布尔类型使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#aws-resource-init-files-传递布尔变量"><span class="toc-text">aws-resource-init-files 传递布尔变量</span></a></li></ol>
+    </div>
+  </div>
+
+
+
+    <div class="post-content">
+      
+        <p>最近用cloudformation时遇到了一些坑，在此记录一下。</p>
+<h2 id="Conditions变量无法直接当布尔类型使用"><a href="#Conditions变量无法直接当布尔类型使用" class="headerlink" title="Conditions变量无法直接当布尔类型使用"></a>Conditions变量无法直接当布尔类型使用</h2><p><a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/conditions-section-structure.html" target="_blank" rel="noopener">Conditions</a>可以动态控制一些资源的创建：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">Conditions: </span><br><span class="line">  CreateProdResources: !Equals [ !Ref EnvType, prod ]</span><br><span class="line">Resources: </span><br><span class="line">  EC2Instance: </span><br><span class="line">    Type: &quot;AWS::EC2::Instance&quot;</span><br><span class="line">    Properties: </span><br><span class="line">      ImageId: !FindInMap [RegionMap, !Ref &quot;AWS::Region&quot;, AMI]</span><br><span class="line">  MountPoint: </span><br><span class="line">    Type: &quot;AWS::EC2::VolumeAttachment&quot;</span><br><span class="line">    Condition: CreateProdResources</span><br><span class="line">    Properties: </span><br><span class="line">      InstanceId: </span><br><span class="line">        !Ref EC2Instance</span><br><span class="line">      VolumeId: </span><br><span class="line">        !Ref NewVolume</span><br><span class="line">      Device: /dev/sdh</span><br><span class="line">  NewVolume: </span><br><span class="line">    Type: &quot;AWS::EC2::Volume&quot;</span><br><span class="line">    Condition: CreateProdResources</span><br><span class="line">    Properties: </span><br><span class="line">      Size: 100</span><br><span class="line">      AvailabilityZone: </span><br><span class="line">        !GetAtt EC2Instance.AvailabilityZone</span><br></pre></td></tr></table></figure>
+<p>但是如果在其他地方像这样使用会报<code>Unresolved resource dependencies CreateResources</code>错误</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">/xxx/xx/xx.conf:</span><br><span class="line">  source:</span><br><span class="line">    !Sub https://$&#123;bucket&#125;.s3.amazonaws.com/$&#123;prefix&#125;/xx.conf</span><br><span class="line">  context:</span><br><span class="line">    create_resources: !Ref CreateResources</span><br><span class="line">  mode: &quot;000644&quot;</span><br><span class="line">  owner: root</span><br><span class="line">  group: root</span><br></pre></td></tr></table></figure>
+<p>解决办法就时将<code>create_resources: !Ref CreateResources</code> 改成 <code>create_resources: !If [CreateResources, &quot;true output &quot;, &quot;false output&quot;]</code></p>
+<h2 id="aws-resource-init-files-传递布尔变量"><a href="#aws-resource-init-files-传递布尔变量" class="headerlink" title="aws-resource-init-files 传递布尔变量"></a>aws-resource-init-files 传递布尔变量</h2><p>AWS::CloudFormation::Init中 <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-init.html#aws-resource-init-files" target="_blank" rel="noopener">files</a>属性可以用来创建文件，<code>files</code>的<code>context</code>属性可以传递变量，来动态生成文件内容.<br>AWS文档里说文件是通过类似<a href="http://mustache.github.io/mustache.5.html" target="_blank" rel="noopener">mustache</a>的方式来处理的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">A typical Mustache template:</span><br><span class="line"></span><br><span class="line">Hello &#123;&#123;name&#125;&#125;</span><br><span class="line">You have just won &#123;&#123;value&#125;&#125; dollars!</span><br><span class="line">&#123;&#123;#in_ca&#125;&#125;</span><br><span class="line">Well, &#123;&#123;taxed_value&#125;&#125; dollars, after taxes.</span><br><span class="line">&#123;&#123;/in_ca&#125;&#125;</span><br><span class="line">Given the following hash:</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  &quot;name&quot;: &quot;Chris&quot;,</span><br><span class="line">  &quot;value&quot;: 10000,</span><br><span class="line">  &quot;taxed_value&quot;: 10000 - (10000 * 0.4),</span><br><span class="line">  &quot;in_ca&quot;: true</span><br><span class="line">&#125;</span><br><span class="line">Will produce the following:</span><br><span class="line"></span><br><span class="line">Hello Chris</span><br><span class="line">You have just won 10000 dollars!</span><br><span class="line">Well, 6000.0 dollars, after taxes.</span><br></pre></td></tr></table></figure>
+<p>这里有个坑就是布尔类型在cloudformation里时当做字符类型来传递的，AWS官方认为这是一个feature而不是bug: <a href="https://forums.aws.amazon.com/thread.jspa?messageID=898706&amp;#898706" target="_blank" rel="noopener">What you have observed is a known behaviour with the CloudFormation servie</a><br>例如：</p>
+<p>xxx.conf</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123;#create_resources&#125;&#125;</span><br><span class="line">this is true</span><br><span class="line">&#123;&#123;/create_resources&#125;&#125;</span><br><span class="line"></span><br><span class="line">&#123;&#123;^create_resources&#125;&#125;</span><br><span class="line">this is false</span><br><span class="line">&#123;&#123;/create_resources&#125;&#125;</span><br></pre></td></tr></table></figure>
+<p>yaml配置文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">/xxx.conf:</span><br><span class="line">  authentication: S3BucketAccess</span><br><span class="line">  source:</span><br><span class="line">    !Sub https://$&#123;bucket&#125;.s3.amazonaws.com/$&#123;prefix&#125;/xxx.conf</span><br><span class="line">  context:</span><br><span class="line">    create_resources: !If [CreateResources, true, false]</span><br><span class="line">  mode: &quot;000644&quot;</span><br><span class="line">  owner: root</span><br><span class="line">  group: root</span><br></pre></td></tr></table></figure>
+<p>这里无论 <code>CreateResources</code> 是 <code>true</code> 还是 <code>false</code>，文件内容始终会是 <code>this is true</code>，因为配置文件里的 <code>true</code> 和 <code>false</code> 都被转成了字符类型。</p>
+<p>这里的解决办法比较hack，就是将<code>!If [CreateResources, true, false]</code>改成<code>!If [CreateResources, [1], []]</code>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">/xxx.conf:</span><br><span class="line">  authentication: S3BucketAccess</span><br><span class="line">  source:</span><br><span class="line">    !Sub https://$&#123;bucket&#125;.s3.amazonaws.com/$&#123;prefix&#125;/xxx.conf</span><br><span class="line">  context:</span><br><span class="line">    create_resources: !If [CreateResources, [1], []]</span><br><span class="line">  mode: &quot;000644&quot;</span><br><span class="line">  owner: root</span><br><span class="line">  group: root</span><br></pre></td></tr></table></figure>
+<p>这里主要参考了 <code>mustache</code> 文档里 <code>Inverted Sections</code> : <a href="https://mustache.github.io/mustache.5.html" target="_blank" rel="noopener">https://mustache.github.io/mustache.5.html</a></p>
+<p>AWS平台的服务总有一些奇怪的限制或bug，调试时总会花不少时间，在此记录一下，希望能帮助到遇到相同问题的人，节约大家时间。</p>
+
+      
+    </div>
+
+    
+      
+      
+
+  <div class="post-copyright">
+    <p class="copyright-item">
+      <span>Author: </span>
+      <a href="https://w2x.me">大丈夫没问题</a>
+    </p>
+    <p class="copyright-item">
+      <span>Link: </span>
+      <a href="https://w2x.me/2019/06/20/AWS-Cloudformation-踩坑记录/">https://w2x.me/2019/06/20/AWS-Cloudformation-踩坑记录/</a>
+    </p>
+    <p class="copyright-item">
+      <span>License: </span>
+      
+      <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+    </p>
+  </div>
+
+
+
+      
+      
+    
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/aws/">aws</a>
+            
+              <a href="/tags/cloudformation/">cloudformation</a>
+            
+              <a href="/tags/mustache/">mustache</a>
+            
+          </div>
+        
+        
+        
+  <nav class="post-nav">
+    
+    
+      <a class="next" href="/2019/06/13/Deskmini-310-黑苹果折腾记/">
+        <span class="next-text nav-default">Deskmini 310 黑苹果折腾记</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+
+      </footer>
+    
+
+  </article>
+
+
+          </div>
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+      </main>
+
+      <footer id="footer" class="footer">
+
+  <div class="social-links">
+    
+      
+        
+          <a href="mailto:wancaibida@gmail.com" class="iconfont icon-email" title="email"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        
+          <a href="https://github.com/wancaibida" class="iconfont icon-github" title="github"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+
+    
+      <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    
+  </div>
+
+
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://hexo.io/">Hexo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    
+    &copy; 
+     
+      2015 - 
+    
+    2019
+
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">大丈夫没问题</span>
+  </span>
+</div>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+  <script type="text/javascript">
+    var disqus_config = function () {
+        this.page.url = 'https://w2x.me/2019/06/20/AWS-Cloudformation-踩坑记录/';
+        this.page.identifier = '2019/06/20/AWS-Cloudformation-踩坑记录/';
+        this.page.title = 'AWS Cloudformation 踩坑记录';
+    };
+    (function() {
+    var d = document, s = d.createElement('script');
+
+    s.src = '//w2x-me.disqus.com/embed.js';
+
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();  
+  </script>
+
+  
+
+  
+
+
+
+    
+  
+
+
+
+  
+  
+
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/pjax/jquery.pjax.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/nprogress/nprogress.min.js"></script>
+  
+
+
+    <script type="text/javascript" src="/js/src/even.js?v=2.10.2"></script>
+
+  </body>
+</html>

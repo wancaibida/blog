@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head><meta name="generator" content="Hexo 3.8.0">
+  <head><meta name="generator" content="Hexo 3.9.0">
     
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -210,6 +210,78 @@
   
   <section id="posts" class="posts">
     
+      
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          <a class="post-link" href="/2019/02/26/路由器相关的一些研究/">路由器相关的一些研究</a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2019-02-26
+        </span>
+        
+          <span class="post-category">
+            
+              <a href="/categories/linux/">linux</a>
+            
+          </span>
+        
+        
+      </div>
+    </header>
+
+    
+    
+
+
+    <div class="post-content">
+      
+        
+        
+
+        
+          <p>家中房间里的5G信号不好，每次都得手动切换到2.4G信号，有点麻烦，所以想在房间里弄一台AP，来实现无线无缝漫游，期间做了不少研究，故在此记录一下。</p>
+<h2 id="路由器-AP"><a href="#路由器-AP" class="headerlink" title="路由器/AP"></a>路由器/AP</h2><p>网上看了一圈AP的价格都不便宜，可能是家用AP需求少且大部分是商用的原因，关键还要上POE。论坛好多推荐<code>ubnt</code>的，看了下普通版都要700+rmb。</p>
+<p>千兆路由器好一点的基本是200左右的价格，但这个价位的厂家路由系统比较挫，还不能刷机。在再加点钱都赶上京东618 ac66u b1 499的价格了。 </p>
+<p>那有没有又便宜要好的路由呢，V站好多人都推荐这几款：</p>
+<ul>
+<li>斐讯K2P</li>
+<li>联想Newifi系列</li>
+<li>友华wr1200js</li>
+</ul>
+<h3 id="斐讯K2P"><a href="#斐讯K2P" class="headerlink" title="斐讯K2P"></a>斐讯K2P</h3><p>这个路由器现在都涨到120+了，如果要买的话要买a1版本的。</p>
+<p>优点是做工好，有千兆网口，信号貌似是最好的。</p>
+<p>缺点是现在比较难买，刷机的话要先上恩山论坛网友开发的<a href="https://breed.hackpascal.net/" target="_blank" rel="noopener">breed</a>, breed 就是路由器上的bootloader，breed一开始是基于u-boot的，现在好像是作者自主开发的，但这东西不开源，存在安全风险。固件可以刷padavan，padavan最初是由这个固件<a href="https://bitbucket.org/padavan/rt-n56u" target="_blank" rel="noopener">https://bitbucket.org/padavan/rt-n56u</a>修改过来的，比较有名的是荒野无灯的，但这个也没开源。github上也有基于padavan开源的，不放心的可以拿来自己编译。</p>
+<h3 id="联想Newifi"><a href="#联想Newifi" class="headerlink" title="联想Newifi"></a>联想Newifi</h3><p>联想这边就看了newifi3，这款路由器配置比k2p还要好，价格比k2p还要便宜，某宝的价格才80+，但这款的bootloader被官方锁了，如果要刷第三方固件的话要先越狱，恩山有越狱文件。刷机也是breed+恩山上一大堆网友上传的固件，风险自负，还有一个缺点就是这款信号比较差。</p>
+<h3 id="友华wr1200js"><a href="#友华wr1200js" class="headerlink" title="友华wr1200js"></a>友华wr1200js</h3><p>友华wr1200js配置和k2p差不多，但做工、信号没有k2p好，最终选择了这款，某宝138入手。这款路由器最大的优点是bootloader没有锁，可以直接上传第三方固件！！还有一个是openwrt完美支持，固件<a href="http://downloads.openwrt.org/releases/18.06.2/targets/ramips/mt7621/openwrt-18.06.2-ramips-mt7621-youhua_wr1200js-initramfs-kernel.bin" target="_blank" rel="noopener">下载地址</a>。</p>
+<h2 id="Openwrt-和-NAT"><a href="#Openwrt-和-NAT" class="headerlink" title="Openwrt 和 NAT"></a>Openwrt 和 NAT</h2><p>喜欢路由器刷机的都知道openwrt，路由器刷了openwrt基本上就告别了硬件nat（貌似MT7621是支持的），由路由器CPU来实现nat，由于路由器CPU的性能都比较弱如果再加上一些附带的功能，路由器CPU就有点力不从心了，这是就推荐openwrt x86了。</p>
+<h2 id="MESH网络"><a href="#MESH网络" class="headerlink" title="MESH网络"></a>MESH网络</h2><p>研究了下mesh网络，研究下来一些mesh设备是通过在开一个无线频道来实现组网的，貌似无线组网的效果都不怎么好，要走有线回程才靠谱。</p>
+<p>一些实现方案：</p>
+<ul>
+<li><a href="https://qmp.cat/Home" target="_blank" rel="noopener">qMp</a></li>
+<li><a href="https://openwrt.org/docs/guide-user/network/wifi/mesh/80211s" target="_blank" rel="noopener">wpad</a></li>
+</ul>
+<h2 id="无线漫游"><a href="#无线漫游" class="headerlink" title="无线漫游"></a>无线漫游</h2><p>比较省钱的无线漫游方式就是路由器设置成AP模式，要相同SSID，要隔开几个频道。</p>
+<p>专业的AP都带管理功能的。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://www.v2ex.com/t/339779" target="_blank" rel="noopener">MT7621 路由性能评测</a></p>
+<p><a href="https://www.jianshu.com/p/bbf372fa8f62" target="_blank" rel="noopener">300m，600m还是1200m——读懂无线路由器的速度标称</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/43278913" target="_blank" rel="noopener">如何选购无线路由器？有几个坑一定要避免</a></p>
+
+        
+      
+    </div>
+
+    
+
+    
+
+  </article>
+
       
         
   <article class="post">
@@ -983,58 +1055,6 @@
 <li>one-to-many关联中，用left join的方式从many的一方查找出来one，one关联的many对象不正确，如：</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">class Person &#123;</span><br><span class="line">    static hasMany = [dogs:Dog]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Dog &#123;</span><br><span class="line">    String name</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Dog a = new Dog(&apos;A&apos;)</span><br><span class="line">Dog b = new Dog(&apos;B&apos;)</span><br><span class="line"></span><br><span class="line">Person p = new Person(&apos;P&apos;)</span><br><span class="line">person.addToDogs(a)</span><br><span class="line">person.addToDogs(b)</span><br><span class="line">person.save()</span><br><span class="line"></span><br><span class="line">Collection&lt;Person&gt; result = Person.withCriteria &#123;</span><br><span class="line">    createAlias(&apos;dogs&apos;, &apos;d&apos;, org.hibernate.sql.JoinType.LEFT_OUTER_JOIN)</span><br><span class="line">    eq(&apos;d.name&apos;, &apos;A&apos;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">result[0].dogs.size() == 1</span><br><span class="line"></span><br><span class="line">result = Person.withCriteria &#123;</span><br><span class="line">    dogs &#123;</span><br><span class="line">        eq(&apos;name&apos;,&apos;A&apos;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">result[0].dogs.size() == 2</span><br></pre></td></tr></table></figure>
-
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-      
-        
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2018/04/01/Spring-RestTemplate-打印Request及Response内容/">Spring RestTemplate 打印Request及Response内容</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2018-04-01
-        </span>
-        
-          <span class="post-category">
-            
-              <a href="/categories/java/">java</a>
-            
-          </span>
-        
-        
-      </div>
-    </header>
-
-    
-    
-
-
-    <div class="post-content">
-      
-        
-        
-
-        
-          <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.apache.commons.io.IOUtils</span><br><span class="line"><span class="keyword">import</span> org.slf4j.Logger</span><br><span class="line"><span class="keyword">import</span> org.slf4j.LoggerFactory</span><br><span class="line"><span class="keyword">import</span> org.springframework.http.HttpRequest</span><br><span class="line"><span class="keyword">import</span> org.springframework.http.client.ClientHttpRequestExecution</span><br><span class="line"><span class="keyword">import</span> org.springframework.http.client.ClientHttpRequestInterceptor</span><br><span class="line"><span class="keyword">import</span> org.springframework.http.client.ClientHttpResponse</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LoggingRequestInterceptor</span> <span class="keyword">implements</span> <span class="title">ClientHttpRequestInterceptor</span> &#123;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span> String DEFAULT_ENCODING = <span class="string">'UTF-8'</span></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span> Logger LOGGER = LoggerFactory.getLogger(LoggingRequestInterceptor)</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    ClientHttpResponse intercept(HttpRequest request, <span class="keyword">byte</span>[] body, ClientHttpRequestExecution execution) <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">        traceRequest(request, body)</span><br><span class="line">        ClientHttpResponse response = execution.execute(request, body)</span><br><span class="line">        traceResponse(response)</span><br><span class="line">        <span class="keyword">return</span> response</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> traceRequest(HttpRequest request, <span class="keyword">byte</span>[] body) <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">        LOGGER.info(<span class="string">'===========================request begin================================================'</span>)</span><br><span class="line">        LOGGER.info(<span class="string">'URI         : &#123;&#125;'</span>, request.URI)</span><br><span class="line">        LOGGER.info(<span class="string">'Method      : &#123;&#125;'</span>, request.method)</span><br><span class="line">        LOGGER.info(<span class="string">'Headers     : &#123;&#125;'</span>, request.headers)</span><br><span class="line">        LOGGER.info(<span class="string">'Request body: &#123;&#125;'</span>, <span class="keyword">new</span> String(body, <span class="string">'UTF-8'</span>))</span><br><span class="line">        LOGGER.info(<span class="string">'==========================request end================================================'</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> traceResponse(ClientHttpResponse response) <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">        LOGGER.info(<span class="string">'============================response begin=========================================='</span>)</span><br><span class="line">        LOGGER.info(<span class="string">'Status code  : &#123;&#125;'</span>, response.statusCode)</span><br><span class="line">        LOGGER.info(<span class="string">'Status text  : &#123;&#125;'</span>, response.statusText)</span><br><span class="line">        LOGGER.info(<span class="string">'Headers      : &#123;&#125;'</span>, response.headers)</span><br><span class="line">        LOGGER.info(<span class="string">'Response body: &#123;&#125;'</span>, IOUtils.toString(response.body, DEFAULT_ENCODING))</span><br><span class="line">        LOGGER.info(<span class="string">'=======================response end================================================='</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>配置RestTemplate</li>
-</ul>
-<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">RestTemplate restTemplate = <span class="keyword">new</span> RestTemplate()</span><br><span class="line">restTemplate.setRequestFactory(<span class="keyword">new</span> BufferingClientHttpRequestFactory(<span class="keyword">new</span> SimpleClientHttpRequestFactory()))</span><br><span class="line">restTemplate.setInterceptors([<span class="keyword">new</span> LoggingRequestInterceptor()])</span><br></pre></td></tr></table></figure>
-<p>由于会多次读取request及response body，所以我们这里会使用<code>BufferingClientHttpRequestFactory</code>类来保证能够读取多次。</p>
 
         
       
