@@ -216,6 +216,73 @@
     <header class="post-header">
       <h1 class="post-title">
         
+          <a class="post-link" href="/2018/04/01/Grails-3-2-11-Bugs/">Grails 3.2.11 Bugs</a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-04-01
+        </span>
+        
+          <span class="post-category">
+            
+              <a href="/categories/java/">java</a>
+            
+          </span>
+        
+        
+      </div>
+    </header>
+
+    
+    
+
+
+    <div class="post-content">
+      
+        
+        
+
+        
+          <ul>
+<li>Functional Testing setup无法回滚</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">class BaseFunctionalTest extends GebSpec &#123;</span><br><span class="line">    def setup() &#123;</span><br><span class="line">        Dog dog = new Dog(name:&apos;xxxx&apos;)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //需要手动删除</span><br><span class="line">    def cleanup() &#123;</span><br><span class="line">        Dog.findByName(&apos;xxxx&apos;)?.delete()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>JSON Views循环渲染bug</li>
+</ul>
+<p>如果多个GORM实体存在循环引用，则会产生stackover flow异常，如下代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Class A &#123;</span><br><span class="line">    static hasMany = [children: B]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Class B &#123;</span><br><span class="line">    A parent</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">def a = new A()</span><br><span class="line">def b = new B(parent:a)</span><br><span class="line">a.addToChildren(b)</span><br><span class="line"></span><br><span class="line">json g.render(a, [deep: true])</span><br></pre></td></tr></table></figure>
+<ul>
+<li>isDirty方法实际上时通过检测类属性指向的引用是否改变来实现的，假如是属性内部的属性发生改变，isDirty方法实际是检测不到的。如：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">class Person&#123;</span><br><span class="line">    String firstName</span><br><span class="line">    String lastName</span><br><span class="line">    Address address</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Address&#123;</span><br><span class="line">    String city</span><br><span class="line">    String street</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Address address = new Address(&apos;shanghai&apos;,&apos;street&apos;)</span><br><span class="line">Person person = new Person(&apos;fname&apos;,&apos;lname&apos;,address)</span><br><span class="line"></span><br><span class="line">person.save()</span><br><span class="line">person.firstName = &apos;xxxx&apos;</span><br><span class="line">person.isDirty() == true</span><br><span class="line">person.isDirty(&apos;firstName&apos;) == true</span><br><span class="line"></span><br><span class="line">person.save()</span><br><span class="line">address.city = &apos;beijing&apos;</span><br><span class="line">person.isDirty(&apos;address&apos;) == false</span><br><span class="line">person.isDirty() == false</span><br><span class="line"></span><br><span class="line">person.address.isDirty() == true</span><br><span class="line">person.address.isDirty(&apos;city&apos;) == true</span><br></pre></td></tr></table></figure>
+<ul>
+<li>build test data plugin 不支持自定义约束的属性，就算在<code>TestDataConfig.groovy</code>中设置了也没用，如：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">testDataConfig &#123;</span><br><span class="line">    sampleData &#123;</span><br><span class="line">        Dog &#123;</span><br><span class="line">            name = &#123; -&gt;</span><br><span class="line">                UUID.randomUUID().toString().toUpperCase().replace(&apos;-&apos;, &apos;&apos;)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Class Dog &#123;</span><br><span class="line">    String owner</span><br><span class="line">    String name</span><br><span class="line">    </span><br><span class="line">    static constraints = &#123;</span><br><span class="line">            name validator: &#123; val, obj -&gt;</span><br><span class="line">            ...</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Dog dog = Dog.build()</span><br><span class="line">dog.name == &apos;name&apos;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>one-to-many关联中，用left join的方式从many的一方查找出来one，one关联的many对象不正确，如：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">class Person &#123;</span><br><span class="line">    static hasMany = [dogs:Dog]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Dog &#123;</span><br><span class="line">    String name</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Dog a = new Dog(&apos;A&apos;)</span><br><span class="line">Dog b = new Dog(&apos;B&apos;)</span><br><span class="line"></span><br><span class="line">Person p = new Person(&apos;P&apos;)</span><br><span class="line">person.addToDogs(a)</span><br><span class="line">person.addToDogs(b)</span><br><span class="line">person.save()</span><br><span class="line"></span><br><span class="line">Collection&lt;Person&gt; result = Person.withCriteria &#123;</span><br><span class="line">    createAlias(&apos;dogs&apos;, &apos;d&apos;, org.hibernate.sql.JoinType.LEFT_OUTER_JOIN)</span><br><span class="line">    eq(&apos;d.name&apos;, &apos;A&apos;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">result[0].dogs.size() == 1</span><br><span class="line"></span><br><span class="line">result = Person.withCriteria &#123;</span><br><span class="line">    dogs &#123;</span><br><span class="line">        eq(&apos;name&apos;,&apos;A&apos;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">result[0].dogs.size() == 2</span><br></pre></td></tr></table></figure>
+
+        
+      
+    </div>
+
+    
+
+    
+
+  </article>
+
+      
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
           <a class="post-link" href="/2018/04/01/Spring-RestTemplate-打印Request及Response内容/">Spring RestTemplate 打印Request及Response内容</a>
         
       </h1>
@@ -758,57 +825,6 @@
 <li>Service定义了如何抽像Deployments为服务,类似于负载均衡;</li>
 <li>Ingress定义了请求如何转发到Service,类似反向代理,如nginx.</li>
 </ul>
-
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-      
-        
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2017/10/30/Spring-Boot-配置文件设置默认值/">Spring Boot YAML配置文件设置字段默认值</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2017-10-30
-        </span>
-        
-          <span class="post-category">
-            
-              <a href="/categories/java/">java</a>
-            
-          </span>
-        
-        
-      </div>
-    </header>
-
-    
-    
-
-
-    <div class="post-content">
-      
-        
-        
-
-        
-          <p>SpringBoot中application.yaml如何设置配置项默认值一直困扰了我很久,官方文档也没有写如何设置默认值,今天有时间研究了下,发现只要加个冒号就可以了,如<code>${配置名:默认值}</code>.</p>
-<h2 id="application-yml"><a href="#application-yml" class="headerlink" title="application.yml"></a>application.yml</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">appconfig:</span><br><span class="line">  fileServerAccessKey: $&#123;FILE_SERVER_ACCESS_KEY:default_access_key&#125;</span><br><span class="line">  ...</span><br></pre></td></tr></table></figure>
-<h2 id="配置文件类"><a href="#配置文件类" class="headerlink" title="配置文件类"></a>配置文件类</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">@Component</span><br><span class="line">@ConfigurationProperties(prefix = &quot;appconfig&quot;)</span><br><span class="line">class Config &#123;</span><br><span class="line">    String fileServerSecretKey</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>如果项目未设置<code>FILE_SERVER_ACCESS_KEY</code>环境变量,则fileServerSecretKey字段会以<code>default_access_key</code>为默认值.</p>
-<p>研究了下源码发现 <a href="https://github.com/spring-projects/spring-framework/blob/49787493a6ca3726df62c4aff85023e8fa589ed3/spring-core/src/main/java/org/springframework/util/PropertyPlaceholderHelper.java#L147" target="_blank" rel="noopener">PropertyPlaceholderHelper.java#L147</a>这个类先会检查配置值中是否包含<code>valueSeparator</code>这个字符串,如果有,则会用<code>valueSeparator</code>来分割字符,从中取出默认值,而<code>valueSeparator</code>默认值就是<code>:</code>. </p>
 
         
       
