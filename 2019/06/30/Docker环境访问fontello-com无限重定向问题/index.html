@@ -17,8 +17,12 @@
 
 
 
+  <meta name="description" content="Docker环境访问fontello.com无限重定向问题">
 
 
+
+
+  <meta name="keywords" content="linux, docker, fontello, W2X">
 
 
 
@@ -38,7 +42,7 @@
 
 
 
-<link rel="canonical" href="https://w2x.me/categories/linux/">
+<link rel="canonical" href="https://w2x.me/2019/06/30/Docker环境访问fontello-com无限重定向问题/">
 
 
 
@@ -96,11 +100,7 @@
   window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":true};
 </script>
 
-    <title>
-  
-    linux · W2X
-  
-</title>
+    <title> Docker环境访问fontello.com无限重定向问题 - W2X </title>
   </head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
@@ -212,187 +212,114 @@
           <div id="content" class="content">
             
   
-  
-  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          Docker环境访问fontello.com无限重定向问题
+        
+      </h1>
 
-  <section id="archive" class="archive">
-    
-      
-        <div class="archive-title category">
-          <h2 class="archive-name">linux</h2>
-        </div>
-      
-    
-
-    
-      
-
-      <div class="archive-post">
-        <span class="archive-post-time">
-          
-            2019-06-30
-          
+      <div class="post-meta">
+        <span class="post-time">
+          2019-06-30
         </span>
-        <span class="archive-post-title">
-          <a href="/2019/06/30/Docker环境访问fontello-com无限重定向问题/" class="archive-post-link">
-            Docker环境访问fontello.com无限重定向问题
-          </a>
-        </span>
+        
+          <span class="post-category">
+            
+              <a href="/categories/linux/">linux</a>
+            
+          </span>
+        
+        
       </div>
+    </header>
+
+    
+    
+
+
+    <div class="post-content">
+      
+        <p>前阵子要把公司几个年代比较久远的前端项目迁移到新的jenkins环境，由于这些项目打包依赖库的版本比较老，要配置好环境会比较花时间，以后再迁移环境的话还要在搭建一遍，于是就想着用docker来打包项目。</p>
+<p>本地搭建好docker环境后，测试打包的时候发现项目从fontello.com下载字体是老是会报一个超出最大重定向次数的异常，ssh到docker环境发现 <code>wget -vdS fontello.com</code> 返回的Response状态码一直是302，而本机环境和服务器都没这问题，docker环境<code>wget</code>其他网址也没有问题，一开始以为是fontello网站配置的问题，今天突然冒出一个想法会不会是我docker环境配置了代理的原因，于是将 <code>fontello.com</code> 域名加到了代理白名单里，发现就没有重定向异常了，字体文件能正常下载了。</p>
+<p>这个问题的根本原因很有可能是docker代理功能和 <code>fontello.com</code> 两边的问题，在这里记一下，以防下次再遇到类似问题。</p>
+
+      
+    </div>
+
     
       
-
-      <div class="archive-post">
-        <span class="archive-post-time">
-          
-            2019-06-22
-          
-        </span>
-        <span class="archive-post-title">
-          <a href="/2019/06/22/计算机网络（第七版）习题4-13计算过程/" class="archive-post-link">
-            计算机网络（第七版）习题4-13计算过程
-          </a>
-        </span>
-      </div>
-    
       
 
-      <div class="archive-post">
-        <span class="archive-post-time">
-          
-            2019-06-20
-          
-        </span>
-        <span class="archive-post-title">
-          <a href="/2019/06/20/AWS-Cloudformation-踩坑记录/" class="archive-post-link">
-            AWS Cloudformation 踩坑记录
-          </a>
-        </span>
-      </div>
-    
+  <div class="post-copyright">
+    <p class="copyright-item">
+      <span>Author: </span>
+      <a href="https://w2x.me">大丈夫没问题</a>
+    </p>
+    <p class="copyright-item">
+      <span>Link: </span>
+      <a href="https://w2x.me/2019/06/30/Docker环境访问fontello-com无限重定向问题/">https://w2x.me/2019/06/30/Docker环境访问fontello-com无限重定向问题/</a>
+    </p>
+    <p class="copyright-item">
+      <span>License: </span>
       
+      <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+    </p>
+  </div>
 
-      <div class="archive-post">
-        <span class="archive-post-time">
-          
-            2019-06-12
-          
-        </span>
-        <span class="archive-post-title">
-          <a href="/2019/06/12/Mac-OS配置Dnsmasq-Dnscrypt来解决DNS污染问题/" class="archive-post-link">
-            Mac OS配置Dnsmasq+Dnscrypt来解决DNS污染问题
-          </a>
-        </span>
-      </div>
-    
+
+
       
-
-      <div class="archive-post">
-        <span class="archive-post-time">
-          
-            2019-05-04
-          
-        </span>
-        <span class="archive-post-title">
-          <a href="/2019/05/04/Manjaro自动挂载samba文件夹/" class="archive-post-link">
-            Manjaro自动挂载samba文件夹
-          </a>
-        </span>
-      </div>
-    
       
+    
 
-      <div class="archive-post">
-        <span class="archive-post-time">
-          
-            2019-04-23
-          
-        </span>
-        <span class="archive-post-title">
-          <a href="/2019/04/23/AWS-Lambda-自定义VPC/" class="archive-post-link">
-            AWS Lambda 自定义VPC
-          </a>
-        </span>
-      </div>
     
-      
-
-      <div class="archive-post">
-        <span class="archive-post-time">
-          
-            2019-03-20
-          
-        </span>
-        <span class="archive-post-title">
-          <a href="/2019/03/19/AWS-S3-Permissions-on-the-destination-queue-do-not-allow-S3-to-publish-notifications-from-this-bucket-问题的解决方法/" class="archive-post-link">
-            AWS S3 'Permissions on the destination queue do not allow S3 to publish notifications from this bucket' 问题的解决方法
-          </a>
-        </span>
-      </div>
-    
-      
-
-      <div class="archive-post">
-        <span class="archive-post-time">
-          
-            2019-03-13
-          
-        </span>
-        <span class="archive-post-title">
-          <a href="/2019/03/13/openwrt-x86安装教程/" class="archive-post-link">
-            Openwrt x86安装教程
-          </a>
-        </span>
-      </div>
-    
-      
-
-      <div class="archive-post">
-        <span class="archive-post-time">
-          
-            2019-02-28
-          
-        </span>
-        <span class="archive-post-title">
-          <a href="/2019/02/28/hexo-deploy-git提交历史丢失的解决方法/" class="archive-post-link">
-            hexo-deploy-git提交历史丢失的解决方法
-          </a>
-        </span>
-      </div>
-    
-      
-
-      <div class="archive-post">
-        <span class="archive-post-time">
-          
-            2019-02-27
-          
-        </span>
-        <span class="archive-post-title">
-          <a href="/2019/02/27/记wr1200js刷机遇到的问题/" class="archive-post-link">
-            记wr1200js刷机遇到的问题
-          </a>
-        </span>
-      </div>
-    
-  </section>
-
-  
-  <nav class="pagination">
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/linux/">linux</a>
+            
+              <a href="/tags/docker/">docker</a>
+            
+              <a href="/tags/fontello/">fontello</a>
+            
+          </div>
+        
+        
+        
+  <nav class="post-nav">
     
     
-      <a class="next" href="/categories/linux/page/2/">
-        <span class="next-text">Next</span>
+      <a class="next" href="/2019/06/22/计算机网络（第七版）习题4-13计算过程/">
+        <span class="next-text nav-default">计算机网络（第七版）习题4-13计算过程</span>
+        <span class="prev-text nav-mobile">Next</span>
         <i class="iconfont icon-right"></i>
       </a>
     
   </nav>
 
 
+      </footer>
+    
+
+  </article>
 
 
           </div>
           
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
 
         </div>
       </main>
@@ -479,9 +406,9 @@
   
   <script type="text/javascript">
     var disqus_config = function () {
-        this.page.url = '';
-        this.page.identifier = 'categories/linux/index.html';
-        this.page.title = '';
+        this.page.url = 'https://w2x.me/2019/06/30/Docker环境访问fontello-com无限重定向问题/';
+        this.page.identifier = '2019/06/30/Docker环境访问fontello-com无限重定向问题/';
+        this.page.title = 'Docker环境访问fontello.com无限重定向问题';
     };
     (function() {
     var d = document, s = d.createElement('script');
