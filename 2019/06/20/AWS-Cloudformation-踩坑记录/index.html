@@ -240,7 +240,7 @@
   <div class="post-toc" id="post-toc">
     <h2 class="post-toc-title">Contents</h2>
     <div class="post-toc-content">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Conditions变量无法直接当布尔类型使用"><span class="toc-text">Conditions变量无法直接当布尔类型使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#aws-resource-init-files-传递布尔变量"><span class="toc-text">aws-resource-init-files 传递布尔变量</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Conditions变量无法直接当布尔类型使用"><span class="toc-text">Conditions变量无法直接当布尔类型使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#aws-resource-init-files-传递布尔变量"><span class="toc-text">aws-resource-init-files 传递布尔变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#aws-resource-init-资源更新问题"><span class="toc-text">aws-resource-init 资源更新问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Update"><span class="toc-text">Update</span></a></li></ol>
     </div>
   </div>
 
@@ -265,7 +265,12 @@
 <p>这里的解决办法比较hack，就是将<code>!If [CreateResources, true, false]</code>改成<code>!If [CreateResources, [1], []]</code>:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">/xxx.conf:</span><br><span class="line">  authentication: S3BucketAccess</span><br><span class="line">  source:</span><br><span class="line">    !Sub https://$&#123;bucket&#125;.s3.amazonaws.com/$&#123;prefix&#125;/xxx.conf</span><br><span class="line">  context:</span><br><span class="line">    create_resources: !If [CreateResources, [1], []]</span><br><span class="line">  mode: &quot;000644&quot;</span><br><span class="line">  owner: root</span><br><span class="line">  group: root</span><br></pre></td></tr></table></figure>
 <p>这里主要参考了 <code>mustache</code> 文档里 <code>Inverted Sections</code> : <a href="https://mustache.github.io/mustache.5.html" target="_blank" rel="noopener">https://mustache.github.io/mustache.5.html</a></p>
+<h2 id="aws-resource-init-资源更新问题"><a href="#aws-resource-init-资源更新问题" class="headerlink" title="aws-resource-init 资源更新问题"></a>aws-resource-init 资源更新问题</h2><p><a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-init.html#aws-resource-init-sources" target="_blank" rel="noopener">aws-resource-init-sources</a>可以用来下载压缩文件并解压到EC2指定目录，但这里有个问题就是如果目标文件夹已存在，cloudformation会将两文件夹内容合并而不是替换文件夹！比如AWS部署的项目使用的依赖<code>LibraryA 1.0</code>，将library升级到<code>Library A 1.1</code>并通过cloudformation source下载并解压新本版的项目到目标目录后，目标目录的项目文件夹里会同时存在<code>Library A</code>的<code>1.0</code>和<code>1.1</code>版本。</p>
+<p>解决办法也很简单，在用sources下载前将目标文件夹移除。</p>
 <p>AWS平台的服务总有一些奇怪的限制或bug，调试时总会花不少时间，在此记录一下，希望能帮助到遇到相同问题的人，节约大家时间。</p>
+<h2 id="Update"><a href="#Update" class="headerlink" title="Update"></a>Update</h2><ul>
+<li>2019-07-07 添加aws-resource-init资源更新问题</li>
+</ul>
 
       
     </div>
