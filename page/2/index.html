@@ -216,6 +216,129 @@
     <header class="post-header">
       <h1 class="post-title">
         
+          <a class="post-link" href="/2019/03/13/openwrt-x86安装教程/">Openwrt x86安装教程</a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2019-03-13
+        </span>
+        
+          <span class="post-category">
+            
+              <a href="/categories/linux/">linux</a>
+            
+          </span>
+        
+        
+      </div>
+    </header>
+
+    
+    
+
+
+    <div class="post-content">
+      
+        
+        
+
+        
+          <p>网上Openwrt x86虚拟机安装的教程一大堆，却很少见到非虚拟机的教程，现在正好有机会重新刷机，就顺便把步骤记录一下，免得再次踩坑。</p>
+<h2 id="镜像下载"><a href="#镜像下载" class="headerlink" title="镜像下载"></a>镜像下载</h2><p>第一步就是下载openwrt x86的镜像，这里两个镜像可以选择，带<code>squashfs</code>的刷机后会有一个只读的分区，带<code>ext4</code>的所有分区都是可读写的。本教程是以<code>combined-ex4</code>为例子的。</p>
+<p>下载地址：<a href="https://downloads.openwrt.org/releases/18.06.2/targets/x86/64/openwrt-18.06.2-x86-64-combined-ext4.img.gz" target="_blank" rel="noopener">openwrt-18.06.2-x86-64-combined-ext4.img.gz</a></p>
+<blockquote>
+<h3 id="combined-squashfs-和-combined-ex4-的区别："><a href="#combined-squashfs-和-combined-ex4-的区别：" class="headerlink" title="combined-squashfs 和 combined-ex4 的区别："></a>combined-squashfs 和 combined-ex4 的区别：</h3></blockquote>
+<blockquote>
+<p><strong>combined-squashfs.img.gz</strong> This disk image uses the traditional OpenWrt layout, a squashfs read-only root filesystem and a read-write partition where settings and packages you install are stored. Due to how this image is assembled, you will have only 230-ish MB of space to store additional packages and configuration, and Extroot does not work.</p>
+</blockquote>
+<blockquote>
+<p><strong>combined-ext4.img.gz</strong> This disk image uses a single read-write ext4 partition with no read-only squashfs root filesystem, which allows to enlarge the partition. Features like Failsafe Mode or Factory Reset won’t be available as they need a read-only squashfs partition to function.</p>
+</blockquote>
+<h2 id="制作linux启动盘"><a href="#制作linux启动盘" class="headerlink" title="制作linux启动盘"></a>制作linux启动盘</h2><p>我们需要两个U盘，其中一个就是用来做linux启动盘，这里以<a href="http://www.system-rescue-cd.org/" target="_blank" rel="noopener">SystemRescueCd</a>为例，制作USB启动盘的教程可一参考这里：<a href="http://www.system-rescue-cd.org/Installing-SystemRescueCd-on-a-USB-stick/" target="_blank" rel="noopener">Installing-SystemRescueCd-on-a-USB-stick/</a></p>
+<p>USB启动盘制作好后，将下载下来的openwrt安装包拷贝到另一个U盘。</p>
+<h2 id="安装镜像"><a href="#安装镜像" class="headerlink" title="安装镜像"></a>安装镜像</h2><p>将两个U盘插入软路由，以linux启动盘启动，成功进入系统后执行以下命令将第二个U盘挂载到系统里：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir /mnt/usb</span><br><span class="line">mount /dev/sdx /mnt/usb</span><br></pre></td></tr></table></figure>
+<p>解压并将镜像刷到软路由内存里：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd /mnt/usb</span><br><span class="line">gunzip openwrt-18.06.2-x86-64-combined-ext4.img.gz</span><br><span class="line">dd if=openwrt-18.06.2-x86-64-combined-ext4.img of=/dev/sdX</span><br></pre></td></tr></table></figure>
+<p>其中<code>sdx</code>就是你软路由的安装盘。</p>
+<p>PS：官网里的步骤并没有提到解压这一步骤，实际操作中直接<code>dd</code>的话，openwrt是无法启动的，可能是linux系统的差异。</p>
+<h3 id="分区扩容（可选）"><a href="#分区扩容（可选）" class="headerlink" title="分区扩容（可选）"></a>分区扩容（可选）</h3><p>刷入openwrt后，执行<code>fdisk -l</code>，就会看到软路由的<code>sdx</code>盘被分成了两个分区，你会发现第二个分区只有256M，这里就可以调节第二个分区的大小，将硬盘的剩余容量全部划分到第二个分区：</p>
+<ol>
+<li><code>fdisk -l /dev/sdx</code>将第二个分区的起始扇区号<code>start</code>的值记下来</li>
+<li><code>fdisk /dev/sdx</code> 进入修改硬盘分区信息</li>
+<li>输入<code>d</code>，然后回车</li>
+<li>这里会提示你要删除哪个分区，输入<code>2</code>，然后回车</li>
+<li>输入<code>n</code>，然后回车，选择分区类型<code>primary</code>或<code>extended</code>都可以。</li>
+<li>选择分区后会让你输入分区开始扇区号，这里输入之前记下来的扇区号</li>
+<li>输入<code>w</code>，这时候会提示你<code>Partition #2 contains a ext4 signature. Do you want to remove the signature?</code>，<strong>这一步很重要</strong>，这里要选<code>no</code></li>
+<li>输入<code>w</code>，然后回车</li>
+<li>分区完成后执行<code>resize2fs /dev/sdx2</code>，分区扩容就大功告成了。</li>
+</ol>
+<h2 id="系统配置"><a href="#系统配置" class="headerlink" title="系统配置"></a>系统配置</h2><ul>
+<li>重启进入Openwrt系统后，系统会开放一个lan口，将网线接入这个lan口后就可以通过<code>192.168.1.1</code>来访问路由器管理界面了。</li>
+<li>进入管理界面后需要设置管理员密码，同时你可以上传<code>ssh key</code>，免得每次<code>ssh</code>都需要输入密码。</li>
+<li>在<code>interfaces</code>页面，<code>LAN</code>标签页面，在<code>Physical settings</code>-&gt;<code>Interface</code>你可以修改路由的lan口，将另外几个没开放的lan口都勾选。</li>
+<li>在<code>WAN</code>标签页面，<code>Protocol</code>选择<code>PPPoE</code>，输入宽带密码，<code>save and apply</code>就可以上网了。</li>
+</ul>
+<h2 id="应用安装"><a href="#应用安装" class="headerlink" title="应用安装"></a>应用安装</h2><p>我们会安装一些应用，但这里有个坑就是应用的安装源是<code>http</code>的，可能会被劫持，所以要修改成https的。先执行以下命令，安装必备的包：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">opkg update</span><br><span class="line">opkg install ca-certificates ca-bundle</span><br><span class="line">opkg install libustream-mbedtls</span><br><span class="line">opkg install git-http curl</span><br></pre></td></tr></table></figure>
+<p>修改源为<code>https</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//将http改为https</span><br><span class="line">vim /etc/opkg/distfeeds.conf</span><br><span class="line">opkg update</span><br><span class="line">//安装一些调试用的软件</span><br><span class="line">opkg install bind-dig</span><br></pre></td></tr></table></figure>
+<h2 id="一些常见问题"><a href="#一些常见问题" class="headerlink" title="一些常见问题"></a>一些常见问题</h2><ol>
+<li><p>Samba添加用户与设置密码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/passwd</span><br><span class="line">smbpasswd -a samba</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>dnsmasq</code>和<code>dnsmasq-full</code>的区别</p>
+<p> <code>dnsmasq-full</code>多了<code>ipset</code>功能</p>
+</li>
+<li><p><code>dnsmqsq --no-resolv</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">--no-resolv</span><br><span class="line">Don&apos;t read /etc/resolv.conf. Get upstream servers only from the command line or the dnsmasq configuration file.</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>ss-tunnel</code> dns解析不了</p>
+<p>一般原因有以下几点：</p>
+<ol>
+<li><p><code>ss-tunnel</code> 未加上<code>-u</code>参数，开启<code>udn relay</code></p>
+</li>
+<li><p><code>ss-server</code> 未加上<code>-u</code>参数，开启<code>udn relay</code></p>
+</li>
+<li><p>服务端未开启端口</p>
+</li>
+</ol>
+<p>调试用的命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">//dnstracer</span><br><span class="line">dnstracer -vo  -s 127.0.0.1 google.com</span><br><span class="line"></span><br><span class="line">//dns测试</span><br><span class="line">dig +trace google.com </span><br><span class="line">// dns请求也可以直接发送给ss-tunnel</span><br><span class="line">dig google.com @127.0.0.1 -p 5353</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>开启<code>ss-rules</code>后域名无法解析</p>
+<p>具体什么原因不是很清楚，可能是<code>iptables</code>对<code>udp</code>转发有点问题，<code>ss-redir for UDP</code>这项打勾去掉即可。</p>
+</li>
+</ol>
+<h2 id="一些定时任务脚本"><a href="#一些定时任务脚本" class="headerlink" title="一些定时任务脚本"></a>一些定时任务脚本</h2><p>写了一些定时<a href="https://github.com/wancaibida/openwrt-scripts" target="_blank" rel="noopener">任务脚本</a>，这里记录一下。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://openwrt.org/docs/guide-user/installation/openwrt_x86" target="_blank" rel="noopener">https://openwrt.org/docs/guide-user/installation/openwrt_x86</a></li>
+<li><a href="http://www.thekelleys.org.uk/dnsmasq/docs/dnsmasq-man.html" target="_blank" rel="noopener">dnsmasq-man.html</a></li>
+<li><a href="https://medium.com/@cnnbysy/openwrt-18-06-1-配置科学上网-30e231958c38" target="_blank" rel="noopener">openwrt 18.06.1 配置科学上网</a></li>
+<li><a href="https://alalin.me/archives/805" target="_blank" rel="noopener">OpenWrt $$ 安装&amp;配置指南</a></li>
+<li><a href="https://icymind.com/learn-from-gfw/" target="_blank" rel="noopener">那些从墙上学会的知识</a></li>
+<li><a href="https://openwrt.org/docs/guide-user/services/nas/samba_configuration" target="_blank" rel="noopener">samba 配置</a></li>
+</ul>
+
+        
+      
+    </div>
+
+    
+
+    
+
+  </article>
+
+      
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
           <a class="post-link" href="/2019/02/28/hexo-deploy-git提交历史丢失的解决方法/">hexo-deploy-git提交历史丢失的解决方法</a>
         
       </h1>
@@ -894,52 +1017,6 @@
 <p>而在Spring Boot方面比如用hiberate validator你需要定义类，定义注解，写很多代码来实现自定义校验。</p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>在项目开发速度上，Groovy+Grails上占优，如果时间比较紧的话，Groovy+Grails会是一个不错的选择，它能在较短时间内做出项目。如果你需要一个bug少，更稳定的项目或者你的项目用不到Gorm的话，你可以选择Kotlin+Spring Boot.</p>
 <p>简而言之，100分做为满分的话，Groovy+Grails能在最短的时间内达到80分，而要达到90甚至95分的话，选择Kotlin+Spring Boot无疑。</p>
-
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-      
-        
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2018/07/19/Amazon-API-Gateway-踩坑记/">Amazon API Gateway 踩坑记</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2018-07-19
-        </span>
-        
-        
-      </div>
-    </header>
-
-    
-    
-
-
-    <div class="post-content">
-      
-        
-        
-
-        
-          <p>最近项目中用到了Amazon API Gateway，当中遇到了不少的坑。本文主要罗列了在使用amazon api gateway中遇的问题，希望能帮助到遇到相同问题的开发者。</p>
-<h2 id="不支持parmeters-array"><a href="#不支持parmeters-array" class="headerlink" title="不支持parmeters array"></a>不支持parmeters array</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET /user/1/addresses?addressId=1&amp;addressId=2</span><br></pre></td></tr></table></figure>
-<p>服务端接收到的只有一个值，解决办法<a href="https://stackoverflow.com/questions/43401777/passing-array-query-parameters-with-api-gateway-to-lambda" target="_blank" rel="noopener">passing-array-query-parameters-with-api-gateway-to-lambda</a></p>
-<h2 id="POST-PUT-返回-406"><a href="#POST-PUT-返回-406" class="headerlink" title="POST/PUT 返回 406"></a>POST/PUT 返回 406</h2><p>当使用json body发送put/post请求时，api gateway有一定机率返回406，查了半天也找出什么原国，后来在stackoverflow上找到了答案，需要在Integration Request中添加Accept头，并且设置其值为空字符串。具体什么原因估计只有AWS api gateway的开发者才知道了。<br><a href="https://stackoverflow.com/questions/42106605/aws-api-gateway-returns-http-406" target="_blank" rel="noopener">aws-api-gateway-returns-http-406</a></p>
-<h2 id="URL-Query-String-Parameter、header需要显示设定"><a href="#URL-Query-String-Parameter、header需要显示设定" class="headerlink" title="URL Query String Parameter、header需要显示设定"></a>URL Query String Parameter、header需要显示设定</h2><p>如果不在Method Request里显示声名URL Query String Parameter的话，请求参数是不会转发到后台的，request header同理。</p>
-<h2 id="Grails参数绑定不支持application-x-amz-json-1-0-application-x-amz-json-1-0-content-type"><a href="#Grails参数绑定不支持application-x-amz-json-1-0-application-x-amz-json-1-0-content-type" class="headerlink" title="Grails参数绑定不支持application/x-amz-json-1.0/application/x-amz-json-1.0 content type."></a>Grails参数绑定不支持<code>application/x-amz-json-1.0</code>/<code>application/x-amz-json-1.0</code> content type.</h2><p>请求转发到后台时，API gateway会将<code>application/json</code>转换成<code>application/x-amz-json-1.0</code>/<code>application/x-amz-json-1.0</code>，需要修改代码，添加对这两个header的支持，不然会无法绑定参数。</p>
 
         
       

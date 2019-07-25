@@ -17,8 +17,12 @@
 
 
 
+  <meta name="description" content="Zsh命令行历史同步插件推荐">
 
 
+
+
+  <meta name="keywords" content="linux, zsh, plugin, W2X">
 
 
 
@@ -38,7 +42,7 @@
 
 
 
-<link rel="canonical" href="https://w2x.me/archives/page/2/">
+<link rel="canonical" href="https://w2x.me/2019/07/25/zsh命令行历史同步插件推荐/">
 
 
 
@@ -96,11 +100,7 @@
   window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":true};
 </script>
 
-    <title>
-  
-    Archives - W2X
-  
-</title>
+    <title> Zsh命令行历史同步插件推荐 - W2X </title>
   </head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
@@ -212,246 +212,114 @@
           <div id="content" class="content">
             
   
-  
-  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          Zsh命令行历史同步插件推荐
+        
+      </h1>
 
-  <section id="archive" class="archive">
+      <div class="post-meta">
+        <span class="post-time">
+          2019-07-25
+        </span>
+        
+          <span class="post-category">
+            
+              <a href="/categories/linux/">linux</a>
+            
+          </span>
+        
+        
+      </div>
+    </header>
+
     
+    
+
+
+    <div class="post-content">
+      
+        <p>公司和家里用的是两台电脑，经常遇到一些用过却记不住的命令，恰巧这些命令在另外台电脑执行过，就想找个能在不同机器上同步命令行历史的插件。</p>
+<p>尝试过将用户目录文件夹下的<code>.zsh_history</code>文件软链接到dropbox，发现还是有点问题，比如多台机器同步是会发生文件冲突，一些情况下zsh会重新创建新的<code>.zsh_history</code>文件，导致数据丢失。期间又尝试了下<a href="https://github.com/wulfgarpro/history-sync" target="_blank" rel="noopener">history-sync</a>这个插件，发现有会将历史文件清空的BUG。</p>
+<p>无意中发现了<a href="https://github.com/larkery/zsh-histdb" target="_blank" rel="noopener">zsh-histdb</a>，这个插件正好满足了我的要求：在多台电脑之间同步历史记录，自动合并冲突文件。配合<a href="https://github.com/zsh-users/zsh-autosuggestions" target="_blank" rel="noopener">zsh-autosuggestions</a>简直完美。</p>
+
+      
+    </div>
 
     
       
-        
-        
+      
 
+  <div class="post-copyright">
+    <p class="copyright-item">
+      <span>Author: </span>
+      <a href="https://w2x.me">大丈夫没问题</a>
+    </p>
+    <p class="copyright-item">
+      <span>Link: </span>
+      <a href="https://w2x.me/2019/07/25/zsh命令行历史同步插件推荐/">https://w2x.me/2019/07/25/zsh命令行历史同步插件推荐/</a>
+    </p>
+    <p class="copyright-item">
+      <span>License: </span>
+      
+      <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+    </p>
+  </div>
+
+
+
+      
+      
+    
+
+    
+      <footer class="post-footer">
         
-          
-          <div class="collection-title">
-            <h2 class="archive-year">2019</h2>
+          <div class="post-tags">
+            
+              <a href="/tags/linux/">linux</a>
+            
+              <a href="/tags/zsh/">zsh</a>
+            
+              <a href="/tags/plugin/">plugin</a>
+            
           </div>
         
-      
-
-      <div class="archive-post">
-        <span class="archive-post-time">
-          
-            03-13
-          
-        </span>
-        <span class="archive-post-title">
-          <a href="/2019/03/13/openwrt-x86安装教程/" class="archive-post-link">
-            Openwrt x86安装教程
-          </a>
-        </span>
-      </div>
-    
-      
         
         
-
-        
-      
-
-      <div class="archive-post">
-        <span class="archive-post-time">
-          
-            02-28
-          
-        </span>
-        <span class="archive-post-title">
-          <a href="/2019/02/28/hexo-deploy-git提交历史丢失的解决方法/" class="archive-post-link">
-            hexo-deploy-git提交历史丢失的解决方法
-          </a>
-        </span>
-      </div>
-    
-      
-        
-        
-
-        
-      
-
-      <div class="archive-post">
-        <span class="archive-post-time">
-          
-            02-27
-          
-        </span>
-        <span class="archive-post-title">
-          <a href="/2019/02/27/记wr1200js刷机遇到的问题/" class="archive-post-link">
-            记wr1200js刷机遇到的问题
-          </a>
-        </span>
-      </div>
-    
-      
-        
-        
-
-        
-      
-
-      <div class="archive-post">
-        <span class="archive-post-time">
-          
-            02-26
-          
-        </span>
-        <span class="archive-post-title">
-          <a href="/2019/02/26/路由器相关的一些研究/" class="archive-post-link">
-            路由器相关的一些研究
-          </a>
-        </span>
-      </div>
-    
-      
-        
-        
-
-        
-          
-          <div class="collection-title">
-            <h2 class="archive-year">2018</h2>
-          </div>
-        
-      
-
-      <div class="archive-post">
-        <span class="archive-post-time">
-          
-            12-26
-          
-        </span>
-        <span class="archive-post-title">
-          <a href="/2018/12/26/路由器透明代理/" class="archive-post-link">
-            路由器透明代理
-          </a>
-        </span>
-      </div>
-    
-      
-        
-        
-
-        
-      
-
-      <div class="archive-post">
-        <span class="archive-post-time">
-          
-            12-20
-          
-        </span>
-        <span class="archive-post-title">
-          <a href="/2018/12/20/Debian-jessie-安装-docker/" class="archive-post-link">
-            Debian jessie 安装 docker
-          </a>
-        </span>
-      </div>
-    
-      
-        
-        
-
-        
-      
-
-      <div class="archive-post">
-        <span class="archive-post-time">
-          
-            10-30
-          
-        </span>
-        <span class="archive-post-title">
-          <a href="/2018/10/30/Groovy对JSON处理的一些细节/" class="archive-post-link">
-            Groovy JSON处理的一些细节
-          </a>
-        </span>
-      </div>
-    
-      
-        
-        
-
-        
-      
-
-      <div class="archive-post">
-        <span class="archive-post-time">
-          
-            09-20
-          
-        </span>
-        <span class="archive-post-title">
-          <a href="/2018/09/20/ASUS-66u-搭建透明代理/" class="archive-post-link">
-            ASUS 66u 搭建透明代理
-          </a>
-        </span>
-      </div>
-    
-      
-        
-        
-
-        
-      
-
-      <div class="archive-post">
-        <span class="archive-post-time">
-          
-            09-04
-          
-        </span>
-        <span class="archive-post-title">
-          <a href="/2018/09/04/ShadowsocksX-NG实现白名单模式/" class="archive-post-link">
-            ShadowsocksX-NG实现白名单模式
-          </a>
-        </span>
-      </div>
-    
-      
-        
-        
-
-        
-      
-
-      <div class="archive-post">
-        <span class="archive-post-time">
-          
-            08-16
-          
-        </span>
-        <span class="archive-post-title">
-          <a href="/2018/08/16/Groovy-Grails迁移到Kotlin-Spring-Boot的一些研究/" class="archive-post-link">
-            Groovy+Grails迁移到Kotlin+Spring Boot的一些研究
-          </a>
-        </span>
-      </div>
-    
-  </section>
-
-  
-  <nav class="pagination">
-    
-      <a class="prev" href="/archives/">
-        <i class="iconfont icon-left"></i>
-        <span class="prev-text">Prev</span>
-      </a>
+  <nav class="post-nav">
     
     
-      <a class="next" href="/archives/page/3/">
-        <span class="next-text">Next</span>
+      <a class="next" href="/2019/06/30/Docker环境访问fontello-com无限重定向问题/">
+        <span class="next-text nav-default">Docker环境访问fontello.com无限重定向问题</span>
+        <span class="prev-text nav-mobile">Next</span>
         <i class="iconfont icon-right"></i>
       </a>
     
   </nav>
 
 
+      </footer>
+    
+
+  </article>
 
 
           </div>
           
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
 
         </div>
       </main>
@@ -535,6 +403,27 @@
     </div>
 
     
+  
+  <script type="text/javascript">
+    var disqus_config = function () {
+        this.page.url = 'https://w2x.me/2019/07/25/zsh命令行历史同步插件推荐/';
+        this.page.identifier = '2019/07/25/zsh命令行历史同步插件推荐/';
+        this.page.title = 'Zsh命令行历史同步插件推荐';
+    };
+    (function() {
+    var d = document, s = d.createElement('script');
+
+    s.src = '//w2x-me.disqus.com/embed.js';
+
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();  
+  </script>
+
+  
+
+  
+
 
 
     
