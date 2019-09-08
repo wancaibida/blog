@@ -17,7 +17,7 @@
 
 
 
-  <meta name="description" content="Google Cloud部署web app到kubernetes并使用let’s encrypt和nginx-ingress">
+  <meta name="description" content="Google Cloud使用kubernetes，let’s encrypt和nginx-ingress部署web app">
 
 
 
@@ -100,7 +100,7 @@
   window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":true};
 </script>
 
-    <title> Google Cloud部署web app到kubernetes并使用let’s encrypt和nginx-ingress - Charles' Blog </title>
+    <title> Google Cloud使用kubernetes，let’s encrypt和nginx-ingress部署web app - Charles' Blog </title>
   </head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
@@ -234,7 +234,7 @@
     <header class="post-header">
       <h1 class="post-title">
         
-          Google Cloud部署web app到kubernetes并使用let’s encrypt和nginx-ingress
+          Google Cloud使用kubernetes，let’s encrypt和nginx-ingress部署web app
         
       </h1>
 
@@ -258,8 +258,8 @@
   <div class="post-toc" id="post-toc">
     <h2 class="post-toc-title">Contents</h2>
     <div class="post-toc-content">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#环境配置"><span class="toc-text">环境配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#连接cluster"><span class="toc-text">连接cluster</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装helm和tiller"><span class="toc-text">安装helm和tiller</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装nginx-ingress"><span class="toc-text">安装nginx-ingress</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装let’s-encrypt"><span class="toc-text">安装let’s encrypt</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置DNS"><span class="toc-text">配置DNS</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#部署web项目"><span class="toc-text">部署web项目</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#创建namespace"><span class="toc-text">创建namespace</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#部署项目"><span class="toc-text">部署项目</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Deployment"><span class="toc-text">Deployment</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Service"><span class="toc-text">Service</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Ingress"><span class="toc-text">Ingress</span></a></li></ol></li></ol></li></ol><li class="toc-item toc-level-1"><a class="toc-link" href="#Links"><span class="toc-text">Links</span></a>
-    </li></div>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#环境配置"><span class="toc-text">环境配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#连接cluster"><span class="toc-text">连接cluster</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装helm和tiller"><span class="toc-text">安装helm和tiller</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装nginx-ingress"><span class="toc-text">安装nginx-ingress</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装let’s-encrypt"><span class="toc-text">安装let’s encrypt</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置DNS"><span class="toc-text">配置DNS</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#部署web项目"><span class="toc-text">部署web项目</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#创建namespace"><span class="toc-text">创建namespace</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#部署项目"><span class="toc-text">部署项目</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Deployment"><span class="toc-text">Deployment</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Service"><span class="toc-text">Service</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Ingress"><span class="toc-text">Ingress</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Links"><span class="toc-text">Links</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Update"><span class="toc-text">Update</span></a></li></ol>
+    </div>
   </div>
 
 
@@ -269,7 +269,7 @@
         <h2 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h2><h3 id="连接cluster"><a href="#连接cluster" class="headerlink" title="连接cluster"></a>连接cluster</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcloud container clusters get-credentials CLUSER_NAME --zone us-central1-a --project PROJECT_NAME</span><br></pre></td></tr></table></figure>
 <h3 id="安装helm和tiller"><a href="#安装helm和tiller" class="headerlink" title="安装helm和tiller"></a>安装helm和tiller</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">kubectl create serviceaccount --namespace kube-system tiller</span><br><span class="line">kubectl create clusterrolebinding tiller-cluster-rule --clusterrole=cluster-admin --serviceaccount=kube-system:tiller</span><br><span class="line">helm init --service-account tiller</span><br></pre></td></tr></table></figure>
 <h3 id="安装nginx-ingress"><a href="#安装nginx-ingress" class="headerlink" title="安装nginx-ingress"></a>安装nginx-ingress</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">helm install --name nginx-ingress stable/nginx-ingress --set rbac.create=true --set controller.publishService.enabled=true</span><br></pre></td></tr></table></figure>
-<h3 id="安装let’s-encrypt"><a href="#安装let’s-encrypt" class="headerlink" title="安装let’s encrypt"></a>安装let’s encrypt</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kubectl apply -f https://raw.githubusercontent.com/jetstack/cert-manager/release-0.8/deploy/manifests/00-crds.yaml</span><br><span class="line">kubectl create -f issuer.yaml</span><br></pre></td></tr></table></figure>
+<h3 id="安装let’s-encrypt"><a href="#安装let’s-encrypt" class="headerlink" title="安装let’s encrypt"></a>安装let’s encrypt</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">kubectl apply -f https://raw.githubusercontent.com/jetstack/cert-manager/release-0.8/deploy/manifests/00-crds.yaml</span><br><span class="line"></span><br><span class="line">helm repo add jetstack https://charts.jetstack.io</span><br><span class="line">helm install --name cert-manager --namespace cert-manager jetstack/cert-manager</span><br><span class="line"></span><br><span class="line">kubectl create -f issuer.yaml</span><br></pre></td></tr></table></figure>
 <p><a href="https://raw.githubusercontent.com/wancaibida/kubernetes-sample-app/master/issuer.yaml" target="_blank" rel="noopener">issuer.yaml</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">apiVersion: certmanager.k8s.io/v1alpha1</span><br><span class="line">kind: ClusterIssuer</span><br><span class="line">metadata:</span><br><span class="line">  name: letsencrypt-prod</span><br><span class="line">spec:</span><br><span class="line">  acme:</span><br><span class="line">    # The ACME server URL</span><br><span class="line">    server: https://acme-v02.api.letsencrypt.org/directory</span><br><span class="line">    # Email address used for ACME registration</span><br><span class="line">    email: youremail@yourdomain.com</span><br><span class="line">    # Name of a secret used to store the ACME account private key</span><br><span class="line">    privateKeySecretRef:</span><br><span class="line">      name: letsencrypt-prod</span><br><span class="line">    # Enable the HTTP-01 challenge provider</span><br><span class="line">    http01: &#123;&#125;</span><br></pre></td></tr></table></figure></p>
 <h3 id="配置DNS"><a href="#配置DNS" class="headerlink" title="配置DNS"></a>配置DNS</h3><p>获取nginx-ingress-controller的IP</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl get svc -n default</span><br></pre></td></tr></table></figure>
@@ -286,12 +286,16 @@
 <h4 id="Ingress"><a href="#Ingress" class="headerlink" title="Ingress"></a>Ingress</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl apply -f ingress.yaml</span><br></pre></td></tr></table></figure>
 <p><a href="https://raw.githubusercontent.com/wancaibida/kubernetes-sample-app/master/ingress.yaml" target="_blank" rel="noopener">ingress.yaml</a></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">apiVersion: extensions/v1beta1</span><br><span class="line">kind: Ingress</span><br><span class="line">metadata:</span><br><span class="line">  name: name-virtual-host-ingress</span><br><span class="line">  annotations:</span><br><span class="line">    kubernetes.io/ingress.class: nginx</span><br><span class="line">    certmanager.k8s.io/cluster-issuer: letsencrypt-prod</span><br><span class="line">    nginx.ingress.kubernetes.io/ssl-redirect: &quot;true&quot;</span><br><span class="line">spec:</span><br><span class="line">  tls: # &lt; placing a host in the TLS config will indicate a cert should be created</span><br><span class="line">  - hosts:</span><br><span class="line">    - demo.w2x.me</span><br><span class="line">    secretName: letsencrypt-prod</span><br><span class="line">  rules:</span><br><span class="line"></span><br><span class="line">  - host: demo.w2x.me</span><br><span class="line">    http:</span><br><span class="line">      paths:</span><br><span class="line">      - backend:</span><br><span class="line">          serviceName: api-service</span><br><span class="line">          servicePort: 80</span><br></pre></td></tr></table></figure>
-<h1 id="Links"><a href="#Links" class="headerlink" title="Links"></a>Links</h1><ul>
+<p>等<code>deployment</code>的<code>pod ready</code>后，访问你配置的域名，就可以看到https加密后的tomcat主页了。</p>
+<h2 id="Links"><a href="#Links" class="headerlink" title="Links"></a>Links</h2><ul>
 <li><a href="https://cloud.google.com/community/tutorials/nginx-ingress-gke" target="_blank" rel="noopener">https://cloud.google.com/community/tutorials/nginx-ingress-gke</a></li>
 <li><a href="https://www.digitalocean.com/community/tutorials/how-to-set-up-an-nginx-ingress-on-digitalocean-kubernetes-using-helm" target="_blank" rel="noopener">https://www.digitalocean.com/community/tutorials/how-to-set-up-an-nginx-ingress-on-digitalocean-kubernetes-using-helm</a></li>
 <li><a href="https://gist.github.com/snormore/c7c2935d746531ed0d75064a6ad6058e" target="_blank" rel="noopener">https://gist.github.com/snormore/c7c2935d746531ed0d75064a6ad6058e</a></li>
 <li><a href="https://github.com/helm/helm/issues/3130#issuecomment-372931407" target="_blank" rel="noopener">https://github.com/helm/helm/issues/3130#issuecomment-372931407</a></li>
 <li><a href="https://github.com/wancaibida/kubernetes-sample-app" target="_blank" rel="noopener">kubernetes-sample-app</a></li>
+</ul>
+<h2 id="Update"><a href="#Update" class="headerlink" title="Update"></a>Update</h2><ul>
+<li>2019-09-08: 添加了let’s encrypt部分缺失的安装步骤。</li>
 </ul>
 
       
@@ -455,7 +459,7 @@
     var disqus_config = function () {
         this.page.url = 'https://w2x.me/2019/08/24/Google-Cloud部署web-app到kubernetes并使用let’s-encrypt和nginx-ingress/';
         this.page.identifier = '2019/08/24/Google-Cloud部署web-app到kubernetes并使用let’s-encrypt和nginx-ingress/';
-        this.page.title = 'Google Cloud部署web app到kubernetes并使用let’s encrypt和nginx-ingress';
+        this.page.title = 'Google Cloud使用kubernetes，let’s encrypt和nginx-ingress部署web app';
     };
     (function() {
     var d = document, s = d.createElement('script');
