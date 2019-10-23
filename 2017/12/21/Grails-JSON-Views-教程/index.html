@@ -1,28 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head><meta name="generator" content="Hexo 3.9.0">
+  <head>
     
-<meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
 
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
 
-<meta name="theme-color" content="#f8f5ec">
+<meta name="theme-color" content="#f8f5ec" />
 <meta name="msapplication-navbutton-color" content="#f8f5ec">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
 
-  <meta name="description" content="Grails JSON Views 教程">
+  <meta name="description" content="Grails JSON Views 教程"/>
 
 
 
 
-  <meta name="keywords" content="grails, json, view, json-views, Charles' Blog">
+  <meta name="keywords" content="grails, json, view, json-views, Charles' Blog" />
 
 
 
@@ -38,24 +38,24 @@
 
 
 
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.10.2">
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.10.2" />
 
 
 
-<link rel="canonical" href="https://w2x.me/2017/12/21/Grails-JSON-Views-教程/">
+<link rel="canonical" href="https://w2x.me/2017/12/21/Grails-JSON-Views-教程/"/>
 
 
 
-  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css">
+  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
 
 
 
 
-  <link rel="stylesheet" type="text/css" href="/lib/nprogress/nprogress.min.css">
+  <link rel="stylesheet" type="text/css" href="/lib/nprogress/nprogress.min.css" />
 
 
 
-<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.10.2">
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.10.2" />
 
 
 
@@ -279,6 +279,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">@Field Author author</span><br><span class="line">json &#123;</span><br><span class="line">    name author.name</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>如果Author类是Domain Object的话，则模版文件可以写成：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@Field Author author</span><br><span class="line">json g.render(author)</span><br></pre></td></tr></table></figure>
+
 <h3 id="高级用法"><a href="#高级用法" class="headerlink" title="高级用法"></a>高级用法</h3><h4 id="自定义字段"><a href="#自定义字段" class="headerlink" title="自定义字段"></a>自定义字段</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">model &#123;</span><br><span class="line">    Book book</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">json g.render(book, [deep: false, renderNulls: true]) &#123;</span><br><span class="line">    authorName book.author?.name</span><br><span class="line">    publishDate new Date().time</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h4 id="集合渲染"><a href="#集合渲染" class="headerlink" title="集合渲染"></a>集合渲染</h4><p>例1：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">model &#123;</span><br><span class="line">    Author author</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">json &#123;</span><br><span class="line">    name author.name</span><br><span class="line">    books g.render(template: &apos;/book/book&apos;, collection: author.books, var: &apos;book&apos;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -294,7 +295,8 @@
 </li>
 <li><p>Grails默认会在<code>grails-app/views/author/</code>路径下查找<code>authorList.gson</code>视图文件</p>
 </li>
-<li>如果需要在其他Controller下引用该视图的话，需要写绝对路径<code>/author/authorList</code></li>
+<li><p>如果需要在其他Controller下引用该视图的话，需要写绝对路径<code>/author/authorList</code></p>
+</li>
 </ul>
 <p><code>_author.gson</code></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">model &#123;</span><br><span class="line">    Author author</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">json &#123;</span><br><span class="line">    name author.name</span><br><span class="line">    books g.render(template: &apos;/book/book&apos;, collection: author.books, var: &apos;book&apos;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -311,6 +313,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@Field Author author</span><br><span class="line">json g.render(author,[renderNulls: true])</span><br></pre></td></tr></table></figure>
 <p>则b的返回中就变成：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">def b = new Author(name: null,age: 29)=&gt; &#123;name: null,age: 29&#125;</span><br></pre></td></tr></table></figure>
+
 <h3 id="完整的例子"><a href="#完整的例子" class="headerlink" title="完整的例子"></a>完整的例子</h3><p><a href="https://github.com/wancaibida/grails-json-views-example" target="_blank" rel="noopener">https://github.com/wancaibida/grails-json-views-example</a></p>
 <h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>JSON View用下来还是遇到了不少的问题，主要原因是其约定太多且官方的文档也说的不是很清楚，有 些地方还是要一步步调试来研究源代码，但总的来说比传统的在代码中指定JSON格式方便了不少，用好了能节约不少时间与工作量。</p>
 <h4 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h4><p><a href="https://github.com/skyboy101/widget-store-rest-api" target="_blank" rel="noopener">https://github.com/skyboy101/widget-store-rest-api</a><br><a href="http://views.grails.org/1.1.x/" target="_blank" rel="noopener">http://views.grails.org/1.1.x/</a></p>
@@ -329,7 +332,7 @@
     </p>
     <p class="copyright-item">
       <span>Link: </span>
-      <a href="https://w2x.me/2017/12/21/Grails-JSON-Views-教程/">https://w2x.me/2017/12/21/Grails-JSON-Views-教程/</a>
+      <a href="https://w2x.me/2017/12/21/Grails-JSON-Views-%E6%95%99%E7%A8%8B/">https://w2x.me/2017/12/21/Grails-JSON-Views-%E6%95%99%E7%A8%8B/</a>
     </p>
     <p class="copyright-item">
       <span>License: </span>
@@ -363,14 +366,14 @@
         
   <nav class="post-nav">
     
-      <a class="prev" href="/2018/01/24/Alfred-argv与query的用法/">
+      <a class="prev" href="/2018/01/24/Alfred-argv%E4%B8%8Equery%E7%9A%84%E7%94%A8%E6%B3%95/">
         <i class="iconfont icon-left"></i>
         <span class="prev-text nav-default">Alfred argv与query的用法</span>
         <span class="prev-text nav-mobile">Prev</span>
       </a>
     
     
-      <a class="next" href="/2017/12/03/记一个Grails-JSON-Views的Bug/">
+      <a class="next" href="/2017/12/03/%E8%AE%B0%E4%B8%80%E4%B8%AAGrails-JSON-Views%E7%9A%84Bug/">
         <span class="next-text nav-default">记一个Grails JSON Views的Bug</span>
         <span class="prev-text nav-mobile">Next</span>
         <i class="iconfont icon-right"></i>
@@ -408,7 +411,7 @@
     
       
         
-          <a href="mailto:wancaibida@gmail.com" class="iconfont icon-email" title="email"></a>
+          <a href="mailto:wancaibida@gmail.com" target="_blank" rel="noopener" class="iconfont icon-email" title="email"></a>
         
       
     
@@ -424,7 +427,7 @@
     
       
         
-          <a href="https://github.com/wancaibida" class="iconfont icon-github" title="github"></a>
+          <a href="https://github.com/wancaibida" target="_blank" rel="noopener" class="iconfont icon-github" title="github"></a>
         
       
     
@@ -450,12 +453,12 @@
 
 <div class="copyright">
   <span class="power-by">
-    Powered by <a class="hexo-link" href="https://hexo.io/">Hexo</a>
+    Powered by <a class="hexo-link" href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>
   </span>
   <span class="division">|</span>
   <span class="theme-info">
     Theme - 
-    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even" target="_blank" rel="noopener">Even</a>
   </span>
 
   <span class="copyright-year">
@@ -484,7 +487,7 @@
   
   <script type="text/javascript">
     var disqus_config = function () {
-        this.page.url = 'https://w2x.me/2017/12/21/Grails-JSON-Views-教程/';
+        this.page.url = 'https://w2x.me/2017/12/21/Grails-JSON-Views-%E6%95%99%E7%A8%8B/';
         this.page.identifier = '2017/12/21/Grails-JSON-Views-教程/';
         this.page.title = 'Grails JSON Views 教程';
     };

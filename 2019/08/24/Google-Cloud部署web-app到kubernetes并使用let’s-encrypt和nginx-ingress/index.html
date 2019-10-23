@@ -1,28 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head><meta name="generator" content="Hexo 3.9.0">
+  <head>
     
-<meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
 
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
 
-<meta name="theme-color" content="#f8f5ec">
+<meta name="theme-color" content="#f8f5ec" />
 <meta name="msapplication-navbutton-color" content="#f8f5ec">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
 
-  <meta name="description" content="Google Cloud使用kubernetes，let’s encrypt和nginx-ingress部署web app">
+  <meta name="description" content="Google Cloud使用kubernetes，let’s encrypt和nginx-ingress部署web app"/>
 
 
 
 
-  <meta name="keywords" content="k8s, kubernetes, Charles' Blog">
+  <meta name="keywords" content="k8s, kubernetes, Charles' Blog" />
 
 
 
@@ -38,24 +38,24 @@
 
 
 
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.10.2">
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.10.2" />
 
 
 
-<link rel="canonical" href="https://w2x.me/2019/08/24/Google-Cloud部署web-app到kubernetes并使用let’s-encrypt和nginx-ingress/">
+<link rel="canonical" href="https://w2x.me/2019/08/24/Google-Cloud部署web-app到kubernetes并使用let’s-encrypt和nginx-ingress/"/>
 
 
 
-  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css">
+  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
 
 
 
 
-  <link rel="stylesheet" type="text/css" href="/lib/nprogress/nprogress.min.css">
+  <link rel="stylesheet" type="text/css" href="/lib/nprogress/nprogress.min.css" />
 
 
 
-<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.10.2">
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.10.2" />
 
 
 
@@ -267,25 +267,38 @@
     <div class="post-content">
       
         <h2 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h2><h3 id="连接cluster"><a href="#连接cluster" class="headerlink" title="连接cluster"></a>连接cluster</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcloud container clusters get-credentials CLUSER_NAME --zone us-central1-a --project PROJECT_NAME</span><br></pre></td></tr></table></figure>
+
 <h3 id="安装helm和tiller"><a href="#安装helm和tiller" class="headerlink" title="安装helm和tiller"></a>安装helm和tiller</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">kubectl create serviceaccount --namespace kube-system tiller</span><br><span class="line">kubectl create clusterrolebinding tiller-cluster-rule --clusterrole=cluster-admin --serviceaccount=kube-system:tiller</span><br><span class="line">helm init --service-account tiller</span><br></pre></td></tr></table></figure>
+
 <h3 id="安装nginx-ingress"><a href="#安装nginx-ingress" class="headerlink" title="安装nginx-ingress"></a>安装nginx-ingress</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">helm install --name nginx-ingress stable/nginx-ingress --set rbac.create=true --set controller.publishService.enabled=true</span><br></pre></td></tr></table></figure>
+
 <h3 id="安装let’s-encrypt"><a href="#安装let’s-encrypt" class="headerlink" title="安装let’s encrypt"></a>安装let’s encrypt</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">kubectl apply -f https://raw.githubusercontent.com/jetstack/cert-manager/release-0.8/deploy/manifests/00-crds.yaml</span><br><span class="line"></span><br><span class="line">helm repo add jetstack https://charts.jetstack.io</span><br><span class="line">helm install --name cert-manager --namespace cert-manager jetstack/cert-manager</span><br><span class="line"></span><br><span class="line">kubectl create -f issuer.yaml</span><br></pre></td></tr></table></figure>
-<p><a href="https://raw.githubusercontent.com/wancaibida/kubernetes-sample-app/master/issuer.yaml" target="_blank" rel="noopener">issuer.yaml</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">apiVersion: certmanager.k8s.io/v1alpha1</span><br><span class="line">kind: ClusterIssuer</span><br><span class="line">metadata:</span><br><span class="line">  name: letsencrypt-prod</span><br><span class="line">spec:</span><br><span class="line">  acme:</span><br><span class="line">    # The ACME server URL</span><br><span class="line">    server: https://acme-v02.api.letsencrypt.org/directory</span><br><span class="line">    # Email address used for ACME registration</span><br><span class="line">    email: youremail@yourdomain.com</span><br><span class="line">    # Name of a secret used to store the ACME account private key</span><br><span class="line">    privateKeySecretRef:</span><br><span class="line">      name: letsencrypt-prod</span><br><span class="line">    # Enable the HTTP-01 challenge provider</span><br><span class="line">    http01: &#123;&#125;</span><br></pre></td></tr></table></figure></p>
+
+<p><a href="https://raw.githubusercontent.com/wancaibida/kubernetes-sample-app/master/issuer.yaml" target="_blank" rel="noopener">issuer.yaml</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">apiVersion: certmanager.k8s.io/v1alpha1</span><br><span class="line">kind: ClusterIssuer</span><br><span class="line">metadata:</span><br><span class="line">  name: letsencrypt-prod</span><br><span class="line">spec:</span><br><span class="line">  acme:</span><br><span class="line">    # The ACME server URL</span><br><span class="line">    server: https://acme-v02.api.letsencrypt.org/directory</span><br><span class="line">    # Email address used for ACME registration</span><br><span class="line">    email: youremail@yourdomain.com</span><br><span class="line">    # Name of a secret used to store the ACME account private key</span><br><span class="line">    privateKeySecretRef:</span><br><span class="line">      name: letsencrypt-prod</span><br><span class="line">    # Enable the HTTP-01 challenge provider</span><br><span class="line">    http01: &#123;&#125;</span><br></pre></td></tr></table></figure>
+
 <h3 id="配置DNS"><a href="#配置DNS" class="headerlink" title="配置DNS"></a>配置DNS</h3><p>获取nginx-ingress-controller的IP</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl get svc -n default</span><br></pre></td></tr></table></figure>
 <p>output:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">NAME                            TYPE           CLUSTER-IP     EXTERNAL-IP     PORT(S)                      AGE</span><br><span class="line">kubernetes                      ClusterIP      10.64.0.1      &lt;none&gt;          443/TCP                      64m</span><br><span class="line">nginx-ingress-controller        LoadBalancer   10.64.11.170   35.188.93.188   80:30393/TCP,443:30515/TCP   59m</span><br><span class="line">nginx-ingress-default-backend   ClusterIP      10.64.5.162    &lt;none&gt;          80/TCP                       59m</span><br></pre></td></tr></table></figure>
 <p>将你的DNS记录指向 EXTERNAL-IP -&gt; <code>35.188.93.188</code></p>
 <h2 id="部署web项目"><a href="#部署web项目" class="headerlink" title="部署web项目"></a>部署web项目</h2><h3 id="创建namespace"><a href="#创建namespace" class="headerlink" title="创建namespace"></a>创建namespace</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kubectl create ns demo</span><br><span class="line">kubectl config set-context $(kubectl config current-context) --namespace=demo</span><br></pre></td></tr></table></figure>
+
 <h3 id="部署项目"><a href="#部署项目" class="headerlink" title="部署项目"></a>部署项目</h3><h4 id="Deployment"><a href="#Deployment" class="headerlink" title="Deployment"></a>Deployment</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl apply -f deployment.yaml</span><br></pre></td></tr></table></figure>
+
 <p><a href="https://raw.githubusercontent.com/wancaibida/kubernetes-sample-app/master/deployment.yaml" target="_blank" rel="noopener">deplyment.yaml</a></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">apiVersion: apps/v1</span><br><span class="line">kind: StatefulSet</span><br><span class="line">metadata:</span><br><span class="line">  name: api-deployment</span><br><span class="line">  labels:</span><br><span class="line">    app: api</span><br><span class="line">spec:</span><br><span class="line">  serviceName: api-app</span><br><span class="line">  replicas: 1</span><br><span class="line">  selector:</span><br><span class="line">    matchLabels:</span><br><span class="line">      app: api</span><br><span class="line">  template:</span><br><span class="line">    metadata:</span><br><span class="line">      labels:</span><br><span class="line">        app: api</span><br><span class="line">    spec:</span><br><span class="line">      terminationGracePeriodSeconds: 30</span><br><span class="line">      containers:</span><br><span class="line">        - image: tomcat:8.5.45-jdk8-openjdk-slim</span><br><span class="line">          imagePullPolicy: &quot;Always&quot;</span><br><span class="line">          name: api</span><br><span class="line">          ports:</span><br><span class="line">            - containerPort: 8080</span><br><span class="line">          livenessProbe:</span><br><span class="line">            httpGet:</span><br><span class="line">              path: /</span><br><span class="line">              port: 8080</span><br><span class="line">            initialDelaySeconds: 150</span><br><span class="line">            periodSeconds: 5</span><br><span class="line">          readinessProbe:</span><br><span class="line">            httpGet:</span><br><span class="line">              path: /</span><br><span class="line">              port: 8080</span><br><span class="line">            initialDelaySeconds: 150</span><br><span class="line">            periodSeconds: 5</span><br></pre></td></tr></table></figure>
+
 <h4 id="Service"><a href="#Service" class="headerlink" title="Service"></a>Service</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl apply -f service.yaml</span><br></pre></td></tr></table></figure>
+
 <p><a href="https://raw.githubusercontent.com/wancaibida/kubernetes-sample-app/master/service.yaml" target="_blank" rel="noopener">service.yaml</a></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">apiVersion: v1</span><br><span class="line">kind: Service</span><br><span class="line">metadata:</span><br><span class="line">  name: api-service</span><br><span class="line">  labels:</span><br><span class="line">    app: api</span><br><span class="line">spec:</span><br><span class="line">  type: ClusterIP</span><br><span class="line">  selector:</span><br><span class="line">    app: api</span><br><span class="line">  ports:</span><br><span class="line">   - protocol: TCP</span><br><span class="line">     port: 80</span><br><span class="line">     targetPort: 8080</span><br></pre></td></tr></table></figure>
+
 <h4 id="Ingress"><a href="#Ingress" class="headerlink" title="Ingress"></a>Ingress</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl apply -f ingress.yaml</span><br></pre></td></tr></table></figure>
+
 <p><a href="https://raw.githubusercontent.com/wancaibida/kubernetes-sample-app/master/ingress.yaml" target="_blank" rel="noopener">ingress.yaml</a></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">apiVersion: extensions/v1beta1</span><br><span class="line">kind: Ingress</span><br><span class="line">metadata:</span><br><span class="line">  name: name-virtual-host-ingress</span><br><span class="line">  annotations:</span><br><span class="line">    kubernetes.io/ingress.class: nginx</span><br><span class="line">    certmanager.k8s.io/cluster-issuer: letsencrypt-prod</span><br><span class="line">    nginx.ingress.kubernetes.io/ssl-redirect: &quot;true&quot;</span><br><span class="line">spec:</span><br><span class="line">  tls: # &lt; placing a host in the TLS config will indicate a cert should be created</span><br><span class="line">  - hosts:</span><br><span class="line">    - demo.w2x.me</span><br><span class="line">    secretName: letsencrypt-prod</span><br><span class="line">  rules:</span><br><span class="line"></span><br><span class="line">  - host: demo.w2x.me</span><br><span class="line">    http:</span><br><span class="line">      paths:</span><br><span class="line">      - backend:</span><br><span class="line">          serviceName: api-service</span><br><span class="line">          servicePort: 80</span><br></pre></td></tr></table></figure>
+
 <p>等<code>deployment</code>的<code>pod ready</code>后，访问你配置的域名，就可以看到https加密后的tomcat主页了。</p>
 <h2 id="Links"><a href="#Links" class="headerlink" title="Links"></a>Links</h2><ul>
 <li><a href="https://cloud.google.com/community/tutorials/nginx-ingress-gke" target="_blank" rel="noopener">https://cloud.google.com/community/tutorials/nginx-ingress-gke</a></li>
@@ -312,7 +325,7 @@
     </p>
     <p class="copyright-item">
       <span>Link: </span>
-      <a href="https://w2x.me/2019/08/24/Google-Cloud部署web-app到kubernetes并使用let’s-encrypt和nginx-ingress/">https://w2x.me/2019/08/24/Google-Cloud部署web-app到kubernetes并使用let’s-encrypt和nginx-ingress/</a>
+      <a href="https://w2x.me/2019/08/24/Google-Cloud%E9%83%A8%E7%BD%B2web-app%E5%88%B0kubernetes%E5%B9%B6%E4%BD%BF%E7%94%A8let%E2%80%99s-encrypt%E5%92%8Cnginx-ingress/">https://w2x.me/2019/08/24/Google-Cloud%E9%83%A8%E7%BD%B2web-app%E5%88%B0kubernetes%E5%B9%B6%E4%BD%BF%E7%94%A8let%E2%80%99s-encrypt%E5%92%8Cnginx-ingress/</a>
     </p>
     <p class="copyright-item">
       <span>License: </span>
@@ -342,14 +355,14 @@
         
   <nav class="post-nav">
     
-      <a class="prev" href="/2019/09/19/Google-Cloud-Function-Http-认证配置/">
+      <a class="prev" href="/2019/09/19/Google-Cloud-Function-Http-%E8%AE%A4%E8%AF%81%E9%85%8D%E7%BD%AE/">
         <i class="iconfont icon-left"></i>
         <span class="prev-text nav-default">Google Cloud Function Http 认证配置</span>
         <span class="prev-text nav-mobile">Prev</span>
       </a>
     
     
-      <a class="next" href="/2019/07/25/zsh命令行历史同步插件推荐/">
+      <a class="next" href="/2019/07/25/zsh%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%8E%86%E5%8F%B2%E5%90%8C%E6%AD%A5%E6%8F%92%E4%BB%B6%E6%8E%A8%E8%8D%90/">
         <span class="next-text nav-default">Zsh命令行历史同步插件推荐</span>
         <span class="prev-text nav-mobile">Next</span>
         <i class="iconfont icon-right"></i>
@@ -387,7 +400,7 @@
     
       
         
-          <a href="mailto:wancaibida@gmail.com" class="iconfont icon-email" title="email"></a>
+          <a href="mailto:wancaibida@gmail.com" target="_blank" rel="noopener" class="iconfont icon-email" title="email"></a>
         
       
     
@@ -403,7 +416,7 @@
     
       
         
-          <a href="https://github.com/wancaibida" class="iconfont icon-github" title="github"></a>
+          <a href="https://github.com/wancaibida" target="_blank" rel="noopener" class="iconfont icon-github" title="github"></a>
         
       
     
@@ -429,12 +442,12 @@
 
 <div class="copyright">
   <span class="power-by">
-    Powered by <a class="hexo-link" href="https://hexo.io/">Hexo</a>
+    Powered by <a class="hexo-link" href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>
   </span>
   <span class="division">|</span>
   <span class="theme-info">
     Theme - 
-    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even" target="_blank" rel="noopener">Even</a>
   </span>
 
   <span class="copyright-year">
@@ -463,7 +476,7 @@
   
   <script type="text/javascript">
     var disqus_config = function () {
-        this.page.url = 'https://w2x.me/2019/08/24/Google-Cloud部署web-app到kubernetes并使用let’s-encrypt和nginx-ingress/';
+        this.page.url = 'https://w2x.me/2019/08/24/Google-Cloud%E9%83%A8%E7%BD%B2web-app%E5%88%B0kubernetes%E5%B9%B6%E4%BD%BF%E7%94%A8let%E2%80%99s-encrypt%E5%92%8Cnginx-ingress/';
         this.page.identifier = '2019/08/24/Google-Cloud部署web-app到kubernetes并使用let’s-encrypt和nginx-ingress/';
         this.page.title = 'Google Cloud使用kubernetes，let’s encrypt和nginx-ingress部署web app';
     };

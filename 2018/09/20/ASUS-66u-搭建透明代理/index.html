@@ -1,23 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head><meta name="generator" content="Hexo 3.9.0">
+  <head>
     
-<meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
 
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
 
-<meta name="theme-color" content="#f8f5ec">
+<meta name="theme-color" content="#f8f5ec" />
 <meta name="msapplication-navbutton-color" content="#f8f5ec">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
 
-  <meta name="description" content="ASUS 66u 搭建透明代理">
+  <meta name="description" content="ASUS 66u 搭建透明代理"/>
 
 
 
@@ -36,24 +36,24 @@
 
 
 
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.10.2">
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.10.2" />
 
 
 
-<link rel="canonical" href="https://w2x.me/2018/09/20/ASUS-66u-搭建透明代理/">
+<link rel="canonical" href="https://w2x.me/2018/09/20/ASUS-66u-搭建透明代理/"/>
 
 
 
-  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css">
+  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
 
 
 
 
-  <link rel="stylesheet" type="text/css" href="/lib/nprogress/nprogress.min.css">
+  <link rel="stylesheet" type="text/css" href="/lib/nprogress/nprogress.min.css" />
 
 
 
-<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.10.2">
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.10.2" />
 
 
 
@@ -265,6 +265,7 @@
     <div class="post-content">
       
         <h2 id="安装软件"><a href="#安装软件" class="headerlink" title="安装软件"></a>安装软件</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">/usr/sbin/entware-setup.sh</span><br><span class="line"></span><br><span class="line">opkg install bind-dig</span><br><span class="line">opkg install shadowsocks-libev-ss-redir</span><br><span class="line">opkg install shadowsocks-libev-ss-tunnel</span><br><span class="line">opkg install libc libssp libev libmbedtls libpcre libpthread libsodium haveged zlib libopenssl</span><br><span class="line">opkg install ipset4</span><br><span class="line"></span><br><span class="line">//ac66u only</span><br><span class="line">opkg install iptables</span><br></pre></td></tr></table></figure>
+
 <h2 id="配置ss-redir服务"><a href="#配置ss-redir服务" class="headerlink" title="配置ss-redir服务"></a>配置ss-redir服务</h2><h3 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h3><ol>
 <li><code>vim /opt/etc/init.d/S22shadowsocks</code></li>
 <li>将<code>ss-local</code>改为<code>ss-redir</code></li>
@@ -277,32 +278,38 @@
 <li>添加<code>conf-dir=/opt/etc/dnsmasq.d</code></li>
 </ul>
 <h3 id="创建目录"><a href="#创建目录" class="headerlink" title="创建目录"></a>创建目录</h3><ul>
-<li><p><code>mkdir /opt/etc/dnsmasq.d/</code></p>
-</li>
-<li><p>下载规则文件</p>
-</li>
+<li><code>mkdir /opt/etc/dnsmasq.d/</code></li>
+<li>下载规则文件</li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /opt/etc/dnsmasq.d/</span><br><span class="line">curl -O https://cokebar.github.io/gfwlist2dnsmasq/dnsmasq_gfwlist.conf</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /opt/etc/dnsmasq.d/</span><br><span class="line">curl -O https://cokebar.github.io/gfwlist2dnsmasq/dnsmasq_gfwlist.conf</span><br></pre></td></tr></table></figure>
+
 <h2 id="配置ss-tunnel服务"><a href="#配置ss-tunnel服务" class="headerlink" title="配置ss-tunnel服务"></a>配置ss-tunnel服务</h2><p>ss-tunnel主要用于解决dns污染的问题，dnsmasq会将解析请求转发到ss-tunnel</p>
 <h3 id="创建开机启动脚本"><a href="#创建开机启动脚本" class="headerlink" title="创建开机启动脚本"></a>创建开机启动脚本</h3><ul>
 <li>转到目录<code>/jffs/scripts/</code></li>
 <li>创建名为比如<code>start-ss-tunnel.sh</code>文件，内容如下:</li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>!/bin/sh</span><br><span class="line"></span><br><span class="line">/opt/bin/ss-tunnel -c /tmp/mnt/onmp/entware/etc/shadowsocks.json -l 5353 -L 8.8.8.8:53 -u &gt; /dev/null 2&gt;&amp;1 &amp;</span><br></pre></td></tr></table></figure>
-<p>创建<code>service-start</code>文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod +x service-start</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/sh</span></span><br><span class="line"></span><br><span class="line">/opt/bin/ss-tunnel -c /tmp/mnt/onmp/entware/etc/shadowsocks.json -l 5353 -L 8.8.8.8:53 -u &gt; /dev/null 2&gt;&amp;1 &amp;</span><br></pre></td></tr></table></figure>
+<p>创建<code>service-start</code>文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod +x service-start</span><br></pre></td></tr></table></figure>
 <p>将<code>/jffs/scripts/start-ss-tunnel.sh</code> 加到<code>service-start</code>中</p>
 <p>至此<code>ss-tunnel</code>就能开机启动了</p>
 <h2 id="配置iptables"><a href="#配置iptables" class="headerlink" title="配置iptables"></a>配置iptables</h2><h3 id="下载chnroute-txt"><a href="#下载chnroute-txt" class="headerlink" title="下载chnroute.txt"></a>下载chnroute.txt</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget -O- &apos;http://ftp.apnic.net/apnic/stats/apnic/delegated-apnic-latest&apos; | awk -F\| &apos;/CN\|ipv4/ &#123; printf(&quot;%s/%d\n&quot;, $4, 32-log($5)/log(2)) &#125;&apos; &gt; /jffs/configs/chnroute.txt</span><br></pre></td></tr></table></figure>
+
 <h3 id="生成ipset集合"><a href="#生成ipset集合" class="headerlink" title="生成ipset集合"></a>生成ipset集合</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/sh</span><br><span class="line"></span><br><span class="line">wget -O- &apos;http://ftp.apnic.net/apnic/stats/apnic/delegated-apnic-latest&apos; | awk -F\| &apos;/CN\|ipv4/ &#123; printf(&quot;%s/%d\n&quot;, $4, 32-log($5)/log(2)) &#125;&apos; &gt; /jffs/configs/chnroute.txt</span><br><span class="line"></span><br><span class="line">ipset -N chnroute nethash</span><br><span class="line"></span><br><span class="line">for ip in $(cat &apos;/jffs/configs/chnroute.txt&apos;); do</span><br><span class="line">  ipset -A chnroute $ip</span><br><span class="line">done</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">ipset --save &gt; /jffs/configs/ipset.conf</span><br></pre></td></tr></table></figure>
 <p>因为<code>chnroute.txt</code>文件比较大,生成会比较慢,故将生成的ipset保存到<code>ipset.conf</code>中,每次启动时从<code>ipset.conf</code>中导入IP.</p>
-<h3 id="启动脚本"><a href="#启动脚本" class="headerlink" title="启动脚本"></a>启动脚本</h3><p>SS启动脚本<code>ss-up.sh</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/sh</span><br><span class="line"></span><br><span class="line">alias iptables=&apos;/opt/sbin/iptables&apos;</span><br><span class="line"></span><br><span class="line">ipset -R &lt; /jffs/configs/ipset.conf</span><br><span class="line"></span><br><span class="line"># ipset -N chnroute iphash</span><br><span class="line"></span><br><span class="line"># for ip in $(cat &apos;/jffs/scripts/chnroute.txt&apos;); do</span><br><span class="line">#  ipset -A chnroute $ip</span><br><span class="line"># done</span><br><span class="line"></span><br><span class="line">iptables -t nat -N SHADOWSOCKS</span><br><span class="line">iptables -t mangle -N SHADOWSOCKS</span><br><span class="line"></span><br><span class="line"># 直连服务器 IP</span><br><span class="line">iptables -t nat -A SHADOWSOCKS -d [SS-SERVER-IP]/24 -j RETURN</span><br><span class="line"></span><br><span class="line"># 允许连接保留地址</span><br><span class="line">iptables -t nat -A SHADOWSOCKS -d 0.0.0.0/8 -j RETURN</span><br><span class="line">iptables -t nat -A SHADOWSOCKS -d 10.0.0.0/8 -j RETURN</span><br><span class="line">iptables -t nat -A SHADOWSOCKS -d 127.0.0.0/8 -j RETURN</span><br><span class="line">iptables -t nat -A SHADOWSOCKS -d 169.254.0.0/16 -j RETURN</span><br><span class="line">iptables -t nat -A SHADOWSOCKS -d 172.16.0.0/12 -j RETURN</span><br><span class="line">iptables -t nat -A SHADOWSOCKS -d 192.168.0.0/16 -j RETURN</span><br><span class="line">iptables -t nat -A SHADOWSOCKS -d 224.0.0.0/4 -j RETURN</span><br><span class="line">iptables -t nat -A SHADOWSOCKS -d 240.0.0.0/4 -j RETURN</span><br><span class="line"></span><br><span class="line"># 直连中国 IP</span><br><span class="line">iptables -t nat -A SHADOWSOCKS -p tcp -m set --match-set chnroute dst -j RETURN</span><br><span class="line">iptables -t nat -A SHADOWSOCKS -p icmp -m set --match-set chnroute dst -j RETURN</span><br><span class="line"></span><br><span class="line"># 重定向到 ss-redir 端口</span><br><span class="line">iptables -t nat -A SHADOWSOCKS -p tcp -j REDIRECT --to-ports 1080</span><br><span class="line">iptables -t nat -A SHADOWSOCKS -p udp -j REDIRECT --to-ports 1080</span><br><span class="line">iptables -t nat -A OUTPUT -p tcp -j SHADOWSOCKS</span><br><span class="line"></span><br><span class="line"># Apply the rules</span><br><span class="line">iptables -t nat -A PREROUTING -p tcp -j SHADOWSOCKS</span><br><span class="line">iptables -t mangle -A PREROUTING -j SHADOWSOCKS</span><br></pre></td></tr></table></figure></p>
+<h3 id="启动脚本"><a href="#启动脚本" class="headerlink" title="启动脚本"></a>启动脚本</h3><p>SS启动脚本<code>ss-up.sh</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/sh</span><br><span class="line"></span><br><span class="line">alias iptables=&apos;/opt/sbin/iptables&apos;</span><br><span class="line"></span><br><span class="line">ipset -R &lt; /jffs/configs/ipset.conf</span><br><span class="line"></span><br><span class="line"># ipset -N chnroute iphash</span><br><span class="line"></span><br><span class="line"># for ip in $(cat &apos;/jffs/scripts/chnroute.txt&apos;); do</span><br><span class="line">#  ipset -A chnroute $ip</span><br><span class="line"># done</span><br><span class="line"></span><br><span class="line">iptables -t nat -N SHADOWSOCKS</span><br><span class="line">iptables -t mangle -N SHADOWSOCKS</span><br><span class="line"></span><br><span class="line"># 直连服务器 IP</span><br><span class="line">iptables -t nat -A SHADOWSOCKS -d [SS-SERVER-IP]/24 -j RETURN</span><br><span class="line"></span><br><span class="line"># 允许连接保留地址</span><br><span class="line">iptables -t nat -A SHADOWSOCKS -d 0.0.0.0/8 -j RETURN</span><br><span class="line">iptables -t nat -A SHADOWSOCKS -d 10.0.0.0/8 -j RETURN</span><br><span class="line">iptables -t nat -A SHADOWSOCKS -d 127.0.0.0/8 -j RETURN</span><br><span class="line">iptables -t nat -A SHADOWSOCKS -d 169.254.0.0/16 -j RETURN</span><br><span class="line">iptables -t nat -A SHADOWSOCKS -d 172.16.0.0/12 -j RETURN</span><br><span class="line">iptables -t nat -A SHADOWSOCKS -d 192.168.0.0/16 -j RETURN</span><br><span class="line">iptables -t nat -A SHADOWSOCKS -d 224.0.0.0/4 -j RETURN</span><br><span class="line">iptables -t nat -A SHADOWSOCKS -d 240.0.0.0/4 -j RETURN</span><br><span class="line"></span><br><span class="line"># 直连中国 IP</span><br><span class="line">iptables -t nat -A SHADOWSOCKS -p tcp -m set --match-set chnroute dst -j RETURN</span><br><span class="line">iptables -t nat -A SHADOWSOCKS -p icmp -m set --match-set chnroute dst -j RETURN</span><br><span class="line"></span><br><span class="line"># 重定向到 ss-redir 端口</span><br><span class="line">iptables -t nat -A SHADOWSOCKS -p tcp -j REDIRECT --to-ports 1080</span><br><span class="line">iptables -t nat -A SHADOWSOCKS -p udp -j REDIRECT --to-ports 1080</span><br><span class="line">iptables -t nat -A OUTPUT -p tcp -j SHADOWSOCKS</span><br><span class="line"></span><br><span class="line"># Apply the rules</span><br><span class="line">iptables -t nat -A PREROUTING -p tcp -j SHADOWSOCKS</span><br><span class="line">iptables -t mangle -A PREROUTING -j SHADOWSOCKS</span><br></pre></td></tr></table></figure>
+
 <p>将其中的<code>SS-SERVER-IP</code>修改成你的服务器地址</p>
 <p>创建<code>post-mount</code>文件</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod +x post-mount</span><br></pre></td></tr></table></figure>
+
 <p>将<code>ss-up.sh</code>加入</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>!/bin/sh</span><br><span class="line">/jffs/scripts/ss-up.sh</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/sh</span></span><br><span class="line">/jffs/scripts/ss-up.sh</span><br></pre></td></tr></table></figure>
+
 <p>经测试只有将启动脚本加入到<code>post-mount</code>中对能开机启动，可能的原因是<code>ss-up.sh</code>中设及到挂载分区的访问。</p>
 <h3 id="停止脚本"><a href="#停止脚本" class="headerlink" title="停止脚本"></a>停止脚本</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/sh</span><br><span class="line">iptables -t nat -D OUTPUT -p icmp -j SHADOWSOCKS</span><br><span class="line">iptables -t nat -D OUTPUT -p tcp -j SHADOWSOCKS</span><br><span class="line">iptables -t nat -F SHADOWSOCKS</span><br><span class="line">iptables -t nat -X SHADOWSOCKS</span><br><span class="line">ipset -X chnroute</span><br></pre></td></tr></table></figure>
+
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
 <li><a href="https://github.com/shadowsocks/shadowsocks-libev/blob/master/doc/ss-nat.asciidoc" target="_blank" rel="noopener">shadowsocks-libev ss-nat</a></li>
 <li><a href="https://github.com/zfl9/ss-tproxy" target="_blank" rel="noopener">另一个ss-nat</a></li>
@@ -334,7 +341,7 @@
     </p>
     <p class="copyright-item">
       <span>Link: </span>
-      <a href="https://w2x.me/2018/09/20/ASUS-66u-搭建透明代理/">https://w2x.me/2018/09/20/ASUS-66u-搭建透明代理/</a>
+      <a href="https://w2x.me/2018/09/20/ASUS-66u-%E6%90%AD%E5%BB%BA%E9%80%8F%E6%98%8E%E4%BB%A3%E7%90%86/">https://w2x.me/2018/09/20/ASUS-66u-%E6%90%AD%E5%BB%BA%E9%80%8F%E6%98%8E%E4%BB%A3%E7%90%86/</a>
     </p>
     <p class="copyright-item">
       <span>License: </span>
@@ -356,14 +363,14 @@
         
   <nav class="post-nav">
     
-      <a class="prev" href="/2018/10/30/Groovy对JSON处理的一些细节/">
+      <a class="prev" href="/2018/10/30/Groovy%E5%AF%B9JSON%E5%A4%84%E7%90%86%E7%9A%84%E4%B8%80%E4%BA%9B%E7%BB%86%E8%8A%82/">
         <i class="iconfont icon-left"></i>
         <span class="prev-text nav-default">Groovy JSON处理的一些细节</span>
         <span class="prev-text nav-mobile">Prev</span>
       </a>
     
     
-      <a class="next" href="/2018/09/04/ShadowsocksX-NG实现白名单模式/">
+      <a class="next" href="/2018/09/04/ShadowsocksX-NG%E5%AE%9E%E7%8E%B0%E7%99%BD%E5%90%8D%E5%8D%95%E6%A8%A1%E5%BC%8F/">
         <span class="next-text nav-default">ShadowsocksX-NG实现白名单模式</span>
         <span class="prev-text nav-mobile">Next</span>
         <i class="iconfont icon-right"></i>
@@ -401,7 +408,7 @@
     
       
         
-          <a href="mailto:wancaibida@gmail.com" class="iconfont icon-email" title="email"></a>
+          <a href="mailto:wancaibida@gmail.com" target="_blank" rel="noopener" class="iconfont icon-email" title="email"></a>
         
       
     
@@ -417,7 +424,7 @@
     
       
         
-          <a href="https://github.com/wancaibida" class="iconfont icon-github" title="github"></a>
+          <a href="https://github.com/wancaibida" target="_blank" rel="noopener" class="iconfont icon-github" title="github"></a>
         
       
     
@@ -443,12 +450,12 @@
 
 <div class="copyright">
   <span class="power-by">
-    Powered by <a class="hexo-link" href="https://hexo.io/">Hexo</a>
+    Powered by <a class="hexo-link" href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>
   </span>
   <span class="division">|</span>
   <span class="theme-info">
     Theme - 
-    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even" target="_blank" rel="noopener">Even</a>
   </span>
 
   <span class="copyright-year">
@@ -477,7 +484,7 @@
   
   <script type="text/javascript">
     var disqus_config = function () {
-        this.page.url = 'https://w2x.me/2018/09/20/ASUS-66u-搭建透明代理/';
+        this.page.url = 'https://w2x.me/2018/09/20/ASUS-66u-%E6%90%AD%E5%BB%BA%E9%80%8F%E6%98%8E%E4%BB%A3%E7%90%86/';
         this.page.identifier = '2018/09/20/ASUS-66u-搭建透明代理/';
         this.page.title = 'ASUS 66u 搭建透明代理';
     };

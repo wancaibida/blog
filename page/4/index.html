@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head><meta name="generator" content="Hexo 3.9.0">
+  <head>
     
-<meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
 
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
 
-<meta name="theme-color" content="#f8f5ec">
+<meta name="theme-color" content="#f8f5ec" />
 <meta name="msapplication-navbutton-color" content="#f8f5ec">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
@@ -34,24 +34,24 @@
 
 
 
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.10.2">
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.10.2" />
 
 
 
-<link rel="canonical" href="https://w2x.me/page/4/">
+<link rel="canonical" href="https://w2x.me/page/4/"/>
 
 
 
-  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css">
+  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
 
 
 
 
-  <link rel="stylesheet" type="text/css" href="/lib/nprogress/nprogress.min.css">
+  <link rel="stylesheet" type="text/css" href="/lib/nprogress/nprogress.min.css" />
 
 
 
-<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.10.2">
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.10.2" />
 
 
 
@@ -234,7 +234,54 @@
     <header class="post-header">
       <h1 class="post-title">
         
-          <a class="post-link" href="/2017/12/21/Grails-JSON-Views-教程/">Grails JSON Views 教程</a>
+          <a class="post-link" href="/2018/01/24/Alfred-argv%E4%B8%8Equery%E7%9A%84%E7%94%A8%E6%B3%95/">Alfred argv与query的用法</a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-01-24
+        </span>
+        
+          <span class="post-category">
+            
+              <a href="/categories/mac-os/">mac os</a>
+            
+          </span>
+        
+        
+      </div>
+    </header>
+
+    
+    
+
+
+    <div class="post-content">
+      
+        
+        
+
+        
+          <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># Input as argv</span><br><span class="line">./myscript.sh $1</span><br><span class="line"> </span><br><span class="line"># Input as query macro</span><br><span class="line">./myscript.sh &#123;query&#125;</span><br></pre></td></tr></table></figure>
+
+        
+      
+    </div>
+
+    
+
+    
+
+  </article>
+
+      
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          <a class="post-link" href="/2017/12/21/Grails-JSON-Views-%E6%95%99%E7%A8%8B/">Grails JSON Views 教程</a>
         
       </h1>
 
@@ -276,6 +323,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">@Field Author author</span><br><span class="line">json &#123;</span><br><span class="line">    name author.name</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>如果Author类是Domain Object的话，则模版文件可以写成：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@Field Author author</span><br><span class="line">json g.render(author)</span><br></pre></td></tr></table></figure>
+
 <h3 id="高级用法"><a href="#高级用法" class="headerlink" title="高级用法"></a>高级用法</h3><h4 id="自定义字段"><a href="#自定义字段" class="headerlink" title="自定义字段"></a>自定义字段</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">model &#123;</span><br><span class="line">    Book book</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">json g.render(book, [deep: false, renderNulls: true]) &#123;</span><br><span class="line">    authorName book.author?.name</span><br><span class="line">    publishDate new Date().time</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h4 id="集合渲染"><a href="#集合渲染" class="headerlink" title="集合渲染"></a>集合渲染</h4><p>例1：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">model &#123;</span><br><span class="line">    Author author</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">json &#123;</span><br><span class="line">    name author.name</span><br><span class="line">    books g.render(template: &apos;/book/book&apos;, collection: author.books, var: &apos;book&apos;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -291,7 +339,8 @@
 </li>
 <li><p>Grails默认会在<code>grails-app/views/author/</code>路径下查找<code>authorList.gson</code>视图文件</p>
 </li>
-<li>如果需要在其他Controller下引用该视图的话，需要写绝对路径<code>/author/authorList</code></li>
+<li><p>如果需要在其他Controller下引用该视图的话，需要写绝对路径<code>/author/authorList</code></p>
+</li>
 </ul>
 <p><code>_author.gson</code></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">model &#123;</span><br><span class="line">    Author author</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">json &#123;</span><br><span class="line">    name author.name</span><br><span class="line">    books g.render(template: &apos;/book/book&apos;, collection: author.books, var: &apos;book&apos;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -308,6 +357,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@Field Author author</span><br><span class="line">json g.render(author,[renderNulls: true])</span><br></pre></td></tr></table></figure>
 <p>则b的返回中就变成：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">def b = new Author(name: null,age: 29)=&gt; &#123;name: null,age: 29&#125;</span><br></pre></td></tr></table></figure>
+
 <h3 id="完整的例子"><a href="#完整的例子" class="headerlink" title="完整的例子"></a>完整的例子</h3><p><a href="https://github.com/wancaibida/grails-json-views-example" target="_blank" rel="noopener">https://github.com/wancaibida/grails-json-views-example</a></p>
 <h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>JSON View用下来还是遇到了不少的问题，主要原因是其约定太多且官方的文档也说的不是很清楚，有 些地方还是要一步步调试来研究源代码，但总的来说比传统的在代码中指定JSON格式方便了不少，用好了能节约不少时间与工作量。</p>
 <h4 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h4><p><a href="https://github.com/skyboy101/widget-store-rest-api" target="_blank" rel="noopener">https://github.com/skyboy101/widget-store-rest-api</a><br><a href="http://views.grails.org/1.1.x/" target="_blank" rel="noopener">http://views.grails.org/1.1.x/</a></p>
@@ -328,7 +378,7 @@
     <header class="post-header">
       <h1 class="post-title">
         
-          <a class="post-link" href="/2017/12/03/记一个Grails-JSON-Views的Bug/">记一个Grails JSON Views的Bug</a>
+          <a class="post-link" href="/2017/12/03/%E8%AE%B0%E4%B8%80%E4%B8%AAGrails-JSON-Views%E7%9A%84Bug/">记一个Grails JSON Views的Bug</a>
         
       </h1>
 
@@ -363,6 +413,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">bean</span><br><span class="line">    package...</span><br><span class="line">        QueryResult.groovy</span><br><span class="line">views</span><br><span class="line">    queryResult</span><br><span class="line">        _queryresult.gson</span><br></pre></td></tr></table></figure>
 <p>Controller代码：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">def list(xxx)&#123;</span><br><span class="line">    new QueryResult(xxx)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>项目在本地开发时没有什么问题，但部署到生产环境时，这个方法返回内空始终为空。</p>
 <p>项目在本地开发时是在内置的tomcat运行的，而在生产环境中项目是打包成war文件部署在Linux下的Tomcat。猜测问题可能是项目运行方式不同导致。</p>
 <p>调试后发现了如下代码：</p>
@@ -393,7 +444,7 @@
     <header class="post-header">
       <h1 class="post-title">
         
-          <a class="post-link" href="/2017/12/02/Intellij远程调试Tomcat/">Intellij远程调试Tomcat</a>
+          <a class="post-link" href="/2017/12/02/Intellij%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95Tomcat/">Intellij远程调试Tomcat</a>
         
       </h1>
 
@@ -423,16 +474,17 @@
 
         
           <ol>
-<li>在Tomcat下新建<code>setenv.sh</code>文件</li>
-<li>运行<code>chmod 755 setenv.sh</code></li>
+<li><p>在Tomcat下新建<code>setenv.sh</code>文件</p>
+</li>
+<li><p>运行<code>chmod 755 setenv.sh</code></p>
+</li>
 <li><p>将下面的代码添加到<code>setenv.sh</code>文件中</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export CATALINA_OPTS=&quot;-agentlib:jdwp=transport=dt_socket,address=1043,server=y,suspend=n&quot;</span><br></pre></td></tr></table></figure>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export CATALINA_OPTS=&quot;-agentlib:jdwp=transport=dt_socket,address=1043,server=y,suspend=n&quot;</span><br></pre></td></tr></table></figure></li>
+<li><p>Intellij Run/Debug Configurations下新建Tomcat Server Remote<br>![Screen Shot 2017-12-02 at 13.53.42](<a href="http://static.w2x.me/2017-12-02-Screen" target="_blank" rel="noopener">http://static.w2x.me/2017-12-02-Screen</a> Shot 2017-12-02 at 13.53.42.png)</p>
 </li>
-<li><p>Intellij Run/Debug Configurations下新建Tomcat Server Remote<br><img src="http://static.w2x.me/2017-12-02-Screen Shot 2017-12-02 at 13.53.42.png" alt="Screen Shot 2017-12-02 at 13.53.42"></p>
+<li><p>在新建的页面先择<code>Starup/Connection</code>标签,然后选择Debug选项<br>![Screen Shot 2017-12-02 at 13.56.20](<a href="http://static.w2x.me/2017-12-02-Screen" target="_blank" rel="noopener">http://static.w2x.me/2017-12-02-Screen</a> Shot 2017-12-02 at 13.56.20.png)</p>
 </li>
-<li><p>在新建的页面先择<code>Starup/Connection</code>标签,然后选择Debug选项<br><img src="http://static.w2x.me/2017-12-02-Screen Shot 2017-12-02 at 13.56.20.png" alt="Screen Shot 2017-12-02 at 13.56.20"></p>
-</li>
-<li><p>将<code>Port</code>的值修改为<code>1043</code><br><img src="http://static.w2x.me/2017-12-02-Screen Shot 2017-12-02 at 13.58.42.png" alt="Screen Shot 2017-12-02 at 13.58.42"></p>
+<li><p>将<code>Port</code>的值修改为<code>1043</code><br>![Screen Shot 2017-12-02 at 13.58.42](<a href="http://static.w2x.me/2017-12-02-Screen" target="_blank" rel="noopener">http://static.w2x.me/2017-12-02-Screen</a> Shot 2017-12-02 at 13.58.42.png)</p>
 </li>
 <li><p>Tomcat启动后,Intellij即可远程Debug</p>
 </li>
@@ -454,7 +506,7 @@
     <header class="post-header">
       <h1 class="post-title">
         
-          <a class="post-link" href="/2017/11/20/Kubernetes入门/">Kubernetes入门</a>
+          <a class="post-link" href="/2017/11/20/Kubernetes%E5%85%A5%E9%97%A8/">Kubernetes入门</a>
         
       </h1>
 
@@ -497,6 +549,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">apiVersion: apps/v1beta1</span><br><span class="line">kind: Deployment</span><br><span class="line">metadata:</span><br><span class="line">  name: nginx-deployment</span><br><span class="line">spec:</span><br><span class="line">  replicas: 3</span><br><span class="line">  template:</span><br><span class="line">    metadata:</span><br><span class="line">      labels:</span><br><span class="line">        app: nginx</span><br><span class="line">    spec:</span><br><span class="line">      containers:</span><br><span class="line">      - name: nginx</span><br><span class="line">        image: nginx:1.7.9</span><br><span class="line">        ports:</span><br><span class="line">        - containerPort: 80</span><br></pre></td></tr></table></figure>
 <p>我们可以通过下面的命令来创建Kubernetes对象:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl create -f docs/user-guide/nginx-deployment.yaml --record</span><br></pre></td></tr></table></figure>
+
 <h4 id="字段说明"><a href="#字段说明" class="headerlink" title="字段说明"></a>字段说明</h4><p>在yaml文件中,你需要声明以下字段:</p>
 <ul>
 <li>apiVersion - 调用的API版本</li>
@@ -522,6 +575,7 @@
 <p>上面的描述文件创建了3个运行Nginx的Pod对象.</p>
 <p>通过下面命令来部署和查看Deployments对象:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kubectl create -f docs/user-guide/nginx-deployment.yaml --record</span><br><span class="line">kubectl get deployment</span><br></pre></td></tr></table></figure>
+
 <h3 id="Service对象"><a href="#Service对象" class="headerlink" title="Service对象"></a>Service对象</h3><p>Service对象将Pod对象抽像成一种服务,并定义了访问这些Pod对象的策略,类似于负载均衡(Loadbalancer).Service对象会通过选择器来选择Pod对象.</p>
 <p>例:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">kind: Service</span><br><span class="line">apiVersion: v1</span><br><span class="line">metadata:</span><br><span class="line">  name: my-service</span><br><span class="line">spec:</span><br><span class="line">  selector:</span><br><span class="line">    app: MyApp</span><br><span class="line">  ports:</span><br><span class="line">    - protocol: TCP</span><br><span class="line">      port: 80</span><br><span class="line">      targetPort: 9376</span><br></pre></td></tr></table></figure>
@@ -551,7 +605,7 @@
     <header class="post-header">
       <h1 class="post-title">
         
-          <a class="post-link" href="/2017/10/30/Spring-Boot-配置文件设置默认值/">Spring Boot YAML配置文件设置字段默认值</a>
+          <a class="post-link" href="/2017/10/30/Spring-Boot-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E8%AE%BE%E7%BD%AE%E9%BB%98%E8%AE%A4%E5%80%BC/">Spring Boot YAML配置文件设置字段默认值</a>
         
       </h1>
 
@@ -582,6 +636,7 @@
         
           <p>SpringBoot中application.yaml如何设置配置项默认值一直困扰了我很久,官方文档也没有写如何设置默认值,今天有时间研究了下,发现只要加个冒号就可以了,如<code>${配置名:默认值}</code>.</p>
 <h2 id="application-yml"><a href="#application-yml" class="headerlink" title="application.yml"></a>application.yml</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">appconfig:</span><br><span class="line">  fileServerAccessKey: $&#123;FILE_SERVER_ACCESS_KEY:default_access_key&#125;</span><br><span class="line">  ...</span><br></pre></td></tr></table></figure>
+
 <h2 id="配置文件类"><a href="#配置文件类" class="headerlink" title="配置文件类"></a>配置文件类</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">@Component</span><br><span class="line">@ConfigurationProperties(prefix = &quot;appconfig&quot;)</span><br><span class="line">class Config &#123;</span><br><span class="line">    String fileServerSecretKey</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>如果项目未设置<code>FILE_SERVER_ACCESS_KEY</code>环境变量,则fileServerSecretKey字段会以<code>default_access_key</code>为默认值.</p>
 <p>研究了下源码发现 <a href="https://github.com/spring-projects/spring-framework/blob/49787493a6ca3726df62c4aff85023e8fa589ed3/spring-core/src/main/java/org/springframework/util/PropertyPlaceholderHelper.java#L147" target="_blank" rel="noopener">PropertyPlaceholderHelper.java#L147</a>这个类先会检查配置值中是否包含<code>valueSeparator</code>这个字符串,如果有,则会用<code>valueSeparator</code>来分割字符,从中取出默认值,而<code>valueSeparator</code>默认值就是<code>:</code>. </p>
@@ -602,7 +657,7 @@
     <header class="post-header">
       <h1 class="post-title">
         
-          <a class="post-link" href="/2017/08/06/Linux下启动Java守护进程方法/">Linux下启动Java守护进程方法</a>
+          <a class="post-link" href="/2017/08/06/Linux%E4%B8%8B%E5%90%AF%E5%8A%A8Java%E5%AE%88%E6%8A%A4%E8%BF%9B%E7%A8%8B%E6%96%B9%E6%B3%95/">Linux下启动Java守护进程方法</a>
         
       </h1>
 
@@ -648,7 +703,7 @@
     <header class="post-header">
       <h1 class="post-title">
         
-          <a class="post-link" href="/2017/07/03/HPKP-HTTP-Public-Key-Pinning-详解/">HPKP(HTTP Public Key Pinning)详解</a>
+          <a class="post-link" href="/2017/07/03/HPKP-HTTP-Public-Key-Pinning-%E8%AF%A6%E8%A7%A3/">HPKP(HTTP Public Key Pinning)详解</a>
         
       </h1>
 
@@ -693,6 +748,7 @@
 </blockquote>
 <p>但在Chrome(59.0.3071.115)下测试,如果HPKP头不包含备份密钥Chrome将忽略该头.</p>
 <h3 id="添加HPKP头"><a href="#添加HPKP头" class="headerlink" title="添加HPKP头"></a>添加HPKP头</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">response.setHeader(&apos;Public-Key-Pins&apos;, &apos;pin-sha256=&quot;base64+primary==&quot;; pin-sha256=&quot;base64+backup==&quot;; max-age=5184000; includeSubDomains&apos;)</span><br></pre></td></tr></table></figure>
+
 <p><strong>sha256</strong><br>公钥的哈希值,base64编码</p>
 <p><strong>max-age</strong><br>在浏览器的存储时间</p>
 <p><strong>includeSubDomains</strong><br>对子域名是否有效</p>
@@ -723,7 +779,7 @@
     <header class="post-header">
       <h1 class="post-title">
         
-          <a class="post-link" href="/2017/06/14/PostgreSQL-JDBC-time类型转换细节/">PostgreSQL JDBC 时间类型存取细节</a>
+          <a class="post-link" href="/2017/06/14/PostgreSQL-JDBC-time%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2%E7%BB%86%E8%8A%82/">PostgreSQL JDBC 时间类型存取细节</a>
         
       </h1>
 
@@ -763,12 +819,17 @@
 <li>到了数据库时间却显示为 23:00:00+0</li>
 <li>查询出来后页面显示的时间是 15:00:00+0</li>
 <li>控制台打印出来的SQL如下:<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">insert into record (id, event_time) values (nextval (&apos;hibernate_sequence&apos;), &apos;23:00:00.000000 +08:00:00&apos;)</span><br></pre></td></tr></table></figure>
+
 </li>
 </ul>
-<p>原因:<br>查看源代码,发现在生成insert语句时,JDBC会通过toString方法将Time类型转成String,而问题就出现在Time转String这里,cal对象是取的JVM的默认时区,而JVM默认时区取的应是本机的时区UTC+8<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">public synchronized String toString(Calendar cal, Time x) &#123;</span><br><span class="line">        if(cal == null) &#123;</span><br><span class="line">            cal = this.defaultCal;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        cal.setTime(x);</span><br><span class="line">        this.sbuf.setLength(0);</span><br><span class="line">        appendTime(this.sbuf, cal, cal.get(14) * 1000000);</span><br><span class="line">        if(this.min74) &#123;</span><br><span class="line">            this.appendTimeZone(this.sbuf, cal);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        showString(&quot;time&quot;, cal, x, this.sbuf.toString());</span><br><span class="line">        return this.sbuf.toString();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<p>原因:<br>查看源代码,发现在生成insert语句时,JDBC会通过toString方法将Time类型转成String,而问题就出现在Time转String这里,cal对象是取的JVM的默认时区,而JVM默认时区取的应是本机的时区UTC+8</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">public synchronized String toString(Calendar cal, Time x) &#123;</span><br><span class="line">        if(cal == null) &#123;</span><br><span class="line">            cal = this.defaultCal;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        cal.setTime(x);</span><br><span class="line">        this.sbuf.setLength(0);</span><br><span class="line">        appendTime(this.sbuf, cal, cal.get(14) * 1000000);</span><br><span class="line">        if(this.min74) &#123;</span><br><span class="line">            this.appendTimeZone(this.sbuf, cal);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        showString(&quot;time&quot;, cal, x, this.sbuf.toString());</span><br><span class="line">        return this.sbuf.toString();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 <p>所以15:00:00+0在调用toString方法后返回值是23:00:00.000000 +08:00:00,但是数据库中event_time类型时Time without timezone,所为23后面的时区信息将会被忽略,最终数据库的时间变成了UTC+0 的23:00:00点</p>
 <p>而将event_time从数据库中查询出来时,又将其当成了UTC+8的23:00:00,换算成UTC+0时间正好是UTC+0 15:00:00</p>
-<p>所以要避免页面时间与数据库时间不统一的办法就是设置JVM的时区<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-Duser.timezone=UTC</span><br></pre></td></tr></table></figure></p>
+<p>所以要避免页面时间与数据库时间不统一的办法就是设置JVM的时区</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-Duser.timezone=UTC</span><br></pre></td></tr></table></figure>
+
+
 
         
       
@@ -786,7 +847,7 @@
     <header class="post-header">
       <h1 class="post-title">
         
-          <a class="post-link" href="/2017/06/13/Hibernate学习/">Hibernate学习</a>
+          <a class="post-link" href="/2017/06/13/Hibernate%E5%AD%A6%E4%B9%A0/">Hibernate学习</a>
         
       </h1>
 
@@ -816,6 +877,7 @@
 
         
           <h3 id="占位符（named-parameters）对order-by无效"><a href="#占位符（named-parameters）对order-by无效" class="headerlink" title="占位符（named parameters）对order by无效"></a>占位符（named parameters）对order by无效</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//对于最后两字段sortField和sortOrder设值时是没有效果的</span><br><span class="line">SELECT * FROM t_table WHERE column=:param1 ORDER BY :sortField :sortOrder</span><br></pre></td></tr></table></figure>
+
 <h3 id="isDirty细节"><a href="#isDirty细节" class="headerlink" title="isDirty细节"></a>isDirty细节</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">def product = Product.get(xxx)</span><br><span class="line">product.name = &apos;anotherName&apos;</span><br><span class="line">product.save()</span><br><span class="line">product.isDirty() //true</span><br><span class="line"></span><br><span class="line">def product = Product.get(xxx)</span><br><span class="line">product.name = &apos;anotherName&apos;</span><br><span class="line">product.save(flush:true)</span><br><span class="line">product.isDirty() //false</span><br></pre></td></tr></table></figure>
 <p>hibernate 中entity get时会有个loadstate 来记录entity的初始状态,调用isDirty方法将比较当前 entity和loadstate来判断entity是否发生改变,然而当flush:true时,将刷新loadstate状态,从时调用isDirty将反回true.</p>
 <h3 id="Session-Flush"><a href="#Session-Flush" class="headerlink" title="Session Flush"></a>Session Flush</h3><ul>
@@ -823,55 +885,6 @@
 </ul>
 <h3 id="flush与transaction的联系"><a href="#flush与transaction的联系" class="headerlink" title="flush与transaction的联系"></a>flush与transaction的联系</h3><p>flush后Hibernate会生成SQL语句并执行，但只有环绕的transaction提交后才会真正的同步到数据库</p>
 
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-      
-        
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2017/06/13/Groovy学习/">Groovy学习</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2017-06-13
-        </span>
-        
-          <span class="post-category">
-            
-              <a href="/categories/java/">java</a>
-            
-          </span>
-        
-        
-      </div>
-    </header>
-
-    
-    
-
-
-    <div class="post-content">
-      
-        
-        
-
-        
-          <h3 id="sort方法作用于Set和List时的区别"><a href="#sort方法作用于Set和List时的区别" class="headerlink" title="sort方法作用于Set和List时的区别"></a>sort方法作用于Set和List时的区别</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">def a = new HashSet()</span><br><span class="line">a &lt;&lt; [3, 1, 2]</span><br><span class="line"></span><br><span class="line">def b = new ArrayList()</span><br><span class="line">b &lt;&lt; [2, 1, 3]</span><br><span class="line"></span><br><span class="line">assert b.sort().is(b) //true</span><br><span class="line">assert a.sort().is(a) //false</span><br></pre></td></tr></table></figure>
-<h3 id="sum-and-flatten-作用于Collection时的区别"><a href="#sum-and-flatten-作用于Collection时的区别" class="headerlink" title="sum and flatten 作用于Collection时的区别"></a>sum and flatten 作用于Collection时的区别</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">[].sum() returns null</span><br><span class="line">[].flatten() returns []</span><br><span class="line">//原因在于调用sum时默认initvalue为null,当list为空时直接返回initvalue</span><br><span class="line">private static Object sum(Iterable self, Object initialValue, boolean first) &#123;</span><br><span class="line">    Object result = initialValue;</span><br><span class="line">    Object[] param = new Object[1];</span><br><span class="line">    for (Object next : self) &#123;</span><br><span class="line">        param[0] = next;</span><br><span class="line">        if (first) &#123;</span><br><span class="line">            result = param[0];</span><br><span class="line">            first = false;</span><br><span class="line">            continue;</span><br><span class="line">        &#125;</span><br><span class="line">        MetaClass metaClass = InvokerHelper.getMetaClass(result);</span><br><span class="line">        result = metaClass.invokeMethod(result, &quot;plus&quot;, param);</span><br><span class="line">    &#125;</span><br><span class="line">    return result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="EqualsAndHashCode注解"><a href="#EqualsAndHashCode注解" class="headerlink" title="@EqualsAndHashCode注解"></a>@EqualsAndHashCode注解</h3><h4 id="当exclude类所有field及property时，会导制所有实例都相等"><a href="#当exclude类所有field及property时，会导制所有实例都相等" class="headerlink" title="当exclude类所有field及property时，会导制所有实例都相等"></a>当exclude类所有field及property时，会导制所有实例都相等</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">@EqualsAndHashCode(excludes = [&apos;x&apos;, &apos;y&apos;])</span><br><span class="line">static class Point &#123;</span><br><span class="line">    int x</span><br><span class="line">    int y</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public static void main(String[] args) &#123;</span><br><span class="line">    def point0 = new Point(x: 1, y: 1)</span><br><span class="line">    def point1 = new Point(x: 2, y: 2)</span><br><span class="line">    assert point0 == point1</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="对ORM类慎用该注解，可能会导制关联丢失，当mutable字段变化时，会导制hash值改变，导制无法定位到槽位，"><a href="#对ORM类慎用该注解，可能会导制关联丢失，当mutable字段变化时，会导制hash值改变，导制无法定位到槽位，" class="headerlink" title="对ORM类慎用该注解，可能会导制关联丢失，当mutable字段变化时，会导制hash值改变，导制无法定位到槽位，"></a>对ORM类慎用该注解，可能会导制关联丢失，当mutable字段变化时，会导制hash值改变，导制无法定位到槽位，</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">@EqualsAndHashCode</span><br><span class="line">static class Point &#123;</span><br><span class="line">    int x</span><br><span class="line">    int y</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public static void main(String[] args) &#123;</span><br><span class="line">    def point0 = new Point(x: 1, y: 1)</span><br><span class="line">    def point1 = new Point(x: 2, y: 2)</span><br><span class="line">    def set = new HashSet()</span><br><span class="line">    set &lt;&lt; point0</span><br><span class="line">    set &lt;&lt; point1</span><br><span class="line"></span><br><span class="line">    assert set.contains(point0)</span><br><span class="line"></span><br><span class="line">    point0.x = 6</span><br><span class="line">    assert set.contains(point0)  //false !!!</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
         
       
     </div>
@@ -915,7 +928,7 @@
     
       
         
-          <a href="mailto:wancaibida@gmail.com" class="iconfont icon-email" title="email"></a>
+          <a href="mailto:wancaibida@gmail.com" target="_blank" rel="noopener" class="iconfont icon-email" title="email"></a>
         
       
     
@@ -931,7 +944,7 @@
     
       
         
-          <a href="https://github.com/wancaibida" class="iconfont icon-github" title="github"></a>
+          <a href="https://github.com/wancaibida" target="_blank" rel="noopener" class="iconfont icon-github" title="github"></a>
         
       
     
@@ -957,12 +970,12 @@
 
 <div class="copyright">
   <span class="power-by">
-    Powered by <a class="hexo-link" href="https://hexo.io/">Hexo</a>
+    Powered by <a class="hexo-link" href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>
   </span>
   <span class="division">|</span>
   <span class="theme-info">
     Theme - 
-    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even" target="_blank" rel="noopener">Even</a>
   </span>
 
   <span class="copyright-year">

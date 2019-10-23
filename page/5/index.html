@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head><meta name="generator" content="Hexo 3.9.0">
+  <head>
     
-<meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
 
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
 
-<meta name="theme-color" content="#f8f5ec">
+<meta name="theme-color" content="#f8f5ec" />
 <meta name="msapplication-navbutton-color" content="#f8f5ec">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
@@ -34,24 +34,24 @@
 
 
 
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.10.2">
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.10.2" />
 
 
 
-<link rel="canonical" href="https://w2x.me/page/5/">
+<link rel="canonical" href="https://w2x.me/page/5/"/>
 
 
 
-  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css">
+  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
 
 
 
 
-  <link rel="stylesheet" type="text/css" href="/lib/nprogress/nprogress.min.css">
+  <link rel="stylesheet" type="text/css" href="/lib/nprogress/nprogress.min.css" />
 
 
 
-<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.10.2">
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.10.2" />
 
 
 
@@ -234,6 +234,57 @@
     <header class="post-header">
       <h1 class="post-title">
         
+          <a class="post-link" href="/2017/06/13/Groovy%E5%AD%A6%E4%B9%A0/">Groovy学习</a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2017-06-13
+        </span>
+        
+          <span class="post-category">
+            
+              <a href="/categories/java/">java</a>
+            
+          </span>
+        
+        
+      </div>
+    </header>
+
+    
+    
+
+
+    <div class="post-content">
+      
+        
+        
+
+        
+          <h3 id="sort方法作用于Set和List时的区别"><a href="#sort方法作用于Set和List时的区别" class="headerlink" title="sort方法作用于Set和List时的区别"></a>sort方法作用于Set和List时的区别</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">def a = new HashSet()</span><br><span class="line">a &lt;&lt; [3, 1, 2]</span><br><span class="line"></span><br><span class="line">def b = new ArrayList()</span><br><span class="line">b &lt;&lt; [2, 1, 3]</span><br><span class="line"></span><br><span class="line">assert b.sort().is(b) //true</span><br><span class="line">assert a.sort().is(a) //false</span><br></pre></td></tr></table></figure>
+
+<h3 id="sum-and-flatten-作用于Collection时的区别"><a href="#sum-and-flatten-作用于Collection时的区别" class="headerlink" title="sum and flatten 作用于Collection时的区别"></a>sum and flatten 作用于Collection时的区别</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">[].sum() returns null</span><br><span class="line">[].flatten() returns []</span><br><span class="line">//原因在于调用sum时默认initvalue为null,当list为空时直接返回initvalue</span><br><span class="line">private static Object sum(Iterable self, Object initialValue, boolean first) &#123;</span><br><span class="line">    Object result = initialValue;</span><br><span class="line">    Object[] param = new Object[1];</span><br><span class="line">    for (Object next : self) &#123;</span><br><span class="line">        param[0] = next;</span><br><span class="line">        if (first) &#123;</span><br><span class="line">            result = param[0];</span><br><span class="line">            first = false;</span><br><span class="line">            continue;</span><br><span class="line">        &#125;</span><br><span class="line">        MetaClass metaClass = InvokerHelper.getMetaClass(result);</span><br><span class="line">        result = metaClass.invokeMethod(result, &quot;plus&quot;, param);</span><br><span class="line">    &#125;</span><br><span class="line">    return result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="EqualsAndHashCode注解"><a href="#EqualsAndHashCode注解" class="headerlink" title="@EqualsAndHashCode注解"></a>@EqualsAndHashCode注解</h3><h4 id="当exclude类所有field及property时，会导制所有实例都相等"><a href="#当exclude类所有field及property时，会导制所有实例都相等" class="headerlink" title="当exclude类所有field及property时，会导制所有实例都相等"></a>当exclude类所有field及property时，会导制所有实例都相等</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">@EqualsAndHashCode(excludes = [&apos;x&apos;, &apos;y&apos;])</span><br><span class="line">static class Point &#123;</span><br><span class="line">    int x</span><br><span class="line">    int y</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public static void main(String[] args) &#123;</span><br><span class="line">    def point0 = new Point(x: 1, y: 1)</span><br><span class="line">    def point1 = new Point(x: 2, y: 2)</span><br><span class="line">    assert point0 == point1</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="对ORM类慎用该注解，可能会导制关联丢失，当mutable字段变化时，会导制hash值改变，导制无法定位到槽位，"><a href="#对ORM类慎用该注解，可能会导制关联丢失，当mutable字段变化时，会导制hash值改变，导制无法定位到槽位，" class="headerlink" title="对ORM类慎用该注解，可能会导制关联丢失，当mutable字段变化时，会导制hash值改变，导制无法定位到槽位，"></a>对ORM类慎用该注解，可能会导制关联丢失，当mutable字段变化时，会导制hash值改变，导制无法定位到槽位，</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">@EqualsAndHashCode</span><br><span class="line">static class Point &#123;</span><br><span class="line">    int x</span><br><span class="line">    int y</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public static void main(String[] args) &#123;</span><br><span class="line">    def point0 = new Point(x: 1, y: 1)</span><br><span class="line">    def point1 = new Point(x: 2, y: 2)</span><br><span class="line">    def set = new HashSet()</span><br><span class="line">    set &lt;&lt; point0</span><br><span class="line">    set &lt;&lt; point1</span><br><span class="line"></span><br><span class="line">    assert set.contains(point0)</span><br><span class="line"></span><br><span class="line">    point0.x = 6</span><br><span class="line">    assert set.contains(point0)  //false !!!</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        
+      
+    </div>
+
+    
+
+    
+
+  </article>
+
+      
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
           <a class="post-link" href="/2017/06/13/how-to-set-tomcat-environment-values/">Tomcat传递环境变量</a>
         
       </h1>
@@ -267,6 +318,7 @@
 <li>在Tomcat bin目录下新建setenv.sh, 编辑setenv.sh,添加如下语句</li>
 </ol>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export JAVA_OPTS=&quot;-DKEY1=VALUE1 -DKEY2=VALUE2 -DKEY3=VALUE3&quot;</span><br></pre></td></tr></table></figure>
+
 <ol start="2">
 <li><p>Tomcat启动时会自动加载setenv.sh</p>
 </li>
@@ -312,7 +364,7 @@
     
       
         
-          <a href="mailto:wancaibida@gmail.com" class="iconfont icon-email" title="email"></a>
+          <a href="mailto:wancaibida@gmail.com" target="_blank" rel="noopener" class="iconfont icon-email" title="email"></a>
         
       
     
@@ -328,7 +380,7 @@
     
       
         
-          <a href="https://github.com/wancaibida" class="iconfont icon-github" title="github"></a>
+          <a href="https://github.com/wancaibida" target="_blank" rel="noopener" class="iconfont icon-github" title="github"></a>
         
       
     
@@ -354,12 +406,12 @@
 
 <div class="copyright">
   <span class="power-by">
-    Powered by <a class="hexo-link" href="https://hexo.io/">Hexo</a>
+    Powered by <a class="hexo-link" href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>
   </span>
   <span class="division">|</span>
   <span class="theme-info">
     Theme - 
-    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even" target="_blank" rel="noopener">Even</a>
   </span>
 
   <span class="copyright-year">

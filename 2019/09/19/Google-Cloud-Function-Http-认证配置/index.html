@@ -1,28 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head><meta name="generator" content="Hexo 3.9.0">
+  <head>
     
-<meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
 
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
 
-<meta name="theme-color" content="#f8f5ec">
+<meta name="theme-color" content="#f8f5ec" />
 <meta name="msapplication-navbutton-color" content="#f8f5ec">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
 
-  <meta name="description" content="Google Cloud Function Http 认证配置">
+  <meta name="description" content="Google Cloud Function Http 认证配置"/>
 
 
 
 
-  <meta name="keywords" content="linux, google, cloud, function, http, authentication, Charles' Blog">
+  <meta name="keywords" content="linux, google, cloud, function, http, authentication, Charles' Blog" />
 
 
 
@@ -38,24 +38,24 @@
 
 
 
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.10.2">
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.10.2" />
 
 
 
-<link rel="canonical" href="https://w2x.me/2019/09/19/Google-Cloud-Function-Http-认证配置/">
+<link rel="canonical" href="https://w2x.me/2019/09/19/Google-Cloud-Function-Http-认证配置/"/>
 
 
 
-  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css">
+  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
 
 
 
 
-  <link rel="stylesheet" type="text/css" href="/lib/nprogress/nprogress.min.css">
+  <link rel="stylesheet" type="text/css" href="/lib/nprogress/nprogress.min.css" />
 
 
 
-<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.10.2">
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.10.2" />
 
 
 
@@ -269,13 +269,16 @@
 <li>通过下面命令给 <code>xxx-slave</code> function加上<code>roles/cloudfunctions.invoker</code> 角色，允许 <code>roles/cloudfunctions.invoker</code>这个角色来调用<code>xxx-slave</code> function</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">gcloud beta functions add-iam-policy-binding RECEIVING_FUNCTION \</span><br><span class="line">  --member=&apos;serviceAccount:CALLING_FUNCTION_IDENTITY&apos; \</span><br><span class="line">  --role=&apos;roles/cloudfunctions.invoker&apos;</span><br></pre></td></tr></table></figure>
-<p><code>RECEIVING_FUNCTION</code> -&gt; 被调用的function名字<br><code>CALLING_FUNCTION_IDENTITY</code> -&gt; 一般为 <a href="mailto:`PROJECT_ID@appspot.gserviceaccount.com" target="_blank" rel="noopener">`PROJECT_ID@appspot.gserviceaccount.com</a>`</p>
+
+<p><code>RECEIVING_FUNCTION</code> -&gt; 被调用的function名字<br><code>CALLING_FUNCTION_IDENTITY</code> -&gt; 一般为 <code>PROJECT_ID@appspot.gserviceaccount.com</code></p>
 <p>比如：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">gcloud beta functions add-iam-policy-binding xxx-slave \</span><br><span class="line">  --member=&apos;serviceAccount:YOUR_PROJECT_ID@appspot.gserviceaccount.com&apos; \</span><br><span class="line">  --role=&apos;roles/cloudfunctions.invoker&apos;</span><br></pre></td></tr></table></figure>
+
 <ul>
 <li>在 <code>xxx-master</code> function中加上获取token代码，请求时将token放在<code>Authorization</code> header里，以python为例：</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"># Requests is already installed, no need to add it to requirements.txt</span><br><span class="line">import requests</span><br><span class="line"></span><br><span class="line">def calling_function(request):</span><br><span class="line">  # Make sure to replace variables with appropriate values</span><br><span class="line">  receiving_function_url = &apos;https://us-central1-graphical-bus-248617.cloudfunctions.net/xxx-slave</span><br><span class="line">&apos;</span><br><span class="line"></span><br><span class="line">  # Set up metadata server request</span><br><span class="line">  # See https://cloud.google.com/compute/docs/instances/verifying-instance-identity#request_signature</span><br><span class="line">  metadata_server_token_url = &apos;http://metadata/computeMetadata/v1/instance/service-accounts/default/identity?audience=&apos;</span><br><span class="line"></span><br><span class="line">  token_request_url = metadata_server_token_url + receiving_function_url</span><br><span class="line">  token_request_headers = &#123;&apos;Metadata-Flavor&apos;: &apos;Google&apos;&#125;</span><br><span class="line"></span><br><span class="line">  # Fetch the token</span><br><span class="line">  token_response = requests.get(token_request_url, headers=token_request_headers)</span><br><span class="line">  jwt = token_response.content.decode(&quot;utf-8&quot;)</span><br><span class="line"></span><br><span class="line">  # Provide the token in the request to the receiving function</span><br><span class="line">  receiving_function_headers = &#123;&apos;Authorization&apos;: f&apos;bearer &#123;jwt&#125;&apos;&#125;</span><br><span class="line">  function_response = requests.get(receiving_function_url, headers=receiving_function_headers)</span><br><span class="line"></span><br><span class="line">  return function_response.content</span><br></pre></td></tr></table></figure>
+
 <p>完成上面两部后，<code>xxx-slave</code> function就可以在被认证的情况下调用了。</p>
 <p>这里还需要注意的是要将<code>Cloud Functions Invoker</code> 中的 <code>all user</code>移除，不然<code>xxx-slave</code>方法还是公开的，操作步骤：</p>
 <ul>
@@ -304,7 +307,7 @@
     </p>
     <p class="copyright-item">
       <span>Link: </span>
-      <a href="https://w2x.me/2019/09/19/Google-Cloud-Function-Http-认证配置/">https://w2x.me/2019/09/19/Google-Cloud-Function-Http-认证配置/</a>
+      <a href="https://w2x.me/2019/09/19/Google-Cloud-Function-Http-%E8%AE%A4%E8%AF%81%E9%85%8D%E7%BD%AE/">https://w2x.me/2019/09/19/Google-Cloud-Function-Http-%E8%AE%A4%E8%AF%81%E9%85%8D%E7%BD%AE/</a>
     </p>
     <p class="copyright-item">
       <span>License: </span>
@@ -342,8 +345,14 @@
         
   <nav class="post-nav">
     
+      <a class="prev" href="/2019/10/23/Safari-can-t-establish-a-secure-connection-%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">Safari can't establish a secure connection 解决办法</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
     
-      <a class="next" href="/2019/08/24/Google-Cloud部署web-app到kubernetes并使用let’s-encrypt和nginx-ingress/">
+    
+      <a class="next" href="/2019/08/24/Google-Cloud%E9%83%A8%E7%BD%B2web-app%E5%88%B0kubernetes%E5%B9%B6%E4%BD%BF%E7%94%A8let%E2%80%99s-encrypt%E5%92%8Cnginx-ingress/">
         <span class="next-text nav-default">Google Cloud使用kubernetes，let’s encrypt和nginx-ingress部署web app</span>
         <span class="prev-text nav-mobile">Next</span>
         <i class="iconfont icon-right"></i>
@@ -381,7 +390,7 @@
     
       
         
-          <a href="mailto:wancaibida@gmail.com" class="iconfont icon-email" title="email"></a>
+          <a href="mailto:wancaibida@gmail.com" target="_blank" rel="noopener" class="iconfont icon-email" title="email"></a>
         
       
     
@@ -397,7 +406,7 @@
     
       
         
-          <a href="https://github.com/wancaibida" class="iconfont icon-github" title="github"></a>
+          <a href="https://github.com/wancaibida" target="_blank" rel="noopener" class="iconfont icon-github" title="github"></a>
         
       
     
@@ -423,12 +432,12 @@
 
 <div class="copyright">
   <span class="power-by">
-    Powered by <a class="hexo-link" href="https://hexo.io/">Hexo</a>
+    Powered by <a class="hexo-link" href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>
   </span>
   <span class="division">|</span>
   <span class="theme-info">
     Theme - 
-    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even" target="_blank" rel="noopener">Even</a>
   </span>
 
   <span class="copyright-year">
@@ -457,7 +466,7 @@
   
   <script type="text/javascript">
     var disqus_config = function () {
-        this.page.url = 'https://w2x.me/2019/09/19/Google-Cloud-Function-Http-认证配置/';
+        this.page.url = 'https://w2x.me/2019/09/19/Google-Cloud-Function-Http-%E8%AE%A4%E8%AF%81%E9%85%8D%E7%BD%AE/';
         this.page.identifier = '2019/09/19/Google-Cloud-Function-Http-认证配置/';
         this.page.title = 'Google Cloud Function Http 认证配置';
     };

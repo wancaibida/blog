@@ -1,28 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head><meta name="generator" content="Hexo 3.9.0">
+  <head>
     
-<meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
 
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
 
-<meta name="theme-color" content="#f8f5ec">
+<meta name="theme-color" content="#f8f5ec" />
 <meta name="msapplication-navbutton-color" content="#f8f5ec">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
 
-  <meta name="description" content="HPKP(HTTP Public Key Pinning)详解">
+  <meta name="description" content="HPKP(HTTP Public Key Pinning)详解"/>
 
 
 
 
-  <meta name="keywords" content="hpkp, Charles' Blog">
+  <meta name="keywords" content="hpkp, Charles' Blog" />
 
 
 
@@ -38,24 +38,24 @@
 
 
 
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.10.2">
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.10.2" />
 
 
 
-<link rel="canonical" href="https://w2x.me/2017/07/03/HPKP-HTTP-Public-Key-Pinning-详解/">
+<link rel="canonical" href="https://w2x.me/2017/07/03/HPKP-HTTP-Public-Key-Pinning-详解/"/>
 
 
 
-  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css">
+  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
 
 
 
 
-  <link rel="stylesheet" type="text/css" href="/lib/nprogress/nprogress.min.css">
+  <link rel="stylesheet" type="text/css" href="/lib/nprogress/nprogress.min.css" />
 
 
 
-<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.10.2">
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.10.2" />
 
 
 
@@ -282,6 +282,7 @@
 </blockquote>
 <p>但在Chrome(59.0.3071.115)下测试,如果HPKP头不包含备份密钥Chrome将忽略该头.</p>
 <h3 id="添加HPKP头"><a href="#添加HPKP头" class="headerlink" title="添加HPKP头"></a>添加HPKP头</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">response.setHeader(&apos;Public-Key-Pins&apos;, &apos;pin-sha256=&quot;base64+primary==&quot;; pin-sha256=&quot;base64+backup==&quot;; max-age=5184000; includeSubDomains&apos;)</span><br></pre></td></tr></table></figure>
+
 <p><strong>sha256</strong><br>公钥的哈希值,base64编码</p>
 <p><strong>max-age</strong><br>在浏览器的存储时间</p>
 <p><strong>includeSubDomains</strong><br>对子域名是否有效</p>
@@ -310,7 +311,7 @@
     </p>
     <p class="copyright-item">
       <span>Link: </span>
-      <a href="https://w2x.me/2017/07/03/HPKP-HTTP-Public-Key-Pinning-详解/">https://w2x.me/2017/07/03/HPKP-HTTP-Public-Key-Pinning-详解/</a>
+      <a href="https://w2x.me/2017/07/03/HPKP-HTTP-Public-Key-Pinning-%E8%AF%A6%E8%A7%A3/">https://w2x.me/2017/07/03/HPKP-HTTP-Public-Key-Pinning-%E8%AF%A6%E8%A7%A3/</a>
     </p>
     <p class="copyright-item">
       <span>License: </span>
@@ -338,14 +339,14 @@
         
   <nav class="post-nav">
     
-      <a class="prev" href="/2017/08/06/Linux下启动Java守护进程方法/">
+      <a class="prev" href="/2017/08/06/Linux%E4%B8%8B%E5%90%AF%E5%8A%A8Java%E5%AE%88%E6%8A%A4%E8%BF%9B%E7%A8%8B%E6%96%B9%E6%B3%95/">
         <i class="iconfont icon-left"></i>
         <span class="prev-text nav-default">Linux下启动Java守护进程方法</span>
         <span class="prev-text nav-mobile">Prev</span>
       </a>
     
     
-      <a class="next" href="/2017/06/14/PostgreSQL-JDBC-time类型转换细节/">
+      <a class="next" href="/2017/06/14/PostgreSQL-JDBC-time%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2%E7%BB%86%E8%8A%82/">
         <span class="next-text nav-default">PostgreSQL JDBC 时间类型存取细节</span>
         <span class="prev-text nav-mobile">Next</span>
         <i class="iconfont icon-right"></i>
@@ -383,7 +384,7 @@
     
       
         
-          <a href="mailto:wancaibida@gmail.com" class="iconfont icon-email" title="email"></a>
+          <a href="mailto:wancaibida@gmail.com" target="_blank" rel="noopener" class="iconfont icon-email" title="email"></a>
         
       
     
@@ -399,7 +400,7 @@
     
       
         
-          <a href="https://github.com/wancaibida" class="iconfont icon-github" title="github"></a>
+          <a href="https://github.com/wancaibida" target="_blank" rel="noopener" class="iconfont icon-github" title="github"></a>
         
       
     
@@ -425,12 +426,12 @@
 
 <div class="copyright">
   <span class="power-by">
-    Powered by <a class="hexo-link" href="https://hexo.io/">Hexo</a>
+    Powered by <a class="hexo-link" href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>
   </span>
   <span class="division">|</span>
   <span class="theme-info">
     Theme - 
-    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even" target="_blank" rel="noopener">Even</a>
   </span>
 
   <span class="copyright-year">
@@ -459,7 +460,7 @@
   
   <script type="text/javascript">
     var disqus_config = function () {
-        this.page.url = 'https://w2x.me/2017/07/03/HPKP-HTTP-Public-Key-Pinning-详解/';
+        this.page.url = 'https://w2x.me/2017/07/03/HPKP-HTTP-Public-Key-Pinning-%E8%AF%A6%E8%A7%A3/';
         this.page.identifier = '2017/07/03/HPKP-HTTP-Public-Key-Pinning-详解/';
         this.page.title = 'HPKP(HTTP Public Key Pinning)详解';
     };
