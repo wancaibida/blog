@@ -506,6 +506,7 @@
 <p>将<code>192.168.1.1</code>和<code>fe80::2e0:4cff:fe69:2db</code>换成路由器的v4和v6地址，openwrt默人情况下是<code>192.168.1.1</code>。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># HTTP listen addresses, multiple allowed</span><br><span class="line">list listen_http	192.168.1.1:80</span><br><span class="line">list listen_http	fe80::2e0:4cff:fe69:2db:80</span><br><span class="line"></span><br><span class="line"># HTTPS listen addresses, multiple allowed</span><br><span class="line">list listen_https	192.168.1.1:443</span><br><span class="line">list listen_https	fe80::2e0:4cff:fe69:2db:443</span><br></pre></td></tr></table></figure>
 
+<p>修改完成后重启服务：<code>/etc/init.d/uhttpd restart</code></p>
 <h3 id="SSH-访问控制"><a href="#SSH-访问控制" class="headerlink" title="SSH 访问控制"></a>SSH 访问控制</h3><p>登录openwrt管理页面 <code>System</code> -&gt; <code>Administration</code>-&gt;<code>Dropbear Instance</code></p>
 <p><code>Interface</code> 那一项选择<code>lan</code>，然后<code>Save &amp; Apply</code>，这样你的路由器ssh只能通过内网访问了。</p>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
