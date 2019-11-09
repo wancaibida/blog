@@ -499,6 +499,15 @@
 </li>
 </ol>
 <h2 id="一些定时任务脚本"><a href="#一些定时任务脚本" class="headerlink" title="一些定时任务脚本"></a>一些定时任务脚本</h2><p>写了一些定时<a href="https://github.com/wancaibida/openwrt-scripts" target="_blank" rel="noopener">任务脚本</a>，这里记录一下。</p>
+<h2 id="安全设置"><a href="#安全设置" class="headerlink" title="安全设置"></a>安全设置</h2><h3 id="Luci页面访问控制"><a href="#Luci页面访问控制" class="headerlink" title="Luci页面访问控制"></a>Luci页面访问控制</h3><p>Openwrt的管理页面默认是允许任何IP访问的，如果你的路由器有公网IP的话，那任何人都可访问到你家的路由器登录页面，通过下面设置只允许来自内网地址的访问：</p>
+<p>修改配置文件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/config/uhttpd</span><br></pre></td></tr></table></figure>
+
+<p>将<code>192.168.1.1</code>和<code>fe80::2e0:4cff:fe69:2db</code>换成路由器的v4和v6地址，openwrt默人情况下是<code>192.168.1.1</code>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># HTTP listen addresses, multiple allowed</span><br><span class="line">list listen_http	192.168.1.1:80</span><br><span class="line">list listen_http	fe80::2e0:4cff:fe69:2db:80</span><br><span class="line"></span><br><span class="line"># HTTPS listen addresses, multiple allowed</span><br><span class="line">list listen_https	192.168.1.1:443</span><br><span class="line">list listen_https	fe80::2e0:4cff:fe69:2db:443</span><br></pre></td></tr></table></figure>
+
+<h3 id="SSH-访问控制"><a href="#SSH-访问控制" class="headerlink" title="SSH 访问控制"></a>SSH 访问控制</h3><p>登录openwrt管理页面 <code>System</code> -&gt; <code>Administration</code>-&gt;<code>Dropbear Instance</code></p>
+<p><code>Interface</code> 那一项选择<code>lan</code>，然后<code>Save &amp; Apply</code>，这样你的路由器ssh只能通过内网访问了。</p>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
 <li><a href="https://openwrt.org/docs/guide-user/installation/openwrt_x86" target="_blank" rel="noopener">https://openwrt.org/docs/guide-user/installation/openwrt_x86</a></li>
 <li><a href="http://www.thekelleys.org.uk/dnsmasq/docs/dnsmasq-man.html" target="_blank" rel="noopener">dnsmasq-man.html</a></li>
@@ -506,6 +515,9 @@
 <li><a href="https://alalin.me/archives/805" target="_blank" rel="noopener">OpenWrt $$ 安装&amp;配置指南</a></li>
 <li><a href="https://icymind.com/learn-from-gfw/" target="_blank" rel="noopener">那些从墙上学会的知识</a></li>
 <li><a href="https://openwrt.org/docs/guide-user/services/nas/samba_configuration" target="_blank" rel="noopener">samba 配置</a></li>
+</ul>
+<h2 id="更新日志"><a href="#更新日志" class="headerlink" title="更新日志"></a>更新日志</h2><ul>
+<li>2019-11-09 添加了安全设置</li>
 </ul>
 
         
