@@ -234,6 +234,77 @@
     <header class="post-header">
       <h1 class="post-title">
         
+          <a class="post-link" href="/2019/05/04/Manjaro%E8%87%AA%E5%8A%A8%E6%8C%82%E8%BD%BDsamba%E6%96%87%E4%BB%B6%E5%A4%B9/">Manjaro自动挂载samba文件夹</a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2019-05-04
+        </span>
+        
+          <span class="post-category">
+            
+              <a href="/categories/linux/">linux</a>
+            
+          </span>
+        
+        
+      </div>
+    </header>
+
+    
+    
+
+
+    <div class="post-content">
+      
+        
+        
+
+        
+          <p>Manjaro从地址栏访问samba共享的方式总有点问题，会时不时提示没有文件夹修改权限。最近有时间研究了下，发现命令行挂载的方式比较靠谱。</p>
+<p>由于路由器刷的是<code>openwrt</code>，软件源里安装的samba服务端版本似乎是比较老的版本，<code>manjaro</code>命令行挂载似乎用的是较新的samba协议，调了半天发现客户端这边要加下版本号。</p>
+<p>挂载命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd /mnt</span><br><span class="line">sudo mkdir share0</span><br><span class="line">sudo mount.cifs //192.168.1.1/share0 /mnt/share0 -o user=SAMBA_USERNAME,pass=SAMBA_PASSWORD,uid=1000,gid=1000,sec=ntlmssp,vers=1.0 --verbose</span><br></pre></td></tr></table></figure>
+
+<p>命令行挂载调通后，要实现开机自动挂载就容易的多了，官方文档提供的多种的挂载方式，这里以<code>systemd</code>为例：</p>
+<ol>
+<li>在<code>/etc/samba/</code>下建立<code>credentials</code>文件夹：<code>sudo mkdir credentials</code>，创建比如名为<code>share0</code>的文件： <code>sudo vim share0</code>，内容如下：</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">username=your samba username</span><br><span class="line">password=your samba password</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li><p>创建systemd unit文件：<code>sudo /etc/systemd/system/mnt-share0.mount</code>，内容如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=Mount Share at boot</span><br><span class="line"></span><br><span class="line">[Mount]</span><br><span class="line">What=//192.168.1.1/share0</span><br><span class="line">Where=/mnt/share0</span><br><span class="line">Options=x-systemd.automount,credentials=/etc/samba/credentials/share0,iocharset=utf8,uid=1000,gid=1000,sec=ntlmssp,vers=1.0,rw</span><br><span class="line">Type=cifs</span><br><span class="line">TimeoutSec=30</span><br><span class="line">ForceUnmount=true</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+
+<p>Note：这里有一点要注意的是你的挂载路径（<code>where</code>）必须与你的文件名（<code>mnt-share0</code>）对应，比如你挂载到<code>/mnt/share</code>， 那你的文件就必须为<code>mnt-share0.mount</code></p>
+</li>
+<li><p>启用服务<code>sudo systemctl enable mnt-share0.mount</code></p>
+</li>
+<li><p>启动服务<code>sudo systemctl start mnt-share0.mount</code></p>
+</li>
+</ol>
+<p>到这里samba文件夹就能开机自动挂载，官方还提供了其他的自动挂载方式，详情可参考文档。</p>
+<p>参考：</p>
+<p><a href="https://wiki.archlinux.org/index.php/samba#As_systemd_unit" target="_blank" rel="noopener"><a href="https://wiki.archlinux.org/index.php/samba#As_systemd_unit" target="_blank" rel="noopener">https://wiki.archlinux.org/index.php/samba#As_systemd_unit</a></a></p>
+
+        
+      
+    </div>
+
+    
+
+    
+
+  </article>
+
+      
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
           <a class="post-link" href="/2019/04/23/AWS-Lambda-%E8%87%AA%E5%AE%9A%E4%B9%89VPC/">AWS Lambda 自定义VPC</a>
         
       </h1>
@@ -910,76 +981,6 @@
 
         
           <p><a href="https://gist.githubusercontent.com/wancaibida/ea62205bd8de64860054ca8895cbb2b0/raw/6dbb41ec6b0ee281c93065aa0a15bc18e50a5804/debian-install-docker.sh" target="_blank" rel="noopener">debian-install-docker.sh</a></p>
-
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-      
-        
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2018/10/30/Groovy%E5%AF%B9JSON%E5%A4%84%E7%90%86%E7%9A%84%E4%B8%80%E4%BA%9B%E7%BB%86%E8%8A%82/">Groovy JSON处理的一些细节</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2018-10-30
-        </span>
-        
-          <span class="post-category">
-            
-              <a href="/categories/java/">java</a>
-            
-          </span>
-        
-        
-      </div>
-    </header>
-
-    
-    
-
-
-    <div class="post-content">
-      
-        
-        
-
-        
-          <p>最近遇到一项目，需要在手机端存储用户数据，实现离线访问。其中用户数据处理的逻辑如下图:</p>
-<p><img src="https://www.websequencediagrams.com/cgi-bin/cdraw?lz=dGl0bGUgVXNlciBkYXRhIHVwZGF0ZSBmbG93CgpTZXJ2ZXItPlMzOiBEb3dubG9hZCB1c2VyIGpzb24gZmlsZQAaCgAnBTogRGVzZXJpYWxpemUAHA8gdG8gbWFwACERVQBtBgBTBW1hcACBAwUARhFTAEcOACAIIHRvAHgUMzogVXAAgRsTIHRvIFMzCgo&s=modern-blue" alt="User data flow"></p>
-<ol>
-<li><p>服务端从亚马逊S3上下载用户JSON文本数据库</p>
-</li>
-<li><p>反序列化用户数据</p>
-</li>
-<li><p>更新用户数据</p>
-</li>
-<li><p>将用户数据序列化为JSON文本</p>
-</li>
-<li><p>保存到亚马逊S3上</p>
-</li>
-</ol>
-<p>由于项目设计缺陷，用户所有的数据都存储一个Map对象里，导致Map对象过大，在项目运行过程中出现了内存不足的异常。为了解决内存不足问题，服务端采用了<a href="https://github.com/FasterXML/jackson-docs/wiki/JacksonStreamingApi" target="_blank" rel="noopener">JacksonStreamingApi</a>优化了JSON序列及反序列化步骤，避免将整个用户文件载入到内存中，至此内存不足的异常就再也没有发生。</p>
-<p>其实这里有个问题，如果是用户数据过大，内存不足异常会在步骤3结束后就会发生，为什么偏偏在步骤4序列化为JSON时抛出呢？这里就要说到 Groovy的<a href="http://docs.groovy-lang.org/2.4.3/html/api/groovy/json/internal/LazyMap.html" target="_blank" rel="noopener">LazyMap</a>了。</p>
-<p>LazyMap代码：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LazyMap</span> <span class="keyword">extends</span> <span class="title">AbstractMap</span>&lt;<span class="title">String</span>, <span class="title">Object</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span> String JDK_MAP_ALTHASHING_SYSPROP = System.getProperty(<span class="string">"jdk.map.althashing.threshold"</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Holds the actual map that will be lazily created. */</span></span><br><span class="line">    <span class="keyword">private</span> Map&lt;String, Object&gt; map;</span><br><span class="line">    <span class="comment">/* The size of the map. */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> size;</span><br><span class="line">    <span class="comment">/* The keys  stored in the map. */</span></span><br><span class="line">    <span class="keyword">private</span> String[] keys;</span><br><span class="line">    <span class="comment">/* The values stored in the map. */</span></span><br><span class="line">    <span class="keyword">private</span> Object[] values;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">LazyMap</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        keys = <span class="keyword">new</span> String[<span class="number">5</span>];</span><br><span class="line">        values = <span class="keyword">new</span> Object[<span class="number">5</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">put</span><span class="params">(String key, Object value)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (map == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; size; i++) &#123;</span><br><span class="line">                String curKey = keys[i];</span><br><span class="line">                <span class="keyword">if</span> ((key == <span class="keyword">null</span> &amp;&amp; curKey == <span class="keyword">null</span>)</span><br><span class="line">                     || (key != <span class="keyword">null</span> &amp;&amp; key.equals(curKey))) &#123;</span><br><span class="line">                    Object val = values[i];</span><br><span class="line">                    keys[i] = key;</span><br><span class="line">                    values[i] = value;</span><br><span class="line">                    <span class="keyword">return</span> val;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            keys[size] = key;</span><br><span class="line">            values[size] = value;</span><br><span class="line">            size++;</span><br><span class="line">            <span class="keyword">if</span> (size == keys.length) &#123;</span><br><span class="line">                keys = grow(keys);</span><br><span class="line">                values = grow(values);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> map.put(key, value);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">get</span><span class="params">(Object key)</span> </span>&#123;</span><br><span class="line">        buildIfNeeded();</span><br><span class="line">        <span class="keyword">return</span> map.get(key);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">buildIfNeeded</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (map == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="comment">// added to avoid hash collision attack</span></span><br><span class="line">            <span class="keyword">if</span> (Sys.is1_8OrLater() || (Sys.is1_7() &amp;&amp; JDK_MAP_ALTHASHING_SYSPROP != <span class="keyword">null</span>)) &#123;</span><br><span class="line">                map = <span class="keyword">new</span> LinkedHashMap&lt;String, Object&gt;(size, <span class="number">0.01f</span>);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                map = <span class="keyword">new</span> TreeMap&lt;String, Object&gt;();</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> index = <span class="number">0</span>; index &lt; size; index++) &#123;</span><br><span class="line">                map.put(keys[index], values[index]);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">this</span>.keys = <span class="keyword">null</span>;</span><br><span class="line">            <span class="keyword">this</span>.values = <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-
-<p>从代码中可以看出：对于未进行过读操作(get,containsKey等)的LazyMap对象，keys和values分别存在了两个数组中，一旦调用了读取方法，LazyMap会将数组转化成Map对象，就是这一步操作引起了内存占用变化。</p>
-<p>拿大小约为35MB的用户文件测试，反序列化后，内存中LazyMap对象为73MB(line 1)，一旦对对象进行<code>toJson</code>操作(line 2)，内存占用上升到了559MB(line 3)。</p>
-<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> main(String[] args) &#123;</span><br><span class="line">        File jsonFile = <span class="keyword">new</span> File(<span class="string">'data-format.json'</span>)</span><br><span class="line">        Object obj = <span class="keyword">new</span> JsonSlurper().parse(jsonFile) <span class="comment">// LazyMap here</span></span><br><span class="line">        showSize(obj) <span class="comment">// line 1</span></span><br><span class="line">        JsonOutput.toJson(obj) <span class="comment">// line 2</span></span><br><span class="line">        showSize(obj) <span class="comment">// line 3</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">void</span> showSize(obj) &#123;</span><br><span class="line">        <span class="keyword">def</span> size = ObjectSizeCalculator.getObjectSize(obj) <span class="regexp">/ 1024 /</span> <span class="number">1024</span></span><br><span class="line">        println(<span class="string">"Object memory size is $size MB"</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// output logs:</span></span><br><span class="line">Object memory size is <span class="number">73.51363372802734375</span> MB</span><br><span class="line">Object memory size is <span class="number">559.32244873046875</span> MB</span><br></pre></td></tr></table></figure>
-
-<p>由于用户数据文件较大且嵌套了多层Map，加之<code>JsonOutput.toJson</code>方法会遍历LazyMap对象所有节点，相当于对所有节点进行了读操作，导致节点中的数组转换成Map对象，最终引起内存不足异常。</p>
 
         
       
