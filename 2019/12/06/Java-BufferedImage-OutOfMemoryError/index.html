@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+
+  <meta name="description" content="Java BufferedImage OutOfMemoryError"/>
+
+
+
+
+  <meta name="keywords" content="java, bufferedimage, outofmemoryerror, Charles' Blog" />
+
+
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Charles' Blog">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.10.2" />
+
+
+
+<link rel="canonical" href="https://w2x.me/2019/12/06/Java-BufferedImage-OutOfMemoryError/"/>
+
+
+
+  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/lib/nprogress/nprogress.min.css" />
+
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.10.2" />
+
+
+
+  
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-77440077-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-77440077-1');
+</script>
+
+
+  <script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+
+
+
+
+
+
+<script>
+  window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":true};
+</script>
+
+    <title> Java BufferedImage OutOfMemoryError - Charles' Blog </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">Charles' Blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/">
+        <li class="mobile-menu-item">
+          
+          
+            Home
+          
+        </li>
+      </a>
+    
+      <a href="/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            Archives
+          
+        </li>
+      </a>
+    
+      <a href="/tags/">
+        <li class="mobile-menu-item">
+          
+          
+            Tags
+          
+        </li>
+      </a>
+    
+      <a href="/categories/">
+        <li class="mobile-menu-item">
+          
+          
+            Categories
+          
+        </li>
+      </a>
+    
+      <a href="/about">
+        <li class="mobile-menu-item">
+          
+          
+            About
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">Charles' Blog</a>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/">
+            
+            
+              Home
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            
+            
+              Archives
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/tags/">
+            
+            
+              Tags
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/categories/">
+            
+            
+              Categories
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/about">
+            
+            
+              About
+            
+          </a>
+        </li>
+      
+    </ul>
+  
+</nav>
+
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          Java BufferedImage OutOfMemoryError
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2019-12-06
+        </span>
+        
+          <span class="post-category">
+            
+              <a href="/categories/java/">java</a>
+            
+          </span>
+        
+        
+      </div>
+    </header>
+
+    
+    
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#参考："><span class="toc-text">参考：</span></a></li></ol>
+    </div>
+  </div>
+
+
+
+    <div class="post-content">
+      
+        <p>最近遇到了BufferedImage OutOfMemoryError的问题，在此记录一下。</p>
+<p>事情的起因是项目中有个功能需要将多张图片合并为一张，流程如下：</p>
+<ol>
+<li>有三个图片文件，<code>File A,File B,File C</code></li>
+<li>通过<code>ImageIO.read(inputStream)</code> 将ABC转换成<code>BufferedImage</code>类型</li>
+<li>通过<code>java.awt.image.BufferedImage#getWidth()</code>获取这三张图片中的最大宽度<code>maxWidth</code>，</li>
+<li>计算另外两张图片等比例拉伸至<code>maxWidth</code>后的高度，将这三张图片的高度相加得到<code>maxHeight</code></li>
+<li>创建一张<code>maxWidth * maxHeight</code>的图片</li>
+<li>通过画布将三张图片写入到这张图片里</li>
+</ol>
+<p>主要代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">                val images = mutableListOf&lt;BufferedImage&gt;()</span><br><span class="line">                ...</span><br><span class="line">                images.add(ImageIO.read(inputStream))</span><br><span class="line">                ...</span><br><span class="line">                joinImages(*images.toTypedArray())</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">    fun joinImages(vararg imgs: BufferedImage): BufferedImage &#123;</span><br><span class="line">        val offset = 20</span><br><span class="line"></span><br><span class="line">        val aggregateWidth = imgs.maxBy &#123; it.width &#125;!!.width</span><br><span class="line">        val aggregateHeight = imgs.sumBy &#123;</span><br><span class="line">            (it.height * aggregateWidth) / it.width</span><br><span class="line">        &#125; + (imgs.size - 1) * offset</span><br><span class="line"></span><br><span class="line">        val newImage = BufferedImage(aggregateWidth, aggregateHeight, BufferedImage.TYPE_INT_ARGB)</span><br><span class="line">        val g2 = newImage.createGraphics()</span><br><span class="line">        val oldColor = g2.color</span><br><span class="line"></span><br><span class="line">        g2.paint = Color.white</span><br><span class="line">        g2.fillRect(0, 0, aggregateWidth, aggregateHeight)</span><br><span class="line">        g2.color = oldColor</span><br><span class="line"></span><br><span class="line">        var y = 0</span><br><span class="line"></span><br><span class="line">        imgs.forEach &#123;</span><br><span class="line">            val height = (aggregateWidth * it.height) / it.width</span><br><span class="line">            val scaled = it.getScaledInstance(aggregateWidth, height, Image.SCALE_DEFAULT)</span><br><span class="line"></span><br><span class="line">            g2.drawImage(toBufferedImage(scaled), null, 0, y)</span><br><span class="line">            y += height + offset</span><br><span class="line">        &#125;</span><br><span class="line">        g2.dispose()</span><br><span class="line"></span><br><span class="line">        return newImage</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>运行过程中发现第<code>4</code>和<code>17</code>行代码时不时会抛出OutOfMemoryError错误，研究了下发现有两个问题：</p>
+<ol>
+<li>对于jpeg格式的图片，java将其载入到内存时是不会对其进行压缩的，一个像素会占用3个字节的内存，如果图片的尺寸比较大，会占用非常大的内存，比如这张<a href="https://dummyimage.com/2000x2000/000/fff.jpg" target="_blank" rel="noopener">图片</a>，实际文件大小为84kb，载入到内存里后的大小为11mb：</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">val file = File(&quot;/Downloads/fff.jpeg&quot;)</span><br><span class="line">val image = ImageIO.read(FileInputStream(file))</span><br><span class="line"></span><br><span class="line">println(image.width)  //2000</span><br><span class="line">println(image.height) //2000</span><br><span class="line">println(ObjectSizeCalculator.getObjectSize(image)) //12000928  -&gt; 11mb</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>合并图片前代码将这三张图片一次性全部加载到内存里，这也会占用比较大的内存。</li>
+</ol>
+<p>对于问题1，目前只能规避这问题，加载图片前会预先判断下该图片会占用多少内存，对于会超出内存使用的jpeg图片不予合并。同时在代码第14行，我们对合并后的最大宽度进行限制，避免合并后的图片尺寸过大，占用的内存超出限制。</p>
+<p>对于问题2，这三张图片可以按序加载，不用一次性全部加载到内存里，在需要合并时才加载到内存里，同时可以改进获取图片尺寸的代码，不用将图片加载到内存后再获取尺寸。</p>
+<p>最终代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line">fun getImageSize(file: File): Dimension &#123;</span><br><span class="line">    ImageIO.createImageInputStream(file).use &#123; `in` -&gt;</span><br><span class="line">        val readers = ImageIO.getImageReaders(`in`)</span><br><span class="line">        if (readers.hasNext()) &#123;</span><br><span class="line">            val reader = readers.next()</span><br><span class="line">            try &#123;</span><br><span class="line">                reader.input = `in`</span><br><span class="line">                return Dimension(reader.getWidth(0), reader.getHeight(0))</span><br><span class="line">            &#125; finally &#123;</span><br><span class="line">                reader.dispose()</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return Dimension(0, 0)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">fun joinImages(vararg files: File): File &#123;</span><br><span class="line">    ...</span><br><span class="line">    val offset = 20</span><br><span class="line">    val dimensions = files.map &#123; getImageSize(it) &#125;</span><br><span class="line">    val aggregateWidth = min(dimensions.maxBy &#123; it.width &#125;!!.width, 800)</span><br><span class="line">    val aggregateHeight = dimensions.sumBy &#123; (it.height * aggregateWidth) / it.width &#125; + (files.size - 1) * offset</span><br><span class="line">    val newImage = try &#123;</span><br><span class="line">        BufferedImage(aggregateWidth, aggregateHeight, BufferedImage.TYPE_INT_ARGB)</span><br><span class="line">    &#125; catch (e: OutOfMemoryError) &#123;</span><br><span class="line">        ...</span><br><span class="line">        throw e</span><br><span class="line">    &#125;</span><br><span class="line">    val g2 = newImage.createGraphics()</span><br><span class="line">    val oldColor = g2.color</span><br><span class="line"></span><br><span class="line">    g2.paint = Color.white</span><br><span class="line">    g2.fillRect(0, 0, aggregateWidth, aggregateHeight)</span><br><span class="line">    g2.color = oldColor</span><br><span class="line"></span><br><span class="line">    var y = 0</span><br><span class="line"></span><br><span class="line">    files.forEach &#123;</span><br><span class="line">        var image = try &#123;</span><br><span class="line">            ImageIO.read(it)</span><br><span class="line">        &#125; catch (e: OutOfMemoryError) &#123;</span><br><span class="line">            ...</span><br><span class="line">            throw e</span><br><span class="line">        &#125;</span><br><span class="line">        val height = (aggregateWidth * image.height) / image.width</span><br><span class="line">        val scaled = image.getScaledInstance(aggregateWidth, height, Image.SCALE_DEFAULT)</span><br><span class="line"></span><br><span class="line">        g2.drawImage(toBufferedImage(scaled), null, 0, y)</span><br><span class="line"></span><br><span class="line">        image.flush()</span><br><span class="line">        image = null</span><br><span class="line"></span><br><span class="line">        y += height + offset</span><br><span class="line">    &#125;</span><br><span class="line">    g2.dispose()</span><br><span class="line"></span><br><span class="line">    val joinImageFile = File.createTempFile(UUID.randomUUID().toString(), &quot;.png&quot;)</span><br><span class="line"></span><br><span class="line">    ImageIO.write(newImage, &quot;png&quot;, joinImageFile)</span><br><span class="line"></span><br><span class="line">    return joinImageFile</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>按上述代码修改后，再也没有发生OutOfMemoryError。对于问题1，目前发现<a href="https://commons.apache.org/proper/commons-imaging/whyimaging.html" target="_blank" rel="noopener">apache commons-imaging</a>似乎可以解决这问题，有时间去尝试下，到时候再来更新本文。</p>
+<h2 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h2><p><a href="https://coderanch.com/t/416485/java/Java-BufferedImage-OutOfMemoryError" target="_blank" rel="noopener">https://coderanch.com/t/416485/java/Java-BufferedImage-OutOfMemoryError</a></p>
+
+      
+    </div>
+
+    
+      
+      
+
+  <div class="post-copyright">
+    <p class="copyright-item">
+      <span>Author: </span>
+      <a href="https://w2x.me">大丈夫没问题</a>
+    </p>
+    <p class="copyright-item">
+      <span>Link: </span>
+      <a href="https://w2x.me/2019/12/06/Java-BufferedImage-OutOfMemoryError/">https://w2x.me/2019/12/06/Java-BufferedImage-OutOfMemoryError/</a>
+    </p>
+    <p class="copyright-item">
+      <span>License: </span>
+      
+      <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+    </p>
+  </div>
+
+
+
+      
+      
+    
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/java/">java</a>
+            
+              <a href="/tags/bufferedimage/">bufferedimage</a>
+            
+              <a href="/tags/outofmemoryerror/">outofmemoryerror</a>
+            
+          </div>
+        
+        
+        
+  <nav class="post-nav">
+    
+    
+      <a class="next" href="/2019/11/28/Kubernetes%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AEJVM%E5%86%85%E5%AD%98/">
+        <span class="next-text nav-default">Kubernetes环境配置JVM内存</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+
+      </footer>
+    
+
+  </article>
+
+
+          </div>
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+      </main>
+
+      <footer id="footer" class="footer">
+
+  <div class="social-links">
+    
+      
+        
+          <a href="mailto:wancaibida@gmail.com" target="_blank" rel="noopener" class="iconfont icon-email" title="email"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        
+          <a href="https://github.com/wancaibida" target="_blank" rel="noopener" class="iconfont icon-github" title="github"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+
+    
+      <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    
+  </div>
+
+
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even" target="_blank" rel="noopener">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    
+    &copy; 
+     
+      2015 - 
+    
+    2019
+
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">大丈夫没问题</span>
+  </span>
+</div>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+  <script type="text/javascript">
+    var disqus_config = function () {
+        this.page.url = 'https://w2x.me/2019/12/06/Java-BufferedImage-OutOfMemoryError/';
+        this.page.identifier = '2019/12/06/Java-BufferedImage-OutOfMemoryError/';
+        this.page.title = 'Java BufferedImage OutOfMemoryError';
+    };
+    (function() {
+    var d = document, s = d.createElement('script');
+
+    s.src = '//w2x-me.disqus.com/embed.js';
+
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();  
+  </script>
+
+  
+
+  
+
+
+
+    
+  
+
+
+
+  
+  
+
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/pjax/jquery.pjax.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/nprogress/nprogress.min.js"></script>
+  
+
+
+    <script type="text/javascript" src="/js/src/even.js?v=2.10.2"></script>
+
+  </body>
+</html>
