@@ -234,6 +234,53 @@
     <header class="post-header">
       <h1 class="post-title">
         
+          <a class="post-link" href="/2019/12/10/Bitbucket-pipeline%E4%BC%A0%E9%80%92%E6%96%87%E4%BB%B6%E5%86%85%E5%AE%B9%E5%8F%98%E9%87%8F/">Bitbucket pipeline传递文件内容变量</a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2019-12-10
+        </span>
+        
+          <span class="post-category">
+            
+              <a href="/categories/linux/">linux</a>
+            
+          </span>
+        
+        
+      </div>
+    </header>
+
+    
+    
+
+
+    <div class="post-content">
+      
+        
+        
+
+        
+          <p>Bitbucket pipeline可以通过<code>Repository variables</code>来传递变量，但是如果变量包含一些特殊字符比如换行符，bitbucket就不能很好的处理，对于这种情况我们可以将变量用base64编码一下，在pipeline中再解码就可以解决这问题了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cat file.txt | base64</span><br><span class="line"></span><br><span class="line">// in pipeline file</span><br><span class="line">echo $&#123;YOUR_ENV&#125; | base64 -d &gt; file.txt</span><br></pre></td></tr></table></figure>
+        
+      
+    </div>
+
+    
+
+    
+
+  </article>
+
+      
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
           <a class="post-link" href="/2019/12/06/Java-BufferedImage-OutOfMemoryError/">Java BufferedImage OutOfMemoryError</a>
         
       </h1>
@@ -843,80 +890,6 @@
 <li>将上面的结果取反得出：</li>
 </ol>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1000 1011 1011 0001</span><br></pre></td></tr></table></figure>
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-      
-        
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2019/06/20/AWS-Cloudformation-%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95/">AWS Cloudformation 踩坑记录</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2019-06-20
-        </span>
-        
-          <span class="post-category">
-            
-              <a href="/categories/linux/">linux</a>
-            
-          </span>
-        
-        
-      </div>
-    </header>
-
-    
-    
-
-
-    <div class="post-content">
-      
-        
-        
-
-        
-          <p>最近用cloudformation时遇到了一些坑，在此记录一下。</p>
-<h2 id="Conditions变量无法直接当布尔类型使用"><a href="#Conditions变量无法直接当布尔类型使用" class="headerlink" title="Conditions变量无法直接当布尔类型使用"></a>Conditions变量无法直接当布尔类型使用</h2><p><a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/conditions-section-structure.html" target="_blank" rel="noopener">Conditions</a>可以动态控制一些资源的创建：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">Conditions: </span><br><span class="line">  CreateProdResources: !Equals [ !Ref EnvType, prod ]</span><br><span class="line">Resources: </span><br><span class="line">  EC2Instance: </span><br><span class="line">    Type: &quot;AWS::EC2::Instance&quot;</span><br><span class="line">    Properties: </span><br><span class="line">      ImageId: !FindInMap [RegionMap, !Ref &quot;AWS::Region&quot;, AMI]</span><br><span class="line">  MountPoint: </span><br><span class="line">    Type: &quot;AWS::EC2::VolumeAttachment&quot;</span><br><span class="line">    Condition: CreateProdResources</span><br><span class="line">    Properties: </span><br><span class="line">      InstanceId: </span><br><span class="line">        !Ref EC2Instance</span><br><span class="line">      VolumeId: </span><br><span class="line">        !Ref NewVolume</span><br><span class="line">      Device: /dev/sdh</span><br><span class="line">  NewVolume: </span><br><span class="line">    Type: &quot;AWS::EC2::Volume&quot;</span><br><span class="line">    Condition: CreateProdResources</span><br><span class="line">    Properties: </span><br><span class="line">      Size: 100</span><br><span class="line">      AvailabilityZone: </span><br><span class="line">        !GetAtt EC2Instance.AvailabilityZone</span><br></pre></td></tr></table></figure>
-
-<p>但是如果在其他地方像这样使用会报<code>Unresolved resource dependencies CreateResources</code>错误</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">/xxx/xx/xx.conf:</span><br><span class="line">  source:</span><br><span class="line">    !Sub https://$&#123;bucket&#125;.s3.amazonaws.com/$&#123;prefix&#125;/xx.conf</span><br><span class="line">  context:</span><br><span class="line">    create_resources: !Ref CreateResources</span><br><span class="line">  mode: &quot;000644&quot;</span><br><span class="line">  owner: root</span><br><span class="line">  group: root</span><br></pre></td></tr></table></figure>
-<p>解决办法就时将<code>create_resources: !Ref CreateResources</code> 改成 <code>create_resources: !If [CreateResources, &quot;true output &quot;, &quot;false output&quot;]</code></p>
-<h2 id="aws-resource-init-files-传递布尔变量"><a href="#aws-resource-init-files-传递布尔变量" class="headerlink" title="aws-resource-init-files 传递布尔变量"></a>aws-resource-init-files 传递布尔变量</h2><p>AWS::CloudFormation::Init中 <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-init.html#aws-resource-init-files" target="_blank" rel="noopener">files</a>属性可以用来创建文件，<code>files</code>的<code>context</code>属性可以传递变量，来动态生成文件内容.<br>AWS文档里说文件是通过类似<a href="http://mustache.github.io/mustache.5.html" target="_blank" rel="noopener">mustache</a>的方式来处理的：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">A typical Mustache template:</span><br><span class="line"></span><br><span class="line">Hello &#123;&#123;name&#125;&#125;</span><br><span class="line">You have just won &#123;&#123;value&#125;&#125; dollars!</span><br><span class="line">&#123;&#123;#in_ca&#125;&#125;</span><br><span class="line">Well, &#123;&#123;taxed_value&#125;&#125; dollars, after taxes.</span><br><span class="line">&#123;&#123;/in_ca&#125;&#125;</span><br><span class="line">Given the following hash:</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  &quot;name&quot;: &quot;Chris&quot;,</span><br><span class="line">  &quot;value&quot;: 10000,</span><br><span class="line">  &quot;taxed_value&quot;: 10000 - (10000 * 0.4),</span><br><span class="line">  &quot;in_ca&quot;: true</span><br><span class="line">&#125;</span><br><span class="line">Will produce the following:</span><br><span class="line"></span><br><span class="line">Hello Chris</span><br><span class="line">You have just won 10000 dollars!</span><br><span class="line">Well, 6000.0 dollars, after taxes.</span><br></pre></td></tr></table></figure>
-
-<p>这里有个坑就是布尔类型在cloudformation里时当做字符类型来传递的，AWS官方认为这是一个feature而不是bug: <a href="https://forums.aws.amazon.com/thread.jspa?messageID=898706&#898706" target="_blank" rel="noopener">What you have observed is a known behaviour with the CloudFormation servie</a><br>例如：</p>
-<p>xxx.conf</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123;#create_resources&#125;&#125;</span><br><span class="line">this is true</span><br><span class="line">&#123;&#123;/create_resources&#125;&#125;</span><br><span class="line"></span><br><span class="line">&#123;&#123;^create_resources&#125;&#125;</span><br><span class="line">this is false</span><br><span class="line">&#123;&#123;/create_resources&#125;&#125;</span><br></pre></td></tr></table></figure>
-
-<p>yaml配置文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">/xxx.conf:</span><br><span class="line">  authentication: S3BucketAccess</span><br><span class="line">  source:</span><br><span class="line">    !Sub https://$&#123;bucket&#125;.s3.amazonaws.com/$&#123;prefix&#125;/xxx.conf</span><br><span class="line">  context:</span><br><span class="line">    create_resources: !If [CreateResources, true, false]</span><br><span class="line">  mode: &quot;000644&quot;</span><br><span class="line">  owner: root</span><br><span class="line">  group: root</span><br></pre></td></tr></table></figure>
-
-<p>这里无论 <code>CreateResources</code> 是 <code>true</code> 还是 <code>false</code>，文件内容始终会是 <code>this is true</code>，因为配置文件里的 <code>true</code> 和 <code>false</code> 都被转成了字符类型。</p>
-<p>这里的解决办法比较hack，就是将<code>!If [CreateResources, true, false]</code>改成<code>!If [CreateResources, [1], []]</code>:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">/xxx.conf:</span><br><span class="line">  authentication: S3BucketAccess</span><br><span class="line">  source:</span><br><span class="line">    !Sub https://$&#123;bucket&#125;.s3.amazonaws.com/$&#123;prefix&#125;/xxx.conf</span><br><span class="line">  context:</span><br><span class="line">    create_resources: !If [CreateResources, [1], []]</span><br><span class="line">  mode: &quot;000644&quot;</span><br><span class="line">  owner: root</span><br><span class="line">  group: root</span><br></pre></td></tr></table></figure>
-
-<p>这里主要参考了 <code>mustache</code> 文档里 <code>Inverted Sections</code> : <a href="https://mustache.github.io/mustache.5.html" target="_blank" rel="noopener">https://mustache.github.io/mustache.5.html</a></p>
-<h2 id="aws-resource-init-资源更新问题"><a href="#aws-resource-init-资源更新问题" class="headerlink" title="aws-resource-init 资源更新问题"></a>aws-resource-init 资源更新问题</h2><p><a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-init.html#aws-resource-init-sources" target="_blank" rel="noopener">aws-resource-init-sources</a>可以用来下载压缩文件并解压到EC2指定目录，但这里有个问题就是如果目标文件夹已存在，cloudformation会将两文件夹内容合并而不是替换文件夹！比如AWS部署的项目使用的依赖<code>LibraryA 1.0</code>，将library升级到<code>Library A 1.1</code>并通过cloudformation source下载并解压新本版的项目到目标目录后，目标目录的项目文件夹里会同时存在<code>Library A</code>的<code>1.0</code>和<code>1.1</code>版本。</p>
-<p>解决办法也很简单，在用sources下载前将目标文件夹移除。</p>
-<p>AWS平台的服务总有一些奇怪的限制或bug，调试时总会花不少时间，在此记录一下，希望能帮助到遇到相同问题的人，节约大家时间。</p>
-<h2 id="Update"><a href="#Update" class="headerlink" title="Update"></a>Update</h2><ul>
-<li>2019-07-07 添加aws-resource-init资源更新问题</li>
-</ul>
-
         
       
     </div>
