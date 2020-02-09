@@ -101,7 +101,8 @@
 </script>
 
     <title> Groovy正则表达式用法 - Charles' Blog </title>
-  </head>
+  <meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="Charles' Blog" type="application/atom+xml">
+</head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
   <div class="mobile-header-logo">
@@ -260,9 +261,9 @@
     <div class="post-content">
       
         <p>Matcher example：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">//Matcher example</span><br><span class="line">String regexStr = /gr.*/</span><br><span class="line">String str = &apos;groovy&apos;</span><br><span class="line"></span><br><span class="line">Matcher matcher0 = (str =~ regexStr)</span><br><span class="line">boolean result0 = (str ==~ regexStr)</span><br><span class="line">assert matcher0.matches() == result0</span><br><span class="line"></span><br><span class="line">Matcher matcher1 = (str =~ /$regexStr/)</span><br><span class="line">boolean result1 = (str ==~ /$regexStr/)</span><br><span class="line">assert matcher1.matches() == result1</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;Matcher example</span><br><span class="line">String regexStr &#x3D; &#x2F;gr.*&#x2F;</span><br><span class="line">String str &#x3D; &#39;groovy&#39;</span><br><span class="line"></span><br><span class="line">Matcher matcher0 &#x3D; (str &#x3D;~ regexStr)</span><br><span class="line">boolean result0 &#x3D; (str &#x3D;&#x3D;~ regexStr)</span><br><span class="line">assert matcher0.matches() &#x3D;&#x3D; result0</span><br><span class="line"></span><br><span class="line">Matcher matcher1 &#x3D; (str &#x3D;~ &#x2F;$regexStr&#x2F;)</span><br><span class="line">boolean result1 &#x3D; (str &#x3D;&#x3D;~ &#x2F;$regexStr&#x2F;)</span><br><span class="line">assert matcher1.matches() &#x3D;&#x3D; result1</span><br></pre></td></tr></table></figure>
 <p>Find example:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">def cool = /gr\w&#123;4&#125;/  // Start with gr followed by 4 characters.</span><br><span class="line">Matcher matcher2 = (&apos;groovy, java and grails rock!&apos; =~ /$cool/)</span><br><span class="line">assert 2 == matcher2.count</span><br><span class="line">assert 2 == matcher2.size()  // Groovy adds size() method.</span><br><span class="line">assert &apos;groovy&apos; == matcher2[0]  // Array-like access to match results.</span><br><span class="line">assert &apos;grails&apos; == matcher2.getAt(1)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">def cool &#x3D; &#x2F;gr\w&#123;4&#125;&#x2F;  &#x2F;&#x2F; Start with gr followed by 4 characters.</span><br><span class="line">Matcher matcher2 &#x3D; (&#39;groovy, java and grails rock!&#39; &#x3D;~ &#x2F;$cool&#x2F;)</span><br><span class="line">assert 2 &#x3D;&#x3D; matcher2.count</span><br><span class="line">assert 2 &#x3D;&#x3D; matcher2.size()  &#x2F;&#x2F; Groovy adds size() method.</span><br><span class="line">assert &#39;groovy&#39; &#x3D;&#x3D; matcher2[0]  &#x2F;&#x2F; Array-like access to match results.</span><br><span class="line">assert &#39;grails&#39; &#x3D;&#x3D; matcher2.getAt(1)</span><br></pre></td></tr></table></figure>
       
     </div>
 
@@ -334,7 +335,7 @@
       <div id="disqus_thread">
         <noscript>
           Please enable JavaScript to view the
-          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+          <a href="//disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a>
         </noscript>
       </div>
     
@@ -350,7 +351,7 @@
     
       
         
-          <a href="mailto:wancaibida@gmail.com" target="_blank" rel="noopener" class="iconfont icon-email" title="email"></a>
+          <a href="mailto:wancaibida@gmail.com" class="iconfont icon-email" title="email"></a>
         
       
     
@@ -406,7 +407,7 @@
      
       2015 - 
     
-    2019
+    2020
 
     <span class="heart">
       <i class="iconfont icon-heart"></i>

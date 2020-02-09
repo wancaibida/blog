@@ -101,7 +101,8 @@
 </script>
 
     <title> Google Cloud Function Http 认证配置 - Charles' Blog </title>
-  </head>
+  <meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="Charles' Blog" type="application/atom+xml">
+</head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
   <div class="mobile-header-logo">
@@ -268,16 +269,16 @@
 <ul>
 <li>通过下面命令给 <code>xxx-slave</code> function加上<code>roles/cloudfunctions.invoker</code> 角色，允许 <code>roles/cloudfunctions.invoker</code>这个角色来调用<code>xxx-slave</code> function</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">gcloud beta functions add-iam-policy-binding RECEIVING_FUNCTION \</span><br><span class="line">  --member=&apos;serviceAccount:CALLING_FUNCTION_IDENTITY&apos; \</span><br><span class="line">  --role=&apos;roles/cloudfunctions.invoker&apos;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">gcloud beta functions add-iam-policy-binding RECEIVING_FUNCTION \</span><br><span class="line">  --member&#x3D;&#39;serviceAccount:CALLING_FUNCTION_IDENTITY&#39; \</span><br><span class="line">  --role&#x3D;&#39;roles&#x2F;cloudfunctions.invoker&#39;</span><br></pre></td></tr></table></figure>
 
 <p><code>RECEIVING_FUNCTION</code> -&gt; 被调用的function名字<br><code>CALLING_FUNCTION_IDENTITY</code> -&gt; 一般为 <code>PROJECT_ID@appspot.gserviceaccount.com</code></p>
 <p>比如：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">gcloud beta functions add-iam-policy-binding xxx-slave \</span><br><span class="line">  --member=&apos;serviceAccount:YOUR_PROJECT_ID@appspot.gserviceaccount.com&apos; \</span><br><span class="line">  --role=&apos;roles/cloudfunctions.invoker&apos;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">gcloud beta functions add-iam-policy-binding xxx-slave \</span><br><span class="line">  --member&#x3D;&#39;serviceAccount:YOUR_PROJECT_ID@appspot.gserviceaccount.com&#39; \</span><br><span class="line">  --role&#x3D;&#39;roles&#x2F;cloudfunctions.invoker&#39;</span><br></pre></td></tr></table></figure>
 
 <ul>
 <li>在 <code>xxx-master</code> function中加上获取token代码，请求时将token放在<code>Authorization</code> header里，以python为例：</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"># Requests is already installed, no need to add it to requirements.txt</span><br><span class="line">import requests</span><br><span class="line"></span><br><span class="line">def calling_function(request):</span><br><span class="line">  # Make sure to replace variables with appropriate values</span><br><span class="line">  receiving_function_url = &apos;https://us-central1-graphical-bus-248617.cloudfunctions.net/xxx-slave</span><br><span class="line">&apos;</span><br><span class="line"></span><br><span class="line">  # Set up metadata server request</span><br><span class="line">  # See https://cloud.google.com/compute/docs/instances/verifying-instance-identity#request_signature</span><br><span class="line">  metadata_server_token_url = &apos;http://metadata/computeMetadata/v1/instance/service-accounts/default/identity?audience=&apos;</span><br><span class="line"></span><br><span class="line">  token_request_url = metadata_server_token_url + receiving_function_url</span><br><span class="line">  token_request_headers = &#123;&apos;Metadata-Flavor&apos;: &apos;Google&apos;&#125;</span><br><span class="line"></span><br><span class="line">  # Fetch the token</span><br><span class="line">  token_response = requests.get(token_request_url, headers=token_request_headers)</span><br><span class="line">  jwt = token_response.content.decode(&quot;utf-8&quot;)</span><br><span class="line"></span><br><span class="line">  # Provide the token in the request to the receiving function</span><br><span class="line">  receiving_function_headers = &#123;&apos;Authorization&apos;: f&apos;bearer &#123;jwt&#125;&apos;&#125;</span><br><span class="line">  function_response = requests.get(receiving_function_url, headers=receiving_function_headers)</span><br><span class="line"></span><br><span class="line">  return function_response.content</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"># Requests is already installed, no need to add it to requirements.txt</span><br><span class="line">import requests</span><br><span class="line"></span><br><span class="line">def calling_function(request):</span><br><span class="line">  # Make sure to replace variables with appropriate values</span><br><span class="line">  receiving_function_url &#x3D; &#39;https:&#x2F;&#x2F;us-central1-graphical-bus-248617.cloudfunctions.net&#x2F;xxx-slave</span><br><span class="line">&#39;</span><br><span class="line"></span><br><span class="line">  # Set up metadata server request</span><br><span class="line">  # See https:&#x2F;&#x2F;cloud.google.com&#x2F;compute&#x2F;docs&#x2F;instances&#x2F;verifying-instance-identity#request_signature</span><br><span class="line">  metadata_server_token_url &#x3D; &#39;http:&#x2F;&#x2F;metadata&#x2F;computeMetadata&#x2F;v1&#x2F;instance&#x2F;service-accounts&#x2F;default&#x2F;identity?audience&#x3D;&#39;</span><br><span class="line"></span><br><span class="line">  token_request_url &#x3D; metadata_server_token_url + receiving_function_url</span><br><span class="line">  token_request_headers &#x3D; &#123;&#39;Metadata-Flavor&#39;: &#39;Google&#39;&#125;</span><br><span class="line"></span><br><span class="line">  # Fetch the token</span><br><span class="line">  token_response &#x3D; requests.get(token_request_url, headers&#x3D;token_request_headers)</span><br><span class="line">  jwt &#x3D; token_response.content.decode(&quot;utf-8&quot;)</span><br><span class="line"></span><br><span class="line">  # Provide the token in the request to the receiving function</span><br><span class="line">  receiving_function_headers &#x3D; &#123;&#39;Authorization&#39;: f&#39;bearer &#123;jwt&#125;&#39;&#125;</span><br><span class="line">  function_response &#x3D; requests.get(receiving_function_url, headers&#x3D;receiving_function_headers)</span><br><span class="line"></span><br><span class="line">  return function_response.content</span><br></pre></td></tr></table></figure>
 
 <p>完成上面两部后，<code>xxx-slave</code> function就可以在被认证的情况下调用了。</p>
 <p>这里还需要注意的是要将<code>Cloud Functions Invoker</code> 中的 <code>all user</code>移除，不然<code>xxx-slave</code>方法还是公开的，操作步骤：</p>
@@ -374,7 +375,7 @@
       <div id="disqus_thread">
         <noscript>
           Please enable JavaScript to view the
-          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+          <a href="//disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a>
         </noscript>
       </div>
     
@@ -390,7 +391,7 @@
     
       
         
-          <a href="mailto:wancaibida@gmail.com" target="_blank" rel="noopener" class="iconfont icon-email" title="email"></a>
+          <a href="mailto:wancaibida@gmail.com" class="iconfont icon-email" title="email"></a>
         
       
     
@@ -446,7 +447,7 @@
      
       2015 - 
     
-    2019
+    2020
 
     <span class="heart">
       <i class="iconfont icon-heart"></i>

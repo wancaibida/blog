@@ -99,7 +99,8 @@
 </script>
 
     <title> Amazon API Gateway 踩坑记 - Charles' Blog </title>
-  </head>
+  <meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="Charles' Blog" type="application/atom+xml">
+</head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
   <div class="mobile-header-logo">
@@ -250,7 +251,7 @@
   <div class="post-toc" id="post-toc">
     <h2 class="post-toc-title">Contents</h2>
     <div class="post-toc-content">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#不支持parmeters-array"><span class="toc-text">不支持parmeters array</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#POST-PUT-返回-406"><span class="toc-text">POST/PUT 返回 406</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#URL-Query-String-Parameter、header需要显示设定"><span class="toc-text">URL Query String Parameter、header需要显示设定</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Grails参数绑定不支持application-x-amz-json-1-0-application-x-amz-json-1-0-content-type"><span class="toc-text">Grails参数绑定不支持application/x-amz-json-1.0/application/x-amz-json-1.0 content type.</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#不支持parmeters-array"><span class="toc-text">不支持parmeters array</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#POST-PUT-返回-406"><span class="toc-text">POST&#x2F;PUT 返回 406</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#URL-Query-String-Parameter、header需要显示设定"><span class="toc-text">URL Query String Parameter、header需要显示设定</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Grails参数绑定不支持application-x-amz-json-1-0-application-x-amz-json-1-0-content-type"><span class="toc-text">Grails参数绑定不支持application&#x2F;x-amz-json-1.0&#x2F;application&#x2F;x-amz-json-1.0 content type.</span></a></li></ol>
     </div>
   </div>
 
@@ -259,7 +260,7 @@
     <div class="post-content">
       
         <p>最近项目中用到了Amazon API Gateway，当中遇到了不少的坑。本文主要罗列了在使用amazon api gateway中遇的问题，希望能帮助到遇到相同问题的开发者。</p>
-<h2 id="不支持parmeters-array"><a href="#不支持parmeters-array" class="headerlink" title="不支持parmeters array"></a>不支持parmeters array</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET /user/1/addresses?addressId=1&amp;addressId=2</span><br></pre></td></tr></table></figure>
+<h2 id="不支持parmeters-array"><a href="#不支持parmeters-array" class="headerlink" title="不支持parmeters array"></a>不支持parmeters array</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET &#x2F;user&#x2F;1&#x2F;addresses?addressId&#x3D;1&amp;addressId&#x3D;2</span><br></pre></td></tr></table></figure>
 <p>服务端接收到的只有一个值，解决办法<a href="https://stackoverflow.com/questions/43401777/passing-array-query-parameters-with-api-gateway-to-lambda" target="_blank" rel="noopener">passing-array-query-parameters-with-api-gateway-to-lambda</a></p>
 <h2 id="POST-PUT-返回-406"><a href="#POST-PUT-返回-406" class="headerlink" title="POST/PUT 返回 406"></a>POST/PUT 返回 406</h2><p>当使用json body发送put/post请求时，api gateway有一定机率返回406，查了半天也找出什么原国，后来在stackoverflow上找到了答案，需要在Integration Request中添加Accept头，并且设置其值为空字符串。具体什么原因估计只有AWS api gateway的开发者才知道了。<br><a href="https://stackoverflow.com/questions/42106605/aws-api-gateway-returns-http-406" target="_blank" rel="noopener">aws-api-gateway-returns-http-406</a></p>
 <h2 id="URL-Query-String-Parameter、header需要显示设定"><a href="#URL-Query-String-Parameter、header需要显示设定" class="headerlink" title="URL Query String Parameter、header需要显示设定"></a>URL Query String Parameter、header需要显示设定</h2><p>如果不在Method Request里显示声名URL Query String Parameter的话，请求参数是不会转发到后台的，request header同理。</p>
@@ -330,7 +331,7 @@
       <div id="disqus_thread">
         <noscript>
           Please enable JavaScript to view the
-          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+          <a href="//disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a>
         </noscript>
       </div>
     
@@ -346,7 +347,7 @@
     
       
         
-          <a href="mailto:wancaibida@gmail.com" target="_blank" rel="noopener" class="iconfont icon-email" title="email"></a>
+          <a href="mailto:wancaibida@gmail.com" class="iconfont icon-email" title="email"></a>
         
       
     
@@ -402,7 +403,7 @@
      
       2015 - 
     
-    2019
+    2020
 
     <span class="heart">
       <i class="iconfont icon-heart"></i>

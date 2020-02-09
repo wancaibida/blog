@@ -101,7 +101,8 @@
 </script>
 
     <title> Manjaro自动挂载samba文件夹 - Charles' Blog </title>
-  </head>
+  <meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="Charles' Blog" type="application/atom+xml">
+</head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
   <div class="mobile-header-logo">
@@ -262,17 +263,17 @@
         <p>Manjaro从地址栏访问samba共享的方式总有点问题，会时不时提示没有文件夹修改权限。最近有时间研究了下，发现命令行挂载的方式比较靠谱。</p>
 <p>由于路由器刷的是<code>openwrt</code>，软件源里安装的samba服务端版本似乎是比较老的版本，<code>manjaro</code>命令行挂载似乎用的是较新的samba协议，调了半天发现客户端这边要加下版本号。</p>
 <p>挂载命令：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd /mnt</span><br><span class="line">sudo mkdir share0</span><br><span class="line">sudo mount.cifs //192.168.1.1/share0 /mnt/share0 -o user=SAMBA_USERNAME,pass=SAMBA_PASSWORD,uid=1000,gid=1000,sec=ntlmssp,vers=1.0 --verbose</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd &#x2F;mnt</span><br><span class="line">sudo mkdir share0</span><br><span class="line">sudo mount.cifs &#x2F;&#x2F;192.168.1.1&#x2F;share0 &#x2F;mnt&#x2F;share0 -o user&#x3D;SAMBA_USERNAME,pass&#x3D;SAMBA_PASSWORD,uid&#x3D;1000,gid&#x3D;1000,sec&#x3D;ntlmssp,vers&#x3D;1.0 --verbose</span><br></pre></td></tr></table></figure>
 
 <p>命令行挂载调通后，要实现开机自动挂载就容易的多了，官方文档提供的多种的挂载方式，这里以<code>systemd</code>为例：</p>
 <ol>
 <li>在<code>/etc/samba/</code>下建立<code>credentials</code>文件夹：<code>sudo mkdir credentials</code>，创建比如名为<code>share0</code>的文件： <code>sudo vim share0</code>，内容如下：</li>
 </ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">username=your samba username</span><br><span class="line">password=your samba password</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">username&#x3D;your samba username</span><br><span class="line">password&#x3D;your samba password</span><br></pre></td></tr></table></figure>
 
 <ol start="2">
 <li><p>创建systemd unit文件：<code>sudo /etc/systemd/system/mnt-share0.mount</code>，内容如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=Mount Share at boot</span><br><span class="line"></span><br><span class="line">[Mount]</span><br><span class="line">What=//192.168.1.1/share0</span><br><span class="line">Where=/mnt/share0</span><br><span class="line">Options=x-systemd.automount,credentials=/etc/samba/credentials/share0,iocharset=utf8,uid=1000,gid=1000,sec=ntlmssp,vers=1.0,rw</span><br><span class="line">Type=cifs</span><br><span class="line">TimeoutSec=30</span><br><span class="line">ForceUnmount=true</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description&#x3D;Mount Share at boot</span><br><span class="line"></span><br><span class="line">[Mount]</span><br><span class="line">What&#x3D;&#x2F;&#x2F;192.168.1.1&#x2F;share0</span><br><span class="line">Where&#x3D;&#x2F;mnt&#x2F;share0</span><br><span class="line">Options&#x3D;x-systemd.automount,credentials&#x3D;&#x2F;etc&#x2F;samba&#x2F;credentials&#x2F;share0,iocharset&#x3D;utf8,uid&#x3D;1000,gid&#x3D;1000,sec&#x3D;ntlmssp,vers&#x3D;1.0,rw</span><br><span class="line">Type&#x3D;cifs</span><br><span class="line">TimeoutSec&#x3D;30</span><br><span class="line">ForceUnmount&#x3D;true</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy&#x3D;multi-user.target</span><br></pre></td></tr></table></figure>
 
 <p>Note：这里有一点要注意的是你的挂载路径（<code>where</code>）必须与你的文件名（<code>mnt-share0</code>）对应，比如你挂载到<code>/mnt/share</code>， 那你的文件就必须为<code>mnt-share0.mount</code></p>
 </li>
@@ -358,7 +359,7 @@
       <div id="disqus_thread">
         <noscript>
           Please enable JavaScript to view the
-          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+          <a href="//disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a>
         </noscript>
       </div>
     
@@ -374,7 +375,7 @@
     
       
         
-          <a href="mailto:wancaibida@gmail.com" target="_blank" rel="noopener" class="iconfont icon-email" title="email"></a>
+          <a href="mailto:wancaibida@gmail.com" class="iconfont icon-email" title="email"></a>
         
       
     
@@ -430,7 +431,7 @@
      
       2015 - 
     
-    2019
+    2020
 
     <span class="heart">
       <i class="iconfont icon-heart"></i>

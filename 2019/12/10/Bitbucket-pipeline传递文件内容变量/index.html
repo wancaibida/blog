@@ -101,7 +101,8 @@
 </script>
 
     <title> Bitbucket pipeline传递文件内容变量 - Charles' Blog </title>
-  </head>
+  <meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="Charles' Blog" type="application/atom+xml">
+</head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
   <div class="mobile-header-logo">
@@ -260,7 +261,7 @@
     <div class="post-content">
       
         <p>Bitbucket pipeline可以通过<code>Repository variables</code>来传递变量，但是如果变量包含一些特殊字符比如换行符，bitbucket就不能很好的处理，对于这种情况我们可以将变量用base64编码一下，在pipeline中再解码就可以解决这问题了。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cat file.txt | base64</span><br><span class="line"></span><br><span class="line">// in pipeline file</span><br><span class="line">echo $&#123;YOUR_ENV&#125; | base64 -d &gt; file.txt</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cat file.txt | base64</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; in pipeline file</span><br><span class="line">echo $&#123;YOUR_ENV&#125; | base64 -d &gt; file.txt</span><br></pre></td></tr></table></figure>
       
     </div>
 
@@ -305,6 +306,12 @@
         
   <nav class="post-nav">
     
+      <a class="prev" href="/2020/02/09/Openwrt%E4%B8%8B%E6%97%A0%E6%B3%95%E8%AE%BF%E9%97%AEmedium-com%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">Openwrt下无法访问medium.com的解决办法</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
+    
     
       <a class="next" href="/2019/12/06/Java-BufferedImage-OutOfMemoryError/">
         <span class="next-text nav-default">Java BufferedImage OutOfMemoryError</span>
@@ -328,7 +335,7 @@
       <div id="disqus_thread">
         <noscript>
           Please enable JavaScript to view the
-          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+          <a href="//disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a>
         </noscript>
       </div>
     
@@ -344,7 +351,7 @@
     
       
         
-          <a href="mailto:wancaibida@gmail.com" target="_blank" rel="noopener" class="iconfont icon-email" title="email"></a>
+          <a href="mailto:wancaibida@gmail.com" class="iconfont icon-email" title="email"></a>
         
       
     
@@ -400,7 +407,7 @@
      
       2015 - 
     
-    2019
+    2020
 
     <span class="heart">
       <i class="iconfont icon-heart"></i>

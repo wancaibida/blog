@@ -101,7 +101,8 @@
 </script>
 
     <title> Spring Boot连接MongoDB - Charles' Blog </title>
-  </head>
+  <meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="Charles' Blog" type="application/atom+xml">
+</head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
   <div class="mobile-header-logo">
@@ -263,7 +264,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">spring:</span><br><span class="line">    data:</span><br><span class="line">        mongodb:</span><br><span class="line">            authentication-database: $&#123;MONGODB_AUTHENTICATION_DATABASE:admin&#125;</span><br><span class="line">            username: $&#123;MONGODB_USERNAME:username&#125;</span><br><span class="line">            password: $&#123;MONGODB_PASSWORD:password&#125;</span><br><span class="line">            database: $&#123;MONGODB_DATABASE:database&#125;</span><br></pre></td></tr></table></figure>
 
 <p>之前一直认为Spring Boot连接Mongo DB的方式和连JDBC差不多，今天抽空研究了下，发现URI中的数据库名其实是存储用户认证信息的数据库，实际数据库要通过<code>database</code>设定：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">spring:</span><br><span class="line">    data:</span><br><span class="line">        mongodb:</span><br><span class="line">            database: $&#123;MONGODB_DATABASE:database&#125;</span><br><span class="line">            uri: $&#123;MONGODB_URI:mongodb://username:password@localhost:27017/authentication_database&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">spring:</span><br><span class="line">    data:</span><br><span class="line">        mongodb:</span><br><span class="line">            database: $&#123;MONGODB_DATABASE:database&#125;</span><br><span class="line">            uri: $&#123;MONGODB_URI:mongodb:&#x2F;&#x2F;username:password@localhost:27017&#x2F;authentication_database&#125;</span><br></pre></td></tr></table></figure>
 
 <p><a href="https://docs.mongodb.com/manual/reference/connection-string/" target="_blank" rel="noopener">官方文档</a>：</p>
 <blockquote>
@@ -350,7 +351,7 @@
       <div id="disqus_thread">
         <noscript>
           Please enable JavaScript to view the
-          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+          <a href="//disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a>
         </noscript>
       </div>
     
@@ -366,7 +367,7 @@
     
       
         
-          <a href="mailto:wancaibida@gmail.com" target="_blank" rel="noopener" class="iconfont icon-email" title="email"></a>
+          <a href="mailto:wancaibida@gmail.com" class="iconfont icon-email" title="email"></a>
         
       
     
@@ -422,7 +423,7 @@
      
       2015 - 
     
-    2019
+    2020
 
     <span class="heart">
       <i class="iconfont icon-heart"></i>

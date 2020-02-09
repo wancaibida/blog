@@ -97,7 +97,8 @@
 </script>
 
     <title> Charles' Blog </title>
-  </head>
+  <meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="Charles' Blog" type="application/atom+xml">
+</head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
   <div class="mobile-header-logo">
@@ -234,6 +235,102 @@
     <header class="post-header">
       <h1 class="post-title">
         
+          <a class="post-link" href="/2019/06/22/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%EF%BC%88%E7%AC%AC%E4%B8%83%E7%89%88%EF%BC%89%E4%B9%A0%E9%A2%984-13%E8%AE%A1%E7%AE%97%E8%BF%87%E7%A8%8B/">计算机网络（第七版）习题4-13计算过程</a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2019-06-22
+        </span>
+        
+          <span class="post-category">
+            
+              <a href="/categories/linux/">linux</a>
+            
+          </span>
+        
+        
+      </div>
+    </header>
+
+    
+    
+
+
+    <div class="post-content">
+      
+        
+        
+
+        
+          <p>网上计算机网络的习题答案不是复制黏贴就是排版糟糕，简直不是给人看的。今天做这题目花了不少时间，就顺便把计算过程记录下来，希望帮助到对这题有疑惑的人。</p>
+<p>包含IP部分，首部长度正好为为5个4字节。</p>
+<ol>
+<li>现将数据转换成二进制格式</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">0100 0101 0000 0000 0000 0000 0001 1100</span><br><span class="line">0000 0000 0000 0001 0000 0000 0000 0000</span><br><span class="line">0000 0100 0001 0001</span><br><span class="line">0000 1010 0000 1100 0000 1110 0000 0101</span><br><span class="line">0000 1100 0000 0110 0000 0111 0000 1001</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>计算 <code>0100 0101 0000 0000</code> + <code>0000 0000 0001 1100</code></li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">0100 0101 0000 0000</span><br><span class="line">+</span><br><span class="line">0000 0000 0001 1100</span><br><span class="line">&#x3D;</span><br><span class="line">0100 0101 0001 1100</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>计算 <code>0100 0101 0001 1100</code> + <code>0000 0000 0000 0001</code></li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">0100 0101 0001 1100</span><br><span class="line">+</span><br><span class="line">0000 0000 0000 0001</span><br><span class="line">&#x3D;</span><br><span class="line">0100 0101 0001 1101</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>计算 <code>0100 0101 0001 1101</code> + <code>0000 0000 0000 0000</code></li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">0100 0101 0001 1101</span><br><span class="line">+</span><br><span class="line">0000 0000 0000 0000</span><br><span class="line">&#x3D;</span><br><span class="line">0100 0101 0001 1101</span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>计算<code>0100 0101 0001 1101</code> + <code>0000 0100 0001 0001</code></li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">0100 0101 0001 1101</span><br><span class="line">+</span><br><span class="line">0000 0100 0001 0001</span><br><span class="line">&#x3D;</span><br><span class="line">0100 1001 0010 1110</span><br></pre></td></tr></table></figure>
+
+<ol start="6">
+<li>计算 <code>0100 1001 0010 1110</code> + <code>0000 1010 0000 1100</code></li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">0100 1001 0010 1110</span><br><span class="line">+</span><br><span class="line">0000 1010 0000 1100</span><br><span class="line">&#x3D;</span><br><span class="line">0101 0011 0011 1010</span><br></pre></td></tr></table></figure>
+
+<ol start="7">
+<li>计算 <code>0101 0011 0011 1010</code> + <code>0000 1110 0000 0101</code></li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">0101 0011 0011 1010</span><br><span class="line">+</span><br><span class="line">0000 1110 0000 0101</span><br><span class="line">&#x3D;</span><br><span class="line">0110 0001 0011 1111</span><br></pre></td></tr></table></figure>
+
+<ol start="8">
+<li>计算 <code>0110 0001 0011 1111</code> + <code>0000 1100 0000 0110</code></li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">0110 0001 0011 1111</span><br><span class="line">+</span><br><span class="line">0000 1100 0000 0110</span><br><span class="line">&#x3D;</span><br><span class="line">0110 1101 0100 0101</span><br></pre></td></tr></table></figure>
+
+<ol start="9">
+<li>计算 <code>0110 1101 0100 0101</code> + <code>0000 0111 0000 1001</code></li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">0110 1101 0100 0101</span><br><span class="line">+</span><br><span class="line">0000 0111 0000 1001</span><br><span class="line">&#x3D;</span><br><span class="line">0111 0100 0100 1110</span><br></pre></td></tr></table></figure>
+
+<ol start="10">
+<li>将上面的结果取反得出：</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1000 1011 1011 0001</span><br></pre></td></tr></table></figure>
+        
+      
+    </div>
+
+    
+
+    
+
+  </article>
+
+      
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
           <a class="post-link" href="/2019/06/20/AWS-Cloudformation-%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95/">AWS Cloudformation 踩坑记录</a>
         
       </h1>
@@ -265,24 +362,24 @@
         
           <p>最近用cloudformation时遇到了一些坑，在此记录一下。</p>
 <h2 id="Conditions变量无法直接当布尔类型使用"><a href="#Conditions变量无法直接当布尔类型使用" class="headerlink" title="Conditions变量无法直接当布尔类型使用"></a>Conditions变量无法直接当布尔类型使用</h2><p><a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/conditions-section-structure.html" target="_blank" rel="noopener">Conditions</a>可以动态控制一些资源的创建：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">Conditions: </span><br><span class="line">  CreateProdResources: !Equals [ !Ref EnvType, prod ]</span><br><span class="line">Resources: </span><br><span class="line">  EC2Instance: </span><br><span class="line">    Type: &quot;AWS::EC2::Instance&quot;</span><br><span class="line">    Properties: </span><br><span class="line">      ImageId: !FindInMap [RegionMap, !Ref &quot;AWS::Region&quot;, AMI]</span><br><span class="line">  MountPoint: </span><br><span class="line">    Type: &quot;AWS::EC2::VolumeAttachment&quot;</span><br><span class="line">    Condition: CreateProdResources</span><br><span class="line">    Properties: </span><br><span class="line">      InstanceId: </span><br><span class="line">        !Ref EC2Instance</span><br><span class="line">      VolumeId: </span><br><span class="line">        !Ref NewVolume</span><br><span class="line">      Device: /dev/sdh</span><br><span class="line">  NewVolume: </span><br><span class="line">    Type: &quot;AWS::EC2::Volume&quot;</span><br><span class="line">    Condition: CreateProdResources</span><br><span class="line">    Properties: </span><br><span class="line">      Size: 100</span><br><span class="line">      AvailabilityZone: </span><br><span class="line">        !GetAtt EC2Instance.AvailabilityZone</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">Conditions: </span><br><span class="line">  CreateProdResources: !Equals [ !Ref EnvType, prod ]</span><br><span class="line">Resources: </span><br><span class="line">  EC2Instance: </span><br><span class="line">    Type: &quot;AWS::EC2::Instance&quot;</span><br><span class="line">    Properties: </span><br><span class="line">      ImageId: !FindInMap [RegionMap, !Ref &quot;AWS::Region&quot;, AMI]</span><br><span class="line">  MountPoint: </span><br><span class="line">    Type: &quot;AWS::EC2::VolumeAttachment&quot;</span><br><span class="line">    Condition: CreateProdResources</span><br><span class="line">    Properties: </span><br><span class="line">      InstanceId: </span><br><span class="line">        !Ref EC2Instance</span><br><span class="line">      VolumeId: </span><br><span class="line">        !Ref NewVolume</span><br><span class="line">      Device: &#x2F;dev&#x2F;sdh</span><br><span class="line">  NewVolume: </span><br><span class="line">    Type: &quot;AWS::EC2::Volume&quot;</span><br><span class="line">    Condition: CreateProdResources</span><br><span class="line">    Properties: </span><br><span class="line">      Size: 100</span><br><span class="line">      AvailabilityZone: </span><br><span class="line">        !GetAtt EC2Instance.AvailabilityZone</span><br></pre></td></tr></table></figure>
 
 <p>但是如果在其他地方像这样使用会报<code>Unresolved resource dependencies CreateResources</code>错误</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">/xxx/xx/xx.conf:</span><br><span class="line">  source:</span><br><span class="line">    !Sub https://$&#123;bucket&#125;.s3.amazonaws.com/$&#123;prefix&#125;/xx.conf</span><br><span class="line">  context:</span><br><span class="line">    create_resources: !Ref CreateResources</span><br><span class="line">  mode: &quot;000644&quot;</span><br><span class="line">  owner: root</span><br><span class="line">  group: root</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;xxx&#x2F;xx&#x2F;xx.conf:</span><br><span class="line">  source:</span><br><span class="line">    !Sub https:&#x2F;&#x2F;$&#123;bucket&#125;.s3.amazonaws.com&#x2F;$&#123;prefix&#125;&#x2F;xx.conf</span><br><span class="line">  context:</span><br><span class="line">    create_resources: !Ref CreateResources</span><br><span class="line">  mode: &quot;000644&quot;</span><br><span class="line">  owner: root</span><br><span class="line">  group: root</span><br></pre></td></tr></table></figure>
 <p>解决办法就时将<code>create_resources: !Ref CreateResources</code> 改成 <code>create_resources: !If [CreateResources, &quot;true output &quot;, &quot;false output&quot;]</code></p>
 <h2 id="aws-resource-init-files-传递布尔变量"><a href="#aws-resource-init-files-传递布尔变量" class="headerlink" title="aws-resource-init-files 传递布尔变量"></a>aws-resource-init-files 传递布尔变量</h2><p>AWS::CloudFormation::Init中 <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-init.html#aws-resource-init-files" target="_blank" rel="noopener">files</a>属性可以用来创建文件，<code>files</code>的<code>context</code>属性可以传递变量，来动态生成文件内容.<br>AWS文档里说文件是通过类似<a href="http://mustache.github.io/mustache.5.html" target="_blank" rel="noopener">mustache</a>的方式来处理的：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">A typical Mustache template:</span><br><span class="line"></span><br><span class="line">Hello &#123;&#123;name&#125;&#125;</span><br><span class="line">You have just won &#123;&#123;value&#125;&#125; dollars!</span><br><span class="line">&#123;&#123;#in_ca&#125;&#125;</span><br><span class="line">Well, &#123;&#123;taxed_value&#125;&#125; dollars, after taxes.</span><br><span class="line">&#123;&#123;/in_ca&#125;&#125;</span><br><span class="line">Given the following hash:</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  &quot;name&quot;: &quot;Chris&quot;,</span><br><span class="line">  &quot;value&quot;: 10000,</span><br><span class="line">  &quot;taxed_value&quot;: 10000 - (10000 * 0.4),</span><br><span class="line">  &quot;in_ca&quot;: true</span><br><span class="line">&#125;</span><br><span class="line">Will produce the following:</span><br><span class="line"></span><br><span class="line">Hello Chris</span><br><span class="line">You have just won 10000 dollars!</span><br><span class="line">Well, 6000.0 dollars, after taxes.</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">A typical Mustache template:</span><br><span class="line"></span><br><span class="line">Hello &#123;&#123;name&#125;&#125;</span><br><span class="line">You have just won &#123;&#123;value&#125;&#125; dollars!</span><br><span class="line">&#123;&#123;#in_ca&#125;&#125;</span><br><span class="line">Well, &#123;&#123;taxed_value&#125;&#125; dollars, after taxes.</span><br><span class="line">&#123;&#123;&#x2F;in_ca&#125;&#125;</span><br><span class="line">Given the following hash:</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  &quot;name&quot;: &quot;Chris&quot;,</span><br><span class="line">  &quot;value&quot;: 10000,</span><br><span class="line">  &quot;taxed_value&quot;: 10000 - (10000 * 0.4),</span><br><span class="line">  &quot;in_ca&quot;: true</span><br><span class="line">&#125;</span><br><span class="line">Will produce the following:</span><br><span class="line"></span><br><span class="line">Hello Chris</span><br><span class="line">You have just won 10000 dollars!</span><br><span class="line">Well, 6000.0 dollars, after taxes.</span><br></pre></td></tr></table></figure>
 
 <p>这里有个坑就是布尔类型在cloudformation里时当做字符类型来传递的，AWS官方认为这是一个feature而不是bug: <a href="https://forums.aws.amazon.com/thread.jspa?messageID=898706&#898706" target="_blank" rel="noopener">What you have observed is a known behaviour with the CloudFormation servie</a><br>例如：</p>
 <p>xxx.conf</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123;#create_resources&#125;&#125;</span><br><span class="line">this is true</span><br><span class="line">&#123;&#123;/create_resources&#125;&#125;</span><br><span class="line"></span><br><span class="line">&#123;&#123;^create_resources&#125;&#125;</span><br><span class="line">this is false</span><br><span class="line">&#123;&#123;/create_resources&#125;&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123;#create_resources&#125;&#125;</span><br><span class="line">this is true</span><br><span class="line">&#123;&#123;&#x2F;create_resources&#125;&#125;</span><br><span class="line"></span><br><span class="line">&#123;&#123;^create_resources&#125;&#125;</span><br><span class="line">this is false</span><br><span class="line">&#123;&#123;&#x2F;create_resources&#125;&#125;</span><br></pre></td></tr></table></figure>
 
 <p>yaml配置文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">/xxx.conf:</span><br><span class="line">  authentication: S3BucketAccess</span><br><span class="line">  source:</span><br><span class="line">    !Sub https://$&#123;bucket&#125;.s3.amazonaws.com/$&#123;prefix&#125;/xxx.conf</span><br><span class="line">  context:</span><br><span class="line">    create_resources: !If [CreateResources, true, false]</span><br><span class="line">  mode: &quot;000644&quot;</span><br><span class="line">  owner: root</span><br><span class="line">  group: root</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;xxx.conf:</span><br><span class="line">  authentication: S3BucketAccess</span><br><span class="line">  source:</span><br><span class="line">    !Sub https:&#x2F;&#x2F;$&#123;bucket&#125;.s3.amazonaws.com&#x2F;$&#123;prefix&#125;&#x2F;xxx.conf</span><br><span class="line">  context:</span><br><span class="line">    create_resources: !If [CreateResources, true, false]</span><br><span class="line">  mode: &quot;000644&quot;</span><br><span class="line">  owner: root</span><br><span class="line">  group: root</span><br></pre></td></tr></table></figure>
 
 <p>这里无论 <code>CreateResources</code> 是 <code>true</code> 还是 <code>false</code>，文件内容始终会是 <code>this is true</code>，因为配置文件里的 <code>true</code> 和 <code>false</code> 都被转成了字符类型。</p>
 <p>这里的解决办法比较hack，就是将<code>!If [CreateResources, true, false]</code>改成<code>!If [CreateResources, [1], []]</code>:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">/xxx.conf:</span><br><span class="line">  authentication: S3BucketAccess</span><br><span class="line">  source:</span><br><span class="line">    !Sub https://$&#123;bucket&#125;.s3.amazonaws.com/$&#123;prefix&#125;/xxx.conf</span><br><span class="line">  context:</span><br><span class="line">    create_resources: !If [CreateResources, [1], []]</span><br><span class="line">  mode: &quot;000644&quot;</span><br><span class="line">  owner: root</span><br><span class="line">  group: root</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;xxx.conf:</span><br><span class="line">  authentication: S3BucketAccess</span><br><span class="line">  source:</span><br><span class="line">    !Sub https:&#x2F;&#x2F;$&#123;bucket&#125;.s3.amazonaws.com&#x2F;$&#123;prefix&#125;&#x2F;xxx.conf</span><br><span class="line">  context:</span><br><span class="line">    create_resources: !If [CreateResources, [1], []]</span><br><span class="line">  mode: &quot;000644&quot;</span><br><span class="line">  owner: root</span><br><span class="line">  group: root</span><br></pre></td></tr></table></figure>
 
 <p>这里主要参考了 <code>mustache</code> 文档里 <code>Inverted Sections</code> : <a href="https://mustache.github.io/mustache.5.html" target="_blank" rel="noopener">https://mustache.github.io/mustache.5.html</a></p>
 <h2 id="aws-resource-init-资源更新问题"><a href="#aws-resource-init-资源更新问题" class="headerlink" title="aws-resource-init 资源更新问题"></a>aws-resource-init 资源更新问题</h2><p><a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-init.html#aws-resource-init-sources" target="_blank" rel="noopener">aws-resource-init-sources</a>可以用来下载压缩文件并解压到EC2指定目录，但这里有个问题就是如果目标文件夹已存在，cloudformation会将两文件夹内容合并而不是替换文件夹！比如AWS部署的项目使用的依赖<code>LibraryA 1.0</code>，将library升级到<code>Library A 1.1</code>并通过cloudformation source下载并解压新本版的项目到目标目录后，目标目录的项目文件夹里会同时存在<code>Library A</code>的<code>1.0</code>和<code>1.1</code>版本。</p>
@@ -448,15 +545,15 @@
 <p>解决方案就是用<code>Dnsmasq+Dnscrypt</code>，<code>Dnsmasq</code>负责监听本地53端口，解析国内域名，将除了国内域名以外的解析请求转发到<code>Dnscrypt</code>监听的端口，<code>Dnscrypt</code>就收到的DNS解析请求转发到国外的DNS服务器。</p>
 <h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">brew install dnsmasq</span><br><span class="line">brew install dnscrypt-proxy</span><br></pre></td></tr></table></figure>
 
-<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><h3 id="Dnsmasq"><a href="#Dnsmasq" class="headerlink" title="Dnsmasq"></a>Dnsmasq</h3><h4 id="编辑配置文件"><a href="#编辑配置文件" class="headerlink" title="编辑配置文件"></a>编辑配置文件</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">vim /usr/local/etc/dnsmasq.conf</span><br><span class="line"></span><br><span class="line">no-resolv</span><br><span class="line">conf-dir=/usr/local/etc/dnsmasq.d</span><br><span class="line">server=127.0.0.1#5300</span><br></pre></td></tr></table></figure>
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><h3 id="Dnsmasq"><a href="#Dnsmasq" class="headerlink" title="Dnsmasq"></a>Dnsmasq</h3><h4 id="编辑配置文件"><a href="#编辑配置文件" class="headerlink" title="编辑配置文件"></a>编辑配置文件</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">vim &#x2F;usr&#x2F;local&#x2F;etc&#x2F;dnsmasq.conf</span><br><span class="line"></span><br><span class="line">no-resolv</span><br><span class="line">conf-dir&#x3D;&#x2F;usr&#x2F;local&#x2F;etc&#x2F;dnsmasq.d</span><br><span class="line">server&#x3D;127.0.0.1#5300</span><br></pre></td></tr></table></figure>
 <p>dnsmasq会将DNS解析请求转发到dnscrypt监听的5300端口</p>
 <h4 id="国内域名文件"><a href="#国内域名文件" class="headerlink" title="国内域名文件"></a>国内域名文件</h4><p>执行下面脚本将中国域名DNS信息保存到dnsmasq文件夹</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/sh</span><br><span class="line"></span><br><span class="line">/usr/bin/curl -o /usr/local/etc/dnsmasq.d/accelerated-domains.china.conf https://raw.githubusercontent.com/felixonmars/dnsmasq-china-list/master/accelerated-domains.china.conf</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#!&#x2F;bin&#x2F;sh</span><br><span class="line"></span><br><span class="line">&#x2F;usr&#x2F;bin&#x2F;curl -o &#x2F;usr&#x2F;local&#x2F;etc&#x2F;dnsmasq.d&#x2F;accelerated-domains.china.conf https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;felixonmars&#x2F;dnsmasq-china-list&#x2F;master&#x2F;accelerated-domains.china.conf</span><br></pre></td></tr></table></figure>
 <p>这里用的是电信的DNS服务器，如果你是联通的网络，你可以执行下面的脚本将配置文件中的DNS服务器换成联通的</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed -i -e &apos;s/114.114.114.114/221.6.4.66/g&apos; /usr/local/etc/dnsmasq.d/accelerated-domains.china.conf</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed -i -e &#39;s&#x2F;114.114.114.114&#x2F;221.6.4.66&#x2F;g&#39; &#x2F;usr&#x2F;local&#x2F;etc&#x2F;dnsmasq.d&#x2F;accelerated-domains.china.conf</span><br></pre></td></tr></table></figure>
 
 <h3 id="Dnscrypt"><a href="#Dnscrypt" class="headerlink" title="Dnscrypt"></a>Dnscrypt</h3><p>Dnscryp配置 <code>vim /usr/local/etc/dnscrypt-proxy.toml</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">listen_addresses = [&apos;127.0.0.1:5300&apos;, &apos;[::1]:5300&apos;]</span><br><span class="line">fallback_resolver = &apos;221.6.4.66:53&apos;</span><br><span class="line">server_names = [&apos;google&apos;, &apos;cloudflare&apos;, &apos;cloudflare-ipv6&apos;]</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">listen_addresses &#x3D; [&#39;127.0.0.1:5300&#39;, &#39;[::1]:5300&#39;]</span><br><span class="line">fallback_resolver &#x3D; &#39;221.6.4.66:53&#39;</span><br><span class="line">server_names &#x3D; [&#39;google&#39;, &#39;cloudflare&#39;, &#39;cloudflare-ipv6&#39;]</span><br></pre></td></tr></table></figure>
 <p>这里本来想配5353端口的，但发现这个端口被chrome占用了。</p>
 <h2 id="启动服务"><a href="#启动服务" class="headerlink" title="启动服务"></a>启动服务</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo brew services restart dnsmasq</span><br><span class="line">sudo brew services restart dnscrypt-proxy</span><br></pre></td></tr></table></figure>
 <p>重启后将本机DNS指向127.0.0.1即可。</p>
@@ -509,17 +606,17 @@
           <p>Manjaro从地址栏访问samba共享的方式总有点问题，会时不时提示没有文件夹修改权限。最近有时间研究了下，发现命令行挂载的方式比较靠谱。</p>
 <p>由于路由器刷的是<code>openwrt</code>，软件源里安装的samba服务端版本似乎是比较老的版本，<code>manjaro</code>命令行挂载似乎用的是较新的samba协议，调了半天发现客户端这边要加下版本号。</p>
 <p>挂载命令：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd /mnt</span><br><span class="line">sudo mkdir share0</span><br><span class="line">sudo mount.cifs //192.168.1.1/share0 /mnt/share0 -o user=SAMBA_USERNAME,pass=SAMBA_PASSWORD,uid=1000,gid=1000,sec=ntlmssp,vers=1.0 --verbose</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd &#x2F;mnt</span><br><span class="line">sudo mkdir share0</span><br><span class="line">sudo mount.cifs &#x2F;&#x2F;192.168.1.1&#x2F;share0 &#x2F;mnt&#x2F;share0 -o user&#x3D;SAMBA_USERNAME,pass&#x3D;SAMBA_PASSWORD,uid&#x3D;1000,gid&#x3D;1000,sec&#x3D;ntlmssp,vers&#x3D;1.0 --verbose</span><br></pre></td></tr></table></figure>
 
 <p>命令行挂载调通后，要实现开机自动挂载就容易的多了，官方文档提供的多种的挂载方式，这里以<code>systemd</code>为例：</p>
 <ol>
 <li>在<code>/etc/samba/</code>下建立<code>credentials</code>文件夹：<code>sudo mkdir credentials</code>，创建比如名为<code>share0</code>的文件： <code>sudo vim share0</code>，内容如下：</li>
 </ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">username=your samba username</span><br><span class="line">password=your samba password</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">username&#x3D;your samba username</span><br><span class="line">password&#x3D;your samba password</span><br></pre></td></tr></table></figure>
 
 <ol start="2">
 <li><p>创建systemd unit文件：<code>sudo /etc/systemd/system/mnt-share0.mount</code>，内容如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=Mount Share at boot</span><br><span class="line"></span><br><span class="line">[Mount]</span><br><span class="line">What=//192.168.1.1/share0</span><br><span class="line">Where=/mnt/share0</span><br><span class="line">Options=x-systemd.automount,credentials=/etc/samba/credentials/share0,iocharset=utf8,uid=1000,gid=1000,sec=ntlmssp,vers=1.0,rw</span><br><span class="line">Type=cifs</span><br><span class="line">TimeoutSec=30</span><br><span class="line">ForceUnmount=true</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description&#x3D;Mount Share at boot</span><br><span class="line"></span><br><span class="line">[Mount]</span><br><span class="line">What&#x3D;&#x2F;&#x2F;192.168.1.1&#x2F;share0</span><br><span class="line">Where&#x3D;&#x2F;mnt&#x2F;share0</span><br><span class="line">Options&#x3D;x-systemd.automount,credentials&#x3D;&#x2F;etc&#x2F;samba&#x2F;credentials&#x2F;share0,iocharset&#x3D;utf8,uid&#x3D;1000,gid&#x3D;1000,sec&#x3D;ntlmssp,vers&#x3D;1.0,rw</span><br><span class="line">Type&#x3D;cifs</span><br><span class="line">TimeoutSec&#x3D;30</span><br><span class="line">ForceUnmount&#x3D;true</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy&#x3D;multi-user.target</span><br></pre></td></tr></table></figure>
 
 <p>Note：这里有一点要注意的是你的挂载路径（<code>where</code>）必须与你的文件名（<code>mnt-share0</code>）对应，比如你挂载到<code>/mnt/share</code>， 那你的文件就必须为<code>mnt-share0.mount</code></p>
 </li>
@@ -632,7 +729,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">spring:</span><br><span class="line">    data:</span><br><span class="line">        mongodb:</span><br><span class="line">            authentication-database: $&#123;MONGODB_AUTHENTICATION_DATABASE:admin&#125;</span><br><span class="line">            username: $&#123;MONGODB_USERNAME:username&#125;</span><br><span class="line">            password: $&#123;MONGODB_PASSWORD:password&#125;</span><br><span class="line">            database: $&#123;MONGODB_DATABASE:database&#125;</span><br></pre></td></tr></table></figure>
 
 <p>之前一直认为Spring Boot连接Mongo DB的方式和连JDBC差不多，今天抽空研究了下，发现URI中的数据库名其实是存储用户认证信息的数据库，实际数据库要通过<code>database</code>设定：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">spring:</span><br><span class="line">    data:</span><br><span class="line">        mongodb:</span><br><span class="line">            database: $&#123;MONGODB_DATABASE:database&#125;</span><br><span class="line">            uri: $&#123;MONGODB_URI:mongodb://username:password@localhost:27017/authentication_database&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">spring:</span><br><span class="line">    data:</span><br><span class="line">        mongodb:</span><br><span class="line">            database: $&#123;MONGODB_DATABASE:database&#125;</span><br><span class="line">            uri: $&#123;MONGODB_URI:mongodb:&#x2F;&#x2F;username:password@localhost:27017&#x2F;authentication_database&#125;</span><br></pre></td></tr></table></figure>
 
 <p><a href="https://docs.mongodb.com/manual/reference/connection-string/" target="_blank" rel="noopener">官方文档</a>：</p>
 <blockquote>
@@ -754,10 +851,10 @@
 <h2 id="制作linux启动盘"><a href="#制作linux启动盘" class="headerlink" title="制作linux启动盘"></a>制作linux启动盘</h2><p>我们需要两个U盘，其中一个就是用来做linux启动盘，这里以<a href="http://www.system-rescue-cd.org/" target="_blank" rel="noopener">SystemRescueCd</a>为例，制作USB启动盘的教程可一参考这里：<a href="http://www.system-rescue-cd.org/Installing-SystemRescueCd-on-a-USB-stick/" target="_blank" rel="noopener">Installing-SystemRescueCd-on-a-USB-stick/</a></p>
 <p>USB启动盘制作好后，将下载下来的openwrt安装包拷贝到另一个U盘。</p>
 <h2 id="安装镜像"><a href="#安装镜像" class="headerlink" title="安装镜像"></a>安装镜像</h2><p>将两个U盘插入软路由，以linux启动盘启动，成功进入系统后执行以下命令将第二个U盘挂载到系统里：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir /mnt/usb</span><br><span class="line">mount /dev/sdx /mnt/usb</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir &#x2F;mnt&#x2F;usb</span><br><span class="line">mount &#x2F;dev&#x2F;sdx &#x2F;mnt&#x2F;usb</span><br></pre></td></tr></table></figure>
 
 <p>解压并将镜像刷到软路由内存里：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd /mnt/usb</span><br><span class="line">gunzip openwrt-18.06.2-x86-64-combined-ext4.img.gz</span><br><span class="line">dd if=openwrt-18.06.2-x86-64-combined-ext4.img of=/dev/sdX</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd &#x2F;mnt&#x2F;usb</span><br><span class="line">gunzip openwrt-18.06.2-x86-64-combined-ext4.img.gz</span><br><span class="line">dd if&#x3D;openwrt-18.06.2-x86-64-combined-ext4.img of&#x3D;&#x2F;dev&#x2F;sdX</span><br></pre></td></tr></table></figure>
 
 <p>其中<code>sdx</code>就是你软路由的安装盘。</p>
 <p>PS：官网里的步骤并没有提到解压这一步骤，实际操作中直接<code>dd</code>的话，openwrt是无法启动的，可能是linux系统的差异。</p>
@@ -783,17 +880,17 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">opkg update</span><br><span class="line">opkg install ca-certificates ca-bundle</span><br><span class="line">opkg install libustream-mbedtls</span><br><span class="line">opkg install git-http curl</span><br></pre></td></tr></table></figure>
 
 <p>修改源为<code>https</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//将http改为https</span><br><span class="line">vim /etc/opkg/distfeeds.conf</span><br><span class="line">opkg update</span><br><span class="line">//安装一些调试用的软件</span><br><span class="line">opkg install bind-dig</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;将http改为https</span><br><span class="line">vim &#x2F;etc&#x2F;opkg&#x2F;distfeeds.conf</span><br><span class="line">opkg update</span><br><span class="line">&#x2F;&#x2F;安装一些调试用的软件</span><br><span class="line">opkg install bind-dig</span><br></pre></td></tr></table></figure>
 
 
 <h2 id="一些常见问题"><a href="#一些常见问题" class="headerlink" title="一些常见问题"></a>一些常见问题</h2><ol>
 <li><p>Samba添加用户与设置密码</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/passwd</span><br><span class="line">smbpasswd -a samba</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vi &#x2F;etc&#x2F;passwd</span><br><span class="line">smbpasswd -a samba</span><br></pre></td></tr></table></figure></li>
 <li><p><code>dnsmasq</code>和<code>dnsmasq-full</code>的区别</p>
 <p> <code>dnsmasq-full</code>多了<code>ipset</code>功能</p>
 </li>
 <li><p><code>dnsmqsq --no-resolv</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">--no-resolv</span><br><span class="line">Don&apos;t read /etc/resolv.conf. Get upstream servers only from the command line or the dnsmasq configuration file.</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">--no-resolv</span><br><span class="line">Don&#39;t read &#x2F;etc&#x2F;resolv.conf. Get upstream servers only from the command line or the dnsmasq configuration file.</span><br></pre></td></tr></table></figure>
 </li>
 <li><p><code>ss-tunnel</code> dns解析不了</p>
 <p>一般原因有以下几点：</p>
@@ -806,7 +903,7 @@
 </li>
 </ol>
 <p>调试用的命令：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">//dnstracer</span><br><span class="line">dnstracer -vo  -s 127.0.0.1 google.com</span><br><span class="line"></span><br><span class="line">//dns测试</span><br><span class="line">dig +trace google.com </span><br><span class="line">// dns请求也可以直接发送给ss-tunnel</span><br><span class="line">dig google.com @127.0.0.1 -p 5353</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;dnstracer</span><br><span class="line">dnstracer -vo  -s 127.0.0.1 google.com</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;dns测试</span><br><span class="line">dig +trace google.com </span><br><span class="line">&#x2F;&#x2F; dns请求也可以直接发送给ss-tunnel</span><br><span class="line">dig google.com @127.0.0.1 -p 5353</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>开启<code>ss-rules</code>后域名无法解析</p>
 <p>具体什么原因不是很清楚，可能是<code>iptables</code>对<code>udp</code>转发有点问题，<code>ss-redir for UDP</code>这项打勾去掉即可。</p>
@@ -815,7 +912,7 @@
 <h2 id="一些定时任务脚本"><a href="#一些定时任务脚本" class="headerlink" title="一些定时任务脚本"></a>一些定时任务脚本</h2><p>写了一些定时<a href="https://github.com/wancaibida/openwrt-scripts" target="_blank" rel="noopener">任务脚本</a>，这里记录一下。</p>
 <h2 id="安全设置"><a href="#安全设置" class="headerlink" title="安全设置"></a>安全设置</h2><h3 id="Luci页面访问控制"><a href="#Luci页面访问控制" class="headerlink" title="Luci页面访问控制"></a>Luci页面访问控制</h3><p>Openwrt的管理页面默认是允许任何IP访问的，如果你的路由器有公网IP的话，那任何人都可访问到你家的路由器登录页面，通过下面设置只允许来自内网地址的访问：</p>
 <p>修改配置文件：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/config/uhttpd</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi &#x2F;etc&#x2F;config&#x2F;uhttpd</span><br></pre></td></tr></table></figure>
 
 <p>将<code>192.168.1.1</code>和<code>fd54:274c:96dd::1</code>换成路由器的v4和v6地址，路由器的lan IP可以在<code>Network</code>-&gt; <code>Interfaces</code>-&gt;<code>LAN</code>查看，openwrt默认情况下是<code>192.168.1.1</code>。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># HTTP listen addresses, multiple allowed</span><br><span class="line">list listen_http	192.168.1.1:80</span><br><span class="line">list listen_http	[fd54:274c:96dd::1]:80</span><br><span class="line"></span><br><span class="line"># HTTPS listen addresses, multiple allowed</span><br><span class="line">list listen_https	192.168.1.1:443</span><br><span class="line">list listen_https	[fd54:274c:96dd::1]:443</span><br></pre></td></tr></table></figure>
@@ -885,56 +982,9 @@
 <p>由于之前一直是在笔记本上写博客的，最近在manjaro上写博客提交后发现github pages的提交历史全丢了，一查下来是<code>hexo-deployer-git</code>这个插件搞的鬼，该插件第一次提交时会force push，覆盖仓库代码，插件作者似乎无意修复这个BUG，遂想弃用这插件。</p>
 <p>网上查下来发现用travis ci来部署github pages是个不错的解决方法，而且这样的话不用每次都手动生成page和提交了。</p>
 <p>实现方法也很简单，在项目里加上<code>.travis.yml</code>文件：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">language: node_js</span><br><span class="line"></span><br><span class="line">node_js: </span><br><span class="line">  - 11.10.0</span><br><span class="line"></span><br><span class="line">cache: npm</span><br><span class="line"></span><br><span class="line">script:</span><br><span class="line">  - ./node_modules/hexo/bin/hexo generate</span><br><span class="line"></span><br><span class="line">deploy:</span><br><span class="line">  provider: pages</span><br><span class="line">  skip-cleanup: true</span><br><span class="line">  keep-history: true</span><br><span class="line">  github-token: $GITHUB_TOKEN</span><br><span class="line">  local-dir: public</span><br><span class="line">  repo: wancaibida/blog</span><br><span class="line">  target-branch: master</span><br><span class="line">  on:</span><br><span class="line">    branch: master</span><br><span class="line"></span><br><span class="line">notifications:</span><br><span class="line">  email:</span><br><span class="line">    recipients:</span><br><span class="line">      - wancaibida@gmail.com</span><br><span class="line">    on_success: always</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">language: node_js</span><br><span class="line"></span><br><span class="line">node_js: </span><br><span class="line">  - 11.10.0</span><br><span class="line"></span><br><span class="line">cache: npm</span><br><span class="line"></span><br><span class="line">script:</span><br><span class="line">  - .&#x2F;node_modules&#x2F;hexo&#x2F;bin&#x2F;hexo generate</span><br><span class="line"></span><br><span class="line">deploy:</span><br><span class="line">  provider: pages</span><br><span class="line">  skip-cleanup: true</span><br><span class="line">  keep-history: true</span><br><span class="line">  github-token: $GITHUB_TOKEN</span><br><span class="line">  local-dir: public</span><br><span class="line">  repo: wancaibida&#x2F;blog</span><br><span class="line">  target-branch: master</span><br><span class="line">  on:</span><br><span class="line">    branch: master</span><br><span class="line"></span><br><span class="line">notifications:</span><br><span class="line">  email:</span><br><span class="line">    recipients:</span><br><span class="line">      - wancaibida@gmail.com</span><br><span class="line">    on_success: always</span><br></pre></td></tr></table></figure>
 
 <p>设置下github pages的仓库名称，在github上创建一个权限为<code>public_repo</code> 的token给travis用就好了。</p>
-
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-      
-        
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2019/02/27/%E8%AE%B0wr1200js%E5%88%B7%E6%9C%BA%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/">记wr1200js刷机遇到的问题</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2019-02-27
-        </span>
-        
-          <span class="post-category">
-            
-              <a href="/categories/linux/">linux</a>
-            
-          </span>
-        
-        
-      </div>
-    </header>
-
-    
-    
-
-
-    <div class="post-content">
-      
-        
-        
-
-        
-          <p>前几天入手了一台wr1200js路由器，到手后成功刷上了openwrt。但重启后发现路由器的配置都丢失了，连管理密码都丢了，网上好多人刷了openwrt后也遇到这样的问题，有说法是路由器闪存读写次数过多坏了，但这刚买的因该不会是这问题，后来在重新刷了下<a href="http://downloads.openwrt.org/releases/18.06.2/targets/ramips/mt7621/openwrt-18.06.2-ramips-mt7621-youhua_wr1200js-squashfs-sysupgrade.bin" target="_blank" rel="noopener">sysupgrade.bin</a>就没这问题了，可能是openwrt在某些条件下会触发这问题。</p>
 
         
       
@@ -979,7 +1029,7 @@
     
       
         
-          <a href="mailto:wancaibida@gmail.com" target="_blank" rel="noopener" class="iconfont icon-email" title="email"></a>
+          <a href="mailto:wancaibida@gmail.com" class="iconfont icon-email" title="email"></a>
         
       
     
@@ -1035,7 +1085,7 @@
      
       2015 - 
     
-    2019
+    2020
 
     <span class="heart">
       <i class="iconfont icon-heart"></i>
