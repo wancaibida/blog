@@ -17,10 +17,12 @@
 
 
 
-  <meta name="description" content="tags"/>
+  <meta name="description" content="Openwrt下dnsmasq配置"/>
 
 
 
+
+  <meta name="keywords" content="dnsmasq, dns, openwrt, Charles' Blog" />
 
 
 
@@ -40,7 +42,7 @@
 
 
 
-<link rel="canonical" href="https://w2x.me/tags/"/>
+<link rel="canonical" href="https://w2x.me/2020/02/17/Openwrt下dnsmasq配置/"/>
 
 
 
@@ -98,7 +100,7 @@
   window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":true};
 </script>
 
-    <title> Tags - Charles' Blog </title>
+    <title> Openwrt下dnsmasq配置 - Charles' Blog </title>
   <meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="Charles' Blog" type="application/atom+xml">
 </head>
 
@@ -228,14 +230,121 @@
         <div class="content-wrapper">
           <div id="content" class="content">
             
-  <div class="tag-cloud">
-    <div class="tag-cloud-title">
-      58 Tags In Total
-    </div>
-    <div class="tag-cloud-tags">
-      <a href="/tags/hibernate/" style="font-size: 18px;">hibernate</a> <a href="/tags/aws/" style="font-size: 22px;">aws</a> <a href="/tags/mustache/" style="font-size: 16px;">mustache</a> <a href="/tags/lambda/" style="font-size: 16px;">lambda</a> <a href="/tags/linux/" style="font-size: 28px;">linux</a> <a href="/tags/alfred/" style="font-size: 16px;">alfred</a> <a href="/tags/workflow/" style="font-size: 16px;">workflow</a> <a href="/tags/bitbucket/" style="font-size: 16px;">bitbucket</a> <a href="/tags/pipeline/" style="font-size: 16px;">pipeline</a> <a href="/tags/docker/" style="font-size: 22px;">docker</a> <a href="/tags/hackintosh/" style="font-size: 16px;">hackintosh</a> <a href="/tags/mac/" style="font-size: 18px;">mac</a> <a href="/tags/fontello/" style="font-size: 16px;">fontello</a> <a href="/tags/google/" style="font-size: 18px;">google</a> <a href="/tags/cloud/" style="font-size: 18px;">cloud</a> <a href="/tags/function/" style="font-size: 16px;">function</a> <a href="/tags/http/" style="font-size: 16px;">http</a> <a href="/tags/authentication/" style="font-size: 16px;">authentication</a> <a href="/tags/pub-sub/" style="font-size: 16px;">pub sub</a> <a href="/tags/k8s/" style="font-size: 18px;">k8s</a> <a href="/tags/kubernetes/" style="font-size: 20px;">kubernetes</a> <a href="/tags/grails/" style="font-size: 22px;">grails</a> <a href="/tags/groovy/" style="font-size: 24px;">groovy</a> <a href="/tags/json/" style="font-size: 18px;">json</a> <a href="/tags/view/" style="font-size: 16px;">view</a> <a href="/tags/json-views/" style="font-size: 16px;">json-views</a> <a href="/tags/kotlin/" style="font-size: 16px;">kotlin</a> <a href="/tags/java/" style="font-size: 26px;">java</a> <a href="/tags/spring/" style="font-size: 22px;">spring</a> <a href="/tags/cloudformation/" style="font-size: 16px;">cloudformation</a> <a href="/tags/hpkp/" style="font-size: 16px;">hpkp</a> <a href="/tags/intellij/" style="font-size: 16px;">intellij</a> <a href="/tags/tomcat/" style="font-size: 18px;">tomcat</a> <a href="/tags/bufferedimage/" style="font-size: 16px;">bufferedimage</a> <a href="/tags/outofmemoryerror/" style="font-size: 16px;">outofmemoryerror</a> <a href="/tags/jvm/" style="font-size: 16px;">jvm</a> <a href="/tags/dnsmasq/" style="font-size: 18px;">dnsmasq</a> <a href="/tags/dns/" style="font-size: 18px;">dns</a> <a href="/tags/samba/" style="font-size: 16px;">samba</a> <a href="/tags/manjaro/" style="font-size: 16px;">manjaro</a> <a href="/tags/openwrt/" style="font-size: 24px;">openwrt</a> <a href="/tags/ipv6/" style="font-size: 16px;">ipv6</a> <a href="/tags/ipv4/" style="font-size: 16px;">ipv4</a> <a href="/tags/postgresql/" style="font-size: 16px;">postgresql</a> <a href="/tags/safari/" style="font-size: 16px;">safari</a> <a href="/tags/ss/" style="font-size: 16px;">ss</a> <a href="/tags/logback/" style="font-size: 16px;">logback</a> <a href="/tags/sl4j/" style="font-size: 16px;">sl4j</a> <a href="/tags/gradle/" style="font-size: 16px;">gradle</a> <a href="/tags/yaml/" style="font-size: 16px;">yaml</a> <a href="/tags/mongodb/" style="font-size: 16px;">mongodb</a> <a href="/tags/database/" style="font-size: 16px;">database</a> <a href="/tags/rest/" style="font-size: 16px;">rest</a> <a href="/tags/hexo/" style="font-size: 16px;">hexo</a> <a href="/tags/zsh/" style="font-size: 16px;">zsh</a> <a href="/tags/plugin/" style="font-size: 16px;">plugin</a> <a href="/tags/network/" style="font-size: 16px;">network</a> <a href="/tags/wifi/" style="font-size: 16px;">wifi</a>
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          Openwrt下dnsmasq配置
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2020-02-17
+        </span>
+        
+          <span class="post-category">
+            
+              <a href="/categories/linux/">linux</a>
+            
+          </span>
+        
+        
+      </div>
+    </header>
+
+    
+    
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#配置文件"><span class="toc-text">配置文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#配置说明"><span class="toc-text">配置说明</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#转发域名解析"><span class="toc-text">转发域名解析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#缓存域名解析"><span class="toc-text">缓存域名解析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关于-no-resolv-配置"><span class="toc-text">关于 no-resolv 配置</span></a></li></ol></li></ol>
     </div>
   </div>
+
+
+
+    <div class="post-content">
+      
+        <h2 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h2><p><code>dnsmasq.conf</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">conf-dir&#x3D;&#x2F;root&#x2F;dnsmasq.d&#x2F;</span><br><span class="line">&#x2F;&#x2F;设置DNS缓存时间</span><br><span class="line">min-cache-ttl&#x3D;3600</span><br><span class="line">&#x2F;&#x2F;缓存数量</span><br><span class="line">cache-size&#x3D;1024</span><br><span class="line">&#x2F;&#x2F;重新加载后清空缓存</span><br><span class="line">clear-on-reload</span><br></pre></td></tr></table></figure>
+
+<h2 id="配置说明"><a href="#配置说明" class="headerlink" title="配置说明"></a>配置说明</h2><h3 id="转发域名解析"><a href="#转发域名解析" class="headerlink" title="转发域名解析"></a>转发域名解析</h3><p>解析海外域名需要将dns解析请求转发到上游的无污染的dns服务器，配置文件 <code>/root/dnsmas.d/not_china.conf</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">server&#x3D;&#x2F;google.com&#x2F;127.0.0.1#5353</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<p>国内域名直接用国内的dns服务器，<code>china.conf</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">server&#x3D;&#x2F;baidu.com&#x2F;221.6.4.66</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<h3 id="缓存域名解析"><a href="#缓存域名解析" class="headerlink" title="缓存域名解析"></a>缓存域名解析</h3><p>海外域名的解析时间一般会比较长，频繁的去请求上游DNS服务器既浪费时间又无意义，可以通过设置dnsmasq缓存来加快解析，减少请求上游DNS服务器的频率。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;设置DNS缓存时间</span><br><span class="line">min-cache-ttl&#x3D;3600</span><br><span class="line">&#x2F;&#x2F;缓存数量,最多10000</span><br><span class="line">cache-size&#x3D;9999</span><br></pre></td></tr></table></figure>
+
+<p>如果你不知道缓存数量应该设置为多少，可以通过下面命令查看dnsmasq的域名请求数作为参考：</p>
+<p><code>killall -s USR1 dnsmasq</code></p>
+<h3 id="关于-no-resolv-配置"><a href="#关于-no-resolv-配置" class="headerlink" title="关于 no-resolv 配置"></a>关于 <code>no-resolv</code> 配置</h3><p>在不打开<code>no-resolv</code>的情况下，dnsmasq会使用ISP提供的dns服务器作为默认的服务器，比如 <code>xx.com</code>域名既不在 <code>not_china.conf</code>又不在<code>china.conf</code>中，dnsmasq就会用ISP的dns服务器来解析这个域名。</p>
+<p>如果打开了<code>no-resolv</code>，同时又不设置<code>resolv-file</code>的话，dnsmasq就会找不到默认的dns服务器来解析<code>xx.com</code>域名，如果你的代理服务器正好属于这类域名，将导致你无法连接到你的服务器。</p>
+
+      
+    </div>
+
+    
+      
+      
+
+  <div class="post-copyright">
+    <p class="copyright-item">
+      <span>Author: </span>
+      <a href="https://w2x.me">大丈夫没问题</a>
+    </p>
+    <p class="copyright-item">
+      <span>Link: </span>
+      <a href="https://w2x.me/2020/02/17/Openwrt%E4%B8%8Bdnsmasq%E9%85%8D%E7%BD%AE/">https://w2x.me/2020/02/17/Openwrt%E4%B8%8Bdnsmasq%E9%85%8D%E7%BD%AE/</a>
+    </p>
+    <p class="copyright-item">
+      <span>License: </span>
+      
+      <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+    </p>
+  </div>
+
+
+
+      
+      
+    
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/dnsmasq/">dnsmasq</a>
+            
+              <a href="/tags/dns/">dns</a>
+            
+              <a href="/tags/openwrt/">openwrt</a>
+            
+          </div>
+        
+        
+        
+  <nav class="post-nav">
+    
+    
+      <a class="next" href="/2020/02/09/Openwrt%E4%B8%8B%E6%97%A0%E6%B3%95%E8%AE%BF%E9%97%AEmedium-com%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/">
+        <span class="next-text nav-default">Openwrt下无法访问medium.com的解决办法</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+
+      </footer>
+    
+
+  </article>
+
 
           </div>
           
@@ -336,9 +445,9 @@
   
   <script type="text/javascript">
     var disqus_config = function () {
-        this.page.url = 'https://w2x.me/tags/index.html';
-        this.page.identifier = 'tags/index.html';
-        this.page.title = 'tags';
+        this.page.url = 'https://w2x.me/2020/02/17/Openwrt%E4%B8%8Bdnsmasq%E9%85%8D%E7%BD%AE/';
+        this.page.identifier = '2020/02/17/Openwrt下dnsmasq配置/';
+        this.page.title = 'Openwrt下dnsmasq配置';
     };
     (function() {
     var d = document, s = d.createElement('script');

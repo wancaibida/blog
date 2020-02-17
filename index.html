@@ -235,6 +235,68 @@
     <header class="post-header">
       <h1 class="post-title">
         
+          <a class="post-link" href="/2020/02/17/Openwrt%E4%B8%8Bdnsmasq%E9%85%8D%E7%BD%AE/">Openwrt下dnsmasq配置</a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2020-02-17
+        </span>
+        
+          <span class="post-category">
+            
+              <a href="/categories/linux/">linux</a>
+            
+          </span>
+        
+        
+      </div>
+    </header>
+
+    
+    
+
+
+    <div class="post-content">
+      
+        
+        
+
+        
+          <h2 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h2><p><code>dnsmasq.conf</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">conf-dir&#x3D;&#x2F;root&#x2F;dnsmasq.d&#x2F;</span><br><span class="line">&#x2F;&#x2F;设置DNS缓存时间</span><br><span class="line">min-cache-ttl&#x3D;3600</span><br><span class="line">&#x2F;&#x2F;缓存数量</span><br><span class="line">cache-size&#x3D;1024</span><br><span class="line">&#x2F;&#x2F;重新加载后清空缓存</span><br><span class="line">clear-on-reload</span><br></pre></td></tr></table></figure>
+
+<h2 id="配置说明"><a href="#配置说明" class="headerlink" title="配置说明"></a>配置说明</h2><h3 id="转发域名解析"><a href="#转发域名解析" class="headerlink" title="转发域名解析"></a>转发域名解析</h3><p>解析海外域名需要将dns解析请求转发到上游的无污染的dns服务器，配置文件 <code>/root/dnsmas.d/not_china.conf</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">server&#x3D;&#x2F;google.com&#x2F;127.0.0.1#5353</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<p>国内域名直接用国内的dns服务器，<code>china.conf</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">server&#x3D;&#x2F;baidu.com&#x2F;221.6.4.66</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<h3 id="缓存域名解析"><a href="#缓存域名解析" class="headerlink" title="缓存域名解析"></a>缓存域名解析</h3><p>海外域名的解析时间一般会比较长，频繁的去请求上游DNS服务器既浪费时间又无意义，可以通过设置dnsmasq缓存来加快解析，减少请求上游DNS服务器的频率。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;设置DNS缓存时间</span><br><span class="line">min-cache-ttl&#x3D;3600</span><br><span class="line">&#x2F;&#x2F;缓存数量,最多10000</span><br><span class="line">cache-size&#x3D;9999</span><br></pre></td></tr></table></figure>
+
+<p>如果你不知道缓存数量应该设置为多少，可以通过下面命令查看dnsmasq的域名请求数作为参考：</p>
+<p><code>killall -s USR1 dnsmasq</code></p>
+<h3 id="关于-no-resolv-配置"><a href="#关于-no-resolv-配置" class="headerlink" title="关于 no-resolv 配置"></a>关于 <code>no-resolv</code> 配置</h3><p>在不打开<code>no-resolv</code>的情况下，dnsmasq会使用ISP提供的dns服务器作为默认的服务器，比如 <code>xx.com</code>域名既不在 <code>not_china.conf</code>又不在<code>china.conf</code>中，dnsmasq就会用ISP的dns服务器来解析这个域名。</p>
+<p>如果打开了<code>no-resolv</code>，同时又不设置<code>resolv-file</code>的话，dnsmasq就会找不到默认的dns服务器来解析<code>xx.com</code>域名，如果你的代理服务器正好属于这类域名，将导致你无法连接到你的服务器。</p>
+
+        
+      
+    </div>
+
+    
+
+    
+
+  </article>
+
+      
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
           <a class="post-link" href="/2020/02/09/Openwrt%E4%B8%8B%E6%97%A0%E6%B3%95%E8%AE%BF%E9%97%AEmedium-com%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/">Openwrt下无法访问medium.com的解决办法</a>
         
       </h1>
@@ -796,55 +858,6 @@
           <p>公司和家里用的是两台电脑，经常遇到一些用过却记不住的命令，恰巧这些命令在另外台电脑执行过，就想找个能在不同机器上同步命令行历史的插件。</p>
 <p>尝试过将用户目录文件夹下的<code>.zsh_history</code>文件软链接到dropbox，发现还是有点问题，比如多台机器同步是会发生文件冲突，一些情况下zsh会重新创建新的<code>.zsh_history</code>文件，导致数据丢失。期间又尝试了下<a href="https://github.com/wulfgarpro/history-sync" target="_blank" rel="noopener">history-sync</a>这个插件，发现有会将历史文件清空的BUG。</p>
 <p>无意中发现了<a href="https://github.com/larkery/zsh-histdb" target="_blank" rel="noopener">zsh-histdb</a>，这个插件正好满足了我的要求：在多台电脑之间同步历史记录，自动合并冲突文件。配合<a href="https://github.com/zsh-users/zsh-autosuggestions" target="_blank" rel="noopener">zsh-autosuggestions</a>简直完美。</p>
-
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-      
-        
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2019/06/30/Docker%E7%8E%AF%E5%A2%83%E8%AE%BF%E9%97%AEfontello-com%E6%97%A0%E9%99%90%E9%87%8D%E5%AE%9A%E5%90%91%E9%97%AE%E9%A2%98/">Docker环境访问fontello.com无限重定向问题</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2019-06-30
-        </span>
-        
-          <span class="post-category">
-            
-              <a href="/categories/linux/">linux</a>
-            
-          </span>
-        
-        
-      </div>
-    </header>
-
-    
-    
-
-
-    <div class="post-content">
-      
-        
-        
-
-        
-          <p>前阵子要把公司几个年代比较久远的前端项目迁移到新的jenkins环境，由于这些项目打包依赖库的版本比较老，要配置好环境会比较花时间，以后再迁移环境的话还要在搭建一遍，于是就想着用docker来打包项目。</p>
-<p>本地搭建好docker环境后，测试打包的时候发现项目从fontello.com下载字体是老是会报一个超出最大重定向次数的异常，ssh到docker环境发现 <code>wget -vdS fontello.com</code> 返回的Response状态码一直是302，而本机环境和服务器都没这问题，docker环境<code>wget</code>其他网址也没有问题，一开始以为是fontello网站配置的问题，今天突然冒出一个想法会不会是我docker环境配置了代理的原因，于是将 <code>fontello.com</code> 域名加到了代理白名单里，发现就没有重定向异常了，字体文件能正常下载了。</p>
-<p>这个问题的根本原因很有可能是docker代理功能和 <code>fontello.com</code> 两边的问题，在这里记一下，以防下次再遇到类似问题。</p>
 
         
       
