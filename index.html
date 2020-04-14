@@ -235,6 +235,47 @@
     <header class="post-header">
       <h1 class="post-title">
         
+          <a class="post-link" href="/2020/04/14/Dockerfile-multiple-stage-example/">Dockerfile multiple stage example</a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2020-04-14
+        </span>
+        
+        
+      </div>
+    </header>
+
+    
+    
+
+
+    <div class="post-content">
+      
+        
+        
+
+        
+          <p><a href="https://gist.githubusercontent.com/wancaibida/d62ce7f05891939dc9f36027b56420dd/raw/072f86bdbbde0a0d2d2915acb27cfd96a683b8b6/Dockerfile" target="_blank" rel="noopener">Example</a></p>
+
+        
+      
+    </div>
+
+    
+
+    
+
+  </article>
+
+      
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
           <a class="post-link" href="/2020/02/17/Openwrt%E4%B8%8Bdnsmasq%E9%85%8D%E7%BD%AE/">Openwrt下dnsmasq配置</a>
         
       </h1>
@@ -809,55 +850,6 @@
 <h2 id="Update"><a href="#Update" class="headerlink" title="Update"></a>Update</h2><ul>
 <li>2019-09-08: 添加了let’s encrypt部分缺失的安装步骤。</li>
 </ul>
-
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-      
-        
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2019/07/25/zsh%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%8E%86%E5%8F%B2%E5%90%8C%E6%AD%A5%E6%8F%92%E4%BB%B6%E6%8E%A8%E8%8D%90/">Zsh命令行历史同步插件推荐</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2019-07-25
-        </span>
-        
-          <span class="post-category">
-            
-              <a href="/categories/linux/">linux</a>
-            
-          </span>
-        
-        
-      </div>
-    </header>
-
-    
-    
-
-
-    <div class="post-content">
-      
-        
-        
-
-        
-          <p>公司和家里用的是两台电脑，经常遇到一些用过却记不住的命令，恰巧这些命令在另外台电脑执行过，就想找个能在不同机器上同步命令行历史的插件。</p>
-<p>尝试过将用户目录文件夹下的<code>.zsh_history</code>文件软链接到dropbox，发现还是有点问题，比如多台机器同步是会发生文件冲突，一些情况下zsh会重新创建新的<code>.zsh_history</code>文件，导致数据丢失。期间又尝试了下<a href="https://github.com/wulfgarpro/history-sync" target="_blank" rel="noopener">history-sync</a>这个插件，发现有会将历史文件清空的BUG。</p>
-<p>无意中发现了<a href="https://github.com/larkery/zsh-histdb" target="_blank" rel="noopener">zsh-histdb</a>，这个插件正好满足了我的要求：在多台电脑之间同步历史记录，自动合并冲突文件。配合<a href="https://github.com/zsh-users/zsh-autosuggestions" target="_blank" rel="noopener">zsh-autosuggestions</a>简直完美。</p>
 
         
       
