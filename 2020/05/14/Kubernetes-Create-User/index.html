@@ -17,12 +17,12 @@
 
 
 
-  <meta name="description" content="Dockerfile multiple stage example"/>
+  <meta name="description" content="Kubernetes Create User"/>
 
 
 
 
-  <meta name="keywords" content="docker, Charles' Blog" />
+  <meta name="keywords" content="kubernetes, Charles' Blog" />
 
 
 
@@ -42,7 +42,7 @@
 
 
 
-<link rel="canonical" href="https://w2x.me/2020/04/14/Dockerfile-multiple-stage-example/"/>
+<link rel="canonical" href="https://w2x.me/2020/05/14/Kubernetes-Create-User/"/>
 
 
 
@@ -100,7 +100,7 @@
   window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":true};
 </script>
 
-    <title> Dockerfile multiple stage example - Charles' Blog </title>
+    <title> Kubernetes Create User - Charles' Blog </title>
   <meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="Charles' Blog" type="application/atom+xml">
 </head>
 
@@ -235,14 +235,20 @@
     <header class="post-header">
       <h1 class="post-title">
         
-          Dockerfile multiple stage example
+          Kubernetes Create User
         
       </h1>
 
       <div class="post-meta">
         <span class="post-time">
-          2020-04-14
+          2020-05-14
         </span>
+        
+          <span class="post-category">
+            
+              <a href="/categories/linux/">linux</a>
+            
+          </span>
         
         
       </div>
@@ -250,11 +256,35 @@
 
     
     
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Create-User"><span class="toc-text">Create User</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Get-certificate"><span class="toc-text">Get certificate</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Get-Token"><span class="toc-text">Get Token</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Test-If-the-role-works"><span class="toc-text">Test If the role works</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Setup-credential"><span class="toc-text">Setup credential</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Test-command"><span class="toc-text">Test command</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Ref"><span class="toc-text">Ref</span></a></li></ol>
+    </div>
+  </div>
+
 
 
     <div class="post-content">
       
-        <p><a href="https://gist.githubusercontent.com/wancaibida/d62ce7f05891939dc9f36027b56420dd/raw/072f86bdbbde0a0d2d2915acb27cfd96a683b8b6/Dockerfile" target="_blank" rel="noopener">Example</a></p>
+        <h2 id="Create-User"><a href="#Create-User" class="headerlink" title="Create User"></a>Create User</h2><p>kubectl apply -f eks-admin-service-account.yaml</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">apiVersion: v1</span><br><span class="line">kind: ServiceAccount</span><br><span class="line">metadata:</span><br><span class="line">  name: eks-admin</span><br><span class="line">  namespace: kube-system</span><br></pre></td></tr></table></figure>
+
+<p>kubectl apply -f eks-admin-cluster-role-binding.yaml</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">apiVersion: rbac.authorization.k8s.io&#x2F;v1beta1</span><br><span class="line">kind: ClusterRoleBinding</span><br><span class="line">metadata:</span><br><span class="line">  name: eks-admin</span><br><span class="line">roleRef:</span><br><span class="line">  apiGroup: rbac.authorization.k8s.io</span><br><span class="line">  kind: ClusterRole</span><br><span class="line">  name: cluster-admin</span><br><span class="line">subjects:</span><br><span class="line">- kind: ServiceAccount</span><br><span class="line">  name: eks-admin</span><br><span class="line">  namespace: kube-system</span><br></pre></td></tr></table></figure>
+
+<h2 id="Get-certificate"><a href="#Get-certificate" class="headerlink" title="Get certificate"></a>Get certificate</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl get secret default-token-cvn2d -o jsonpath&#x3D;&quot;&#123;[&#39;data&#39;][&#39;ca\.crt&#39;]&#125;&quot; | base64 --decode</span><br></pre></td></tr></table></figure>
+
+<h2 id="Get-Token"><a href="#Get-Token" class="headerlink" title="Get Token"></a>Get Token</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl -n kube-system describe secret $(kubectl -n kube-system get secret | grep eks-admin | awk &#39;&#123;print $1&#125;&#39;)</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="Test-If-the-role-works"><a href="#Test-If-the-role-works" class="headerlink" title="Test If the role works"></a>Test If the role works</h2><h3 id="Setup-credential"><a href="#Setup-credential" class="headerlink" title="Setup credential"></a>Setup credential</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">kubectl config set-cluster kubernetes --certificate-authority&#x3D;ca.crt --server&#x3D;$K8S_SERVER_URL</span><br><span class="line">kubectl config set-credentials $K8S_USERNAME --token&#x3D;$K8S_USER_TOKEN</span><br><span class="line">kubectl config set-context aws --cluster&#x3D;kubernetes --namespace&#x3D;$K8S_NAMESPACE --user&#x3D;$K8S_USERNAME</span><br><span class="line">kubectl config use-context aws --user&#x3D;$K8S_USERNAME</span><br></pre></td></tr></table></figure>
+
+<h3 id="Test-command"><a href="#Test-command" class="headerlink" title="Test command"></a>Test command</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl get pod</span><br></pre></td></tr></table></figure>
+
+<h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul>
+<li><a href="https://docs.gitlab.com/ee/user/project/clusters/add_remove_clusters.html#existing-eks-cluster" target="_blank" rel="noopener">https://docs.gitlab.com/ee/user/project/clusters/add_remove_clusters.html#existing-eks-cluster</a></li>
+</ul>
 
       
     </div>
@@ -270,7 +300,7 @@
     </p>
     <p class="copyright-item">
       <span>Link: </span>
-      <a href="https://w2x.me/2020/04/14/Dockerfile-multiple-stage-example/">https://w2x.me/2020/04/14/Dockerfile-multiple-stage-example/</a>
+      <a href="https://w2x.me/2020/05/14/Kubernetes-Create-User/">https://w2x.me/2020/05/14/Kubernetes-Create-User/</a>
     </p>
     <p class="copyright-item">
       <span>License: </span>
@@ -290,7 +320,7 @@
         
           <div class="post-tags">
             
-              <a href="/tags/docker/">docker</a>
+              <a href="/tags/kubernetes/">kubernetes</a>
             
           </div>
         
@@ -298,15 +328,9 @@
         
   <nav class="post-nav">
     
-      <a class="prev" href="/2020/05/14/Kubernetes-Create-User/">
-        <i class="iconfont icon-left"></i>
-        <span class="prev-text nav-default">Kubernetes Create User</span>
-        <span class="prev-text nav-mobile">Prev</span>
-      </a>
     
-    
-      <a class="next" href="/2020/02/17/Openwrt%E4%B8%8Bdnsmasq%E9%85%8D%E7%BD%AE/">
-        <span class="next-text nav-default">Openwrt下dnsmasq配置</span>
+      <a class="next" href="/2020/04/14/Dockerfile-multiple-stage-example/">
+        <span class="next-text nav-default">Dockerfile multiple stage example</span>
         <span class="prev-text nav-mobile">Next</span>
         <i class="iconfont icon-right"></i>
       </a>
@@ -419,9 +443,9 @@
   
   <script type="text/javascript">
     var disqus_config = function () {
-        this.page.url = 'https://w2x.me/2020/04/14/Dockerfile-multiple-stage-example/';
-        this.page.identifier = '2020/04/14/Dockerfile-multiple-stage-example/';
-        this.page.title = 'Dockerfile multiple stage example';
+        this.page.url = 'https://w2x.me/2020/05/14/Kubernetes-Create-User/';
+        this.page.identifier = '2020/05/14/Kubernetes-Create-User/';
+        this.page.title = 'Kubernetes Create User';
     };
     (function() {
     var d = document, s = d.createElement('script');
