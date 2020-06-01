@@ -97,7 +97,7 @@
 </script>
 
     <title> Charles' Blog </title>
-  <meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="Charles' Blog" type="application/atom+xml">
+  <meta name="generator" content="Hexo 4.2.1"><link rel="alternate" href="/atom.xml" title="Charles' Blog" type="application/atom+xml">
 </head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
@@ -229,6 +229,85 @@
   
   <section id="posts" class="posts">
     
+      
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          <a class="post-link" href="/2019/09/19/Google-Cloud-Function-Http-%E8%AE%A4%E8%AF%81%E9%85%8D%E7%BD%AE/">Google Cloud Function Http 认证配置</a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2019-09-19
+        </span>
+        
+          <span class="post-category">
+            
+              <a href="/categories/linux/">linux</a>
+            
+          </span>
+        
+        
+      </div>
+    </header>
+
+    
+    
+
+
+    <div class="post-content">
+      
+        
+        
+
+        
+          <p>最近在做的项目用到了google cloud，其中有个功能模块的google cloud function需要调用另一个通过http请求触发的function，在研究配置http function认证信息期间花了不少时间，在这记录一下。</p>
+<p>默认情况下创建http请求触发的function会勾选<code>Allow unauthenticated invocations</code>选项，这样无需通过认证就可以调用function，但这样做显然是不安全的，一旦接口地址泄漏就可能会被恶意调用。</p>
+<p>查看了google cloud文档，google建议用<a href="https://cloud.google.com/endpoints/" target="_blank" rel="noopener">Cloud Endpoint</a>来做认证，但是在cloud console始终无法创建endpoint，遂放弃。</p>
+<p>一开始想了个临时的解决方案：在勾选<code>Allow unauthenticated invocations</code>的情况下，在function代码里加上token验证，如果token不匹配就返回并提示<code>forbidden</code>，虽然可以减少function在被恶意调用的情况下的执行时间，但还是会产生一定的费用。</p>
+<p>今天抽时间重新研究了下这个问题，终于找到了<a href="https://cloud.google.com/functions/docs/securing/authenticating#function-to-function" target="_blank" rel="noopener">解决方案</a>：</p>
+<p>假设调用者function为 <code>xxx-master</code>，被调用的function为<code>xxx-slave</code>,</p>
+<ul>
+<li>通过下面命令给 <code>xxx-slave</code> function加上<code>roles/cloudfunctions.invoker</code> 角色，允许 <code>roles/cloudfunctions.invoker</code>这个角色来调用<code>xxx-slave</code> function</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">gcloud beta functions add-iam-policy-binding RECEIVING_FUNCTION \</span><br><span class="line">  --member&#x3D;&#39;serviceAccount:CALLING_FUNCTION_IDENTITY&#39; \</span><br><span class="line">  --role&#x3D;&#39;roles&#x2F;cloudfunctions.invoker&#39;</span><br></pre></td></tr></table></figure>
+
+<p><code>RECEIVING_FUNCTION</code> -&gt; 被调用的function名字<br><code>CALLING_FUNCTION_IDENTITY</code> -&gt; 一般为 <code>PROJECT_ID@appspot.gserviceaccount.com</code></p>
+<p>比如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">gcloud beta functions add-iam-policy-binding xxx-slave \</span><br><span class="line">  --member&#x3D;&#39;serviceAccount:YOUR_PROJECT_ID@appspot.gserviceaccount.com&#39; \</span><br><span class="line">  --role&#x3D;&#39;roles&#x2F;cloudfunctions.invoker&#39;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在 <code>xxx-master</code> function中加上获取token代码，请求时将token放在<code>Authorization</code> header里，以python为例：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"># Requests is already installed, no need to add it to requirements.txt</span><br><span class="line">import requests</span><br><span class="line"></span><br><span class="line">def calling_function(request):</span><br><span class="line">  # Make sure to replace variables with appropriate values</span><br><span class="line">  receiving_function_url &#x3D; &#39;https:&#x2F;&#x2F;us-central1-graphical-bus-248617.cloudfunctions.net&#x2F;xxx-slave</span><br><span class="line">&#39;</span><br><span class="line"></span><br><span class="line">  # Set up metadata server request</span><br><span class="line">  # See https:&#x2F;&#x2F;cloud.google.com&#x2F;compute&#x2F;docs&#x2F;instances&#x2F;verifying-instance-identity#request_signature</span><br><span class="line">  metadata_server_token_url &#x3D; &#39;http:&#x2F;&#x2F;metadata&#x2F;computeMetadata&#x2F;v1&#x2F;instance&#x2F;service-accounts&#x2F;default&#x2F;identity?audience&#x3D;&#39;</span><br><span class="line"></span><br><span class="line">  token_request_url &#x3D; metadata_server_token_url + receiving_function_url</span><br><span class="line">  token_request_headers &#x3D; &#123;&#39;Metadata-Flavor&#39;: &#39;Google&#39;&#125;</span><br><span class="line"></span><br><span class="line">  # Fetch the token</span><br><span class="line">  token_response &#x3D; requests.get(token_request_url, headers&#x3D;token_request_headers)</span><br><span class="line">  jwt &#x3D; token_response.content.decode(&quot;utf-8&quot;)</span><br><span class="line"></span><br><span class="line">  # Provide the token in the request to the receiving function</span><br><span class="line">  receiving_function_headers &#x3D; &#123;&#39;Authorization&#39;: f&#39;bearer &#123;jwt&#125;&#39;&#125;</span><br><span class="line">  function_response &#x3D; requests.get(receiving_function_url, headers&#x3D;receiving_function_headers)</span><br><span class="line"></span><br><span class="line">  return function_response.content</span><br></pre></td></tr></table></figure>
+
+<p>完成上面两部后，<code>xxx-slave</code> function就可以在被认证的情况下调用了。</p>
+<p>这里还需要注意的是要将<code>Cloud Functions Invoker</code> 中的 <code>all user</code>移除，不然<code>xxx-slave</code>方法还是公开的，操作步骤：</p>
+<ul>
+<li>Google Cloud Console -&gt; Cloud Function</li>
+<li>勾选<code>xxx-slave</code> function</li>
+<li>点击左侧的 <code>PERMISSIONS</code> tab</li>
+<li>点开 <code>Cloud Functions Invoker</code></li>
+<li>将 <code>all user</code>移除</li>
+</ul>
+<p>参考：</p>
+<ul>
+<li><a href="https://cloud.google.com/functions/docs/securing/authenticating#function-to-function" target="_blank" rel="noopener">https://cloud.google.com/functions/docs/securing/authenticating#function-to-function</a></li>
+</ul>
+
+        
+      
+    </div>
+
+    
+
+    
+
+  </article>
+
       
         
   <article class="post">
@@ -867,65 +946,6 @@
 <p><img src="http://static.w2x.me/document_db_subnet.png" alt="AWS Lambda VPC"></p>
 <p>参考：</p>
 <p><a href="https://medium.com/@philippholly/aws-lambda-enable-outgoing-internet-access-within-vpc-8dd250e11e12" target="_blank" rel="noopener">AWS Lambda: Enable Outgoing Internet Access within VPC</a></p>
-
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-      
-        
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2019/04/18/Spring-Boot%E8%BF%9E%E6%8E%A5MongoDB/">Spring Boot连接MongoDB</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2019-04-18
-        </span>
-        
-          <span class="post-category">
-            
-              <a href="/categories/java/">java</a>
-            
-          </span>
-        
-        
-      </div>
-    </header>
-
-    
-    
-
-
-    <div class="post-content">
-      
-        
-        
-
-        
-          <p>最近在做的项目用到了Mongo DB，发现在开启用户认证的情况下，用URI的方式连接总是提示认证失败，只有在分别设置了<code>username ,password , database</code>等字段才能连接成功。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">spring:</span><br><span class="line">    data:</span><br><span class="line">        mongodb:</span><br><span class="line">            authentication-database: $&#123;MONGODB_AUTHENTICATION_DATABASE:admin&#125;</span><br><span class="line">            username: $&#123;MONGODB_USERNAME:username&#125;</span><br><span class="line">            password: $&#123;MONGODB_PASSWORD:password&#125;</span><br><span class="line">            database: $&#123;MONGODB_DATABASE:database&#125;</span><br></pre></td></tr></table></figure>
-
-<p>之前一直认为Spring Boot连接Mongo DB的方式和连JDBC差不多，今天抽空研究了下，发现URI中的数据库名其实是存储用户认证信息的数据库，实际数据库要通过<code>database</code>设定：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">spring:</span><br><span class="line">    data:</span><br><span class="line">        mongodb:</span><br><span class="line">            database: $&#123;MONGODB_DATABASE:database&#125;</span><br><span class="line">            uri: $&#123;MONGODB_URI:mongodb:&#x2F;&#x2F;username:password@localhost:27017&#x2F;authentication_database&#125;</span><br></pre></td></tr></table></figure>
-
-<p><a href="https://docs.mongodb.com/manual/reference/connection-string/" target="_blank" rel="noopener">官方文档</a>：</p>
-<blockquote>
-<p>/database</p>
-</blockquote>
-<blockquote>
-<p>Optional. The name of the database to authenticate if the connection string includes authentication credentials in the form of <code>username:password@</code>. If <code>/database</code> is not specified and the connection string includes credentials, the driver will authenticate to the <code>admin</code> database. See also <a href="https://docs.mongodb.com/manual/reference/connection-string/#urioption.authSource" target="_blank" rel="noopener"><code>authSource</code></a>.</p>
-</blockquote>
 
         
       
