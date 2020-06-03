@@ -235,6 +235,58 @@
     <header class="post-header">
       <h1 class="post-title">
         
+          <a class="post-link" href="/2020/06/03/Caddyfile-v2-example/">Caddyfile v2 example</a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2020-06-03
+        </span>
+        
+          <span class="post-category">
+            
+              <a href="/categories/linux/">linux</a>
+            
+          </span>
+        
+        
+      </div>
+    </header>
+
+    
+    
+
+
+    <div class="post-content">
+      
+        
+        
+
+        
+          <p><a href="https://gist.githubusercontent.com/wancaibida/4e0e30c2f1c5cc4848f7e492ed4b9d9b/raw/f374bcb569ec494bf965ed491fee6b8e234302f4/Caddyfile" target="_blank" rel="noopener">Caddyfile</a></p>
+<p>参考：</p>
+<ul>
+<li><a href="https://caddyserver.com/docs/caddyfile/matchers#named-matchers" target="_blank" rel="noopener">https://caddyserver.com/docs/caddyfile/matchers#named-matchers</a></li>
+<li><a href="https://caddy.community/t/caddy-v2-how-to-proxy-websoket-v2ray-websocket-tls/7040/12" target="_blank" rel="noopener">https://caddy.community/t/caddy-v2-how-to-proxy-websoket-v2ray-websocket-tls/7040/12</a></li>
+</ul>
+
+        
+      
+    </div>
+
+    
+
+    
+
+  </article>
+
+      
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
           <a class="post-link" href="/2020/06/01/Openwrt%E7%8E%AF%E5%A2%83%E4%B8%8B%E6%9F%902ray-too-many-open-files-%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3/">Openwrt环境下某2ray `too many open files`问题解决</a>
         
       </h1>
@@ -740,64 +792,6 @@
 </blockquote>
 <p>意思就是如果消息在<code>Message retention duration</code>时间内没有被处理完成的话，这条消息就会删除并且再也访问不到。</p>
 <p>比如程序的BUG导致消息一直无法被处理，经过 <code>Message retention duration</code> 后这条消息就再也收不到了，会导致数据丢失。</p>
-
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-      
-        
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2019/10/23/Safari-can-t-establish-a-secure-connection-%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/">Safari can't establish a secure connection 解决办法</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2019-10-23
-        </span>
-        
-          <span class="post-category">
-            
-              <a href="/categories/linux/">linux</a>
-            
-          </span>
-        
-        
-      </div>
-    </header>
-
-    
-    
-
-
-    <div class="post-content">
-      
-        
-        
-
-        
-          <p>公司测试用的是6.x版本的Safari，在测试时发现无法打开项目网站，提示<code>Safari can&#39;t establish a secure connection</code>错误，测试了下其他网站也只有一部分能打开。</p>
-<p>一开始以为是系统配置的问题，尝试了下网上的解决方案如：修改DNS服务器地址，信任证书等，发现还是无法打开项目网站。后来发现Safari 6.x是不支持TLS 1.2版本的，而我们项目用的正好是1.2版本的TLS。</p>
-<p>解决办法：</p>
-<ol>
-<li>升级Safari版本</li>
-<li>让项目支持低版本的TLS</li>
-</ol>
-<p>参考：</p>
-<ul>
-<li><a href="https://www.projectdatasphere.org/projectdatasphere/html/tls/faq" target="_blank" rel="noopener">https://www.projectdatasphere.org/projectdatasphere/html/tls/faq</a></li>
-<li><a href="https://www.howsmyssl.com/" target="_blank" rel="noopener">https://www.howsmyssl.com/</a></li>
-</ul>
 
         
       
