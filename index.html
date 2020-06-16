@@ -317,11 +317,11 @@
 
         
           <p><code>too many open files</code>大部分情况下是由于配置错误引起的。如果配置没有问题,可以在某2ray的启动脚本里加上这一句：</p>
-<p>修改<code>/etc/sysctl.conf</code>文件，增加下面这一行:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ulimit -SHn 65535</span><br><span class="line">&#x2F;usr&#x2F;bin&#x2F;2ray -config config.json</span><br></pre></td></tr></table></figure>
 
 <p>启动后可以用这个命令来看是否生效：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat &#x2F;proc&#x2F;&#123;2AY进程id&#125;&#x2F;limits</span><br></pre></td></tr></table></figure>
+
 
 <p>参考：</p>
 <ul>
