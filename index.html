@@ -235,6 +235,151 @@
     <header class="post-header">
       <h1 class="post-title">
         
+          <a class="post-link" href="/2020/07/23/Google-Cloud-BigQuery-Create-Partition-Table-From-Existing-Table/">Google Cloud BigQuery Create Partition Table From Existing Table</a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2020-07-23
+        </span>
+        
+          <span class="post-category">
+            
+              <a href="/categories/linux/">linux</a>
+            
+          </span>
+        
+        
+      </div>
+    </header>
+
+    
+    
+
+
+    <div class="post-content">
+      
+        
+        
+
+        
+          <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">create table [schema-name].copy</span><br><span class="line">partition by date([timestamp-column])</span><br><span class="line">as select * from [schema-name].[table-name];</span><br><span class="line">drop table [schema-name].[table-name];</span><br></pre></td></tr></table></figure>
+        
+      
+    </div>
+
+    
+
+    
+
+  </article>
+
+      
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          <a class="post-link" href="/2020/07/23/Python3-logging%E7%94%A8%E6%B3%95/">Python3 logging用法</a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2020-07-23
+        </span>
+        
+          <span class="post-category">
+            
+              <a href="/categories/linux/">linux</a>
+            
+          </span>
+        
+        
+      </div>
+    </header>
+
+    
+    
+
+
+    <div class="post-content">
+      
+        
+        
+
+        
+          <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">import logging</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">log &#x3D; logging.getLogger()</span><br><span class="line">log.setLevel(logging.DEBUG)</span><br><span class="line"></span><br><span class="line">handler &#x3D; logging.StreamHandler(sys.stdout)</span><br><span class="line">handler.setLevel(logging.INFO)</span><br><span class="line">formatter &#x3D; logging.Formatter(&#39;[%(threadName)s] %(asctime)s - %(name)s - %(levelname)s - %(message)s&#39;)</span><br><span class="line">handler.setFormatter(formatter)</span><br><span class="line">log.addHandler(handler)</span><br><span class="line"></span><br><span class="line">log.info(&quot;Hello %s&quot;, &quot;world)</span><br></pre></td></tr></table></figure>
+        
+      
+    </div>
+
+    
+
+    
+
+  </article>
+
+      
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          <a class="post-link" href="/2020/07/23/PostGIS%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/">PostGIS快速入门</a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2020-07-23
+        </span>
+        
+          <span class="post-category">
+            
+              <a href="/categories/database/">database</a>
+            
+          </span>
+        
+        
+      </div>
+    </header>
+
+    
+    
+
+
+    <div class="post-content">
+      
+        
+        
+
+        
+          <h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CREATE EXTENSION postgis</span><br></pre></td></tr></table></figure>
+
+<h2 id="添加列"><a href="#添加列" class="headerlink" title="添加列"></a>添加列</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ALTER TABLE your_table ADD COLUMN geom geometry(Point, 4326);</span><br><span class="line">UPDATE your_table SET geom &#x3D; ST_SetSRID(ST_MakePoint(longitude, latitude), 4326);</span><br></pre></td></tr></table></figure>
+
+<h2 id="半径查找"><a href="#半径查找" class="headerlink" title="半径查找"></a>半径查找</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">SELECT lat,</span><br><span class="line">       lon,</span><br><span class="line">       location,</span><br><span class="line">       cnt</span><br><span class="line">FROM ggg</span><br><span class="line">WHERE 1 &#x3D; 1</span><br><span class="line">  AND cnt &gt; 1</span><br><span class="line">  AND ST_DWithin(</span><br><span class="line">        ggg.geom,</span><br><span class="line">        ST_MakePoint(42.9764, 47.5024)::GEOGRAPHY,</span><br><span class="line">        200000</span><br><span class="line">    );</span><br></pre></td></tr></table></figure>
+
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考:"></a>参考:</h2><p><a href="https://live.osgeo.org/en/quickstart/postgis_quickstart.html" target="_blank" rel="noopener">https://live.osgeo.org/en/quickstart/postgis_quickstart.html</a><br><a href="https://gis.stackexchange.com/questions/145007/creating-geometry-from-lat-lon-in-table-using-postgis" target="_blank" rel="noopener">https://gis.stackexchange.com/questions/145007/creating-geometry-from-lat-lon-in-table-using-postgis</a></p>
+
+        
+      
+    </div>
+
+    
+
+    
+
+  </article>
+
+      
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
           <a class="post-link" href="/2020/06/03/Caddyfile-v2-example/">Caddyfile v2 example</a>
         
       </h1>
@@ -594,210 +739,6 @@
         
           <p>Bitbucket pipeline可以通过<code>Repository variables</code>来传递变量，但是如果变量包含一些特殊字符比如换行符，bitbucket就不能很好的处理，对于这种情况我们可以将变量用base64编码一下，在pipeline中再解码就可以解决这问题了。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cat file.txt | base64</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; in pipeline file</span><br><span class="line">echo $&#123;YOUR_ENV&#125; | base64 -d &gt; file.txt</span><br></pre></td></tr></table></figure>
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-      
-        
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2019/12/06/Java-BufferedImage-OutOfMemoryError/">Java BufferedImage OutOfMemoryError</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2019-12-06
-        </span>
-        
-          <span class="post-category">
-            
-              <a href="/categories/java/">java</a>
-            
-          </span>
-        
-        
-      </div>
-    </header>
-
-    
-    
-
-
-    <div class="post-content">
-      
-        
-        
-
-        
-          <p>最近遇到了BufferedImage OutOfMemoryError的问题，在此记录一下。</p>
-<p>事情的起因是项目中有个功能需要将多张图片合并为一张，流程如下：</p>
-<ol>
-<li>有三个图片文件，<code>File A,File B,File C</code></li>
-<li>通过<code>ImageIO.read(inputStream)</code> 将ABC转换成<code>BufferedImage</code>类型</li>
-<li>通过<code>java.awt.image.BufferedImage#getWidth()</code>获取这三张图片中的最大宽度<code>maxWidth</code>，</li>
-<li>计算另外两张图片等比例拉伸至<code>maxWidth</code>后的高度，将这三张图片的高度相加得到<code>maxHeight</code></li>
-<li>创建一张<code>maxWidth * maxHeight</code>的图片</li>
-<li>通过画布将三张图片写入到这张图片里</li>
-</ol>
-<p>主要代码如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">                val images &#x3D; mutableListOf&lt;BufferedImage&gt;()</span><br><span class="line">                ...</span><br><span class="line">                images.add(ImageIO.read(inputStream))</span><br><span class="line">                ...</span><br><span class="line">                joinImages(*images.toTypedArray())</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">    fun joinImages(vararg imgs: BufferedImage): BufferedImage &#123;</span><br><span class="line">        val offset &#x3D; 20</span><br><span class="line"></span><br><span class="line">        val aggregateWidth &#x3D; imgs.maxBy &#123; it.width &#125;!!.width</span><br><span class="line">        val aggregateHeight &#x3D; imgs.sumBy &#123;</span><br><span class="line">            (it.height * aggregateWidth) &#x2F; it.width</span><br><span class="line">        &#125; + (imgs.size - 1) * offset</span><br><span class="line"></span><br><span class="line">        val newImage &#x3D; BufferedImage(aggregateWidth, aggregateHeight, BufferedImage.TYPE_INT_ARGB)</span><br><span class="line">        val g2 &#x3D; newImage.createGraphics()</span><br><span class="line">        val oldColor &#x3D; g2.color</span><br><span class="line"></span><br><span class="line">        g2.paint &#x3D; Color.white</span><br><span class="line">        g2.fillRect(0, 0, aggregateWidth, aggregateHeight)</span><br><span class="line">        g2.color &#x3D; oldColor</span><br><span class="line"></span><br><span class="line">        var y &#x3D; 0</span><br><span class="line"></span><br><span class="line">        imgs.forEach &#123;</span><br><span class="line">            val height &#x3D; (aggregateWidth * it.height) &#x2F; it.width</span><br><span class="line">            val scaled &#x3D; it.getScaledInstance(aggregateWidth, height, Image.SCALE_DEFAULT)</span><br><span class="line"></span><br><span class="line">            g2.drawImage(toBufferedImage(scaled), null, 0, y)</span><br><span class="line">            y +&#x3D; height + offset</span><br><span class="line">        &#125;</span><br><span class="line">        g2.dispose()</span><br><span class="line"></span><br><span class="line">        return newImage</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-<p>运行过程中发现第<code>4</code>和<code>17</code>行代码时不时会抛出OutOfMemoryError错误，研究了下发现有两个问题：</p>
-<ol>
-<li>对于jpeg格式的图片，java将其载入到内存时是不会对其进行压缩的，一个像素会占用3个字节的内存，如果图片的尺寸比较大，会占用非常大的内存，比如这张<a href="https://dummyimage.com/2000x2000/000/fff.jpg" target="_blank" rel="noopener">图片</a>，实际文件大小为84kb，载入到内存里后的大小为11mb：</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">val file &#x3D; File(&quot;&#x2F;Downloads&#x2F;fff.jpeg&quot;)</span><br><span class="line">val image &#x3D; ImageIO.read(FileInputStream(file))</span><br><span class="line"></span><br><span class="line">println(image.width)  &#x2F;&#x2F;2000</span><br><span class="line">println(image.height) &#x2F;&#x2F;2000</span><br><span class="line">println(ObjectSizeCalculator.getObjectSize(image)) &#x2F;&#x2F;12000928  -&gt; 11mb</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>合并图片前代码将这三张图片一次性全部加载到内存里，这也会占用比较大的内存。</li>
-</ol>
-<p>对于问题1，目前只能规避这问题，加载图片前会预先判断下该图片会占用多少内存，对于会超出内存使用的jpeg图片不予合并。同时在代码第14行，我们对合并后的最大宽度进行限制，避免合并后的图片尺寸过大，占用的内存超出限制。</p>
-<p>对于问题2，这三张图片可以按序加载，不用一次性全部加载到内存里，在需要合并时才加载到内存里，同时可以改进获取图片尺寸的代码，不用将图片加载到内存后再获取尺寸。</p>
-<p>最终代码如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line">fun getImageSize(file: File): Dimension &#123;</span><br><span class="line">    ImageIO.createImageInputStream(file).use &#123; &#96;in&#96; -&gt;</span><br><span class="line">        val readers &#x3D; ImageIO.getImageReaders(&#96;in&#96;)</span><br><span class="line">        if (readers.hasNext()) &#123;</span><br><span class="line">            val reader &#x3D; readers.next()</span><br><span class="line">            try &#123;</span><br><span class="line">                reader.input &#x3D; &#96;in&#96;</span><br><span class="line">                return Dimension(reader.getWidth(0), reader.getHeight(0))</span><br><span class="line">            &#125; finally &#123;</span><br><span class="line">                reader.dispose()</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return Dimension(0, 0)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">fun joinImages(vararg files: File): File &#123;</span><br><span class="line">    ...</span><br><span class="line">    val offset &#x3D; 20</span><br><span class="line">    val dimensions &#x3D; files.map &#123; getImageSize(it) &#125;</span><br><span class="line">    val aggregateWidth &#x3D; min(dimensions.maxBy &#123; it.width &#125;!!.width, 800)</span><br><span class="line">    val aggregateHeight &#x3D; dimensions.sumBy &#123; (it.height * aggregateWidth) &#x2F; it.width &#125; + (files.size - 1) * offset</span><br><span class="line">    val newImage &#x3D; try &#123;</span><br><span class="line">        BufferedImage(aggregateWidth, aggregateHeight, BufferedImage.TYPE_INT_ARGB)</span><br><span class="line">    &#125; catch (e: OutOfMemoryError) &#123;</span><br><span class="line">        ...</span><br><span class="line">        throw e</span><br><span class="line">    &#125;</span><br><span class="line">    val g2 &#x3D; newImage.createGraphics()</span><br><span class="line">    val oldColor &#x3D; g2.color</span><br><span class="line"></span><br><span class="line">    g2.paint &#x3D; Color.white</span><br><span class="line">    g2.fillRect(0, 0, aggregateWidth, aggregateHeight)</span><br><span class="line">    g2.color &#x3D; oldColor</span><br><span class="line"></span><br><span class="line">    var y &#x3D; 0</span><br><span class="line"></span><br><span class="line">    files.forEach &#123;</span><br><span class="line">        var image &#x3D; try &#123;</span><br><span class="line">            ImageIO.read(it)</span><br><span class="line">        &#125; catch (e: OutOfMemoryError) &#123;</span><br><span class="line">            ...</span><br><span class="line">            throw e</span><br><span class="line">        &#125;</span><br><span class="line">        val height &#x3D; (aggregateWidth * image.height) &#x2F; image.width</span><br><span class="line">        val scaled &#x3D; image.getScaledInstance(aggregateWidth, height, Image.SCALE_DEFAULT)</span><br><span class="line"></span><br><span class="line">        g2.drawImage(toBufferedImage(scaled), null, 0, y)</span><br><span class="line"></span><br><span class="line">        image.flush()</span><br><span class="line">        image &#x3D; null</span><br><span class="line"></span><br><span class="line">        y +&#x3D; height + offset</span><br><span class="line">    &#125;</span><br><span class="line">    g2.dispose()</span><br><span class="line"></span><br><span class="line">    val joinImageFile &#x3D; File.createTempFile(UUID.randomUUID().toString(), &quot;.png&quot;)</span><br><span class="line"></span><br><span class="line">    ImageIO.write(newImage, &quot;png&quot;, joinImageFile)</span><br><span class="line"></span><br><span class="line">    return joinImageFile</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>按上述代码修改后，再也没有发生OutOfMemoryError。对于问题1，目前发现<a href="https://commons.apache.org/proper/commons-imaging/whyimaging.html" target="_blank" rel="noopener">apache commons-imaging</a>似乎可以解决这问题，有时间去尝试下，到时候再来更新本文。</p>
-<h2 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h2><p><a href="https://coderanch.com/t/416485/java/Java-BufferedImage-OutOfMemoryError" target="_blank" rel="noopener">https://coderanch.com/t/416485/java/Java-BufferedImage-OutOfMemoryError</a></p>
-
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-      
-        
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2019/11/28/Kubernetes%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AEJVM%E5%86%85%E5%AD%98/">Kubernetes环境配置JVM内存</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2019-11-28
-        </span>
-        
-          <span class="post-category">
-            
-              <a href="/categories/linux/">linux</a>
-            
-          </span>
-        
-        
-      </div>
-    </header>
-
-    
-    
-
-
-    <div class="post-content">
-      
-        
-        
-
-        
-          <p>我们知道JVM在docker容器环境中是无法正确检测到可用内存的，最近正好遇到了一个与之相关的问题，在此记录一下。</p>
-<p>遇到问题的项目技术栈为JDK 8 + Spring Boot + Tomcat，部署在docker环境。项目运行过程中出现了<code>java.lang.OutOfMemoryError: Java heap space</code>异常，当时项目的部署文件如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">apiVersion: apps&#x2F;v1</span><br><span class="line">kind: StatefulSet</span><br><span class="line">metadata:</span><br><span class="line">  name: api-deployment</span><br><span class="line">  labels:</span><br><span class="line">    app: api</span><br><span class="line">spec:</span><br><span class="line">  serviceName: api-app</span><br><span class="line">  replicas: 2</span><br><span class="line">  selector:</span><br><span class="line">    matchLabels:</span><br><span class="line">      app: api</span><br><span class="line">  template:</span><br><span class="line">    metadata:</span><br><span class="line">      labels:</span><br><span class="line">        app: api</span><br><span class="line">    spec:</span><br><span class="line">      terminationGracePeriodSeconds: 30</span><br><span class="line">      containers:</span><br><span class="line">        - image: ...</span><br><span class="line">          imagePullPolicy: &quot;Always&quot;</span><br><span class="line">          name: api</span><br><span class="line">          ports:</span><br><span class="line">            - containerPort: 8080</span><br><span class="line">          livenessProbe:</span><br><span class="line">            httpGet:</span><br><span class="line">              path: &#x2F;</span><br><span class="line">              port: 8080</span><br><span class="line">            initialDelaySeconds: 300</span><br><span class="line">            periodSeconds: 5</span><br><span class="line">          readinessProbe:</span><br><span class="line">            httpGet:</span><br><span class="line">              path: &#x2F;</span><br><span class="line">              port: 8080</span><br><span class="line">            initialDelaySeconds: 60</span><br><span class="line">            periodSeconds: 5</span><br><span class="line">          securityContext:</span><br><span class="line">            capabilities:</span><br><span class="line">              add:</span><br><span class="line">                - SYS_PTRACE </span><br><span class="line">          envFrom:</span><br><span class="line">            - secretRef:</span><br><span class="line">                name: secret</span><br></pre></td></tr></table></figure>
-<p>问题应该出在k8s内存设置与JVM的配置这边，网上查询资料后发现tomcat可以通过<code>CATALINA_OPTS</code>环境变量来设置JVM参数，<code>UseCGroupMemoryLimitForHeap</code> 可以让JVM自动检测容器的可用内存，<code>MaxRAMFraction</code> 为容器内存和堆内存的比例，比如容器内存为2G，MaxRAMFraction为2，则最大堆内存为2G/2=1G，这里将<code>MaxRAMFraction</code>设置为2比较安全，设置了这两个参数后，JVM就能通过检测容器的内存来自动调整堆内存大小，不用再显示设置堆内存了。</p>
-<p>更新后的配置文件里加了如下代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">          env:</span><br><span class="line">              - name: CATALINA_OPTS</span><br><span class="line">                value: &quot;-XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -XX:MaxRAMFraction&#x3D;2&quot;</span><br><span class="line">          resources:</span><br><span class="line">            requests:</span><br><span class="line">              memory: &quot;512Mi&quot;</span><br></pre></td></tr></table></figure>
-
-<p>项目运行一段时间后发现问题依旧，研究了下<code>UseCGroupMemoryLimitForHeap</code>参数，发现它是通过读取系统<code>/sys/fs/cgroup/memory/memory.limit_in_bytes</code>文件来检测内存的，登录到容器里查看了下该文件，发现里面是一个很大的值：<code>9223372036854771712</code>，等于没有内存限制，查了下资料发现这个字段是通过k8s文件中的<code>resources-&gt;limits</code>的这个属性来配置的，更新文件，加了如下代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">limits:</span><br><span class="line">  memory: &quot;2048Mi&quot;</span><br></pre></td></tr></table></figure>
-
-<p>观察一段时间后内存就没再溢出，最终完整配置文件如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">apiVersion: apps&#x2F;v1</span><br><span class="line">kind: StatefulSet</span><br><span class="line">metadata:</span><br><span class="line">  name: api-deployment</span><br><span class="line">  labels:</span><br><span class="line">    app: api</span><br><span class="line">spec:</span><br><span class="line">  serviceName: api-app</span><br><span class="line">  replicas: 2</span><br><span class="line">  selector:</span><br><span class="line">    matchLabels:</span><br><span class="line">      app: api</span><br><span class="line">  template:</span><br><span class="line">    metadata:</span><br><span class="line">      labels:</span><br><span class="line">        app: api</span><br><span class="line">    spec:</span><br><span class="line">      terminationGracePeriodSeconds: 30</span><br><span class="line">      containers:</span><br><span class="line">        - image: ...</span><br><span class="line">          imagePullPolicy: &quot;Always&quot;</span><br><span class="line">          name: api</span><br><span class="line">          ports:</span><br><span class="line">            - containerPort: 8080</span><br><span class="line">          livenessProbe:</span><br><span class="line">            httpGet:</span><br><span class="line">              path: &#x2F;</span><br><span class="line">              port: 8080</span><br><span class="line">            initialDelaySeconds: 300</span><br><span class="line">            periodSeconds: 5</span><br><span class="line">          readinessProbe:</span><br><span class="line">            httpGet:</span><br><span class="line">              path: &#x2F;</span><br><span class="line">              port: 8080</span><br><span class="line">            initialDelaySeconds: 60</span><br><span class="line">            periodSeconds: 5</span><br><span class="line">          securityContext:</span><br><span class="line">            capabilities:</span><br><span class="line">              add:</span><br><span class="line">                - SYS_PTRACE </span><br><span class="line">          env:</span><br><span class="line">              - name: CATALINA_OPTS</span><br><span class="line">                value: &quot;-XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -XX:MaxRAMFraction&#x3D;2&quot;</span><br><span class="line">          envFrom:</span><br><span class="line">            - secretRef:</span><br><span class="line">                name: secret</span><br><span class="line">          resources:</span><br><span class="line">            requests:</span><br><span class="line">              memory: &quot;512Mi&quot;</span><br><span class="line">            limits:</span><br><span class="line">              memory: &quot;2048Mi&quot;</span><br></pre></td></tr></table></figure>
-
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
-<li><a href="https://github.com/docker-library/tomcat/issues/157" target="_blank" rel="noopener">https://github.com/docker-library/tomcat/issues/157</a></li>
-<li><a href="https://blog.csanchez.org/2017/05/31/running-a-jvm-in-a-container-without-getting-killed/" target="_blank" rel="noopener">https://blog.csanchez.org/2017/05/31/running-a-jvm-in-a-container-without-getting-killed/</a></li>
-<li><a href="https://www.logicbig.com/how-to/java-command/jvm-option-list.html" target="_blank" rel="noopener">https://www.logicbig.com/how-to/java-command/jvm-option-list.html</a></li>
-<li><a href="https://medium.com/adorsys/jvm-memory-settings-in-a-container-environment-64b0840e1d9e" target="_blank" rel="noopener">https://medium.com/adorsys/jvm-memory-settings-in-a-container-environment-64b0840e1d9e</a></li>
-<li><a href="https://stackoverflow.com/a/53826135/1776024" target="_blank" rel="noopener">https://stackoverflow.com/a/53826135/1776024</a></li>
-</ul>
-
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-      
-        
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2019/11/11/Google-Cloud-Pub-Sub%E7%9A%84%E4%B8%80%E4%BA%9B%E7%A0%94%E7%A9%B6/">Google Cloud Pub Sub的一些研究</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2019-11-11
-        </span>
-        
-          <span class="post-category">
-            
-              <a href="/categories/linux/">linux</a>
-            
-          </span>
-        
-        
-      </div>
-    </header>
-
-    
-    
-
-
-    <div class="post-content">
-      
-        
-        
-
-        
-          <ul>
-<li>多个客户端可以使用一个<code>subscription</code>，每个客户端只会收到一部分的消息：</li>
-</ul>
-<blockquote>
-<p>Multiple subscribers can make pull calls to the same “shared” subscription. Each subscriber will receive a subset of the messages<br>出处：<a href="https://cloud.google.com/pubsub/docs/subscriber#push-subscription" target="_blank" rel="noopener">https://cloud.google.com/pubsub/docs/subscriber#push-subscription</a></p>
-</blockquote>
-<ul>
-<li>对于一些处理比较耗时的消息，客户端有后台任务会自动更新ack<br>deadline，详情可见<a href="https://github.com/googleapis/google-cloud-java/blob/v0.99.0/google-cloud-clients/google-cloud-pubsub/src/main/java/com/google/cloud/pubsub/v1/MessageDispatcher.java#L400" target="_blank" rel="noopener">extendDeadlines</a>方法。</li>
-</ul>
-<ul>
-<li>关于<code>Message retention duration</code></li>
-</ul>
-<blockquote>
-<p>By default, a message that cannot be delivered within the maximum retention time of 7 days is deleted and is no longer accessible. This typically happens when subscribers do not keep up with the flow of messages. Note that you can configure message retention duration (the range is from 10 minutes to 7 days).</p>
-</blockquote>
-<p>意思就是如果消息在<code>Message retention duration</code>时间内没有被处理完成的话，这条消息就会删除并且再也访问不到。</p>
-<p>比如程序的BUG导致消息一直无法被处理，经过 <code>Message retention duration</code> 后这条消息就再也收不到了，会导致数据丢失。</p>
-
         
       
     </div>

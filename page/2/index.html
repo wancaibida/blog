@@ -235,6 +235,210 @@
     <header class="post-header">
       <h1 class="post-title">
         
+          <a class="post-link" href="/2019/12/06/Java-BufferedImage-OutOfMemoryError/">Java BufferedImage OutOfMemoryError</a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2019-12-06
+        </span>
+        
+          <span class="post-category">
+            
+              <a href="/categories/java/">java</a>
+            
+          </span>
+        
+        
+      </div>
+    </header>
+
+    
+    
+
+
+    <div class="post-content">
+      
+        
+        
+
+        
+          <p>最近遇到了BufferedImage OutOfMemoryError的问题，在此记录一下。</p>
+<p>事情的起因是项目中有个功能需要将多张图片合并为一张，流程如下：</p>
+<ol>
+<li>有三个图片文件，<code>File A,File B,File C</code></li>
+<li>通过<code>ImageIO.read(inputStream)</code> 将ABC转换成<code>BufferedImage</code>类型</li>
+<li>通过<code>java.awt.image.BufferedImage#getWidth()</code>获取这三张图片中的最大宽度<code>maxWidth</code>，</li>
+<li>计算另外两张图片等比例拉伸至<code>maxWidth</code>后的高度，将这三张图片的高度相加得到<code>maxHeight</code></li>
+<li>创建一张<code>maxWidth * maxHeight</code>的图片</li>
+<li>通过画布将三张图片写入到这张图片里</li>
+</ol>
+<p>主要代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">                val images &#x3D; mutableListOf&lt;BufferedImage&gt;()</span><br><span class="line">                ...</span><br><span class="line">                images.add(ImageIO.read(inputStream))</span><br><span class="line">                ...</span><br><span class="line">                joinImages(*images.toTypedArray())</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">    fun joinImages(vararg imgs: BufferedImage): BufferedImage &#123;</span><br><span class="line">        val offset &#x3D; 20</span><br><span class="line"></span><br><span class="line">        val aggregateWidth &#x3D; imgs.maxBy &#123; it.width &#125;!!.width</span><br><span class="line">        val aggregateHeight &#x3D; imgs.sumBy &#123;</span><br><span class="line">            (it.height * aggregateWidth) &#x2F; it.width</span><br><span class="line">        &#125; + (imgs.size - 1) * offset</span><br><span class="line"></span><br><span class="line">        val newImage &#x3D; BufferedImage(aggregateWidth, aggregateHeight, BufferedImage.TYPE_INT_ARGB)</span><br><span class="line">        val g2 &#x3D; newImage.createGraphics()</span><br><span class="line">        val oldColor &#x3D; g2.color</span><br><span class="line"></span><br><span class="line">        g2.paint &#x3D; Color.white</span><br><span class="line">        g2.fillRect(0, 0, aggregateWidth, aggregateHeight)</span><br><span class="line">        g2.color &#x3D; oldColor</span><br><span class="line"></span><br><span class="line">        var y &#x3D; 0</span><br><span class="line"></span><br><span class="line">        imgs.forEach &#123;</span><br><span class="line">            val height &#x3D; (aggregateWidth * it.height) &#x2F; it.width</span><br><span class="line">            val scaled &#x3D; it.getScaledInstance(aggregateWidth, height, Image.SCALE_DEFAULT)</span><br><span class="line"></span><br><span class="line">            g2.drawImage(toBufferedImage(scaled), null, 0, y)</span><br><span class="line">            y +&#x3D; height + offset</span><br><span class="line">        &#125;</span><br><span class="line">        g2.dispose()</span><br><span class="line"></span><br><span class="line">        return newImage</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>运行过程中发现第<code>4</code>和<code>17</code>行代码时不时会抛出OutOfMemoryError错误，研究了下发现有两个问题：</p>
+<ol>
+<li>对于jpeg格式的图片，java将其载入到内存时是不会对其进行压缩的，一个像素会占用3个字节的内存，如果图片的尺寸比较大，会占用非常大的内存，比如这张<a href="https://dummyimage.com/2000x2000/000/fff.jpg" target="_blank" rel="noopener">图片</a>，实际文件大小为84kb，载入到内存里后的大小为11mb：</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">val file &#x3D; File(&quot;&#x2F;Downloads&#x2F;fff.jpeg&quot;)</span><br><span class="line">val image &#x3D; ImageIO.read(FileInputStream(file))</span><br><span class="line"></span><br><span class="line">println(image.width)  &#x2F;&#x2F;2000</span><br><span class="line">println(image.height) &#x2F;&#x2F;2000</span><br><span class="line">println(ObjectSizeCalculator.getObjectSize(image)) &#x2F;&#x2F;12000928  -&gt; 11mb</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>合并图片前代码将这三张图片一次性全部加载到内存里，这也会占用比较大的内存。</li>
+</ol>
+<p>对于问题1，目前只能规避这问题，加载图片前会预先判断下该图片会占用多少内存，对于会超出内存使用的jpeg图片不予合并。同时在代码第14行，我们对合并后的最大宽度进行限制，避免合并后的图片尺寸过大，占用的内存超出限制。</p>
+<p>对于问题2，这三张图片可以按序加载，不用一次性全部加载到内存里，在需要合并时才加载到内存里，同时可以改进获取图片尺寸的代码，不用将图片加载到内存后再获取尺寸。</p>
+<p>最终代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line">fun getImageSize(file: File): Dimension &#123;</span><br><span class="line">    ImageIO.createImageInputStream(file).use &#123; &#96;in&#96; -&gt;</span><br><span class="line">        val readers &#x3D; ImageIO.getImageReaders(&#96;in&#96;)</span><br><span class="line">        if (readers.hasNext()) &#123;</span><br><span class="line">            val reader &#x3D; readers.next()</span><br><span class="line">            try &#123;</span><br><span class="line">                reader.input &#x3D; &#96;in&#96;</span><br><span class="line">                return Dimension(reader.getWidth(0), reader.getHeight(0))</span><br><span class="line">            &#125; finally &#123;</span><br><span class="line">                reader.dispose()</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return Dimension(0, 0)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">fun joinImages(vararg files: File): File &#123;</span><br><span class="line">    ...</span><br><span class="line">    val offset &#x3D; 20</span><br><span class="line">    val dimensions &#x3D; files.map &#123; getImageSize(it) &#125;</span><br><span class="line">    val aggregateWidth &#x3D; min(dimensions.maxBy &#123; it.width &#125;!!.width, 800)</span><br><span class="line">    val aggregateHeight &#x3D; dimensions.sumBy &#123; (it.height * aggregateWidth) &#x2F; it.width &#125; + (files.size - 1) * offset</span><br><span class="line">    val newImage &#x3D; try &#123;</span><br><span class="line">        BufferedImage(aggregateWidth, aggregateHeight, BufferedImage.TYPE_INT_ARGB)</span><br><span class="line">    &#125; catch (e: OutOfMemoryError) &#123;</span><br><span class="line">        ...</span><br><span class="line">        throw e</span><br><span class="line">    &#125;</span><br><span class="line">    val g2 &#x3D; newImage.createGraphics()</span><br><span class="line">    val oldColor &#x3D; g2.color</span><br><span class="line"></span><br><span class="line">    g2.paint &#x3D; Color.white</span><br><span class="line">    g2.fillRect(0, 0, aggregateWidth, aggregateHeight)</span><br><span class="line">    g2.color &#x3D; oldColor</span><br><span class="line"></span><br><span class="line">    var y &#x3D; 0</span><br><span class="line"></span><br><span class="line">    files.forEach &#123;</span><br><span class="line">        var image &#x3D; try &#123;</span><br><span class="line">            ImageIO.read(it)</span><br><span class="line">        &#125; catch (e: OutOfMemoryError) &#123;</span><br><span class="line">            ...</span><br><span class="line">            throw e</span><br><span class="line">        &#125;</span><br><span class="line">        val height &#x3D; (aggregateWidth * image.height) &#x2F; image.width</span><br><span class="line">        val scaled &#x3D; image.getScaledInstance(aggregateWidth, height, Image.SCALE_DEFAULT)</span><br><span class="line"></span><br><span class="line">        g2.drawImage(toBufferedImage(scaled), null, 0, y)</span><br><span class="line"></span><br><span class="line">        image.flush()</span><br><span class="line">        image &#x3D; null</span><br><span class="line"></span><br><span class="line">        y +&#x3D; height + offset</span><br><span class="line">    &#125;</span><br><span class="line">    g2.dispose()</span><br><span class="line"></span><br><span class="line">    val joinImageFile &#x3D; File.createTempFile(UUID.randomUUID().toString(), &quot;.png&quot;)</span><br><span class="line"></span><br><span class="line">    ImageIO.write(newImage, &quot;png&quot;, joinImageFile)</span><br><span class="line"></span><br><span class="line">    return joinImageFile</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>按上述代码修改后，再也没有发生OutOfMemoryError。对于问题1，目前发现<a href="https://commons.apache.org/proper/commons-imaging/whyimaging.html" target="_blank" rel="noopener">apache commons-imaging</a>似乎可以解决这问题，有时间去尝试下，到时候再来更新本文。</p>
+<h2 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h2><p><a href="https://coderanch.com/t/416485/java/Java-BufferedImage-OutOfMemoryError" target="_blank" rel="noopener">https://coderanch.com/t/416485/java/Java-BufferedImage-OutOfMemoryError</a></p>
+
+        
+      
+    </div>
+
+    
+
+    
+
+  </article>
+
+      
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          <a class="post-link" href="/2019/11/28/Kubernetes%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AEJVM%E5%86%85%E5%AD%98/">Kubernetes环境配置JVM内存</a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2019-11-28
+        </span>
+        
+          <span class="post-category">
+            
+              <a href="/categories/linux/">linux</a>
+            
+          </span>
+        
+        
+      </div>
+    </header>
+
+    
+    
+
+
+    <div class="post-content">
+      
+        
+        
+
+        
+          <p>我们知道JVM在docker容器环境中是无法正确检测到可用内存的，最近正好遇到了一个与之相关的问题，在此记录一下。</p>
+<p>遇到问题的项目技术栈为JDK 8 + Spring Boot + Tomcat，部署在docker环境。项目运行过程中出现了<code>java.lang.OutOfMemoryError: Java heap space</code>异常，当时项目的部署文件如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">apiVersion: apps&#x2F;v1</span><br><span class="line">kind: StatefulSet</span><br><span class="line">metadata:</span><br><span class="line">  name: api-deployment</span><br><span class="line">  labels:</span><br><span class="line">    app: api</span><br><span class="line">spec:</span><br><span class="line">  serviceName: api-app</span><br><span class="line">  replicas: 2</span><br><span class="line">  selector:</span><br><span class="line">    matchLabels:</span><br><span class="line">      app: api</span><br><span class="line">  template:</span><br><span class="line">    metadata:</span><br><span class="line">      labels:</span><br><span class="line">        app: api</span><br><span class="line">    spec:</span><br><span class="line">      terminationGracePeriodSeconds: 30</span><br><span class="line">      containers:</span><br><span class="line">        - image: ...</span><br><span class="line">          imagePullPolicy: &quot;Always&quot;</span><br><span class="line">          name: api</span><br><span class="line">          ports:</span><br><span class="line">            - containerPort: 8080</span><br><span class="line">          livenessProbe:</span><br><span class="line">            httpGet:</span><br><span class="line">              path: &#x2F;</span><br><span class="line">              port: 8080</span><br><span class="line">            initialDelaySeconds: 300</span><br><span class="line">            periodSeconds: 5</span><br><span class="line">          readinessProbe:</span><br><span class="line">            httpGet:</span><br><span class="line">              path: &#x2F;</span><br><span class="line">              port: 8080</span><br><span class="line">            initialDelaySeconds: 60</span><br><span class="line">            periodSeconds: 5</span><br><span class="line">          securityContext:</span><br><span class="line">            capabilities:</span><br><span class="line">              add:</span><br><span class="line">                - SYS_PTRACE </span><br><span class="line">          envFrom:</span><br><span class="line">            - secretRef:</span><br><span class="line">                name: secret</span><br></pre></td></tr></table></figure>
+<p>问题应该出在k8s内存设置与JVM的配置这边，网上查询资料后发现tomcat可以通过<code>CATALINA_OPTS</code>环境变量来设置JVM参数，<code>UseCGroupMemoryLimitForHeap</code> 可以让JVM自动检测容器的可用内存，<code>MaxRAMFraction</code> 为容器内存和堆内存的比例，比如容器内存为2G，MaxRAMFraction为2，则最大堆内存为2G/2=1G，这里将<code>MaxRAMFraction</code>设置为2比较安全，设置了这两个参数后，JVM就能通过检测容器的内存来自动调整堆内存大小，不用再显示设置堆内存了。</p>
+<p>更新后的配置文件里加了如下代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">          env:</span><br><span class="line">              - name: CATALINA_OPTS</span><br><span class="line">                value: &quot;-XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -XX:MaxRAMFraction&#x3D;2&quot;</span><br><span class="line">          resources:</span><br><span class="line">            requests:</span><br><span class="line">              memory: &quot;512Mi&quot;</span><br></pre></td></tr></table></figure>
+
+<p>项目运行一段时间后发现问题依旧，研究了下<code>UseCGroupMemoryLimitForHeap</code>参数，发现它是通过读取系统<code>/sys/fs/cgroup/memory/memory.limit_in_bytes</code>文件来检测内存的，登录到容器里查看了下该文件，发现里面是一个很大的值：<code>9223372036854771712</code>，等于没有内存限制，查了下资料发现这个字段是通过k8s文件中的<code>resources-&gt;limits</code>的这个属性来配置的，更新文件，加了如下代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">limits:</span><br><span class="line">  memory: &quot;2048Mi&quot;</span><br></pre></td></tr></table></figure>
+
+<p>观察一段时间后内存就没再溢出，最终完整配置文件如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">apiVersion: apps&#x2F;v1</span><br><span class="line">kind: StatefulSet</span><br><span class="line">metadata:</span><br><span class="line">  name: api-deployment</span><br><span class="line">  labels:</span><br><span class="line">    app: api</span><br><span class="line">spec:</span><br><span class="line">  serviceName: api-app</span><br><span class="line">  replicas: 2</span><br><span class="line">  selector:</span><br><span class="line">    matchLabels:</span><br><span class="line">      app: api</span><br><span class="line">  template:</span><br><span class="line">    metadata:</span><br><span class="line">      labels:</span><br><span class="line">        app: api</span><br><span class="line">    spec:</span><br><span class="line">      terminationGracePeriodSeconds: 30</span><br><span class="line">      containers:</span><br><span class="line">        - image: ...</span><br><span class="line">          imagePullPolicy: &quot;Always&quot;</span><br><span class="line">          name: api</span><br><span class="line">          ports:</span><br><span class="line">            - containerPort: 8080</span><br><span class="line">          livenessProbe:</span><br><span class="line">            httpGet:</span><br><span class="line">              path: &#x2F;</span><br><span class="line">              port: 8080</span><br><span class="line">            initialDelaySeconds: 300</span><br><span class="line">            periodSeconds: 5</span><br><span class="line">          readinessProbe:</span><br><span class="line">            httpGet:</span><br><span class="line">              path: &#x2F;</span><br><span class="line">              port: 8080</span><br><span class="line">            initialDelaySeconds: 60</span><br><span class="line">            periodSeconds: 5</span><br><span class="line">          securityContext:</span><br><span class="line">            capabilities:</span><br><span class="line">              add:</span><br><span class="line">                - SYS_PTRACE </span><br><span class="line">          env:</span><br><span class="line">              - name: CATALINA_OPTS</span><br><span class="line">                value: &quot;-XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -XX:MaxRAMFraction&#x3D;2&quot;</span><br><span class="line">          envFrom:</span><br><span class="line">            - secretRef:</span><br><span class="line">                name: secret</span><br><span class="line">          resources:</span><br><span class="line">            requests:</span><br><span class="line">              memory: &quot;512Mi&quot;</span><br><span class="line">            limits:</span><br><span class="line">              memory: &quot;2048Mi&quot;</span><br></pre></td></tr></table></figure>
+
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://github.com/docker-library/tomcat/issues/157" target="_blank" rel="noopener">https://github.com/docker-library/tomcat/issues/157</a></li>
+<li><a href="https://blog.csanchez.org/2017/05/31/running-a-jvm-in-a-container-without-getting-killed/" target="_blank" rel="noopener">https://blog.csanchez.org/2017/05/31/running-a-jvm-in-a-container-without-getting-killed/</a></li>
+<li><a href="https://www.logicbig.com/how-to/java-command/jvm-option-list.html" target="_blank" rel="noopener">https://www.logicbig.com/how-to/java-command/jvm-option-list.html</a></li>
+<li><a href="https://medium.com/adorsys/jvm-memory-settings-in-a-container-environment-64b0840e1d9e" target="_blank" rel="noopener">https://medium.com/adorsys/jvm-memory-settings-in-a-container-environment-64b0840e1d9e</a></li>
+<li><a href="https://stackoverflow.com/a/53826135/1776024" target="_blank" rel="noopener">https://stackoverflow.com/a/53826135/1776024</a></li>
+</ul>
+
+        
+      
+    </div>
+
+    
+
+    
+
+  </article>
+
+      
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          <a class="post-link" href="/2019/11/11/Google-Cloud-Pub-Sub%E7%9A%84%E4%B8%80%E4%BA%9B%E7%A0%94%E7%A9%B6/">Google Cloud Pub Sub的一些研究</a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2019-11-11
+        </span>
+        
+          <span class="post-category">
+            
+              <a href="/categories/linux/">linux</a>
+            
+          </span>
+        
+        
+      </div>
+    </header>
+
+    
+    
+
+
+    <div class="post-content">
+      
+        
+        
+
+        
+          <ul>
+<li>多个客户端可以使用一个<code>subscription</code>，每个客户端只会收到一部分的消息：</li>
+</ul>
+<blockquote>
+<p>Multiple subscribers can make pull calls to the same “shared” subscription. Each subscriber will receive a subset of the messages<br>出处：<a href="https://cloud.google.com/pubsub/docs/subscriber#push-subscription" target="_blank" rel="noopener">https://cloud.google.com/pubsub/docs/subscriber#push-subscription</a></p>
+</blockquote>
+<ul>
+<li>对于一些处理比较耗时的消息，客户端有后台任务会自动更新ack<br>deadline，详情可见<a href="https://github.com/googleapis/google-cloud-java/blob/v0.99.0/google-cloud-clients/google-cloud-pubsub/src/main/java/com/google/cloud/pubsub/v1/MessageDispatcher.java#L400" target="_blank" rel="noopener">extendDeadlines</a>方法。</li>
+</ul>
+<ul>
+<li>关于<code>Message retention duration</code></li>
+</ul>
+<blockquote>
+<p>By default, a message that cannot be delivered within the maximum retention time of 7 days is deleted and is no longer accessible. This typically happens when subscribers do not keep up with the flow of messages. Note that you can configure message retention duration (the range is from 10 minutes to 7 days).</p>
+</blockquote>
+<p>意思就是如果消息在<code>Message retention duration</code>时间内没有被处理完成的话，这条消息就会删除并且再也访问不到。</p>
+<p>比如程序的BUG导致消息一直无法被处理，经过 <code>Message retention duration</code> 后这条消息就再也收不到了，会导致数据丢失。</p>
+
+        
+      
+    </div>
+
+    
+
+    
+
+  </article>
+
+      
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
           <a class="post-link" href="/2019/10/23/Safari-can-t-establish-a-secure-connection-%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/">Safari can't establish a secure connection 解决办法</a>
         
       </h1>
@@ -713,246 +917,6 @@
 <h2 id="Update"><a href="#Update" class="headerlink" title="Update"></a>Update</h2><ul>
 <li>2019-07-07 添加aws-resource-init资源更新问题</li>
 </ul>
-
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-      
-        
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2019/06/13/Deskmini-310-%E9%BB%91%E8%8B%B9%E6%9E%9C%E6%8A%98%E8%85%BE%E8%AE%B0/">Deskmini 310 黑苹果折腾记</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2019-06-13
-        </span>
-        
-        
-      </div>
-    </header>
-
-    
-    
-
-
-    <div class="post-content">
-      
-        
-        
-
-        
-          <p>家里的台机装了<code>manjaro</code>，用了一阵子感觉还是不顺手，加上苹果电脑是越来越贵了，所以有了弄一台黑苹果的想法。</p>
-<p>期间看了不少有关黑苹果的资料，发现最简单的方法就是按照别人成功的硬件配置和EFI来安装，最终方案是按照 <a href="https://github.com/liminghuang/asrock_deskmini310_hackintosh" target="_blank" rel="noopener">asrock_deskmini310_hackintosh</a> 买的硬件：</p>
-<table>
-<thead>
-<tr>
-<th align="center"></th>
-<th align="center">型号</th>
-<th align="center">价格（RMB）</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">主板/机箱</td>
-<td align="center">H3101</td>
-<td align="center">969</td>
-</tr>
-<tr>
-<td align="center">CPU</td>
-<td align="center">I7 8700</td>
-<td align="center">2299</td>
-</tr>
-<tr>
-<td align="center">内存</td>
-<td align="center">金士顿 DDR4 2666 16G 笔记本内存 x2</td>
-<td align="center">1228</td>
-</tr>
-<tr>
-<td align="center">SSD</td>
-<td align="center">Intel 760p 512GB</td>
-<td align="center">579</td>
-</tr>
-<tr>
-<td align="center">无线/蓝牙</td>
-<td align="center"><a href="https://m.tb.cn/h.e4MwVdx?sm=19957d" target="_blank" rel="noopener">DW1560/BCM94352Z WIFI/Bluetooth module mini PCIE/NGFF M2</a></td>
-<td align="center">268</td>
-</tr>
-<tr>
-<td align="center">天线</td>
-<td align="center"><a href="https://m.tb.cn/h.efged5F?sm=98c2ff" target="_blank" rel="noopener">NGFF M2无线网卡转接线天线 IPX4代转SMA线DeskMini华硕H110 X370</a></td>
-<td align="center">18</td>
-</tr>
-<tr>
-<td align="center">DP转VGA</td>
-<td align="center"><a href="https://item.m.jd.com/product/2388562.html" target="_blank" rel="noopener">DP转VGA转换器</a></td>
-<td align="center">75</td>
-</tr>
-</tbody></table>
-<p>安装过程中走了不少弯路，这里记载一下：</p>
-<ol>
-<li>由于我买来的主板BIOS版本是3.4版本的，直接安装会报一个nvme错误，想着升级一下BIOS能不能解决这问题，升级到4.1版本后发现还是有这错误，解决方案是要用<code>clover configurator</code>编辑下EFI文件，添加<a href="https://github.com/liminghuang/asrock_deskmini310_hackintosh#for-bios-4x" target="_blank" rel="noopener">DSDT Patch</a>，</li>
-<li>这个方案里视频是通过HDMI和DP接口输出的，家里的显示器是VGA接口，装到一半黑屏还以为是EFI文件有问题，最后还是接了电视机的HDMI完成的安装。显示器后来用的这款 <a href="https://item.m.jd.com/product/2388562.html?wxa_abtest=o&utm_source=iosapp&utm_medium=appshare&utm_campaign=t_335139774&utm_term=CopyURL&ad_od=share&ShareTm=gBDVk/8FzqoyyiWF%2Bv1OIUIRUi7tkAujQ2W5kHCYvZ8/1U6vzEh6m/p%2BK89EebnQhqmJ1oxCkQnfud9J9BMq/DxjfW59qvVVq1tdhSxzZMmCRBYn0NhOZIMhri0oFY/lSTnjQhGZle9gajwgMjfj0W/51ImsB2idtcaXpvBrLF0=" target="_blank" rel="noopener">绿联（UGREEN）DP转VGA转换器</a></li>
-<li>按照tonymacx86上的教程来安装，第二次重启安装会报错，发现还是要先将EFI文件复制到安装镜像里才能安装成功，安装过程中可能会有panic错误，重启下再次安装就好了。</li>
-<li>网卡和蓝牙买的是<a href="https://item.taobao.com/item.htm?ut_sk=1.WqN7QogLod0DAI3%2BU31NQxC1_21380790_1560070740119.Copy.1&id=524391843184&sourceType=item&price=53-351&suid=80BF8BDA-6252-471B-ADFD-C75185B4E4FD&un=bf3363486317a89a4b68d5f77a161062&share_crt_v=1&sp_tk=77+lWVBFQ1lWajhFTXDvv6U=&cpp=1&shareurl=true&spm=a313p.22.27q.1040917476894&short_name=h.e4MwVdx&sm=19957d&app=chrome" target="_blank" rel="noopener">DW1560 BCM94352Z</a> ，这里有一点要注意的是要买天线，不装天线的话会搜索不到蓝牙设备和WIFI</li>
-<li>天线安装有点麻烦，我是把网卡拆下来才把天线接上去的</li>
-</ol>
-<p>安装视频可以参考这个：</p>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/KnoS3zWpElo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
-<p>整个安装过程花了差不多七八个小时，不走弯路的话估计一两个小时就能搞定。</p>
-<p>用了几天发现两个问题：</p>
-<ol>
-<li>休眠和启动时音箱会有爆音</li>
-<li>从休眠恢复会黑一下屏幕</li>
-</ol>
-<h2 id="更新日志"><a href="#更新日志" class="headerlink" title="更新日志"></a>更新日志</h2><ul>
-<li>2019-06-16: 更新了发现的问题</li>
-<li>2019-08-07: 升级到了10.14.6一切正常 </li>
-</ul>
-
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-      
-        
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2019/06/12/Mac-OS%E9%85%8D%E7%BD%AEDnsmasq-Dnscrypt%E6%9D%A5%E8%A7%A3%E5%86%B3DNS%E6%B1%A1%E6%9F%93%E9%97%AE%E9%A2%98/">Mac OS配置Dnsmasq+Dnscrypt来解决DNS污染问题</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2019-06-12
-        </span>
-        
-          <span class="post-category">
-            
-              <a href="/categories/linux/">linux</a>
-            
-          </span>
-        
-        
-      </div>
-    </header>
-
-    
-    
-
-
-    <div class="post-content">
-      
-        
-        
-
-        
-          <p>天朝的网络是越来越糟糕了，前阵子访问amazon s3域名居然返回了<code>127.0.0.1</code>。与其天天更新DNS列表，不如直接上DNS白名单模式了。</p>
-<p>解决方案就是用<code>Dnsmasq+Dnscrypt</code>，<code>Dnsmasq</code>负责监听本地53端口，解析国内域名，将除了国内域名以外的解析请求转发到<code>Dnscrypt</code>监听的端口，<code>Dnscrypt</code>就收到的DNS解析请求转发到国外的DNS服务器。</p>
-<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">brew install dnsmasq</span><br><span class="line">brew install dnscrypt-proxy</span><br></pre></td></tr></table></figure>
-
-<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><h3 id="Dnsmasq"><a href="#Dnsmasq" class="headerlink" title="Dnsmasq"></a>Dnsmasq</h3><h4 id="编辑配置文件"><a href="#编辑配置文件" class="headerlink" title="编辑配置文件"></a>编辑配置文件</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">vim &#x2F;usr&#x2F;local&#x2F;etc&#x2F;dnsmasq.conf</span><br><span class="line"></span><br><span class="line">no-resolv</span><br><span class="line">conf-dir&#x3D;&#x2F;usr&#x2F;local&#x2F;etc&#x2F;dnsmasq.d</span><br><span class="line">server&#x3D;127.0.0.1#5300</span><br></pre></td></tr></table></figure>
-<p>dnsmasq会将DNS解析请求转发到dnscrypt监听的5300端口</p>
-<h4 id="国内域名文件"><a href="#国内域名文件" class="headerlink" title="国内域名文件"></a>国内域名文件</h4><p>执行下面脚本将中国域名DNS信息保存到dnsmasq文件夹</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#!&#x2F;bin&#x2F;sh</span><br><span class="line"></span><br><span class="line">&#x2F;usr&#x2F;bin&#x2F;curl -o &#x2F;usr&#x2F;local&#x2F;etc&#x2F;dnsmasq.d&#x2F;accelerated-domains.china.conf https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;felixonmars&#x2F;dnsmasq-china-list&#x2F;master&#x2F;accelerated-domains.china.conf</span><br></pre></td></tr></table></figure>
-<p>这里用的是电信的DNS服务器，如果你是联通的网络，你可以执行下面的脚本将配置文件中的DNS服务器换成联通的</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed -i -e &#39;s&#x2F;114.114.114.114&#x2F;221.6.4.66&#x2F;g&#39; &#x2F;usr&#x2F;local&#x2F;etc&#x2F;dnsmasq.d&#x2F;accelerated-domains.china.conf</span><br></pre></td></tr></table></figure>
-
-<h3 id="Dnscrypt"><a href="#Dnscrypt" class="headerlink" title="Dnscrypt"></a>Dnscrypt</h3><p>Dnscryp配置 <code>vim /usr/local/etc/dnscrypt-proxy.toml</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">listen_addresses &#x3D; [&#39;127.0.0.1:5300&#39;, &#39;[::1]:5300&#39;]</span><br><span class="line">fallback_resolver &#x3D; &#39;221.6.4.66:53&#39;</span><br><span class="line">server_names &#x3D; [&#39;google&#39;, &#39;cloudflare&#39;, &#39;cloudflare-ipv6&#39;]</span><br></pre></td></tr></table></figure>
-<p>这里本来想配5353端口的，但发现这个端口被chrome占用了。</p>
-<h2 id="启动服务"><a href="#启动服务" class="headerlink" title="启动服务"></a>启动服务</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo brew services restart dnsmasq</span><br><span class="line">sudo brew services restart dnscrypt-proxy</span><br></pre></td></tr></table></figure>
-<p>重启后将本机DNS指向127.0.0.1即可。</p>
-
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-      
-        
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2019/05/04/Manjaro%E8%87%AA%E5%8A%A8%E6%8C%82%E8%BD%BDsamba%E6%96%87%E4%BB%B6%E5%A4%B9/">Manjaro自动挂载samba文件夹</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2019-05-04
-        </span>
-        
-          <span class="post-category">
-            
-              <a href="/categories/linux/">linux</a>
-            
-          </span>
-        
-        
-      </div>
-    </header>
-
-    
-    
-
-
-    <div class="post-content">
-      
-        
-        
-
-        
-          <p>Manjaro从地址栏访问samba共享的方式总有点问题，会时不时提示没有文件夹修改权限。最近有时间研究了下，发现命令行挂载的方式比较靠谱。</p>
-<p>由于路由器刷的是<code>openwrt</code>，软件源里安装的samba服务端版本似乎是比较老的版本，<code>manjaro</code>命令行挂载似乎用的是较新的samba协议，调了半天发现客户端这边要加下版本号。</p>
-<p>挂载命令：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd &#x2F;mnt</span><br><span class="line">sudo mkdir share0</span><br><span class="line">sudo mount.cifs &#x2F;&#x2F;192.168.1.1&#x2F;share0 &#x2F;mnt&#x2F;share0 -o user&#x3D;SAMBA_USERNAME,pass&#x3D;SAMBA_PASSWORD,uid&#x3D;1000,gid&#x3D;1000,sec&#x3D;ntlmssp,vers&#x3D;1.0 --verbose</span><br></pre></td></tr></table></figure>
-
-<p>命令行挂载调通后，要实现开机自动挂载就容易的多了，官方文档提供的多种的挂载方式，这里以<code>systemd</code>为例：</p>
-<ol>
-<li>在<code>/etc/samba/</code>下建立<code>credentials</code>文件夹：<code>sudo mkdir credentials</code>，创建比如名为<code>share0</code>的文件： <code>sudo vim share0</code>，内容如下：</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">username&#x3D;your samba username</span><br><span class="line">password&#x3D;your samba password</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li><p>创建systemd unit文件：<code>sudo /etc/systemd/system/mnt-share0.mount</code>，内容如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description&#x3D;Mount Share at boot</span><br><span class="line"></span><br><span class="line">[Mount]</span><br><span class="line">What&#x3D;&#x2F;&#x2F;192.168.1.1&#x2F;share0</span><br><span class="line">Where&#x3D;&#x2F;mnt&#x2F;share0</span><br><span class="line">Options&#x3D;x-systemd.automount,credentials&#x3D;&#x2F;etc&#x2F;samba&#x2F;credentials&#x2F;share0,iocharset&#x3D;utf8,uid&#x3D;1000,gid&#x3D;1000,sec&#x3D;ntlmssp,vers&#x3D;1.0,rw</span><br><span class="line">Type&#x3D;cifs</span><br><span class="line">TimeoutSec&#x3D;30</span><br><span class="line">ForceUnmount&#x3D;true</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy&#x3D;multi-user.target</span><br></pre></td></tr></table></figure>
-
-<p>Note：这里有一点要注意的是你的挂载路径（<code>where</code>）必须与你的文件名（<code>mnt-share0</code>）对应，比如你挂载到<code>/mnt/share</code>， 那你的文件就必须为<code>mnt-share0.mount</code></p>
-</li>
-<li><p>启用服务<code>sudo systemctl enable mnt-share0.mount</code></p>
-</li>
-<li><p>启动服务<code>sudo systemctl start mnt-share0.mount</code></p>
-</li>
-</ol>
-<p>到这里samba文件夹就能开机自动挂载，官方还提供了其他的自动挂载方式，详情可参考文档。</p>
-<p>参考：</p>
-<p><a href="https://wiki.archlinux.org/index.php/samba#As_systemd_unit" target="_blank" rel="noopener"><a href="https://wiki.archlinux.org/index.php/samba#As_systemd_unit" target="_blank" rel="noopener">https://wiki.archlinux.org/index.php/samba#As_systemd_unit</a></a></p>
 
         
       

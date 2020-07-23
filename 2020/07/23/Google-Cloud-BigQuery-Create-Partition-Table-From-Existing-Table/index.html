@@ -17,8 +17,12 @@
 
 
 
+  <meta name="description" content="Google Cloud BigQuery Create Partition Table From Existing Table"/>
 
 
+
+
+  <meta name="keywords" content="google cloud, Charles' Blog" />
 
 
 
@@ -38,7 +42,7 @@
 
 
 
-<link rel="canonical" href="https://w2x.me/archives/2018/02/"/>
+<link rel="canonical" href="https://w2x.me/2020/07/23/Google-Cloud-BigQuery-Create-Partition-Table-From-Existing-Table/"/>
 
 
 
@@ -96,11 +100,7 @@
   window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":true};
 </script>
 
-    <title>
-  
-    Archives - Charles' Blog
-  
-</title>
+    <title> Google Cloud BigQuery Create Partition Table From Existing Table - Charles' Blog </title>
   <meta name="generator" content="Hexo 4.2.1"><link rel="alternate" href="/atom.xml" title="Charles' Blog" type="application/atom+xml">
 </head>
 
@@ -231,59 +231,107 @@
           <div id="content" class="content">
             
   
-  
-  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          Google Cloud BigQuery Create Partition Table From Existing Table
+        
+      </h1>
 
-  <section id="archive" class="archive">
-    
-      
-        <div class="archive-title">
-          <span class="archive-post-counter">
-            55 Posts In Total
+      <div class="post-meta">
+        <span class="post-time">
+          2020-07-23
+        </span>
+        
+          <span class="post-category">
+            
+              <a href="/categories/linux/">linux</a>
+            
           </span>
-        </div>
+        
+        
+      </div>
+    </header>
+
+    
+    
+
+
+    <div class="post-content">
+      
+        <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">create table [schema-name].copy</span><br><span class="line">partition by date([timestamp-column])</span><br><span class="line">as select * from [schema-name].[table-name];</span><br><span class="line">drop table [schema-name].[table-name];</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+      
+      
+
+  <div class="post-copyright">
+    <p class="copyright-item">
+      <span>Author: </span>
+      <a href="https://w2x.me">大丈夫没问题</a>
+    </p>
+    <p class="copyright-item">
+      <span>Link: </span>
+      <a href="https://w2x.me/2020/07/23/Google-Cloud-BigQuery-Create-Partition-Table-From-Existing-Table/">https://w2x.me/2020/07/23/Google-Cloud-BigQuery-Create-Partition-Table-From-Existing-Table/</a>
+    </p>
+    <p class="copyright-item">
+      <span>License: </span>
+      
+      <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+    </p>
+  </div>
+
+
+
+      
       
     
 
     
-      
+      <footer class="post-footer">
         
-        
-
-        
-          
-          <div class="collection-title">
-            <h2 class="archive-year">2018</h2>
+          <div class="post-tags">
+            
+              <a href="/tags/google-cloud/">google cloud</a>
+            
           </div>
         
-      
-
-      <div class="archive-post">
-        <span class="archive-post-time">
-          
-            02-12
-          
-        </span>
-        <span class="archive-post-title">
-          <a href="/2018/02/12/Sl4j-Logback%E4%BE%9D%E8%B5%96%E9%85%8D%E7%BD%AE/" class="archive-post-link">
-            Sl4j+Logback依赖配置
-          </a>
-        </span>
-      </div>
+        
+        
+  <nav class="post-nav">
     
-  </section>
-
-  
-  <nav class="pagination">
     
+      <a class="next" href="/2020/07/23/Python3-logging%E7%94%A8%E6%B3%95/">
+        <span class="next-text nav-default">Python3 logging用法</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
     
   </nav>
 
 
+      </footer>
+    
+
+  </article>
 
 
           </div>
           
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
 
         </div>
       </main>
@@ -367,6 +415,27 @@
     </div>
 
     
+  
+  <script type="text/javascript">
+    var disqus_config = function () {
+        this.page.url = 'https://w2x.me/2020/07/23/Google-Cloud-BigQuery-Create-Partition-Table-From-Existing-Table/';
+        this.page.identifier = '2020/07/23/Google-Cloud-BigQuery-Create-Partition-Table-From-Existing-Table/';
+        this.page.title = 'Google Cloud BigQuery Create Partition Table From Existing Table';
+    };
+    (function() {
+    var d = document, s = d.createElement('script');
+
+    s.src = '//w2x-me.disqus.com/embed.js';
+
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();  
+  </script>
+
+  
+
+  
+
 
 
     
