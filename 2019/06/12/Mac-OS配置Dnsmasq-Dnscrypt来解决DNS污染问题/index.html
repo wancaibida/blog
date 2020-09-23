@@ -259,7 +259,7 @@
   <div class="post-toc" id="post-toc">
     <h2 class="post-toc-title">Contents</h2>
     <div class="post-toc-content">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#安装"><span class="toc-text">安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#配置"><span class="toc-text">配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Dnsmasq"><span class="toc-text">Dnsmasq</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#编辑配置文件"><span class="toc-text">编辑配置文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#国内域名文件"><span class="toc-text">国内域名文件</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Dnscrypt"><span class="toc-text">Dnscrypt</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#启动服务"><span class="toc-text">启动服务</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#安装"><span class="toc-text">安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#配置"><span class="toc-text">配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Dnsmasq"><span class="toc-text">Dnsmasq</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#编辑配置文件"><span class="toc-text">编辑配置文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#域名文件"><span class="toc-text">域名文件</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Dnscrypt"><span class="toc-text">Dnscrypt</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#启动服务"><span class="toc-text">启动服务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#更新日志"><span class="toc-text">更新日志</span></a></li></ol>
     </div>
   </div>
 
@@ -267,22 +267,24 @@
 
     <div class="post-content">
       
-        <p>天朝的网络是越来越糟糕了，前阵子访问amazon s3域名居然返回了<code>127.0.0.1</code>。与其天天更新DNS列表，不如直接上DNS白名单模式了。</p>
-<p>解决方案就是用<code>Dnsmasq+Dnscrypt</code>，<code>Dnsmasq</code>负责监听本地53端口，解析国内域名，将除了国内域名以外的解析请求转发到<code>Dnscrypt</code>监听的端口，<code>Dnscrypt</code>就收到的DNS解析请求转发到国外的DNS服务器。</p>
+        <p>天朝的网络是越来越糟糕了，前阵子访问amazon s3域名居然返回了<code>127.0.0.1</code>，与其时不时被域名污染，不如自己打一个dns服务器。</p>
+<p>解决方案就是用<code>Dnsmasq+Dnscrypt</code>，<code>Dnsmasq</code>负责监听本地53端口，将国内域名解析转发到国内的dns服务器，国外域名解析请求转发到<code>Dnscrypt</code>监听的端口，<code>Dnscrypt</code>就收到的DNS解析请求转发到国外的DNS服务器。</p>
 <h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">brew install dnsmasq</span><br><span class="line">brew install dnscrypt-proxy</span><br></pre></td></tr></table></figure>
 
 <h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><h3 id="Dnsmasq"><a href="#Dnsmasq" class="headerlink" title="Dnsmasq"></a>Dnsmasq</h3><h4 id="编辑配置文件"><a href="#编辑配置文件" class="headerlink" title="编辑配置文件"></a>编辑配置文件</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">vim &#x2F;usr&#x2F;local&#x2F;etc&#x2F;dnsmasq.conf</span><br><span class="line"></span><br><span class="line">no-resolv</span><br><span class="line">conf-dir&#x3D;&#x2F;usr&#x2F;local&#x2F;etc&#x2F;dnsmasq.d</span><br><span class="line">server&#x3D;127.0.0.1#5300</span><br></pre></td></tr></table></figure>
 <p>dnsmasq会将DNS解析请求转发到dnscrypt监听的5300端口</p>
-<h4 id="国内域名文件"><a href="#国内域名文件" class="headerlink" title="国内域名文件"></a>国内域名文件</h4><p>执行下面脚本将中国域名DNS信息保存到dnsmasq文件夹</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#!&#x2F;bin&#x2F;sh</span><br><span class="line"></span><br><span class="line">&#x2F;usr&#x2F;bin&#x2F;curl -o &#x2F;usr&#x2F;local&#x2F;etc&#x2F;dnsmasq.d&#x2F;accelerated-domains.china.conf https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;felixonmars&#x2F;dnsmasq-china-list&#x2F;master&#x2F;accelerated-domains.china.conf</span><br></pre></td></tr></table></figure>
+<h4 id="域名文件"><a href="#域名文件" class="headerlink" title="域名文件"></a>域名文件</h4><p>执行下面脚本将域名DNS信息保存到dnsmasq文件夹</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#!&#x2F;bin&#x2F;sh</span><br><span class="line"></span><br><span class="line">&#x2F;usr&#x2F;bin&#x2F;curl -o &#x2F;usr&#x2F;local&#x2F;etc&#x2F;dnsmasq.d&#x2F;accelerated-domains.china.conf https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;felixonmars&#x2F;dnsmasq-china-list&#x2F;master&#x2F;accelerated-domains.china.conf</span><br><span class="line"></span><br><span class="line">&#x2F;usr&#x2F;bin&#x2F;curl -o &#x2F;usr&#x2F;local&#x2F;etc&#x2F;dnsmasq.d&#x2F;dnsmasq_gfwlist https:&#x2F;&#x2F;cokebar.github.io&#x2F;gfwlist2dnsmasq&#x2F;dnsmasq_gfwlist.conf</span><br></pre></td></tr></table></figure>
+
 <p>这里用的是电信的DNS服务器，如果你是联通的网络，你可以执行下面的脚本将配置文件中的DNS服务器换成联通的</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed -i -e &#39;s&#x2F;114.114.114.114&#x2F;221.6.4.66&#x2F;g&#39; &#x2F;usr&#x2F;local&#x2F;etc&#x2F;dnsmasq.d&#x2F;accelerated-domains.china.conf</span><br></pre></td></tr></table></figure>
 
-<h3 id="Dnscrypt"><a href="#Dnscrypt" class="headerlink" title="Dnscrypt"></a>Dnscrypt</h3><p>Dnscryp配置 <code>vim /usr/local/etc/dnscrypt-proxy.toml</code></p>
+<h3 id="Dnscrypt"><a href="#Dnscrypt" class="headerlink" title="Dnscrypt"></a>Dnscrypt</h3><p>Dnscrypt配置 <code>vim /usr/local/etc/dnscrypt-proxy.toml</code></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">listen_addresses &#x3D; [&#39;127.0.0.1:5300&#39;, &#39;[::1]:5300&#39;]</span><br><span class="line">fallback_resolver &#x3D; &#39;221.6.4.66:53&#39;</span><br><span class="line">server_names &#x3D; [&#39;google&#39;, &#39;cloudflare&#39;, &#39;cloudflare-ipv6&#39;]</span><br></pre></td></tr></table></figure>
 <p>这里本来想配5353端口的，但发现这个端口被chrome占用了。</p>
 <h2 id="启动服务"><a href="#启动服务" class="headerlink" title="启动服务"></a>启动服务</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo brew services restart dnsmasq</span><br><span class="line">sudo brew services restart dnscrypt-proxy</span><br></pre></td></tr></table></figure>
 <p>重启后将本机DNS指向127.0.0.1即可。</p>
+<h2 id="更新日志"><a href="#更新日志" class="headerlink" title="更新日志"></a>更新日志</h2><p>2020-05-14: 修改了文章错误</p>
 
       
     </div>
