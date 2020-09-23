@@ -17,8 +17,12 @@
 
 
 
+  <meta name="description" content="SQL分页性能优化"/>
 
 
+
+
+  <meta name="keywords" content="jdbc, sql, pagination, Charles' Blog" />
 
 
 
@@ -38,7 +42,7 @@
 
 
 
-<link rel="canonical" href="https://w2x.me/"/>
+<link rel="canonical" href="https://w2x.me/2020/09/23/SQL分页性能优化/"/>
 
 
 
@@ -96,7 +100,7 @@
   window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":true};
 </script>
 
-    <title> Charles' Blog </title>
+    <title> SQL分页性能优化 - Charles' Blog </title>
   <meta name="generator" content="Hexo 4.2.1"><link rel="alternate" href="/atom.xml" title="Charles' Blog" type="application/atom+xml">
 </head>
 
@@ -227,15 +231,11 @@
           <div id="content" class="content">
             
   
-  <section id="posts" class="posts">
-    
-      
-        
   <article class="post">
     <header class="post-header">
       <h1 class="post-title">
         
-          <a class="post-link" href="/2020/09/23/SQL%E5%88%86%E9%A1%B5%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">SQL分页性能优化</a>
+          SQL分页性能优化
         
       </h1>
 
@@ -256,15 +256,18 @@
 
     
     
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#进阶"><span class="toc-text">进阶</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#参考"><span class="toc-text">参考</span></a>
+    </div>
+  </div>
+
 
 
     <div class="post-content">
       
-        
-        
-
-        
-          <p>JDBC的分页是通过offset+limit实现的，数据库是通过抓取所有数据并跳过前面n行来数据来实现offset功能的，越到后面跳过的数据越多offset越耗时:</p>
+        <p>JDBC的分页是通过offset+limit实现的，数据库是通过抓取所有数据并跳过前面n行来数据来实现offset功能的，越到后面跳过的数据越多offset越耗时:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE players AS</span><br><span class="line">SELECT generate_series(1, 10000000)                                     AS id,</span><br><span class="line">       uuid_in(md5(random()::TEXT || clock_timestamp()::TEXT)::CSTRING) AS username,</span><br><span class="line">       floor(random() * 100)                                            AS score;</span><br><span class="line"></span><br><span class="line">CREATE UNIQUE INDEX players_id_uindex</span><br><span class="line">    ON players (id);</span><br></pre></td></tr></table></figure>
 
 <p>OFFSET + LIMIT:</p>
@@ -639,507 +642,81 @@
 <li><a href="https://blog.jooq.org/2013/11/18/faster-sql-pagination-with-keysets-continued/" target="_blank" rel="noopener">https://blog.jooq.org/2013/11/18/faster-sql-pagination-with-keysets-continued/</a></li>
 </ul>
 
-        
       
     </div>
 
     
+      
+      
 
-    
+  <div class="post-copyright">
+    <p class="copyright-item">
+      <span>Author: </span>
+      <a href="https://w2x.me">大丈夫没问题</a>
+    </p>
+    <p class="copyright-item">
+      <span>Link: </span>
+      <a href="https://w2x.me/2020/09/23/SQL%E5%88%86%E9%A1%B5%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">https://w2x.me/2020/09/23/SQL%E5%88%86%E9%A1%B5%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/</a>
+    </p>
+    <p class="copyright-item">
+      <span>License: </span>
+      
+      <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+    </p>
+  </div>
 
-  </article>
+
 
       
-        
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2020/07/23/Google-Cloud-BigQuery-Create-Partition-Table-From-Existing-Table/">Google Cloud BigQuery Create Partition Table From Existing Table</a>
-        
-      </h1>
+      
+    
 
-      <div class="post-meta">
-        <span class="post-time">
-          2020-07-23
-        </span>
+    
+      <footer class="post-footer">
         
-          <span class="post-category">
+          <div class="post-tags">
             
-              <a href="/categories/linux/">linux</a>
+              <a href="/tags/jdbc/">jdbc</a>
             
-          </span>
-        
-        
-      </div>
-    </header>
-
-    
-    
-
-
-    <div class="post-content">
-      
-        
-        
-
-        
-          <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">create table [schema-name].copy</span><br><span class="line">partition by date([timestamp-column])</span><br><span class="line">as select * from [schema-name].[table-name];</span><br><span class="line">drop table [schema-name].[table-name];</span><br></pre></td></tr></table></figure>
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-      
-        
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2020/07/23/Python3-logging%E7%94%A8%E6%B3%95/">Python3 logging用法</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2020-07-23
-        </span>
-        
-          <span class="post-category">
+              <a href="/tags/sql/">sql</a>
             
-              <a href="/categories/linux/">linux</a>
+              <a href="/tags/pagination/">pagination</a>
             
-          </span>
+          </div>
         
         
-      </div>
-    </header>
-
+        
+  <nav class="post-nav">
     
     
-
-
-    <div class="post-content">
-      
-        
-        
-
-        
-          <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">import logging</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">log &#x3D; logging.getLogger()</span><br><span class="line">log.setLevel(logging.DEBUG)</span><br><span class="line"></span><br><span class="line">handler &#x3D; logging.StreamHandler(sys.stdout)</span><br><span class="line">handler.setLevel(logging.INFO)</span><br><span class="line">formatter &#x3D; logging.Formatter(&#39;[%(threadName)s] %(asctime)s - %(name)s - %(levelname)s - %(message)s&#39;)</span><br><span class="line">handler.setFormatter(formatter)</span><br><span class="line">log.addHandler(handler)</span><br><span class="line"></span><br><span class="line">log.info(&quot;Hello %s&quot;, &quot;world)</span><br></pre></td></tr></table></figure>
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-      
-        
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2020/07/23/PostGIS%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/">PostGIS快速入门</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2020-07-23
-        </span>
-        
-          <span class="post-category">
-            
-              <a href="/categories/database/">database</a>
-            
-          </span>
-        
-        
-      </div>
-    </header>
-
-    
-    
-
-
-    <div class="post-content">
-      
-        
-        
-
-        
-          <h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CREATE EXTENSION postgis</span><br></pre></td></tr></table></figure>
-
-<h2 id="添加列"><a href="#添加列" class="headerlink" title="添加列"></a>添加列</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ALTER TABLE your_table ADD COLUMN geom geometry(Point, 4326);</span><br><span class="line">UPDATE your_table SET geom &#x3D; ST_SetSRID(ST_MakePoint(longitude, latitude), 4326);</span><br></pre></td></tr></table></figure>
-
-<h2 id="半径查找"><a href="#半径查找" class="headerlink" title="半径查找"></a>半径查找</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">SELECT lat,</span><br><span class="line">       lon,</span><br><span class="line">       location,</span><br><span class="line">       cnt</span><br><span class="line">FROM ggg</span><br><span class="line">WHERE 1 &#x3D; 1</span><br><span class="line">  AND cnt &gt; 1</span><br><span class="line">  AND ST_DWithin(</span><br><span class="line">        ggg.geom,</span><br><span class="line">        ST_MakePoint(42.9764, 47.5024)::GEOGRAPHY,</span><br><span class="line">        200000</span><br><span class="line">    );</span><br></pre></td></tr></table></figure>
-
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考:"></a>参考:</h2><p><a href="https://live.osgeo.org/en/quickstart/postgis_quickstart.html" target="_blank" rel="noopener">https://live.osgeo.org/en/quickstart/postgis_quickstart.html</a><br><a href="https://gis.stackexchange.com/questions/145007/creating-geometry-from-lat-lon-in-table-using-postgis" target="_blank" rel="noopener">https://gis.stackexchange.com/questions/145007/creating-geometry-from-lat-lon-in-table-using-postgis</a></p>
-
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-      
-        
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2020/06/03/Caddyfile-v2-example/">Caddyfile v2 example</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2020-06-03
-        </span>
-        
-          <span class="post-category">
-            
-              <a href="/categories/linux/">linux</a>
-            
-          </span>
-        
-        
-      </div>
-    </header>
-
-    
-    
-
-
-    <div class="post-content">
-      
-        
-        
-
-        
-          <p><a href="https://gist.githubusercontent.com/wancaibida/4e0e30c2f1c5cc4848f7e492ed4b9d9b/raw/f374bcb569ec494bf965ed491fee6b8e234302f4/Caddyfile" target="_blank" rel="noopener">Caddyfile</a></p>
-<p>参考：</p>
-<ul>
-<li><a href="https://caddyserver.com/docs/caddyfile/matchers#named-matchers" target="_blank" rel="noopener">https://caddyserver.com/docs/caddyfile/matchers#named-matchers</a></li>
-<li><a href="https://caddy.community/t/caddy-v2-how-to-proxy-websoket-v2ray-websocket-tls/7040/12" target="_blank" rel="noopener">https://caddy.community/t/caddy-v2-how-to-proxy-websoket-v2ray-websocket-tls/7040/12</a></li>
-</ul>
-
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-      
-        
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2020/06/01/Openwrt%E7%8E%AF%E5%A2%83%E4%B8%8B%E6%9F%902ray-too-many-open-files-%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3/">Openwrt环境下某2ray `too many open files`问题解决</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2020-06-01
-        </span>
-        
-          <span class="post-category">
-            
-              <a href="/categories/linux/">linux</a>
-            
-          </span>
-        
-        
-      </div>
-    </header>
-
-    
-    
-
-
-    <div class="post-content">
-      
-        
-        
-
-        
-          <p><code>too many open files</code>大部分情况下是由于配置错误引起的。如果配置没有问题,可以在某2ray的启动脚本里加上这一句：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ulimit -SHn 65535</span><br><span class="line">&#x2F;usr&#x2F;bin&#x2F;2ray -config config.json</span><br></pre></td></tr></table></figure>
-
-<p>启动后可以用这个命令来看是否生效：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat &#x2F;proc&#x2F;&#123;2AY进程id&#125;&#x2F;limits</span><br></pre></td></tr></table></figure>
-
-
-<p>参考：</p>
-<ul>
-<li><a href="https://blog.ihipop.info/2011/01/2053.html" target="_blank" rel="noopener">https://blog.ihipop.info/2011/01/2053.html</a></li>
-<li><a href="https://routeragency.com/2019/06/09/v2raye59ca8openwrte4b88be79a84e5ae89e8a385e983a8e7bdb2.html" target="_blank" rel="noopener">https://routeragency.com/2019/06/09/v2raye59ca8openwrte4b88be79a84e5ae89e8a385e983a8e7bdb2.html</a></li>
-</ul>
-
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-      
-        
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2020/05/14/Kubernetes-Create-User/">Kubernetes Create User</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2020-05-14
-        </span>
-        
-          <span class="post-category">
-            
-              <a href="/categories/linux/">linux</a>
-            
-          </span>
-        
-        
-      </div>
-    </header>
-
-    
-    
-
-
-    <div class="post-content">
-      
-        
-        
-
-        
-          <h2 id="Create-User"><a href="#Create-User" class="headerlink" title="Create User"></a>Create User</h2><p>kubectl apply -f eks-admin-service-account.yaml</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">apiVersion: v1</span><br><span class="line">kind: ServiceAccount</span><br><span class="line">metadata:</span><br><span class="line">  name: eks-admin</span><br><span class="line">  namespace: kube-system</span><br></pre></td></tr></table></figure>
-
-<p>kubectl apply -f eks-admin-cluster-role-binding.yaml</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">apiVersion: rbac.authorization.k8s.io&#x2F;v1beta1</span><br><span class="line">kind: ClusterRoleBinding</span><br><span class="line">metadata:</span><br><span class="line">  name: eks-admin</span><br><span class="line">roleRef:</span><br><span class="line">  apiGroup: rbac.authorization.k8s.io</span><br><span class="line">  kind: ClusterRole</span><br><span class="line">  name: cluster-admin</span><br><span class="line">subjects:</span><br><span class="line">- kind: ServiceAccount</span><br><span class="line">  name: eks-admin</span><br><span class="line">  namespace: kube-system</span><br></pre></td></tr></table></figure>
-
-<h2 id="Get-certificate"><a href="#Get-certificate" class="headerlink" title="Get certificate"></a>Get certificate</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl get secret default-token-cvn2d -o jsonpath&#x3D;&quot;&#123;[&#39;data&#39;][&#39;ca\.crt&#39;]&#125;&quot; | base64 --decode</span><br></pre></td></tr></table></figure>
-
-<h2 id="Get-Token"><a href="#Get-Token" class="headerlink" title="Get Token"></a>Get Token</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl -n kube-system describe secret $(kubectl -n kube-system get secret | grep eks-admin | awk &#39;&#123;print $1&#125;&#39;)</span><br></pre></td></tr></table></figure>
-
-
-<h2 id="Test-If-the-role-works"><a href="#Test-If-the-role-works" class="headerlink" title="Test If the role works"></a>Test If the role works</h2><h3 id="Setup-credential"><a href="#Setup-credential" class="headerlink" title="Setup credential"></a>Setup credential</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">kubectl config set-cluster kubernetes --certificate-authority&#x3D;ca.crt --server&#x3D;$K8S_SERVER_URL</span><br><span class="line">kubectl config set-credentials $K8S_USERNAME --token&#x3D;$K8S_USER_TOKEN</span><br><span class="line">kubectl config set-context aws --cluster&#x3D;kubernetes --namespace&#x3D;$K8S_NAMESPACE --user&#x3D;$K8S_USERNAME</span><br><span class="line">kubectl config use-context aws --user&#x3D;$K8S_USERNAME</span><br></pre></td></tr></table></figure>
-
-<h3 id="Test-command"><a href="#Test-command" class="headerlink" title="Test command"></a>Test command</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl get pod</span><br></pre></td></tr></table></figure>
-
-<h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul>
-<li><a href="https://docs.gitlab.com/ee/user/project/clusters/add_remove_clusters.html#existing-eks-cluster" target="_blank" rel="noopener">https://docs.gitlab.com/ee/user/project/clusters/add_remove_clusters.html#existing-eks-cluster</a></li>
-</ul>
-
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-      
-        
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2020/04/14/Dockerfile-multiple-stage-example/">Dockerfile multiple stage example</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2020-04-14
-        </span>
-        
-        
-      </div>
-    </header>
-
-    
-    
-
-
-    <div class="post-content">
-      
-        
-        
-
-        
-          <p><a href="https://gist.githubusercontent.com/wancaibida/d62ce7f05891939dc9f36027b56420dd/raw/072f86bdbbde0a0d2d2915acb27cfd96a683b8b6/Dockerfile" target="_blank" rel="noopener">Example</a></p>
-
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-      
-        
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2020/02/17/Openwrt%E4%B8%8Bdnsmasq%E9%85%8D%E7%BD%AE/">Openwrt下dnsmasq配置</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2020-02-17
-        </span>
-        
-          <span class="post-category">
-            
-              <a href="/categories/linux/">linux</a>
-            
-          </span>
-        
-        
-      </div>
-    </header>
-
-    
-    
-
-
-    <div class="post-content">
-      
-        
-        
-
-        
-          <h2 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h2><p><code>dnsmasq.conf</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">conf-dir&#x3D;&#x2F;root&#x2F;dnsmasq.d&#x2F;</span><br><span class="line">&#x2F;&#x2F;设置DNS缓存时间</span><br><span class="line">min-cache-ttl&#x3D;3600</span><br><span class="line">&#x2F;&#x2F;缓存数量</span><br><span class="line">cache-size&#x3D;1024</span><br><span class="line">&#x2F;&#x2F;重新加载后清空缓存</span><br><span class="line">clear-on-reload</span><br></pre></td></tr></table></figure>
-
-<h2 id="配置说明"><a href="#配置说明" class="headerlink" title="配置说明"></a>配置说明</h2><h3 id="转发域名解析"><a href="#转发域名解析" class="headerlink" title="转发域名解析"></a>转发域名解析</h3><p>解析海外域名需要将dns解析请求转发到上游的无污染的dns服务器，配置文件 <code>/root/dnsmas.d/not_china.conf</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">server&#x3D;&#x2F;google.com&#x2F;127.0.0.1#5353</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-
-<p>国内域名直接用国内的dns服务器，<code>china.conf</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">server&#x3D;&#x2F;baidu.com&#x2F;221.6.4.66</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-
-<h3 id="缓存域名解析"><a href="#缓存域名解析" class="headerlink" title="缓存域名解析"></a>缓存域名解析</h3><p>海外域名的解析时间一般会比较长，频繁的去请求上游DNS服务器既浪费时间又无意义，可以通过设置dnsmasq缓存来加快解析，减少请求上游DNS服务器的频率。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;设置DNS缓存时间</span><br><span class="line">min-cache-ttl&#x3D;3600</span><br><span class="line">&#x2F;&#x2F;缓存数量,最多10000</span><br><span class="line">cache-size&#x3D;9999</span><br></pre></td></tr></table></figure>
-
-<p>如果你不知道缓存数量应该设置为多少，可以通过下面命令查看dnsmasq的域名请求数作为参考：</p>
-<p><code>killall -s USR1 dnsmasq</code></p>
-<h3 id="关于-no-resolv-配置"><a href="#关于-no-resolv-配置" class="headerlink" title="关于 no-resolv 配置"></a>关于 <code>no-resolv</code> 配置</h3><p>在不打开<code>no-resolv</code>的情况下，dnsmasq会使用ISP提供的dns服务器作为默认的服务器，比如 <code>xx.com</code>域名既不在 <code>not_china.conf</code>又不在<code>china.conf</code>中，dnsmasq就会用ISP的dns服务器来解析这个域名。</p>
-<p>如果打开了<code>no-resolv</code>，同时又不设置<code>resolv-file</code>的话，dnsmasq就会找不到默认的dns服务器来解析<code>xx.com</code>域名，如果你的代理服务器正好属于这类域名，将导致你无法连接到你的服务器。</p>
-
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-      
-        
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2020/02/09/Openwrt%E4%B8%8B%E6%97%A0%E6%B3%95%E8%AE%BF%E9%97%AEmedium-com%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/">Openwrt下无法访问medium.com的解决办法</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2020-02-09
-        </span>
-        
-        
-      </div>
-    </header>
-
-    
-    
-
-
-    <div class="post-content">
-      
-        
-        
-
-        
-          <p>家里路由器刷了Openwrt系统，在访问<code>medium.com</code> ,<code>nytimes.com</code>等网站时，会时不时出现连接重置错误，今天花时间研究了下，终于解决了这个困扰我很久的问题，在此记录下。</p>
-<h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><ul>
-<li>Chrome访问这些网站是会提示<code>ERR_CONNECTION_RESET</code>错误，反复刷新多次后又能打开网站。</li>
-<li>用<code>wget -v</code>命令显示返回了ipv6地址并且会提示无法创建SSL连接错误。</li>
-</ul>
-<h2 id="问题原因"><a href="#问题原因" class="headerlink" title="问题原因"></a>问题原因</h2><p>问题就出在ipv6上，openwrt默认会打开ipv6地址分配，这会导致电脑被分配到了一个ipv6地址，而chrome，safari在本机有ipv6的情况下，会优先访问这些网站的ipv6的地址，而路由器上的iptables只会对ipv4包进行转发，故访问这些网站的ipv6地址是无法被代理的。</p>
-<h2 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h2><h3 id="方法1"><a href="#方法1" class="headerlink" title="方法1"></a>方法1</h3><p>关闭路由器ipv6地址分配，这样在没有ipv6地址的情况下会访问这些网站的ipv4地址，这样就可以被代理到了。</p>
-<h3 id="方法2"><a href="#方法2" class="headerlink" title="方法2:"></a>方法2:</h3><p>添加ip6tables规则，对ipv6也进行转发（没有尝试过）</p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
-<li><a href="https://superuser.com/questions/1131112/ipv4-only-wifi-in-an-ipv6-enabled-openwrt-router" target="_blank" rel="noopener">https://superuser.com/questions/1131112/ipv4-only-wifi-in-an-ipv6-enabled-openwrt-router</a></li>
-</ul>
-
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-      
-      
-  <nav class="pagination">
-    
-    
-      <a class="next" href="/page/2/">
-        <span class="next-text">Next</span>
+      <a class="next" href="/2020/07/23/Google-Cloud-BigQuery-Create-Partition-Table-From-Existing-Table/">
+        <span class="next-text nav-default">Google Cloud BigQuery Create Partition Table From Existing Table</span>
+        <span class="prev-text nav-mobile">Next</span>
         <i class="iconfont icon-right"></i>
       </a>
     
   </nav>
 
 
+      </footer>
     
-  </section>
+
+  </article>
+
 
           </div>
           
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
 
         </div>
       </main>
@@ -1223,6 +800,27 @@
     </div>
 
     
+  
+  <script type="text/javascript">
+    var disqus_config = function () {
+        this.page.url = 'https://w2x.me/2020/09/23/SQL%E5%88%86%E9%A1%B5%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/';
+        this.page.identifier = '2020/09/23/SQL分页性能优化/';
+        this.page.title = 'SQL分页性能优化';
+    };
+    (function() {
+    var d = document, s = d.createElement('script');
+
+    s.src = '//w2x-me.disqus.com/embed.js';
+
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();  
+  </script>
+
+  
+
+  
+
 
 
     
