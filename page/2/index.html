@@ -235,6 +235,57 @@
     <header class="post-header">
       <h1 class="post-title">
         
+          <a class="post-link" href="/2020/02/09/Openwrt%E4%B8%8B%E6%97%A0%E6%B3%95%E8%AE%BF%E9%97%AEmedium-com%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/">Openwrt下无法访问medium.com的解决办法</a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2020-02-09
+        </span>
+        
+        
+      </div>
+    </header>
+
+    
+    
+
+
+    <div class="post-content">
+      
+        
+        
+
+        
+          <p>家里路由器刷了Openwrt系统，在访问<code>medium.com</code> ,<code>nytimes.com</code>等网站时，会时不时出现连接重置错误，今天花时间研究了下，终于解决了这个困扰我很久的问题，在此记录下。</p>
+<h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><ul>
+<li>Chrome访问这些网站是会提示<code>ERR_CONNECTION_RESET</code>错误，反复刷新多次后又能打开网站。</li>
+<li>用<code>wget -v</code>命令显示返回了ipv6地址并且会提示无法创建SSL连接错误。</li>
+</ul>
+<h2 id="问题原因"><a href="#问题原因" class="headerlink" title="问题原因"></a>问题原因</h2><p>问题就出在ipv6上，openwrt默认会打开ipv6地址分配，这会导致电脑被分配到了一个ipv6地址，而chrome，safari在本机有ipv6的情况下，会优先访问这些网站的ipv6的地址，而路由器上的iptables只会对ipv4包进行转发，故访问这些网站的ipv6地址是无法被代理的。</p>
+<h2 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h2><h3 id="方法1"><a href="#方法1" class="headerlink" title="方法1"></a>方法1</h3><p>关闭路由器ipv6地址分配，这样在没有ipv6地址的情况下会访问这些网站的ipv4地址，这样就可以被代理到了。</p>
+<h3 id="方法2"><a href="#方法2" class="headerlink" title="方法2:"></a>方法2:</h3><p>添加ip6tables规则，对ipv6也进行转发（没有尝试过）</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://superuser.com/questions/1131112/ipv4-only-wifi-in-an-ipv6-enabled-openwrt-router" target="_blank" rel="noopener">https://superuser.com/questions/1131112/ipv4-only-wifi-in-an-ipv6-enabled-openwrt-router</a></li>
+</ul>
+
+        
+      
+    </div>
+
+    
+
+    
+
+  </article>
+
+      
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
           <a class="post-link" href="/2019/12/10/Bitbucket-pipeline%E4%BC%A0%E9%80%92%E6%96%87%E4%BB%B6%E5%86%85%E5%AE%B9%E5%8F%98%E9%87%8F/">Bitbucket pipeline传递文件内容变量</a>
         
       </h1>
@@ -795,102 +846,6 @@
 <p>本地搭建好docker环境后，测试打包的时候发现项目从fontello.com下载字体是老是会报一个超出最大重定向次数的异常，ssh到docker环境发现 <code>wget -vdS fontello.com</code> 返回的Response状态码一直是302，而本机环境和服务器都没这问题，docker环境<code>wget</code>其他网址也没有问题，一开始以为是fontello网站配置的问题，今天突然冒出一个想法会不会是我docker环境配置了代理的原因，于是将 <code>fontello.com</code> 域名加到了代理白名单里，发现就没有重定向异常了，字体文件能正常下载了。</p>
 <p>这个问题的根本原因很有可能是docker代理功能和 <code>fontello.com</code> 两边的问题，在这里记一下，以防下次再遇到类似问题。</p>
 
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-      
-        
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2019/06/22/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%EF%BC%88%E7%AC%AC%E4%B8%83%E7%89%88%EF%BC%89%E4%B9%A0%E9%A2%984-13%E8%AE%A1%E7%AE%97%E8%BF%87%E7%A8%8B/">计算机网络（第七版）习题4-13计算过程</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2019-06-22
-        </span>
-        
-          <span class="post-category">
-            
-              <a href="/categories/linux/">linux</a>
-            
-          </span>
-        
-        
-      </div>
-    </header>
-
-    
-    
-
-
-    <div class="post-content">
-      
-        
-        
-
-        
-          <p>网上计算机网络的习题答案不是复制黏贴就是排版糟糕，简直不是给人看的。今天做这题目花了不少时间，就顺便把计算过程记录下来，希望帮助到对这题有疑惑的人。</p>
-<p>包含IP部分，首部长度正好为为5个4字节。</p>
-<ol>
-<li>现将数据转换成二进制格式</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">0100 0101 0000 0000 0000 0000 0001 1100</span><br><span class="line">0000 0000 0000 0001 0000 0000 0000 0000</span><br><span class="line">0000 0100 0001 0001</span><br><span class="line">0000 1010 0000 1100 0000 1110 0000 0101</span><br><span class="line">0000 1100 0000 0110 0000 0111 0000 1001</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>计算 <code>0100 0101 0000 0000</code> + <code>0000 0000 0001 1100</code></li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">0100 0101 0000 0000</span><br><span class="line">+</span><br><span class="line">0000 0000 0001 1100</span><br><span class="line">&#x3D;</span><br><span class="line">0100 0101 0001 1100</span><br></pre></td></tr></table></figure>
-
-<ol start="3">
-<li>计算 <code>0100 0101 0001 1100</code> + <code>0000 0000 0000 0001</code></li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">0100 0101 0001 1100</span><br><span class="line">+</span><br><span class="line">0000 0000 0000 0001</span><br><span class="line">&#x3D;</span><br><span class="line">0100 0101 0001 1101</span><br></pre></td></tr></table></figure>
-
-<ol start="4">
-<li>计算 <code>0100 0101 0001 1101</code> + <code>0000 0000 0000 0000</code></li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">0100 0101 0001 1101</span><br><span class="line">+</span><br><span class="line">0000 0000 0000 0000</span><br><span class="line">&#x3D;</span><br><span class="line">0100 0101 0001 1101</span><br></pre></td></tr></table></figure>
-
-<ol start="5">
-<li>计算<code>0100 0101 0001 1101</code> + <code>0000 0100 0001 0001</code></li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">0100 0101 0001 1101</span><br><span class="line">+</span><br><span class="line">0000 0100 0001 0001</span><br><span class="line">&#x3D;</span><br><span class="line">0100 1001 0010 1110</span><br></pre></td></tr></table></figure>
-
-<ol start="6">
-<li>计算 <code>0100 1001 0010 1110</code> + <code>0000 1010 0000 1100</code></li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">0100 1001 0010 1110</span><br><span class="line">+</span><br><span class="line">0000 1010 0000 1100</span><br><span class="line">&#x3D;</span><br><span class="line">0101 0011 0011 1010</span><br></pre></td></tr></table></figure>
-
-<ol start="7">
-<li>计算 <code>0101 0011 0011 1010</code> + <code>0000 1110 0000 0101</code></li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">0101 0011 0011 1010</span><br><span class="line">+</span><br><span class="line">0000 1110 0000 0101</span><br><span class="line">&#x3D;</span><br><span class="line">0110 0001 0011 1111</span><br></pre></td></tr></table></figure>
-
-<ol start="8">
-<li>计算 <code>0110 0001 0011 1111</code> + <code>0000 1100 0000 0110</code></li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">0110 0001 0011 1111</span><br><span class="line">+</span><br><span class="line">0000 1100 0000 0110</span><br><span class="line">&#x3D;</span><br><span class="line">0110 1101 0100 0101</span><br></pre></td></tr></table></figure>
-
-<ol start="9">
-<li>计算 <code>0110 1101 0100 0101</code> + <code>0000 0111 0000 1001</code></li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">0110 1101 0100 0101</span><br><span class="line">+</span><br><span class="line">0000 0111 0000 1001</span><br><span class="line">&#x3D;</span><br><span class="line">0111 0100 0100 1110</span><br></pre></td></tr></table></figure>
-
-<ol start="10">
-<li>将上面的结果取反得出：</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1000 1011 1011 0001</span><br></pre></td></tr></table></figure>
         
       
     </div>
