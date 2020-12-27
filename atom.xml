@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://w2x.me/"/>
-  <updated>2020-12-26T11:03:20.162Z</updated>
+  <updated>2020-12-27T12:18:30.977Z</updated>
   <id>https://w2x.me/</id>
   
   <author>
@@ -17,11 +17,40 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>macOS安装配置Podman 2.x</title>
+    <link href="https://w2x.me/2020/12/27/macOS%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AEPodman-2-x/"/>
+    <id>https://w2x.me/2020/12/27/macOS%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AEPodman-2-x/</id>
+    <published>2020-12-27T12:16:00.000Z</published>
+    <updated>2020-12-27T12:18:30.977Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;macOS环境下的podman只是客户端，server端实际运行在linux环境下，所以需要安装linux虚拟机。&lt;/p&gt;
+&lt;h2 id=&quot;安装&quot;&gt;&lt;a href=&quot;#安装&quot; class=&quot;headerlink&quot; title=&quot;安装&quot;&gt;&lt;/a&gt;安装&lt;/h2&gt;&lt;figure 
+      
+    
+    </summary>
+    
+    
+      <category term="linux" scheme="https://w2x.me/categories/linux/"/>
+    
+    
+      <category term="linux" scheme="https://w2x.me/tags/linux/"/>
+    
+      <category term="docker" scheme="https://w2x.me/tags/docker/"/>
+    
+      <category term="podman" scheme="https://w2x.me/tags/podman/"/>
+    
+  </entry>
+  
+  <entry>
     <title>某2ray白名单路由正确写法</title>
     <link href="https://w2x.me/2020/12/17/%E6%9F%902ray%E7%99%BD%E5%90%8D%E5%8D%95%E8%B7%AF%E7%94%B1%E6%AD%A3%E7%A1%AE%E5%86%99%E6%B3%95/"/>
     <id>https://w2x.me/2020/12/17/%E6%9F%902ray%E7%99%BD%E5%90%8D%E5%8D%95%E8%B7%AF%E7%94%B1%E6%AD%A3%E7%A1%AE%E5%86%99%E6%B3%95/</id>
     <published>2020-12-17T13:31:00.000Z</published>
-    <updated>2020-12-26T11:03:20.162Z</updated>
+    <updated>2020-12-27T12:18:30.977Z</updated>
     
     <summary type="html">
     
@@ -46,7 +75,7 @@
     <link href="https://w2x.me/2020/09/23/SQL%E5%88%86%E9%A1%B5%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/"/>
     <id>https://w2x.me/2020/09/23/SQL%E5%88%86%E9%A1%B5%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/</id>
     <published>2020-09-23T03:17:00.000Z</published>
-    <updated>2020-12-26T11:03:20.162Z</updated>
+    <updated>2020-12-27T12:18:30.977Z</updated>
     
     <summary type="html">
     
@@ -75,7 +104,7 @@
     <link href="https://w2x.me/2020/07/23/Google-Cloud-BigQuery-Create-Partition-Table-From-Existing-Table/"/>
     <id>https://w2x.me/2020/07/23/Google-Cloud-BigQuery-Create-Partition-Table-From-Existing-Table/</id>
     <published>2020-07-23T12:35:00.000Z</published>
-    <updated>2020-12-26T11:03:20.162Z</updated>
+    <updated>2020-12-27T12:18:30.977Z</updated>
     
     <summary type="html">
     
@@ -99,7 +128,7 @@
     <link href="https://w2x.me/2020/07/23/Python3-logging%E7%94%A8%E6%B3%95/"/>
     <id>https://w2x.me/2020/07/23/Python3-logging%E7%94%A8%E6%B3%95/</id>
     <published>2020-07-23T12:31:00.000Z</published>
-    <updated>2020-12-26T11:03:20.162Z</updated>
+    <updated>2020-12-27T12:18:30.977Z</updated>
     
     <summary type="html">
     
@@ -123,7 +152,7 @@
     <link href="https://w2x.me/2020/07/23/PostGIS%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/"/>
     <id>https://w2x.me/2020/07/23/PostGIS%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/</id>
     <published>2020-07-23T12:30:00.000Z</published>
-    <updated>2020-12-26T11:03:20.162Z</updated>
+    <updated>2020-12-27T12:18:30.977Z</updated>
     
     <summary type="html">
     
@@ -149,7 +178,7 @@
     <link href="https://w2x.me/2020/06/03/Caddyfile-v2-example/"/>
     <id>https://w2x.me/2020/06/03/Caddyfile-v2-example/</id>
     <published>2020-06-03T13:10:00.000Z</published>
-    <updated>2020-12-26T11:03:20.162Z</updated>
+    <updated>2020-12-27T12:18:30.977Z</updated>
     
     <summary type="html">
     
@@ -173,7 +202,7 @@
     <link href="https://w2x.me/2020/06/01/Openwrt%E7%8E%AF%E5%A2%83%E4%B8%8B%E6%9F%902ray-too-many-open-files-%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3/"/>
     <id>https://w2x.me/2020/06/01/Openwrt%E7%8E%AF%E5%A2%83%E4%B8%8B%E6%9F%902ray-too-many-open-files-%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3/</id>
     <published>2020-06-01T13:07:00.000Z</published>
-    <updated>2020-12-26T11:03:20.162Z</updated>
+    <updated>2020-12-27T12:18:30.977Z</updated>
     
     <summary type="html">
     
@@ -198,7 +227,7 @@
     <link href="https://w2x.me/2020/05/14/Kubernetes-Create-User/"/>
     <id>https://w2x.me/2020/05/14/Kubernetes-Create-User/</id>
     <published>2020-05-14T13:18:00.000Z</published>
-    <updated>2020-12-26T11:03:20.162Z</updated>
+    <updated>2020-12-27T12:18:30.977Z</updated>
     
     <summary type="html">
     
@@ -222,7 +251,7 @@
     <link href="https://w2x.me/2020/04/14/Dockerfile-multiple-stage-example/"/>
     <id>https://w2x.me/2020/04/14/Dockerfile-multiple-stage-example/</id>
     <published>2020-04-14T13:18:00.000Z</published>
-    <updated>2020-12-26T11:03:20.162Z</updated>
+    <updated>2020-12-27T12:18:30.977Z</updated>
     
     <summary type="html">
     
@@ -244,7 +273,7 @@
     <link href="https://w2x.me/2020/02/17/Openwrt%E4%B8%8Bdnsmasq%E9%85%8D%E7%BD%AE/"/>
     <id>https://w2x.me/2020/02/17/Openwrt%E4%B8%8Bdnsmasq%E9%85%8D%E7%BD%AE/</id>
     <published>2020-02-17T13:42:00.000Z</published>
-    <updated>2020-12-26T11:03:20.162Z</updated>
+    <updated>2020-12-27T12:18:30.977Z</updated>
     
     <summary type="html">
     
@@ -273,7 +302,7 @@
     <link href="https://w2x.me/2020/02/09/Openwrt%E4%B8%8B%E6%97%A0%E6%B3%95%E8%AE%BF%E9%97%AEmedium-com%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/"/>
     <id>https://w2x.me/2020/02/09/Openwrt%E4%B8%8B%E6%97%A0%E6%B3%95%E8%AE%BF%E9%97%AEmedium-com%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</id>
     <published>2020-02-09T13:57:00.000Z</published>
-    <updated>2020-12-26T11:03:20.162Z</updated>
+    <updated>2020-12-27T12:18:30.977Z</updated>
     
     <summary type="html">
     
@@ -300,7 +329,7 @@
     <link href="https://w2x.me/2019/12/10/Bitbucket-pipeline%E4%BC%A0%E9%80%92%E6%96%87%E4%BB%B6%E5%86%85%E5%AE%B9%E5%8F%98%E9%87%8F/"/>
     <id>https://w2x.me/2019/12/10/Bitbucket-pipeline%E4%BC%A0%E9%80%92%E6%96%87%E4%BB%B6%E5%86%85%E5%AE%B9%E5%8F%98%E9%87%8F/</id>
     <published>2019-12-10T13:15:00.000Z</published>
-    <updated>2020-12-26T11:03:20.162Z</updated>
+    <updated>2020-12-27T12:18:30.977Z</updated>
     
     <summary type="html">
     
@@ -326,7 +355,7 @@
     <link href="https://w2x.me/2019/12/06/Java-BufferedImage-OutOfMemoryError/"/>
     <id>https://w2x.me/2019/12/06/Java-BufferedImage-OutOfMemoryError/</id>
     <published>2019-12-06T04:10:00.000Z</published>
-    <updated>2020-12-26T11:03:20.162Z</updated>
+    <updated>2020-12-27T12:18:30.977Z</updated>
     
     <summary type="html">
     
@@ -357,7 +386,7 @@
     <link href="https://w2x.me/2019/11/28/Kubernetes%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AEJVM%E5%86%85%E5%AD%98/"/>
     <id>https://w2x.me/2019/11/28/Kubernetes%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AEJVM%E5%86%85%E5%AD%98/</id>
     <published>2019-11-28T14:00:00.000Z</published>
-    <updated>2020-12-26T11:03:20.162Z</updated>
+    <updated>2020-12-27T12:18:30.977Z</updated>
     
     <summary type="html">
     
@@ -390,7 +419,7 @@
     <link href="https://w2x.me/2019/11/11/Google-Cloud-Pub-Sub%E7%9A%84%E4%B8%80%E4%BA%9B%E7%A0%94%E7%A9%B6/"/>
     <id>https://w2x.me/2019/11/11/Google-Cloud-Pub-Sub%E7%9A%84%E4%B8%80%E4%BA%9B%E7%A0%94%E7%A9%B6/</id>
     <published>2019-11-11T13:22:00.000Z</published>
-    <updated>2020-12-26T11:03:20.162Z</updated>
+    <updated>2020-12-27T12:18:30.977Z</updated>
     
     <summary type="html">
     
@@ -422,7 +451,7 @@
     <link href="https://w2x.me/2019/10/23/Safari-can-t-establish-a-secure-connection-%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/"/>
     <id>https://w2x.me/2019/10/23/Safari-can-t-establish-a-secure-connection-%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</id>
     <published>2019-10-23T13:22:00.000Z</published>
-    <updated>2020-12-26T11:03:20.162Z</updated>
+    <updated>2020-12-27T12:18:30.977Z</updated>
     
     <summary type="html">
     
@@ -447,7 +476,7 @@
     <link href="https://w2x.me/2019/09/19/Google-Cloud-Function-Http-%E8%AE%A4%E8%AF%81%E9%85%8D%E7%BD%AE/"/>
     <id>https://w2x.me/2019/09/19/Google-Cloud-Function-Http-%E8%AE%A4%E8%AF%81%E9%85%8D%E7%BD%AE/</id>
     <published>2019-09-19T14:00:00.000Z</published>
-    <updated>2020-12-26T11:03:20.162Z</updated>
+    <updated>2020-12-27T12:18:30.977Z</updated>
     
     <summary type="html">
     
@@ -482,7 +511,7 @@
     <link href="https://w2x.me/2019/08/24/Google-Cloud%E9%83%A8%E7%BD%B2web-app%E5%88%B0kubernetes%E5%B9%B6%E4%BD%BF%E7%94%A8let%E2%80%99s-encrypt%E5%92%8Cnginx-ingress/"/>
     <id>https://w2x.me/2019/08/24/Google-Cloud%E9%83%A8%E7%BD%B2web-app%E5%88%B0kubernetes%E5%B9%B6%E4%BD%BF%E7%94%A8let%E2%80%99s-encrypt%E5%92%8Cnginx-ingress/</id>
     <published>2019-08-24T08:36:00.000Z</published>
-    <updated>2020-12-26T11:03:20.162Z</updated>
+    <updated>2020-12-27T12:18:30.977Z</updated>
     
     <summary type="html">
     
@@ -508,7 +537,7 @@
     <link href="https://w2x.me/2019/07/25/zsh%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%8E%86%E5%8F%B2%E5%90%8C%E6%AD%A5%E6%8F%92%E4%BB%B6%E6%8E%A8%E8%8D%90/"/>
     <id>https://w2x.me/2019/07/25/zsh%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%8E%86%E5%8F%B2%E5%90%8C%E6%AD%A5%E6%8F%92%E4%BB%B6%E6%8E%A8%E8%8D%90/</id>
     <published>2019-07-25T13:30:00.000Z</published>
-    <updated>2020-12-26T11:03:20.162Z</updated>
+    <updated>2020-12-27T12:18:30.977Z</updated>
     
     <summary type="html">
     
@@ -529,35 +558,6 @@
       <category term="zsh" scheme="https://w2x.me/tags/zsh/"/>
     
       <category term="plugin" scheme="https://w2x.me/tags/plugin/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Docker环境访问fontello.com无限重定向问题</title>
-    <link href="https://w2x.me/2019/06/30/Docker%E7%8E%AF%E5%A2%83%E8%AE%BF%E9%97%AEfontello-com%E6%97%A0%E9%99%90%E9%87%8D%E5%AE%9A%E5%90%91%E9%97%AE%E9%A2%98/"/>
-    <id>https://w2x.me/2019/06/30/Docker%E7%8E%AF%E5%A2%83%E8%AE%BF%E9%97%AEfontello-com%E6%97%A0%E9%99%90%E9%87%8D%E5%AE%9A%E5%90%91%E9%97%AE%E9%A2%98/</id>
-    <published>2019-06-30T12:59:00.000Z</published>
-    <updated>2020-12-26T11:03:20.162Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;前阵子要把公司几个年代比较久远的前端项目迁移到新的jenkins环境，由于这些项目打包依赖库的版本比较老，要配置好环境会比较花时间，以后再迁移环境的话还要在搭建一遍，于是就想着用docker来打包项目。&lt;/p&gt;
-&lt;p&gt;本地搭建好docker环境后，测试打包的时候发现项目从f
-      
-    
-    </summary>
-    
-    
-      <category term="linux" scheme="https://w2x.me/categories/linux/"/>
-    
-    
-      <category term="linux" scheme="https://w2x.me/tags/linux/"/>
-    
-      <category term="docker" scheme="https://w2x.me/tags/docker/"/>
-    
-      <category term="fontello" scheme="https://w2x.me/tags/fontello/"/>
     
   </entry>
   

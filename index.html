@@ -235,6 +235,73 @@
     <header class="post-header">
       <h1 class="post-title">
         
+          <a class="post-link" href="/2020/12/27/macOS%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AEPodman-2-x/">macOS安装配置Podman 2.x</a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2020-12-27
+        </span>
+        
+          <span class="post-category">
+            
+              <a href="/categories/linux/">linux</a>
+            
+          </span>
+        
+        
+      </div>
+    </header>
+
+    
+    
+
+
+    <div class="post-content">
+      
+        
+        
+
+        
+          <p>macOS环境下的podman只是客户端，server端实际运行在linux环境下，所以需要安装linux虚拟机。</p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">brew install virtualbox</span><br><span class="line">brew install vagrant</span><br><span class="line">brew install podman</span><br></pre></td></tr></table></figure>
+
+<h2 id="配置虚拟机"><a href="#配置虚拟机" class="headerlink" title="配置虚拟机"></a>配置虚拟机</h2><p>新建个文件夹，里面创建<code>Vagrantfile</code>文件，内容如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Vagrant.configure(&quot;2&quot;) do |config|</span><br><span class="line">  config.vm.box &#x3D; &quot;generic&#x2F;fedora32&quot;</span><br><span class="line">  config.vm.hostname &#x3D; &quot;fedora&quot;</span><br><span class="line">  config.vm.provider &quot;virtualbox&quot; do |vb|</span><br><span class="line">     vb.memory &#x3D; &quot;1024&quot;</span><br><span class="line">     vb.cpus &#x3D; 1</span><br><span class="line">  end</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+
+<h3 id="启动虚拟机"><a href="#启动虚拟机" class="headerlink" title="启动虚拟机"></a>启动虚拟机</h3><p>vagrant up</p>
+<h3 id="配置fedora"><a href="#配置fedora" class="headerlink" title="配置fedora"></a>配置fedora</h3><p>安装podman server端</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo dnf -y install podman</span><br><span class="line">systemctl --user enable --now podman.socket</span><br><span class="line">sudo loginctl enable-linger $USER</span><br><span class="line">sudo systemctl enable --now sshd</span><br></pre></td></tr></table></figure>
+
+<p>验证安装是否成功</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">podman --remote info</span><br></pre></td></tr></table></figure>
+
+<h3 id="查看虚拟机ssh配置"><a href="#查看虚拟机ssh配置" class="headerlink" title="查看虚拟机ssh配置"></a>查看虚拟机ssh配置</h3><p><code>vagrant ssh-config</code></p>
+<h2 id="podman客户端配置"><a href="#podman客户端配置" class="headerlink" title="podman客户端配置"></a>podman客户端配置</h2><p>添加连接</p>
+<p>podman system connection add baude –identity /Users/chen/vm/fedora/.vagrant/machines/default/virtualbox/private_key ssh://vagrant@127.0.0.1:2222/run/user/1000/podman/podman.sock</p>
+<h2 id="替换docker"><a href="#替换docker" class="headerlink" title="替换docker"></a>替换docker</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alias docker&#x3D;podman</span><br></pre></td></tr></table></figure>
+
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://github.com/containers/podman/blob/master/docs/tutorials/mac_win_client.md" target="_blank" rel="noopener">Podman Remote clients for MacOS and Windows</a></li>
+</ul>
+
+        
+      
+    </div>
+
+    
+
+    
+
+  </article>
+
+      
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
           <a class="post-link" href="/2020/12/17/%E6%9F%902ray%E7%99%BD%E5%90%8D%E5%8D%95%E8%B7%AF%E7%94%B1%E6%AD%A3%E7%A1%AE%E5%86%99%E6%B3%95/">某2ray白名单路由正确写法</a>
         
       </h1>
@@ -1048,68 +1115,6 @@
 
         
           <p><a href="https://gist.githubusercontent.com/wancaibida/d62ce7f05891939dc9f36027b56420dd/raw/072f86bdbbde0a0d2d2915acb27cfd96a683b8b6/Dockerfile" target="_blank" rel="noopener">Example</a></p>
-
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-      
-        
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2020/02/17/Openwrt%E4%B8%8Bdnsmasq%E9%85%8D%E7%BD%AE/">Openwrt下dnsmasq配置</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2020-02-17
-        </span>
-        
-          <span class="post-category">
-            
-              <a href="/categories/linux/">linux</a>
-            
-          </span>
-        
-        
-      </div>
-    </header>
-
-    
-    
-
-
-    <div class="post-content">
-      
-        
-        
-
-        
-          <h2 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h2><p><code>dnsmasq.conf</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">conf-dir&#x3D;&#x2F;root&#x2F;dnsmasq.d&#x2F;</span><br><span class="line">&#x2F;&#x2F;设置DNS缓存时间</span><br><span class="line">min-cache-ttl&#x3D;3600</span><br><span class="line">&#x2F;&#x2F;缓存数量</span><br><span class="line">cache-size&#x3D;1024</span><br><span class="line">&#x2F;&#x2F;重新加载后清空缓存</span><br><span class="line">clear-on-reload</span><br></pre></td></tr></table></figure>
-
-<h2 id="配置说明"><a href="#配置说明" class="headerlink" title="配置说明"></a>配置说明</h2><h3 id="转发域名解析"><a href="#转发域名解析" class="headerlink" title="转发域名解析"></a>转发域名解析</h3><p>解析海外域名需要将dns解析请求转发到上游的无污染的dns服务器，配置文件 <code>/root/dnsmas.d/not_china.conf</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">server&#x3D;&#x2F;google.com&#x2F;127.0.0.1#5353</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-
-<p>国内域名直接用国内的dns服务器，<code>china.conf</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">server&#x3D;&#x2F;baidu.com&#x2F;221.6.4.66</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-
-<h3 id="缓存域名解析"><a href="#缓存域名解析" class="headerlink" title="缓存域名解析"></a>缓存域名解析</h3><p>海外域名的解析时间一般会比较长，频繁的去请求上游DNS服务器既浪费时间又无意义，可以通过设置dnsmasq缓存来加快解析，减少请求上游DNS服务器的频率。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;设置DNS缓存时间</span><br><span class="line">min-cache-ttl&#x3D;3600</span><br><span class="line">&#x2F;&#x2F;缓存数量,最多10000</span><br><span class="line">cache-size&#x3D;9999</span><br></pre></td></tr></table></figure>
-
-<p>如果你不知道缓存数量应该设置为多少，可以通过下面命令查看dnsmasq的域名请求数作为参考：</p>
-<p><code>killall -s USR1 dnsmasq</code></p>
-<h3 id="关于-no-resolv-配置"><a href="#关于-no-resolv-配置" class="headerlink" title="关于 no-resolv 配置"></a>关于 <code>no-resolv</code> 配置</h3><p>在不打开<code>no-resolv</code>的情况下，dnsmasq会使用ISP提供的dns服务器作为默认的服务器，比如 <code>xx.com</code>域名既不在 <code>not_china.conf</code>又不在<code>china.conf</code>中，dnsmasq就会用ISP的dns服务器来解析这个域名。</p>
-<p>如果打开了<code>no-resolv</code>，同时又不设置<code>resolv-file</code>的话，dnsmasq就会找不到默认的dns服务器来解析<code>xx.com</code>域名，如果你的代理服务器正好属于这类域名，将导致你无法连接到你的服务器。</p>
 
         
       
