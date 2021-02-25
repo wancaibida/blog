@@ -235,6 +235,55 @@
     <header class="post-header">
       <h1 class="post-title">
         
+          <a class="post-link" href="/2019/07/25/zsh%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%8E%86%E5%8F%B2%E5%90%8C%E6%AD%A5%E6%8F%92%E4%BB%B6%E6%8E%A8%E8%8D%90/">Zsh命令行历史同步插件推荐</a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2019-07-25
+        </span>
+        
+          <span class="post-category">
+            
+              <a href="/categories/linux/">linux</a>
+            
+          </span>
+        
+        
+      </div>
+    </header>
+
+    
+    
+
+
+    <div class="post-content">
+      
+        
+        
+
+        
+          <p>公司和家里用的是两台电脑，经常遇到一些用过却记不住的命令，恰巧这些命令在另外台电脑执行过，就想找个能在不同机器上同步命令行历史的插件。</p>
+<p>尝试过将用户目录文件夹下的<code>.zsh_history</code>文件软链接到dropbox，发现还是有点问题，比如多台机器同步是会发生文件冲突，一些情况下zsh会重新创建新的<code>.zsh_history</code>文件，导致数据丢失。期间又尝试了下<a href="https://github.com/wulfgarpro/history-sync" target="_blank" rel="noopener">history-sync</a>这个插件，发现有会将历史文件清空的BUG。</p>
+<p>无意中发现了<a href="https://github.com/larkery/zsh-histdb" target="_blank" rel="noopener">zsh-histdb</a>，这个插件正好满足了我的要求：在多台电脑之间同步历史记录，自动合并冲突文件。配合<a href="https://github.com/zsh-users/zsh-autosuggestions" target="_blank" rel="noopener">zsh-autosuggestions</a>简直完美。</p>
+
+        
+      
+    </div>
+
+    
+
+    
+
+  </article>
+
+      
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
           <a class="post-link" href="/2019/06/30/Docker%E7%8E%AF%E5%A2%83%E8%AE%BF%E9%97%AEfontello-com%E6%97%A0%E9%99%90%E9%87%8D%E5%AE%9A%E5%90%91%E9%97%AE%E9%A2%98/">Docker环境访问fontello.com无限重定向问题</a>
         
       </h1>
@@ -842,147 +891,6 @@
 <p>在IAM那里捣鼓了半天，给S3加上了SQS相关的权限后依然提示错误信息。 正当毫无头绪的时发现SQS有个<code>Permission</code>标签，在这里配置相关权限后就可以解决错误提示了。</p>
 <p><img src="http://static.w2x.me/63817F26122AE59511F30628B2EB41A2.jpg" alt="Image"></p>
 <p>原来SQS默认是不接受发送过来的事件的，印象当中之前是不需要配置的，也不知道这功能是啥时候加上去的，感觉AWS的权限系统有时太复杂了。。。</p>
-
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-      
-        
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2019/03/13/openwrt-x86%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/">Openwrt x86安装教程</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2019-03-13
-        </span>
-        
-          <span class="post-category">
-            
-              <a href="/categories/linux/">linux</a>
-            
-          </span>
-        
-        
-      </div>
-    </header>
-
-    
-    
-
-
-    <div class="post-content">
-      
-        
-        
-
-        
-          <p>网上Openwrt x86虚拟机安装的教程一大堆，却很少见到非虚拟机的教程，现在正好有机会重新刷机，就顺便把步骤记录一下，免得再次踩坑。</p>
-<h2 id="镜像下载"><a href="#镜像下载" class="headerlink" title="镜像下载"></a>镜像下载</h2><p>第一步就是下载openwrt x86的镜像，这里两个镜像可以选择，带<code>squashfs</code>的刷机后会有一个只读的分区，带<code>ext4</code>的所有分区都是可读写的。本教程是以<code>combined-ex4</code>为例子的。</p>
-<p>下载地址：<a href="https://downloads.openwrt.org/releases/18.06.2/targets/x86/64/openwrt-18.06.2-x86-64-combined-ext4.img.gz" target="_blank" rel="noopener">openwrt-18.06.2-x86-64-combined-ext4.img.gz</a></p>
-<blockquote>
-<h3 id="combined-squashfs-和-combined-ex4-的区别："><a href="#combined-squashfs-和-combined-ex4-的区别：" class="headerlink" title="combined-squashfs 和 combined-ex4 的区别："></a>combined-squashfs 和 combined-ex4 的区别：</h3></blockquote>
-<blockquote>
-<p><strong>combined-squashfs.img.gz</strong> This disk image uses the traditional OpenWrt layout, a squashfs read-only root filesystem and a read-write partition where settings and packages you install are stored. Due to how this image is assembled, you will have only 230-ish MB of space to store additional packages and configuration, and Extroot does not work.</p>
-</blockquote>
-<blockquote>
-<p><strong>combined-ext4.img.gz</strong> This disk image uses a single read-write ext4 partition with no read-only squashfs root filesystem, which allows to enlarge the partition. Features like Failsafe Mode or Factory Reset won’t be available as they need a read-only squashfs partition to function.</p>
-</blockquote>
-<h2 id="制作linux启动盘"><a href="#制作linux启动盘" class="headerlink" title="制作linux启动盘"></a>制作linux启动盘</h2><p>我们需要两个U盘，其中一个就是用来做linux启动盘，这里以<a href="http://www.system-rescue-cd.org/" target="_blank" rel="noopener">SystemRescueCd</a>为例，制作USB启动盘的教程可一参考这里：<a href="http://www.system-rescue-cd.org/Installing-SystemRescueCd-on-a-USB-stick/" target="_blank" rel="noopener">Installing-SystemRescueCd-on-a-USB-stick/</a></p>
-<p>USB启动盘制作好后，将下载下来的openwrt安装包拷贝到另一个U盘。</p>
-<h2 id="安装镜像"><a href="#安装镜像" class="headerlink" title="安装镜像"></a>安装镜像</h2><p>将两个U盘插入软路由，以linux启动盘启动，成功进入系统后执行以下命令将第二个U盘挂载到系统里：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir &#x2F;mnt&#x2F;usb</span><br><span class="line">mount &#x2F;dev&#x2F;sdx &#x2F;mnt&#x2F;usb</span><br></pre></td></tr></table></figure>
-
-<p>解压并将镜像刷到软路由内存里：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd &#x2F;mnt&#x2F;usb</span><br><span class="line">gunzip openwrt-18.06.2-x86-64-combined-ext4.img.gz</span><br><span class="line">dd if&#x3D;openwrt-18.06.2-x86-64-combined-ext4.img of&#x3D;&#x2F;dev&#x2F;sdX</span><br></pre></td></tr></table></figure>
-
-<p>其中<code>sdx</code>就是你软路由的安装盘。</p>
-<p>PS：官网里的步骤并没有提到解压这一步骤，实际操作中直接<code>dd</code>的话，openwrt是无法启动的，可能是linux系统的差异。</p>
-<h3 id="分区扩容（可选）"><a href="#分区扩容（可选）" class="headerlink" title="分区扩容（可选）"></a>分区扩容（可选）</h3><p>刷入openwrt后，执行<code>fdisk -l</code>，就会看到软路由的<code>sdx</code>盘被分成了两个分区，你会发现第二个分区只有256M，这里就可以调节第二个分区的大小，将硬盘的剩余容量全部划分到第二个分区：</p>
-<ol>
-<li><code>fdisk -l /dev/sdx</code>将第二个分区的起始扇区号<code>start</code>的值记下来</li>
-<li><code>fdisk /dev/sdx</code> 进入修改硬盘分区信息</li>
-<li>输入<code>d</code>，然后回车</li>
-<li>这里会提示你要删除哪个分区，输入<code>2</code>，然后回车</li>
-<li>输入<code>n</code>，然后回车，选择分区类型<code>primary</code>或<code>extended</code>都可以。</li>
-<li>选择分区后会让你输入分区开始扇区号，这里输入之前记下来的扇区号</li>
-<li>输入<code>w</code>，这时候会提示你<code>Partition #2 contains a ext4 signature. Do you want to remove the signature?</code>，<strong>这一步很重要</strong>，这里要选<code>no</code></li>
-<li>输入<code>w</code>，然后回车</li>
-<li>分区完成后执行<code>resize2fs /dev/sdx2</code>，分区扩容就大功告成了。</li>
-</ol>
-<h2 id="系统配置"><a href="#系统配置" class="headerlink" title="系统配置"></a>系统配置</h2><ul>
-<li>重启进入Openwrt系统后，系统会开放一个lan口，将网线接入这个lan口后就可以通过<code>192.168.1.1</code>来访问路由器管理界面了。</li>
-<li>进入管理界面后需要设置管理员密码，同时你可以上传<code>ssh key</code>，免得每次<code>ssh</code>都需要输入密码。</li>
-<li>在<code>interfaces</code>页面，<code>LAN</code>标签页面，在<code>Physical settings</code>-&gt;<code>Interface</code>你可以修改路由的lan口，将另外几个没开放的lan口都勾选。</li>
-<li>在<code>WAN</code>标签页面，<code>Protocol</code>选择<code>PPPoE</code>，输入宽带密码，<code>save and apply</code>就可以上网了。</li>
-</ul>
-<h2 id="应用安装"><a href="#应用安装" class="headerlink" title="应用安装"></a>应用安装</h2><p>我们会安装一些应用，但这里有个坑就是应用的安装源是<code>http</code>的，可能会被劫持，所以要修改成https的。先执行以下命令，安装必备的包：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">opkg update</span><br><span class="line">opkg install ca-certificates ca-bundle</span><br><span class="line">opkg install libustream-mbedtls</span><br><span class="line">opkg install git-http curl</span><br></pre></td></tr></table></figure>
-
-<p>修改源为<code>https</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;将http改为https</span><br><span class="line">vim &#x2F;etc&#x2F;opkg&#x2F;distfeeds.conf</span><br><span class="line">opkg update</span><br><span class="line">&#x2F;&#x2F;安装一些调试用的软件</span><br><span class="line">opkg install bind-dig</span><br></pre></td></tr></table></figure>
-
-
-<h2 id="一些常见问题"><a href="#一些常见问题" class="headerlink" title="一些常见问题"></a>一些常见问题</h2><ol>
-<li><p>Samba添加用户与设置密码</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vi &#x2F;etc&#x2F;passwd</span><br><span class="line">smbpasswd -a samba</span><br></pre></td></tr></table></figure></li>
-<li><p><code>dnsmasq</code>和<code>dnsmasq-full</code>的区别</p>
-<p> <code>dnsmasq-full</code>多了<code>ipset</code>功能</p>
-</li>
-<li><p><code>dnsmqsq --no-resolv</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">--no-resolv</span><br><span class="line">Don&#39;t read &#x2F;etc&#x2F;resolv.conf. Get upstream servers only from the command line or the dnsmasq configuration file.</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><code>ss-tunnel</code> dns解析不了</p>
-<p>一般原因有以下几点：</p>
-<ol>
-<li><p><code>ss-tunnel</code> 未加上<code>-u</code>参数，开启<code>udn relay</code></p>
-</li>
-<li><p><code>ss-server</code> 未加上<code>-u</code>参数，开启<code>udn relay</code></p>
-</li>
-<li><p>服务端未开启端口</p>
-</li>
-</ol>
-<p>调试用的命令：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;dnstracer</span><br><span class="line">dnstracer -vo  -s 127.0.0.1 google.com</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;dns测试</span><br><span class="line">dig +trace google.com </span><br><span class="line">&#x2F;&#x2F; dns请求也可以直接发送给ss-tunnel</span><br><span class="line">dig google.com @127.0.0.1 -p 5353</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>开启<code>ss-rules</code>后域名无法解析</p>
-<p>具体什么原因不是很清楚，可能是<code>iptables</code>对<code>udp</code>转发有点问题，<code>ss-redir for UDP</code>这项打勾去掉即可。</p>
-</li>
-</ol>
-<h2 id="一些定时任务脚本"><a href="#一些定时任务脚本" class="headerlink" title="一些定时任务脚本"></a>一些定时任务脚本</h2><p>写了一些定时<a href="https://github.com/wancaibida/openwrt-scripts" target="_blank" rel="noopener">任务脚本</a>，这里记录一下。</p>
-<h2 id="安全设置"><a href="#安全设置" class="headerlink" title="安全设置"></a>安全设置</h2><h3 id="Luci页面访问控制"><a href="#Luci页面访问控制" class="headerlink" title="Luci页面访问控制"></a>Luci页面访问控制</h3><p>Openwrt的管理页面默认是允许任何IP访问的，如果你的路由器有公网IP的话，那任何人都可访问到你家的路由器登录页面，通过下面设置只允许来自内网地址的访问：</p>
-<p>修改配置文件：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi &#x2F;etc&#x2F;config&#x2F;uhttpd</span><br></pre></td></tr></table></figure>
-
-<p>将<code>192.168.1.1</code>和<code>fd54:274c:96dd::1</code>换成路由器的v4和v6地址，路由器的lan IP可以在<code>Network</code>-&gt; <code>Interfaces</code>-&gt;<code>LAN</code>查看，openwrt默认情况下是<code>192.168.1.1</code>。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># HTTP listen addresses, multiple allowed</span><br><span class="line">list listen_http	192.168.1.1:80</span><br><span class="line">list listen_http	[fd54:274c:96dd::1]:80</span><br><span class="line"></span><br><span class="line"># HTTPS listen addresses, multiple allowed</span><br><span class="line">list listen_https	192.168.1.1:443</span><br><span class="line">list listen_https	[fd54:274c:96dd::1]:443</span><br></pre></td></tr></table></figure>
-
-<p><em>Note</em>: 如果要访问通过IPv6访问界面，URL应该是这个样子的：<code>http://[fd54:274c:96dd::1]</code></p>
-<p>修改完成后重启服务：<code>/etc/init.d/uhttpd restart</code></p>
-<h3 id="SSH-访问控制"><a href="#SSH-访问控制" class="headerlink" title="SSH 访问控制"></a>SSH 访问控制</h3><p>登录openwrt管理页面 <code>System</code> -&gt; <code>Administration</code>-&gt;<code>Dropbear Instance</code></p>
-<p><code>Interface</code> 那一项选择<code>lan</code>，然后<code>Save &amp; Apply</code>，这样你的路由器ssh只能通过内网访问了。</p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
-<li><a href="https://openwrt.org/docs/guide-user/installation/openwrt_x86" target="_blank" rel="noopener">https://openwrt.org/docs/guide-user/installation/openwrt_x86</a></li>
-<li><a href="http://www.thekelleys.org.uk/dnsmasq/docs/dnsmasq-man.html" target="_blank" rel="noopener">dnsmasq-man.html</a></li>
-<li><a href="https://medium.com/@cnnbysy/openwrt-18-06-1-配置科学上网-30e231958c38" target="_blank" rel="noopener">openwrt 18.06.1 配置科学上网</a></li>
-<li><a href="https://alalin.me/archives/805" target="_blank" rel="noopener">OpenWrt $$ 安装&amp;配置指南</a></li>
-<li><a href="https://icymind.com/learn-from-gfw/" target="_blank" rel="noopener">那些从墙上学会的知识</a></li>
-<li><a href="https://openwrt.org/docs/guide-user/services/nas/samba_configuration" target="_blank" rel="noopener">samba 配置</a></li>
-</ul>
-<h2 id="更新日志"><a href="#更新日志" class="headerlink" title="更新日志"></a>更新日志</h2><ul>
-<li>2019-11-09 添加了安全设置</li>
-</ul>
 
         
       
