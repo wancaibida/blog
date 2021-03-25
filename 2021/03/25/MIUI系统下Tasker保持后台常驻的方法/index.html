@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+
+  <meta name="description" content="MIUI系统下Tasker保持后台常驻的方法"/>
+
+
+
+
+  <meta name="keywords" content="miui, tasker, android, Charles' Blog" />
+
+
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Charles' Blog">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.10.2" />
+
+
+
+<link rel="canonical" href="https://w2x.me/2021/03/25/MIUI系统下Tasker保持后台常驻的方法/"/>
+
+
+
+  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/lib/nprogress/nprogress.min.css" />
+
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.10.2" />
+
+
+
+  
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-77440077-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-77440077-1');
+</script>
+
+
+  <script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+
+
+
+
+
+
+<script>
+  window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":true};
+</script>
+
+    <title> MIUI系统下Tasker保持后台常驻的方法 - Charles' Blog </title>
+  <meta name="generator" content="Hexo 4.2.1"><link rel="alternate" href="/atom.xml" title="Charles' Blog" type="application/atom+xml">
+</head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">Charles' Blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/">
+        <li class="mobile-menu-item">
+          
+          
+            Home
+          
+        </li>
+      </a>
+    
+      <a href="/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            Archives
+          
+        </li>
+      </a>
+    
+      <a href="/tags/">
+        <li class="mobile-menu-item">
+          
+          
+            Tags
+          
+        </li>
+      </a>
+    
+      <a href="/categories/">
+        <li class="mobile-menu-item">
+          
+          
+            Categories
+          
+        </li>
+      </a>
+    
+      <a href="/about">
+        <li class="mobile-menu-item">
+          
+          
+            About
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">Charles' Blog</a>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/">
+            
+            
+              Home
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            
+            
+              Archives
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/tags/">
+            
+            
+              Tags
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/categories/">
+            
+            
+              Categories
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/about">
+            
+            
+              About
+            
+          </a>
+        </li>
+      
+    </ul>
+  
+</nav>
+
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          MIUI系统下Tasker保持后台常驻的方法
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2021-03-25
+        </span>
+        
+          <span class="post-category">
+            
+              <a href="/categories/linux/">linux</a>
+            
+          </span>
+        
+        
+      </div>
+    </header>
+
+    
+    
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#MIUI设置"><span class="toc-text">MIUI设置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#将Tasker加到白名单"><span class="toc-text">将Tasker加到白名单</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关闭智能场景省电"><span class="toc-text">关闭智能场景省电</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#其他设置"><span class="toc-text">其他设置</span></a></li></ol>
+    </div>
+  </div>
+
+
+
+    <div class="post-content">
+      
+        <p>之前一直是用苹果的短信同步功能来同步短信的，期间老是出现一些莫名其妙不能同步短信的问题，最近实在是受不了这问题了，打算换到用android备用机来转发短信。</p>
+<p>一开始用的是ifttt来同步短信的，一切运行正常，唯一的缺陷是iftt同步短信会有大概30秒左右时间的延时，有点接受不了。<br>后来开始用tasker来转发短信，尝试了下效果比ifttt好，几乎没有延时，但遇到一个问题就是tasker不能常驻后台，参考了官网的方案也没有解决这问题，研究了两天发现还有两个地方忘记了设置，在这里记录一下。</p>
+<p>测试环境 MIUI 12.0.9</p>
+<h2 id="MIUI设置"><a href="#MIUI设置" class="headerlink" title="MIUI设置"></a>MIUI设置</h2><h3 id="将Tasker加到白名单"><a href="#将Tasker加到白名单" class="headerlink" title="将Tasker加到白名单"></a>将Tasker加到白名单</h3><p>手机管家 -&gt; 优化加速 -&gt; 设置 -&gt; 锁定任务 -&gt; 将Tasker添加到已锁定任务</p>
+<p><img src="/images/1.png" alt="1.png"><br><img src="/images/2.png" alt="2.png"><br><img src="/images/3.png" alt="3.png"><br><img src="/images/4.png" alt="4.png"></p>
+<h3 id="关闭智能场景省电"><a href="#关闭智能场景省电" class="headerlink" title="关闭智能场景省电"></a>关闭智能场景省电</h3><p>手机管家 -&gt; 省电与电池 -&gt; 场景配置 -&gt; 睡眠模式 -&gt; 关闭</p>
+<p><img src="/images/a.png" alt="a.png"><br><img src="/images/b.png" alt="b.png"><br><img src="/images/c.png" alt="c.png"><br><img src="/images/d.png" alt="d.png"></p>
+<h2 id="其他设置"><a href="#其他设置" class="headerlink" title="其他设置"></a>其他设置</h2><ul>
+<li><a href="https://tasker.joaoapps.com/userguide/en/faqs/faq-problem.html#00" target="_blank" rel="noopener">Why doesn’t Tasker work in the background on my device?</a></li>
+</ul>
+
+      
+    </div>
+
+    
+      
+      
+
+  <div class="post-copyright">
+    <p class="copyright-item">
+      <span>Author: </span>
+      <a href="https://w2x.me">大丈夫没问题</a>
+    </p>
+    <p class="copyright-item">
+      <span>Link: </span>
+      <a href="https://w2x.me/2021/03/25/MIUI%E7%B3%BB%E7%BB%9F%E4%B8%8BTasker%E4%BF%9D%E6%8C%81%E5%90%8E%E5%8F%B0%E5%B8%B8%E9%A9%BB%E7%9A%84%E6%96%B9%E6%B3%95/">https://w2x.me/2021/03/25/MIUI%E7%B3%BB%E7%BB%9F%E4%B8%8BTasker%E4%BF%9D%E6%8C%81%E5%90%8E%E5%8F%B0%E5%B8%B8%E9%A9%BB%E7%9A%84%E6%96%B9%E6%B3%95/</a>
+    </p>
+    <p class="copyright-item">
+      <span>License: </span>
+      
+      <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+    </p>
+  </div>
+
+
+
+      
+      
+    
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/miui/">miui</a>
+            
+              <a href="/tags/tasker/">tasker</a>
+            
+              <a href="/tags/android/">android</a>
+            
+          </div>
+        
+        
+        
+  <nav class="post-nav">
+    
+    
+      <a class="next" href="/2021/03/25/Terraform-multiple-line-script-example/">
+        <span class="next-text nav-default">Terraform multiple line script example</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+
+      </footer>
+    
+
+  </article>
+
+
+          </div>
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+      </main>
+
+      <footer id="footer" class="footer">
+
+  <div class="social-links">
+    
+      
+        
+          <a href="mailto:wancaibida@gmail.com" class="iconfont icon-email" title="email"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        
+          <a href="https://github.com/wancaibida" target="_blank" rel="noopener" class="iconfont icon-github" title="github"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+
+    
+      <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    
+  </div>
+
+
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even" target="_blank" rel="noopener">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    
+    &copy; 
+     
+      2015 - 
+    
+    2021
+
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">大丈夫没问题</span>
+  </span>
+</div>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+  <script type="text/javascript">
+    var disqus_config = function () {
+        this.page.url = 'https://w2x.me/2021/03/25/MIUI%E7%B3%BB%E7%BB%9F%E4%B8%8BTasker%E4%BF%9D%E6%8C%81%E5%90%8E%E5%8F%B0%E5%B8%B8%E9%A9%BB%E7%9A%84%E6%96%B9%E6%B3%95/';
+        this.page.identifier = '2021/03/25/MIUI系统下Tasker保持后台常驻的方法/';
+        this.page.title = 'MIUI系统下Tasker保持后台常驻的方法';
+    };
+    (function() {
+    var d = document, s = d.createElement('script');
+
+    s.src = '//w2x-me.disqus.com/embed.js';
+
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();  
+  </script>
+
+  
+
+  
+
+
+
+    
+  
+
+
+
+  
+  
+
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/pjax/jquery.pjax.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/nprogress/nprogress.min.js"></script>
+  
+
+
+    <script type="text/javascript" src="/js/src/even.js?v=2.10.2"></script>
+
+  </body>
+</html>

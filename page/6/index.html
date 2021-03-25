@@ -235,6 +235,103 @@
     <header class="post-header">
       <h1 class="post-title">
         
+          <a class="post-link" href="/2017/12/21/Grails-JSON-Views-%E6%95%99%E7%A8%8B/">Grails JSON Views 教程</a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2017-12-21
+        </span>
+        
+          <span class="post-category">
+            
+              <a href="/categories/java/">java</a>
+            
+          </span>
+        
+        
+      </div>
+    </header>
+
+    
+    
+
+
+    <div class="post-content">
+      
+        
+        
+
+        
+          <p>Grails 3.2版本中的rest-api profile加入了JSON View插件，JSON View插件主要用于渲染JSON返回内容，类似于GSP，其好处就是将JSON渲染从控制器层移到了视图层，同时JSON View还能定义模板，继承等。</p>
+<h2 id="开始使用"><a href="#开始使用" class="headerlink" title="开始使用"></a>开始使用</h2><h3 id="创建视图"><a href="#创建视图" class="headerlink" title="创建视图"></a>创建视图</h3><p>JSON View视图文件以<code>.gson</code>为扩展名，且文件要放在<code>grails-app/views</code>目录下。<br>例：person.gson</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">json.person &#123;</span><br><span class="line">    name &quot;bob&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>返回的JSON值为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&quot;person&quot;:&#123;&quot;name&quot;:&quot;bob&quot;&#125;&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="创建模版"><a href="#创建模版" class="headerlink" title="创建模版"></a>创建模版</h3><p>模版文件需要以<code>_</code>开头，比如你有一个类名叫QueryResult,则其模版文件完整路径为<code>grails-app/views/queryResult/_queryResult.gson</code><br>例：<code>Author.groovy</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">class Author &#123;</span><br><span class="line">    String name</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>模版：<code>grails-app/views/author/_author.gson</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">model &#123;</span><br><span class="line">    Author author</span><br><span class="line">&#125;</span><br><span class="line">json &#123;</span><br><span class="line">    name author.name</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>也可以简写为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">@Field Author author</span><br><span class="line">json &#123;</span><br><span class="line">    name author.name</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果Author类是Domain Object的话，则模版文件可以写成：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@Field Author author</span><br><span class="line">json g.render(author)</span><br></pre></td></tr></table></figure>
+
+<h3 id="高级用法"><a href="#高级用法" class="headerlink" title="高级用法"></a>高级用法</h3><h4 id="自定义字段"><a href="#自定义字段" class="headerlink" title="自定义字段"></a>自定义字段</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">model &#123;</span><br><span class="line">    Book book</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">json g.render(book, [deep: false, renderNulls: true]) &#123;</span><br><span class="line">    authorName book.author?.name</span><br><span class="line">    publishDate new Date().time</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="集合渲染"><a href="#集合渲染" class="headerlink" title="集合渲染"></a>集合渲染</h4><p>例1：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">model &#123;</span><br><span class="line">    Author author</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">json &#123;</span><br><span class="line">    name author.name</span><br><span class="line">    books g.render(template: &#39;&#x2F;book&#x2F;book&#39;, collection: author.books, var: &#39;book&#39;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>/book/book</code>引用的是<code>grails-app/views/book</code>目录下名为<code>_book.gson</code>的模版文件</p>
+<p>例2：<br>如果返回结果是个集合，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">class AuthorController &#123;</span><br><span class="line">    static responseFormats &#x3D; [&#39;json&#39;, &#39;xml&#39;]</span><br><span class="line"></span><br><span class="line">    def index() &#123;</span><br><span class="line">        &#x2F;**</span><br><span class="line">         * 这里需要注意res的类型，</span><br><span class="line">         * 如果是List类型，则json view中的model名称则为authorList</span><br><span class="line">         * 如果是Set类型，则json view中的model名称则为authorSet</span><br><span class="line">         *&#x2F;</span><br><span class="line">        def res &#x3D; Author.list()</span><br><span class="line">        respond(res, [view: &#39;authorList&#39;])</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p><strong>这里要注意下<code>res</code>的类型</strong></p>
+<ul>
+<li>如果是List类型，则json view中的model名称则为authorList</li>
+<li>如果是Set类型，则json view中的model名称则为authorSet</li>
+</ul>
+</li>
+<li><p>Grails默认会在<code>grails-app/views/author/</code>路径下查找<code>authorList.gson</code>视图文件</p>
+</li>
+<li><p>如果需要在其他Controller下引用该视图的话，需要写绝对路径<code>/author/authorList</code></p>
+</li>
+</ul>
+<p><code>_author.gson</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">model &#123;</span><br><span class="line">    Author author</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">json &#123;</span><br><span class="line">    name author.name</span><br><span class="line">    books g.render(template: &#39;&#x2F;book&#x2F;book&#39;, collection: author.books, var: &#39;book&#39;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>authorList.gson</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">model &#123;</span><br><span class="line">    Collection&lt;Author&gt; authorList &#x3D; []</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">json tmpl.author(authorList)</span><br></pre></td></tr></table></figure>
+<p><strong>authorList要指定下默认值<code>[]</code>，如果不指定的话会返回<code>[null]</code>这种JSON</strong></p>
+<h4 id="渲染参数"><a href="#渲染参数" class="headerlink" title="渲染参数"></a>渲染参数</h4><p>你可以通过<code>includes</code>和<code>excludes</code>参数，来包含或排除一些字段，如</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@Field Author author</span><br><span class="line">json g.render(author，[includes:[&#39;title&#39;])</span><br></pre></td></tr></table></figure>
+<p>你也可以自定义额外输出的内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">json g.render(author) &#123;</span><br><span class="line">    age 30</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在默认情况下，JSON View不会返回值为<code>null</code>的字段，如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">class Author &#123;</span><br><span class="line">    String name</span><br><span class="line">    Integer age</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@Field Author author</span><br><span class="line">json g.render(author)</span><br><span class="line"></span><br><span class="line">def a &#x3D; new Author(name: &#39;charles&#39;,age: 12) &#x3D;&gt; &#123;name:&#39;chalres&#39;,age: 12&#125;</span><br><span class="line">def b &#x3D; new Author(name: null,age: 29)&#x3D;&gt; &#123;age: 29&#125;</span><br></pre></td></tr></table></figure>
+<p>这时候你可以设直<code>renderNulls</code>来返回空值字段：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@Field Author author</span><br><span class="line">json g.render(author,[renderNulls: true])</span><br></pre></td></tr></table></figure>
+<p>则b的返回中就变成：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">def b &#x3D; new Author(name: null,age: 29)&#x3D;&gt; &#123;name: null,age: 29&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="完整的例子"><a href="#完整的例子" class="headerlink" title="完整的例子"></a>完整的例子</h3><p><a href="https://github.com/wancaibida/grails-json-views-example" target="_blank" rel="noopener">https://github.com/wancaibida/grails-json-views-example</a></p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>JSON View用下来还是遇到了不少的问题，主要原因是其约定太多且官方的文档也说的不是很清楚，有 些地方还是要一步步调试来研究源代码，但总的来说比传统的在代码中指定JSON格式方便了不少，用好了能节约不少时间与工作量。</p>
+<h4 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h4><p><a href="https://github.com/skyboy101/widget-store-rest-api" target="_blank" rel="noopener">https://github.com/skyboy101/widget-store-rest-api</a><br><a href="http://views.grails.org/1.1.x/" target="_blank" rel="noopener">http://views.grails.org/1.1.x/</a></p>
+
+        
+      
+    </div>
+
+    
+
+    
+
+  </article>
+
+      
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
           <a class="post-link" href="/2017/12/03/%E8%AE%B0%E4%B8%80%E4%B8%AAGrails-JSON-Views%E7%9A%84Bug/">记一个Grails JSON Views的Bug</a>
         
       </h1>
@@ -804,63 +901,6 @@
   </article>
 
       
-        
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2017/06/13/how-to-set-tomcat-environment-values/">Tomcat传递环境变量</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2017-06-13
-        </span>
-        
-          <span class="post-category">
-            
-              <a href="/categories/java/">java</a>
-            
-          </span>
-        
-        
-      </div>
-    </header>
-
-    
-    
-
-
-    <div class="post-content">
-      
-        
-        
-
-        
-          <ol>
-<li>在Tomcat bin目录下新建setenv.sh, 编辑setenv.sh,添加如下语句</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export JAVA_OPTS&#x3D;&quot;-DKEY1&#x3D;VALUE1 -DKEY2&#x3D;VALUE2 -DKEY3&#x3D;VALUE3&quot;</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li><p>Tomcat启动时会自动加载setenv.sh</p>
-</li>
-<li><p>通过如下代码中获取环境变量</p>
-</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">System.getProperty(&quot;KEY1&quot;)</span><br></pre></td></tr></table></figure>
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-      
       
   <nav class="pagination">
     
@@ -869,6 +909,11 @@
         <span class="prev-text">Prev</span>
       </a>
     
+    
+      <a class="next" href="/page/7/">
+        <span class="next-text">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
     
   </nav>
 

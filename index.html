@@ -235,6 +235,62 @@
     <header class="post-header">
       <h1 class="post-title">
         
+          <a class="post-link" href="/2021/03/25/MIUI%E7%B3%BB%E7%BB%9F%E4%B8%8BTasker%E4%BF%9D%E6%8C%81%E5%90%8E%E5%8F%B0%E5%B8%B8%E9%A9%BB%E7%9A%84%E6%96%B9%E6%B3%95/">MIUI系统下Tasker保持后台常驻的方法</a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2021-03-25
+        </span>
+        
+          <span class="post-category">
+            
+              <a href="/categories/linux/">linux</a>
+            
+          </span>
+        
+        
+      </div>
+    </header>
+
+    
+    
+
+
+    <div class="post-content">
+      
+        
+        
+
+        
+          <p>之前一直是用苹果的短信同步功能来同步短信的，期间老是出现一些莫名其妙不能同步短信的问题，最近实在是受不了这问题了，打算换到用android备用机来转发短信。</p>
+<p>一开始用的是ifttt来同步短信的，一切运行正常，唯一的缺陷是iftt同步短信会有大概30秒左右时间的延时，有点接受不了。<br>后来开始用tasker来转发短信，尝试了下效果比ifttt好，几乎没有延时，但遇到一个问题就是tasker不能常驻后台，参考了官网的方案也没有解决这问题，研究了两天发现还有两个地方忘记了设置，在这里记录一下。</p>
+<p>测试环境 MIUI 12.0.9</p>
+<h2 id="MIUI设置"><a href="#MIUI设置" class="headerlink" title="MIUI设置"></a>MIUI设置</h2><h3 id="将Tasker加到白名单"><a href="#将Tasker加到白名单" class="headerlink" title="将Tasker加到白名单"></a>将Tasker加到白名单</h3><p>手机管家 -&gt; 优化加速 -&gt; 设置 -&gt; 锁定任务 -&gt; 将Tasker添加到已锁定任务</p>
+<p><img src="/images/1.png" alt="1.png"><br><img src="/images/2.png" alt="2.png"><br><img src="/images/3.png" alt="3.png"><br><img src="/images/4.png" alt="4.png"></p>
+<h3 id="关闭智能场景省电"><a href="#关闭智能场景省电" class="headerlink" title="关闭智能场景省电"></a>关闭智能场景省电</h3><p>手机管家 -&gt; 省电与电池 -&gt; 场景配置 -&gt; 睡眠模式 -&gt; 关闭</p>
+<p><img src="/images/a.png" alt="a.png"><br><img src="/images/b.png" alt="b.png"><br><img src="/images/c.png" alt="c.png"><br><img src="/images/d.png" alt="d.png"></p>
+<h2 id="其他设置"><a href="#其他设置" class="headerlink" title="其他设置"></a>其他设置</h2><ul>
+<li><a href="https://tasker.joaoapps.com/userguide/en/faqs/faq-problem.html#00" target="_blank" rel="noopener">Why doesn’t Tasker work in the background on my device?</a></li>
+</ul>
+
+        
+      
+    </div>
+
+    
+
+    
+
+  </article>
+
+      
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
           <a class="post-link" href="/2021/03/25/Terraform-multiple-line-script-example/">Terraform multiple line script example</a>
         
       </h1>
@@ -1047,64 +1103,6 @@
 <ul>
 <li><a href="https://caddyserver.com/docs/caddyfile/matchers#named-matchers" target="_blank" rel="noopener">https://caddyserver.com/docs/caddyfile/matchers#named-matchers</a></li>
 <li><a href="https://caddy.community/t/caddy-v2-how-to-proxy-websoket-v2ray-websocket-tls/7040/12" target="_blank" rel="noopener">https://caddy.community/t/caddy-v2-how-to-proxy-websoket-v2ray-websocket-tls/7040/12</a></li>
-</ul>
-
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-      
-        
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2020/06/01/Openwrt%E7%8E%AF%E5%A2%83%E4%B8%8B%E6%9F%902ray-too-many-open-files-%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3/">Openwrt环境下某2ray `too many open files`问题解决</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2020-06-01
-        </span>
-        
-          <span class="post-category">
-            
-              <a href="/categories/linux/">linux</a>
-            
-          </span>
-        
-        
-      </div>
-    </header>
-
-    
-    
-
-
-    <div class="post-content">
-      
-        
-        
-
-        
-          <p><code>too many open files</code>大部分情况下是由于配置错误引起的。如果配置没有问题,可以在某2ray的启动脚本里加上这一句：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ulimit -SHn 65535</span><br><span class="line">&#x2F;usr&#x2F;bin&#x2F;2ray -config config.json</span><br></pre></td></tr></table></figure>
-
-<p>启动后可以用这个命令来看是否生效：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat &#x2F;proc&#x2F;&#123;2AY进程id&#125;&#x2F;limits</span><br></pre></td></tr></table></figure>
-
-
-<p>参考：</p>
-<ul>
-<li><a href="https://blog.ihipop.info/2011/01/2053.html" target="_blank" rel="noopener">https://blog.ihipop.info/2011/01/2053.html</a></li>
-<li><a href="https://routeragency.com/2019/06/09/v2raye59ca8openwrte4b88be79a84e5ae89e8a385e983a8e7bdb2.html" target="_blank" rel="noopener">https://routeragency.com/2019/06/09/v2raye59ca8openwrte4b88be79a84e5ae89e8a385e983a8e7bdb2.html</a></li>
 </ul>
 
         
