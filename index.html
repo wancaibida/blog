@@ -235,6 +235,52 @@
     <header class="post-header">
       <h1 class="post-title">
         
+          <a class="post-link" href="/2021/03/25/Terraform-multiple-line-script-example/">Terraform multiple line script example</a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2021-03-25
+        </span>
+        
+          <span class="post-category">
+            
+              <a href="/categories/linux/">linux</a>
+            
+          </span>
+        
+        
+      </div>
+    </header>
+
+    
+    
+
+
+    <div class="post-content">
+      
+        
+        
+
+        
+          <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">resource &quot;null_resource&quot; &quot;cluster&quot; &#123;</span><br><span class="line"></span><br><span class="line">  connection &#123;</span><br><span class="line">    type        &#x3D; &quot;ssh&quot;</span><br><span class="line">    user        &#x3D; &quot;admin&quot;</span><br><span class="line">    private_key &#x3D; base64decode(var.private_key)</span><br><span class="line">    host        &#x3D; aws_lightsail_instance.lightsail.public_ip_address</span><br><span class="line">    timeout     &#x3D; &quot;3600s&quot;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  provisioner &quot;local-exec&quot; &#123;</span><br><span class="line">    command &#x3D; &lt;&lt;EOT</span><br><span class="line">            echo &quot;&#123;\&quot;host\&quot;:\&quot;$&#123;random_string.subdomain.result&#125;\&quot;,\&quot;type\&quot;:\&quot;A\&quot;,\&quot;answer\&quot;:\&quot;$&#123;aws_lightsail_instance.lightsail.public_ip_address&#125;\&quot;,\&quot;ttl\&quot;:300&#125;&quot; | \</span><br><span class="line">            curl &quot;https:&#x2F;&#x2F;api.name.com&#x2F;v4&#x2F;domains&#x2F;$&#123;var.name_domain&#125;&#x2F;records&quot; \</span><br><span class="line">            -s \</span><br><span class="line">            -X POST \</span><br><span class="line">            -H &quot;Accept: application&#x2F;json&quot; \</span><br><span class="line">            -H &quot;Content-Type: application&#x2F;json&quot; \</span><br><span class="line">            -u &quot;$&#123;var.name_username&#125;&quot;:&quot;$&#123;var.name_token&#125;&quot; \</span><br><span class="line">            -d @-</span><br><span class="line">        EOT</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        
+      
+    </div>
+
+    
+
+    
+
+  </article>
+
+      
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
           <a class="post-link" href="/2021/02/25/Chrome%E6%B8%85%E9%99%A4DNS%E7%BC%93%E5%AD%98/">Chrome清除DNS缓存</a>
         
       </h1>
@@ -1059,70 +1105,6 @@
 <ul>
 <li><a href="https://blog.ihipop.info/2011/01/2053.html" target="_blank" rel="noopener">https://blog.ihipop.info/2011/01/2053.html</a></li>
 <li><a href="https://routeragency.com/2019/06/09/v2raye59ca8openwrte4b88be79a84e5ae89e8a385e983a8e7bdb2.html" target="_blank" rel="noopener">https://routeragency.com/2019/06/09/v2raye59ca8openwrte4b88be79a84e5ae89e8a385e983a8e7bdb2.html</a></li>
-</ul>
-
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-      
-        
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2020/05/14/Kubernetes-Create-User/">Kubernetes Create User</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2020-05-14
-        </span>
-        
-          <span class="post-category">
-            
-              <a href="/categories/linux/">linux</a>
-            
-          </span>
-        
-        
-      </div>
-    </header>
-
-    
-    
-
-
-    <div class="post-content">
-      
-        
-        
-
-        
-          <h2 id="Create-User"><a href="#Create-User" class="headerlink" title="Create User"></a>Create User</h2><p>kubectl apply -f eks-admin-service-account.yaml</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">apiVersion: v1</span><br><span class="line">kind: ServiceAccount</span><br><span class="line">metadata:</span><br><span class="line">  name: eks-admin</span><br><span class="line">  namespace: kube-system</span><br></pre></td></tr></table></figure>
-
-<p>kubectl apply -f eks-admin-cluster-role-binding.yaml</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">apiVersion: rbac.authorization.k8s.io&#x2F;v1beta1</span><br><span class="line">kind: ClusterRoleBinding</span><br><span class="line">metadata:</span><br><span class="line">  name: eks-admin</span><br><span class="line">roleRef:</span><br><span class="line">  apiGroup: rbac.authorization.k8s.io</span><br><span class="line">  kind: ClusterRole</span><br><span class="line">  name: cluster-admin</span><br><span class="line">subjects:</span><br><span class="line">- kind: ServiceAccount</span><br><span class="line">  name: eks-admin</span><br><span class="line">  namespace: kube-system</span><br></pre></td></tr></table></figure>
-
-<h2 id="Get-certificate"><a href="#Get-certificate" class="headerlink" title="Get certificate"></a>Get certificate</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl get secret default-token-cvn2d -o jsonpath&#x3D;&quot;&#123;[&#39;data&#39;][&#39;ca\.crt&#39;]&#125;&quot; | base64 --decode</span><br></pre></td></tr></table></figure>
-
-<h2 id="Get-Token"><a href="#Get-Token" class="headerlink" title="Get Token"></a>Get Token</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl -n kube-system describe secret $(kubectl -n kube-system get secret | grep eks-admin | awk &#39;&#123;print $1&#125;&#39;)</span><br></pre></td></tr></table></figure>
-
-
-<h2 id="Test-If-the-role-works"><a href="#Test-If-the-role-works" class="headerlink" title="Test If the role works"></a>Test If the role works</h2><h3 id="Setup-credential"><a href="#Setup-credential" class="headerlink" title="Setup credential"></a>Setup credential</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">kubectl config set-cluster kubernetes --certificate-authority&#x3D;ca.crt --server&#x3D;$K8S_SERVER_URL</span><br><span class="line">kubectl config set-credentials $K8S_USERNAME --token&#x3D;$K8S_USER_TOKEN</span><br><span class="line">kubectl config set-context aws --cluster&#x3D;kubernetes --namespace&#x3D;$K8S_NAMESPACE --user&#x3D;$K8S_USERNAME</span><br><span class="line">kubectl config use-context aws --user&#x3D;$K8S_USERNAME</span><br></pre></td></tr></table></figure>
-
-<h3 id="Test-command"><a href="#Test-command" class="headerlink" title="Test command"></a>Test command</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl get pod</span><br></pre></td></tr></table></figure>
-
-<h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul>
-<li><a href="https://docs.gitlab.com/ee/user/project/clusters/add_remove_clusters.html#existing-eks-cluster" target="_blank" rel="noopener">https://docs.gitlab.com/ee/user/project/clusters/add_remove_clusters.html#existing-eks-cluster</a></li>
 </ul>
 
         

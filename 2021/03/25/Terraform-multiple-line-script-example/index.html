@@ -17,8 +17,12 @@
 
 
 
+  <meta name="description" content="Terraform multiple line script example"/>
 
 
+
+
+  <meta name="keywords" content="terraform, Charles' Blog" />
 
 
 
@@ -38,7 +42,7 @@
 
 
 
-<link rel="canonical" href="https://w2x.me/archives/2018/10/"/>
+<link rel="canonical" href="https://w2x.me/2021/03/25/Terraform-multiple-line-script-example/"/>
 
 
 
@@ -96,11 +100,7 @@
   window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":true};
 </script>
 
-    <title>
-  
-    Archives - Charles' Blog
-  
-</title>
+    <title> Terraform multiple line script example - Charles' Blog </title>
   <meta name="generator" content="Hexo 4.2.1"><link rel="alternate" href="/atom.xml" title="Charles' Blog" type="application/atom+xml">
 </head>
 
@@ -231,59 +231,107 @@
           <div id="content" class="content">
             
   
-  
-  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          Terraform multiple line script example
+        
+      </h1>
 
-  <section id="archive" class="archive">
-    
-      
-        <div class="archive-title">
-          <span class="archive-post-counter">
-            60 Posts In Total
+      <div class="post-meta">
+        <span class="post-time">
+          2021-03-25
+        </span>
+        
+          <span class="post-category">
+            
+              <a href="/categories/linux/">linux</a>
+            
           </span>
-        </div>
+        
+        
+      </div>
+    </header>
+
+    
+    
+
+
+    <div class="post-content">
+      
+        <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">resource &quot;null_resource&quot; &quot;cluster&quot; &#123;</span><br><span class="line"></span><br><span class="line">  connection &#123;</span><br><span class="line">    type        &#x3D; &quot;ssh&quot;</span><br><span class="line">    user        &#x3D; &quot;admin&quot;</span><br><span class="line">    private_key &#x3D; base64decode(var.private_key)</span><br><span class="line">    host        &#x3D; aws_lightsail_instance.lightsail.public_ip_address</span><br><span class="line">    timeout     &#x3D; &quot;3600s&quot;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  provisioner &quot;local-exec&quot; &#123;</span><br><span class="line">    command &#x3D; &lt;&lt;EOT</span><br><span class="line">            echo &quot;&#123;\&quot;host\&quot;:\&quot;$&#123;random_string.subdomain.result&#125;\&quot;,\&quot;type\&quot;:\&quot;A\&quot;,\&quot;answer\&quot;:\&quot;$&#123;aws_lightsail_instance.lightsail.public_ip_address&#125;\&quot;,\&quot;ttl\&quot;:300&#125;&quot; | \</span><br><span class="line">            curl &quot;https:&#x2F;&#x2F;api.name.com&#x2F;v4&#x2F;domains&#x2F;$&#123;var.name_domain&#125;&#x2F;records&quot; \</span><br><span class="line">            -s \</span><br><span class="line">            -X POST \</span><br><span class="line">            -H &quot;Accept: application&#x2F;json&quot; \</span><br><span class="line">            -H &quot;Content-Type: application&#x2F;json&quot; \</span><br><span class="line">            -u &quot;$&#123;var.name_username&#125;&quot;:&quot;$&#123;var.name_token&#125;&quot; \</span><br><span class="line">            -d @-</span><br><span class="line">        EOT</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+      
+      
+
+  <div class="post-copyright">
+    <p class="copyright-item">
+      <span>Author: </span>
+      <a href="https://w2x.me">大丈夫没问题</a>
+    </p>
+    <p class="copyright-item">
+      <span>Link: </span>
+      <a href="https://w2x.me/2021/03/25/Terraform-multiple-line-script-example/">https://w2x.me/2021/03/25/Terraform-multiple-line-script-example/</a>
+    </p>
+    <p class="copyright-item">
+      <span>License: </span>
+      
+      <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+    </p>
+  </div>
+
+
+
+      
       
     
 
     
-      
+      <footer class="post-footer">
         
-        
-
-        
-          
-          <div class="collection-title">
-            <h2 class="archive-year">2018</h2>
+          <div class="post-tags">
+            
+              <a href="/tags/terraform/">terraform</a>
+            
           </div>
         
-      
-
-      <div class="archive-post">
-        <span class="archive-post-time">
-          
-            10-30
-          
-        </span>
-        <span class="archive-post-title">
-          <a href="/2018/10/30/Groovy%E5%AF%B9JSON%E5%A4%84%E7%90%86%E7%9A%84%E4%B8%80%E4%BA%9B%E7%BB%86%E8%8A%82/" class="archive-post-link">
-            Groovy JSON处理的一些细节
-          </a>
-        </span>
-      </div>
+        
+        
+  <nav class="post-nav">
     
-  </section>
-
-  
-  <nav class="pagination">
     
+      <a class="next" href="/2021/02/25/Chrome%E6%B8%85%E9%99%A4DNS%E7%BC%93%E5%AD%98/">
+        <span class="next-text nav-default">Chrome清除DNS缓存</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
     
   </nav>
 
 
+      </footer>
+    
+
+  </article>
 
 
           </div>
           
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
 
         </div>
       </main>
@@ -367,6 +415,27 @@
     </div>
 
     
+  
+  <script type="text/javascript">
+    var disqus_config = function () {
+        this.page.url = 'https://w2x.me/2021/03/25/Terraform-multiple-line-script-example/';
+        this.page.identifier = '2021/03/25/Terraform-multiple-line-script-example/';
+        this.page.title = 'Terraform multiple line script example';
+    };
+    (function() {
+    var d = document, s = d.createElement('script');
+
+    s.src = '//w2x-me.disqus.com/embed.js';
+
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();  
+  </script>
+
+  
+
+  
+
 
 
     

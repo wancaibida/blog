@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://w2x.me/"/>
-  <updated>2021-02-25T13:20:04.583Z</updated>
+  <updated>2021-03-25T13:25:28.740Z</updated>
   <id>https://w2x.me/</id>
   
   <author>
@@ -17,11 +17,35 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Terraform multiple line script example</title>
+    <link href="https://w2x.me/2021/03/25/Terraform-multiple-line-script-example/"/>
+    <id>https://w2x.me/2021/03/25/Terraform-multiple-line-script-example/</id>
+    <published>2021-03-25T13:23:00.000Z</published>
+    <updated>2021-03-25T13:25:28.740Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class
+      
+    
+    </summary>
+    
+    
+      <category term="linux" scheme="https://w2x.me/categories/linux/"/>
+    
+    
+      <category term="terraform" scheme="https://w2x.me/tags/terraform/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Chrome清除DNS缓存</title>
     <link href="https://w2x.me/2021/02/25/Chrome%E6%B8%85%E9%99%A4DNS%E7%BC%93%E5%AD%98/"/>
     <id>https://w2x.me/2021/02/25/Chrome%E6%B8%85%E9%99%A4DNS%E7%BC%93%E5%AD%98/</id>
     <published>2021-02-25T13:17:00.000Z</published>
-    <updated>2021-02-25T13:20:04.583Z</updated>
+    <updated>2021-03-25T13:25:28.736Z</updated>
     
     <summary type="html">
     
@@ -52,7 +76,7 @@
     <link href="https://w2x.me/2020/12/27/macOS%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AEPodman-2-x/"/>
     <id>https://w2x.me/2020/12/27/macOS%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AEPodman-2-x/</id>
     <published>2020-12-27T12:16:00.000Z</published>
-    <updated>2021-02-25T13:20:04.583Z</updated>
+    <updated>2021-03-25T13:25:28.740Z</updated>
     
     <summary type="html">
     
@@ -81,7 +105,7 @@
     <link href="https://w2x.me/2020/12/17/%E6%9F%902ray%E7%99%BD%E5%90%8D%E5%8D%95%E8%B7%AF%E7%94%B1%E6%AD%A3%E7%A1%AE%E5%86%99%E6%B3%95/"/>
     <id>https://w2x.me/2020/12/17/%E6%9F%902ray%E7%99%BD%E5%90%8D%E5%8D%95%E8%B7%AF%E7%94%B1%E6%AD%A3%E7%A1%AE%E5%86%99%E6%B3%95/</id>
     <published>2020-12-17T13:31:00.000Z</published>
-    <updated>2021-02-25T13:20:04.583Z</updated>
+    <updated>2021-03-25T13:25:28.740Z</updated>
     
     <summary type="html">
     
@@ -106,7 +130,7 @@
     <link href="https://w2x.me/2020/09/23/SQL%E5%88%86%E9%A1%B5%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/"/>
     <id>https://w2x.me/2020/09/23/SQL%E5%88%86%E9%A1%B5%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/</id>
     <published>2020-09-23T03:17:00.000Z</published>
-    <updated>2021-02-25T13:20:04.583Z</updated>
+    <updated>2021-03-25T13:25:28.740Z</updated>
     
     <summary type="html">
     
@@ -135,7 +159,7 @@
     <link href="https://w2x.me/2020/07/23/Google-Cloud-BigQuery-Create-Partition-Table-From-Existing-Table/"/>
     <id>https://w2x.me/2020/07/23/Google-Cloud-BigQuery-Create-Partition-Table-From-Existing-Table/</id>
     <published>2020-07-23T12:35:00.000Z</published>
-    <updated>2021-02-25T13:20:04.583Z</updated>
+    <updated>2021-03-25T13:25:28.736Z</updated>
     
     <summary type="html">
     
@@ -159,7 +183,7 @@
     <link href="https://w2x.me/2020/07/23/Python3-logging%E7%94%A8%E6%B3%95/"/>
     <id>https://w2x.me/2020/07/23/Python3-logging%E7%94%A8%E6%B3%95/</id>
     <published>2020-07-23T12:31:00.000Z</published>
-    <updated>2021-02-25T13:20:04.583Z</updated>
+    <updated>2021-03-25T13:25:28.740Z</updated>
     
     <summary type="html">
     
@@ -183,7 +207,7 @@
     <link href="https://w2x.me/2020/07/23/PostGIS%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/"/>
     <id>https://w2x.me/2020/07/23/PostGIS%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/</id>
     <published>2020-07-23T12:30:00.000Z</published>
-    <updated>2021-02-25T13:20:04.583Z</updated>
+    <updated>2021-03-25T13:25:28.740Z</updated>
     
     <summary type="html">
     
@@ -198,9 +222,9 @@
       <category term="database" scheme="https://w2x.me/categories/database/"/>
     
     
-      <category term="postgis" scheme="https://w2x.me/tags/postgis/"/>
-    
       <category term="postgresql" scheme="https://w2x.me/tags/postgresql/"/>
+    
+      <category term="postgis" scheme="https://w2x.me/tags/postgis/"/>
     
   </entry>
   
@@ -209,7 +233,7 @@
     <link href="https://w2x.me/2020/06/03/Caddyfile-v2-example/"/>
     <id>https://w2x.me/2020/06/03/Caddyfile-v2-example/</id>
     <published>2020-06-03T13:10:00.000Z</published>
-    <updated>2021-02-25T13:20:04.583Z</updated>
+    <updated>2021-03-25T13:25:28.736Z</updated>
     
     <summary type="html">
     
@@ -233,7 +257,7 @@
     <link href="https://w2x.me/2020/06/01/Openwrt%E7%8E%AF%E5%A2%83%E4%B8%8B%E6%9F%902ray-too-many-open-files-%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3/"/>
     <id>https://w2x.me/2020/06/01/Openwrt%E7%8E%AF%E5%A2%83%E4%B8%8B%E6%9F%902ray-too-many-open-files-%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3/</id>
     <published>2020-06-01T13:07:00.000Z</published>
-    <updated>2021-02-25T13:20:04.583Z</updated>
+    <updated>2021-03-25T13:25:28.740Z</updated>
     
     <summary type="html">
     
@@ -258,7 +282,7 @@
     <link href="https://w2x.me/2020/05/14/Kubernetes-Create-User/"/>
     <id>https://w2x.me/2020/05/14/Kubernetes-Create-User/</id>
     <published>2020-05-14T13:18:00.000Z</published>
-    <updated>2021-02-25T13:20:04.583Z</updated>
+    <updated>2021-03-25T13:25:28.736Z</updated>
     
     <summary type="html">
     
@@ -282,7 +306,7 @@
     <link href="https://w2x.me/2020/04/14/Dockerfile-multiple-stage-example/"/>
     <id>https://w2x.me/2020/04/14/Dockerfile-multiple-stage-example/</id>
     <published>2020-04-14T13:18:00.000Z</published>
-    <updated>2021-02-25T13:20:04.583Z</updated>
+    <updated>2021-03-25T13:25:28.736Z</updated>
     
     <summary type="html">
     
@@ -304,7 +328,7 @@
     <link href="https://w2x.me/2020/02/17/Openwrt%E4%B8%8Bdnsmasq%E9%85%8D%E7%BD%AE/"/>
     <id>https://w2x.me/2020/02/17/Openwrt%E4%B8%8Bdnsmasq%E9%85%8D%E7%BD%AE/</id>
     <published>2020-02-17T13:42:00.000Z</published>
-    <updated>2021-02-25T13:20:04.583Z</updated>
+    <updated>2021-03-25T13:25:28.740Z</updated>
     
     <summary type="html">
     
@@ -333,7 +357,7 @@
     <link href="https://w2x.me/2020/02/09/Openwrt%E4%B8%8B%E6%97%A0%E6%B3%95%E8%AE%BF%E9%97%AEmedium-com%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/"/>
     <id>https://w2x.me/2020/02/09/Openwrt%E4%B8%8B%E6%97%A0%E6%B3%95%E8%AE%BF%E9%97%AEmedium-com%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</id>
     <published>2020-02-09T13:57:00.000Z</published>
-    <updated>2021-02-25T13:20:04.583Z</updated>
+    <updated>2021-03-25T13:25:28.740Z</updated>
     
     <summary type="html">
     
@@ -360,7 +384,7 @@
     <link href="https://w2x.me/2019/12/10/Bitbucket-pipeline%E4%BC%A0%E9%80%92%E6%96%87%E4%BB%B6%E5%86%85%E5%AE%B9%E5%8F%98%E9%87%8F/"/>
     <id>https://w2x.me/2019/12/10/Bitbucket-pipeline%E4%BC%A0%E9%80%92%E6%96%87%E4%BB%B6%E5%86%85%E5%AE%B9%E5%8F%98%E9%87%8F/</id>
     <published>2019-12-10T13:15:00.000Z</published>
-    <updated>2021-02-25T13:20:04.583Z</updated>
+    <updated>2021-03-25T13:25:28.736Z</updated>
     
     <summary type="html">
     
@@ -386,7 +410,7 @@
     <link href="https://w2x.me/2019/12/06/Java-BufferedImage-OutOfMemoryError/"/>
     <id>https://w2x.me/2019/12/06/Java-BufferedImage-OutOfMemoryError/</id>
     <published>2019-12-06T04:10:00.000Z</published>
-    <updated>2021-02-25T13:20:04.583Z</updated>
+    <updated>2021-03-25T13:25:28.736Z</updated>
     
     <summary type="html">
     
@@ -417,7 +441,7 @@
     <link href="https://w2x.me/2019/11/28/Kubernetes%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AEJVM%E5%86%85%E5%AD%98/"/>
     <id>https://w2x.me/2019/11/28/Kubernetes%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AEJVM%E5%86%85%E5%AD%98/</id>
     <published>2019-11-28T14:00:00.000Z</published>
-    <updated>2021-02-25T13:20:04.583Z</updated>
+    <updated>2021-03-25T13:25:28.740Z</updated>
     
     <summary type="html">
     
@@ -450,7 +474,7 @@
     <link href="https://w2x.me/2019/11/11/Google-Cloud-Pub-Sub%E7%9A%84%E4%B8%80%E4%BA%9B%E7%A0%94%E7%A9%B6/"/>
     <id>https://w2x.me/2019/11/11/Google-Cloud-Pub-Sub%E7%9A%84%E4%B8%80%E4%BA%9B%E7%A0%94%E7%A9%B6/</id>
     <published>2019-11-11T13:22:00.000Z</published>
-    <updated>2021-02-25T13:20:04.583Z</updated>
+    <updated>2021-03-25T13:25:28.736Z</updated>
     
     <summary type="html">
     
@@ -482,7 +506,7 @@
     <link href="https://w2x.me/2019/10/23/Safari-can-t-establish-a-secure-connection-%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/"/>
     <id>https://w2x.me/2019/10/23/Safari-can-t-establish-a-secure-connection-%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</id>
     <published>2019-10-23T13:22:00.000Z</published>
-    <updated>2021-02-25T13:20:04.583Z</updated>
+    <updated>2021-03-25T13:25:28.740Z</updated>
     
     <summary type="html">
     
@@ -507,7 +531,7 @@
     <link href="https://w2x.me/2019/09/19/Google-Cloud-Function-Http-%E8%AE%A4%E8%AF%81%E9%85%8D%E7%BD%AE/"/>
     <id>https://w2x.me/2019/09/19/Google-Cloud-Function-Http-%E8%AE%A4%E8%AF%81%E9%85%8D%E7%BD%AE/</id>
     <published>2019-09-19T14:00:00.000Z</published>
-    <updated>2021-02-25T13:20:04.583Z</updated>
+    <updated>2021-03-25T13:25:28.736Z</updated>
     
     <summary type="html">
     
@@ -534,32 +558,6 @@
       <category term="http" scheme="https://w2x.me/tags/http/"/>
     
       <category term="authentication" scheme="https://w2x.me/tags/authentication/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Google Cloud使用kubernetes，let’s encrypt和nginx-ingress部署web app</title>
-    <link href="https://w2x.me/2019/08/24/Google-Cloud%E9%83%A8%E7%BD%B2web-app%E5%88%B0kubernetes%E5%B9%B6%E4%BD%BF%E7%94%A8let%E2%80%99s-encrypt%E5%92%8Cnginx-ingress/"/>
-    <id>https://w2x.me/2019/08/24/Google-Cloud%E9%83%A8%E7%BD%B2web-app%E5%88%B0kubernetes%E5%B9%B6%E4%BD%BF%E7%94%A8let%E2%80%99s-encrypt%E5%92%8Cnginx-ingress/</id>
-    <published>2019-08-24T08:36:00.000Z</published>
-    <updated>2021-02-25T13:20:04.583Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h2 id=&quot;环境配置&quot;&gt;&lt;a href=&quot;#环境配置&quot; class=&quot;headerlink&quot; title=&quot;环境配置&quot;&gt;&lt;/a&gt;环境配置&lt;/h2&gt;&lt;h3 id=&quot;连接cluster&quot;&gt;&lt;a href=&quot;#连接cluster&quot; class=&quot;headerlink&quot; title=
-      
-    
-    </summary>
-    
-    
-      <category term="linux" scheme="https://w2x.me/categories/linux/"/>
-    
-    
-      <category term="k8s" scheme="https://w2x.me/tags/k8s/"/>
-    
-      <category term="kubernetes" scheme="https://w2x.me/tags/kubernetes/"/>
     
   </entry>
   
