@@ -17,8 +17,12 @@
 
 
 
+  <meta name="description" content="Terraform connection ssh private key用法"/>
 
 
+
+
+  <meta name="keywords" content="linux, Charles' Blog" />
 
 
 
@@ -38,7 +42,7 @@
 
 
 
-<link rel="canonical" href="https://w2x.me/archives/2019/06/"/>
+<link rel="canonical" href="https://w2x.me/2021/06/28/Terraform-connection-ssh-private-key用法/"/>
 
 
 
@@ -96,11 +100,7 @@
   window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":true};
 </script>
 
-    <title>
-  
-    Archives - Charles' Blog
-  
-</title>
+    <title> Terraform connection ssh private key用法 - Charles' Blog </title>
   <meta name="generator" content="Hexo 4.2.1"><link rel="alternate" href="/atom.xml" title="Charles' Blog" type="application/atom+xml">
 </head>
 
@@ -231,139 +231,113 @@
           <div id="content" class="content">
             
   
-  
-  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          Terraform connection ssh private key用法
+        
+      </h1>
 
-  <section id="archive" class="archive">
-    
-      
-        <div class="archive-title">
-          <span class="archive-post-counter">
-            62 Posts In Total
+      <div class="post-meta">
+        <span class="post-time">
+          2021-06-28
+        </span>
+        
+          <span class="post-category">
+            
+              <a href="/categories/linux/">linux</a>
+            
           </span>
-        </div>
+        
+        
+      </div>
+    </header>
+
+    
+    
+
+
+    <div class="post-content">
+      
+        <p>base64 encode一下private key：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat ~&#x2F;.ssh&#x2F;your_private_key | base64</span><br></pre></td></tr></table></figure>
+
+<p>connection中decode一下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">connection &#123;</span><br><span class="line">  type        &#x3D; &quot;ssh&quot;</span><br><span class="line">  user        &#x3D; &quot;admin&quot;</span><br><span class="line">  private_key &#x3D; base64decode(var.private_key)</span><br><span class="line">  host        &#x3D; self.public_ip_address</span><br><span class="line">  timeout     &#x3D; &quot;3600s&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+      
+      
+
+  <div class="post-copyright">
+    <p class="copyright-item">
+      <span>Author: </span>
+      <a href="https://w2x.me">大丈夫没问题</a>
+    </p>
+    <p class="copyright-item">
+      <span>Link: </span>
+      <a href="https://w2x.me/2021/06/28/Terraform-connection-ssh-private-key%E7%94%A8%E6%B3%95/">https://w2x.me/2021/06/28/Terraform-connection-ssh-private-key%E7%94%A8%E6%B3%95/</a>
+    </p>
+    <p class="copyright-item">
+      <span>License: </span>
+      
+      <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+    </p>
+  </div>
+
+
+
+      
       
     
 
     
-      
+      <footer class="post-footer">
         
-        
-
-        
-          
-          <div class="collection-title">
-            <h2 class="archive-year">2019</h2>
+          <div class="post-tags">
+            
+              <a href="/tags/linux/">linux</a>
+            
           </div>
         
-      
-
-      <div class="archive-post">
-        <span class="archive-post-time">
-          
-            06-30
-          
-        </span>
-        <span class="archive-post-title">
-          <a href="/2019/06/30/Docker%E7%8E%AF%E5%A2%83%E8%AE%BF%E9%97%AEfontello-com%E6%97%A0%E9%99%90%E9%87%8D%E5%AE%9A%E5%90%91%E9%97%AE%E9%A2%98/" class="archive-post-link">
-            Docker环境访问fontello.com无限重定向问题
-          </a>
-        </span>
-      </div>
+        
+        
+  <nav class="post-nav">
     
-      
-        
-        
-
-        
-      
-
-      <div class="archive-post">
-        <span class="archive-post-time">
-          
-            06-22
-          
-        </span>
-        <span class="archive-post-title">
-          <a href="/2019/06/22/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%EF%BC%88%E7%AC%AC%E4%B8%83%E7%89%88%EF%BC%89%E4%B9%A0%E9%A2%984-13%E8%AE%A1%E7%AE%97%E8%BF%87%E7%A8%8B/" class="archive-post-link">
-            计算机网络（第七版）习题4-13计算过程
-          </a>
-        </span>
-      </div>
     
-      
-        
-        
-
-        
-      
-
-      <div class="archive-post">
-        <span class="archive-post-time">
-          
-            06-20
-          
-        </span>
-        <span class="archive-post-title">
-          <a href="/2019/06/20/AWS-Cloudformation-%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95/" class="archive-post-link">
-            AWS Cloudformation 踩坑记录
-          </a>
-        </span>
-      </div>
-    
-      
-        
-        
-
-        
-      
-
-      <div class="archive-post">
-        <span class="archive-post-time">
-          
-            06-13
-          
-        </span>
-        <span class="archive-post-title">
-          <a href="/2019/06/13/Deskmini-310-%E9%BB%91%E8%8B%B9%E6%9E%9C%E6%8A%98%E8%85%BE%E8%AE%B0/" class="archive-post-link">
-            Deskmini 310 黑苹果折腾记
-          </a>
-        </span>
-      </div>
-    
-      
-        
-        
-
-        
-      
-
-      <div class="archive-post">
-        <span class="archive-post-time">
-          
-            06-12
-          
-        </span>
-        <span class="archive-post-title">
-          <a href="/2019/06/12/Mac-OS%E9%85%8D%E7%BD%AEDnsmasq-Dnscrypt%E6%9D%A5%E8%A7%A3%E5%86%B3DNS%E6%B1%A1%E6%9F%93%E9%97%AE%E9%A2%98/" class="archive-post-link">
-            Mac OS配置Dnsmasq+Dnscrypt来解决DNS污染问题
-          </a>
-        </span>
-      </div>
-    
-  </section>
-
-  
-  <nav class="pagination">
-    
+      <a class="next" href="/2021/03/25/MIUI%E7%B3%BB%E7%BB%9F%E4%B8%8BTasker%E4%BF%9D%E6%8C%81%E5%90%8E%E5%8F%B0%E5%B8%B8%E9%A9%BB%E7%9A%84%E6%96%B9%E6%B3%95/">
+        <span class="next-text nav-default">MIUI系统下Tasker保持后台常驻的方法</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
     
   </nav>
 
 
+      </footer>
+    
+
+  </article>
 
 
           </div>
           
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
 
         </div>
       </main>
@@ -447,6 +421,27 @@
     </div>
 
     
+  
+  <script type="text/javascript">
+    var disqus_config = function () {
+        this.page.url = 'https://w2x.me/2021/06/28/Terraform-connection-ssh-private-key%E7%94%A8%E6%B3%95/';
+        this.page.identifier = '2021/06/28/Terraform-connection-ssh-private-key用法/';
+        this.page.title = 'Terraform connection ssh private key用法';
+    };
+    (function() {
+    var d = document, s = d.createElement('script');
+
+    s.src = '//w2x-me.disqus.com/embed.js';
+
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();  
+  </script>
+
+  
+
+  
+
 
 
     

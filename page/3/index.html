@@ -235,6 +235,64 @@
     <header class="post-header">
       <h1 class="post-title">
         
+          <a class="post-link" href="/2019/10/23/Safari-can-t-establish-a-secure-connection-%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/">Safari can't establish a secure connection 解决办法</a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2019-10-23
+        </span>
+        
+          <span class="post-category">
+            
+              <a href="/categories/linux/">linux</a>
+            
+          </span>
+        
+        
+      </div>
+    </header>
+
+    
+    
+
+
+    <div class="post-content">
+      
+        
+        
+
+        
+          <p>公司测试用的是6.x版本的Safari，在测试时发现无法打开项目网站，提示<code>Safari can&#39;t establish a secure connection</code>错误，测试了下其他网站也只有一部分能打开。</p>
+<p>一开始以为是系统配置的问题，尝试了下网上的解决方案如：修改DNS服务器地址，信任证书等，发现还是无法打开项目网站。后来发现Safari 6.x是不支持TLS 1.2版本的，而我们项目用的正好是1.2版本的TLS。</p>
+<p>解决办法：</p>
+<ol>
+<li>升级Safari版本</li>
+<li>让项目支持低版本的TLS</li>
+</ol>
+<p>参考：</p>
+<ul>
+<li><a href="https://www.projectdatasphere.org/projectdatasphere/html/tls/faq" target="_blank" rel="noopener">https://www.projectdatasphere.org/projectdatasphere/html/tls/faq</a></li>
+<li><a href="https://www.howsmyssl.com/" target="_blank" rel="noopener">https://www.howsmyssl.com/</a></li>
+</ul>
+
+        
+      
+    </div>
+
+    
+
+    
+
+  </article>
+
+      
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
           <a class="post-link" href="/2019/09/19/Google-Cloud-Function-Http-%E8%AE%A4%E8%AF%81%E9%85%8D%E7%BD%AE/">Google Cloud Function Http 认证配置</a>
         
       </h1>
@@ -900,57 +958,6 @@
 <p>到这里samba文件夹就能开机自动挂载，官方还提供了其他的自动挂载方式，详情可参考文档。</p>
 <p>参考：</p>
 <p><a href="https://wiki.archlinux.org/index.php/samba#As_systemd_unit" target="_blank" rel="noopener"><a href="https://wiki.archlinux.org/index.php/samba#As_systemd_unit" target="_blank" rel="noopener">https://wiki.archlinux.org/index.php/samba#As_systemd_unit</a></a></p>
-
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-      
-        
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2019/04/23/AWS-Lambda-%E8%87%AA%E5%AE%9A%E4%B9%89VPC/">AWS Lambda 自定义VPC</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2019-04-23
-        </span>
-        
-          <span class="post-category">
-            
-              <a href="/categories/linux/">linux</a>
-            
-          </span>
-        
-        
-      </div>
-    </header>
-
-    
-    
-
-
-    <div class="post-content">
-      
-        
-        
-
-        
-          <p>AWS lamba 默认配置的VPC是能够访问外网的，如果要自定义VPC，同时能访问外网的话需要将lambda所在的子网挂在NAT网关下，同时这个NAT网关需要关联到一个有外网访问权限的子网下。</p>
-<p>如图：</p>
-<p><img src="http://static.w2x.me/document_db_subnet.png" alt="AWS Lambda VPC"></p>
-<p>参考：</p>
-<p><a href="https://medium.com/@philippholly/aws-lambda-enable-outgoing-internet-access-within-vpc-8dd250e11e12" target="_blank" rel="noopener">AWS Lambda: Enable Outgoing Internet Access within VPC</a></p>
 
         
       

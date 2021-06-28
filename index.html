@@ -235,6 +235,58 @@
     <header class="post-header">
       <h1 class="post-title">
         
+          <a class="post-link" href="/2021/06/28/Terraform-connection-ssh-private-key%E7%94%A8%E6%B3%95/">Terraform connection ssh private key用法</a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2021-06-28
+        </span>
+        
+          <span class="post-category">
+            
+              <a href="/categories/linux/">linux</a>
+            
+          </span>
+        
+        
+      </div>
+    </header>
+
+    
+    
+
+
+    <div class="post-content">
+      
+        
+        
+
+        
+          <p>base64 encode一下private key：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat ~&#x2F;.ssh&#x2F;your_private_key | base64</span><br></pre></td></tr></table></figure>
+
+<p>connection中decode一下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">connection &#123;</span><br><span class="line">  type        &#x3D; &quot;ssh&quot;</span><br><span class="line">  user        &#x3D; &quot;admin&quot;</span><br><span class="line">  private_key &#x3D; base64decode(var.private_key)</span><br><span class="line">  host        &#x3D; self.public_ip_address</span><br><span class="line">  timeout     &#x3D; &quot;3600s&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+        
+      
+    </div>
+
+    
+
+    
+
+  </article>
+
+      
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
           <a class="post-link" href="/2021/03/25/MIUI%E7%B3%BB%E7%BB%9F%E4%B8%8BTasker%E4%BF%9D%E6%8C%81%E5%90%8E%E5%8F%B0%E5%B8%B8%E9%A9%BB%E7%9A%84%E6%96%B9%E6%B3%95/">MIUI系统下Tasker保持后台常驻的方法</a>
         
       </h1>
@@ -1052,58 +1104,6 @@
 <h2 id="半径查找"><a href="#半径查找" class="headerlink" title="半径查找"></a>半径查找</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">SELECT lat,</span><br><span class="line">       lon,</span><br><span class="line">       location,</span><br><span class="line">       cnt</span><br><span class="line">FROM ggg</span><br><span class="line">WHERE 1 &#x3D; 1</span><br><span class="line">  AND cnt &gt; 1</span><br><span class="line">  AND ST_DWithin(</span><br><span class="line">        ggg.geom,</span><br><span class="line">        ST_MakePoint(42.9764, 47.5024)::GEOGRAPHY,</span><br><span class="line">        200000</span><br><span class="line">    );</span><br></pre></td></tr></table></figure>
 
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考:"></a>参考:</h2><p><a href="https://live.osgeo.org/en/quickstart/postgis_quickstart.html" target="_blank" rel="noopener">https://live.osgeo.org/en/quickstart/postgis_quickstart.html</a><br><a href="https://gis.stackexchange.com/questions/145007/creating-geometry-from-lat-lon-in-table-using-postgis" target="_blank" rel="noopener">https://gis.stackexchange.com/questions/145007/creating-geometry-from-lat-lon-in-table-using-postgis</a></p>
-
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-      
-        
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2020/06/03/Caddyfile-v2-example/">Caddyfile v2 example</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2020-06-03
-        </span>
-        
-          <span class="post-category">
-            
-              <a href="/categories/linux/">linux</a>
-            
-          </span>
-        
-        
-      </div>
-    </header>
-
-    
-    
-
-
-    <div class="post-content">
-      
-        
-        
-
-        
-          <p><a href="https://gist.githubusercontent.com/wancaibida/4e0e30c2f1c5cc4848f7e492ed4b9d9b/raw/f374bcb569ec494bf965ed491fee6b8e234302f4/Caddyfile" target="_blank" rel="noopener">Caddyfile</a></p>
-<p>参考：</p>
-<ul>
-<li><a href="https://caddyserver.com/docs/caddyfile/matchers#named-matchers" target="_blank" rel="noopener">https://caddyserver.com/docs/caddyfile/matchers#named-matchers</a></li>
-<li><a href="https://caddy.community/t/caddy-v2-how-to-proxy-websoket-v2ray-websocket-tls/7040/12" target="_blank" rel="noopener">https://caddy.community/t/caddy-v2-how-to-proxy-websoket-v2ray-websocket-tls/7040/12</a></li>
-</ul>
 
         
       
