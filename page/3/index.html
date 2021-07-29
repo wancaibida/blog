@@ -235,6 +235,69 @@
     <header class="post-header">
       <h1 class="post-title">
         
+          <a class="post-link" href="/2019/11/11/Google-Cloud-Pub-Sub%E7%9A%84%E4%B8%80%E4%BA%9B%E7%A0%94%E7%A9%B6/">Google Cloud Pub Sub的一些研究</a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2019-11-11
+        </span>
+        
+          <span class="post-category">
+            
+              <a href="/categories/linux/">linux</a>
+            
+          </span>
+        
+        
+      </div>
+    </header>
+
+    
+    
+
+
+    <div class="post-content">
+      
+        
+        
+
+        
+          <ul>
+<li>多个客户端可以使用一个<code>subscription</code>，每个客户端只会收到一部分的消息：</li>
+</ul>
+<blockquote>
+<p>Multiple subscribers can make pull calls to the same “shared” subscription. Each subscriber will receive a subset of the messages<br>出处：<a href="https://cloud.google.com/pubsub/docs/subscriber#push-subscription" target="_blank" rel="noopener">https://cloud.google.com/pubsub/docs/subscriber#push-subscription</a></p>
+</blockquote>
+<ul>
+<li>对于一些处理比较耗时的消息，客户端有后台任务会自动更新ack<br>deadline，详情可见<a href="https://github.com/googleapis/google-cloud-java/blob/v0.99.0/google-cloud-clients/google-cloud-pubsub/src/main/java/com/google/cloud/pubsub/v1/MessageDispatcher.java#L400" target="_blank" rel="noopener">extendDeadlines</a>方法。</li>
+</ul>
+<ul>
+<li>关于<code>Message retention duration</code></li>
+</ul>
+<blockquote>
+<p>By default, a message that cannot be delivered within the maximum retention time of 7 days is deleted and is no longer accessible. This typically happens when subscribers do not keep up with the flow of messages. Note that you can configure message retention duration (the range is from 10 minutes to 7 days).</p>
+</blockquote>
+<p>意思就是如果消息在<code>Message retention duration</code>时间内没有被处理完成的话，这条消息就会删除并且再也访问不到。</p>
+<p>比如程序的BUG导致消息一直无法被处理，经过 <code>Message retention duration</code> 后这条消息就再也收不到了，会导致数据丢失。</p>
+
+        
+      
+    </div>
+
+    
+
+    
+
+  </article>
+
+      
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
           <a class="post-link" href="/2019/10/23/Safari-can-t-establish-a-secure-connection-%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/">Safari can't establish a secure connection 解决办法</a>
         
       </h1>
@@ -887,77 +950,6 @@
 <h2 id="启动服务"><a href="#启动服务" class="headerlink" title="启动服务"></a>启动服务</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo brew services restart dnsmasq</span><br><span class="line">sudo brew services restart dnscrypt-proxy</span><br></pre></td></tr></table></figure>
 <p>重启后将本机DNS指向127.0.0.1即可。</p>
 <h2 id="更新日志"><a href="#更新日志" class="headerlink" title="更新日志"></a>更新日志</h2><p>2020-05-14: 修改了文章错误</p>
-
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-      
-        
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2019/05/04/Manjaro%E8%87%AA%E5%8A%A8%E6%8C%82%E8%BD%BDsamba%E6%96%87%E4%BB%B6%E5%A4%B9/">Manjaro自动挂载samba文件夹</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2019-05-04
-        </span>
-        
-          <span class="post-category">
-            
-              <a href="/categories/linux/">linux</a>
-            
-          </span>
-        
-        
-      </div>
-    </header>
-
-    
-    
-
-
-    <div class="post-content">
-      
-        
-        
-
-        
-          <p>Manjaro从地址栏访问samba共享的方式总有点问题，会时不时提示没有文件夹修改权限。最近有时间研究了下，发现命令行挂载的方式比较靠谱。</p>
-<p>由于路由器刷的是<code>openwrt</code>，软件源里安装的samba服务端版本似乎是比较老的版本，<code>manjaro</code>命令行挂载似乎用的是较新的samba协议，调了半天发现客户端这边要加下版本号。</p>
-<p>挂载命令：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd &#x2F;mnt</span><br><span class="line">sudo mkdir share0</span><br><span class="line">sudo mount.cifs &#x2F;&#x2F;192.168.1.1&#x2F;share0 &#x2F;mnt&#x2F;share0 -o user&#x3D;SAMBA_USERNAME,pass&#x3D;SAMBA_PASSWORD,uid&#x3D;1000,gid&#x3D;1000,sec&#x3D;ntlmssp,vers&#x3D;1.0 --verbose</span><br></pre></td></tr></table></figure>
-
-<p>命令行挂载调通后，要实现开机自动挂载就容易的多了，官方文档提供的多种的挂载方式，这里以<code>systemd</code>为例：</p>
-<ol>
-<li>在<code>/etc/samba/</code>下建立<code>credentials</code>文件夹：<code>sudo mkdir credentials</code>，创建比如名为<code>share0</code>的文件： <code>sudo vim share0</code>，内容如下：</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">username&#x3D;your samba username</span><br><span class="line">password&#x3D;your samba password</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li><p>创建systemd unit文件：<code>sudo /etc/systemd/system/mnt-share0.mount</code>，内容如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description&#x3D;Mount Share at boot</span><br><span class="line"></span><br><span class="line">[Mount]</span><br><span class="line">What&#x3D;&#x2F;&#x2F;192.168.1.1&#x2F;share0</span><br><span class="line">Where&#x3D;&#x2F;mnt&#x2F;share0</span><br><span class="line">Options&#x3D;x-systemd.automount,credentials&#x3D;&#x2F;etc&#x2F;samba&#x2F;credentials&#x2F;share0,iocharset&#x3D;utf8,uid&#x3D;1000,gid&#x3D;1000,sec&#x3D;ntlmssp,vers&#x3D;1.0,rw</span><br><span class="line">Type&#x3D;cifs</span><br><span class="line">TimeoutSec&#x3D;30</span><br><span class="line">ForceUnmount&#x3D;true</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy&#x3D;multi-user.target</span><br></pre></td></tr></table></figure>
-
-<p>Note：这里有一点要注意的是你的挂载路径（<code>where</code>）必须与你的文件名（<code>mnt-share0</code>）对应，比如你挂载到<code>/mnt/share</code>， 那你的文件就必须为<code>mnt-share0.mount</code></p>
-</li>
-<li><p>启用服务<code>sudo systemctl enable mnt-share0.mount</code></p>
-</li>
-<li><p>启动服务<code>sudo systemctl start mnt-share0.mount</code></p>
-</li>
-</ol>
-<p>到这里samba文件夹就能开机自动挂载，官方还提供了其他的自动挂载方式，详情可参考文档。</p>
-<p>参考：</p>
-<p><a href="https://wiki.archlinux.org/index.php/samba#As_systemd_unit" target="_blank" rel="noopener"><a href="https://wiki.archlinux.org/index.php/samba#As_systemd_unit" target="_blank" rel="noopener">https://wiki.archlinux.org/index.php/samba#As_systemd_unit</a></a></p>
 
         
       

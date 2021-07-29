@@ -235,6 +235,52 @@
     <header class="post-header">
       <h1 class="post-title">
         
+          <a class="post-link" href="/2018/02/12/Sl4j-Logback%E4%BE%9D%E8%B5%96%E9%85%8D%E7%BD%AE/">Sl4j+Logback依赖配置</a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-02-12
+        </span>
+        
+          <span class="post-category">
+            
+              <a href="/categories/java/">java</a>
+            
+          </span>
+        
+        
+      </div>
+    </header>
+
+    
+    
+
+
+    <div class="post-content">
+      
+        
+        
+
+        
+          <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">def sl4jVersion &#x3D; &#39;1.7.25&#39;</span><br><span class="line">def logbackVersion &#x3D; &#39;1.2.3&#39;</span><br><span class="line"></span><br><span class="line">compile group: &#39;ch.qos.logback&#39;, name: &#39;logback-core&#39;, version: logbackVersion</span><br><span class="line">compile group: &#39;ch.qos.logback&#39;, name: &#39;logback-classic&#39;, version: logbackVersion</span><br><span class="line">compile group: &#39;ch.qos.logback&#39;, name: &#39;logback-access&#39;, version: logbackVersion</span><br><span class="line">compile group: &#39;org.slf4j&#39;, name: &#39;slf4j-api&#39;, version: sl4jVersion</span><br><span class="line">compile group: &#39;org.slf4j&#39;, name: &#39;jcl-over-slf4j&#39;, version: sl4jVersion</span><br><span class="line">compile group: &#39;org.slf4j&#39;, name: &#39;log4j-over-slf4j&#39;, version: sl4jVersion</span><br></pre></td></tr></table></figure>
+        
+      
+    </div>
+
+    
+
+    
+
+  </article>
+
+      
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
           <a class="post-link" href="/2018/01/24/Alfred-argv%E4%B8%8Equery%E7%9A%84%E7%94%A8%E6%B3%95/">Alfred argv与query的用法</a>
         
       </h1>
@@ -831,60 +877,6 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-Duser.timezone&#x3D;UTC</span><br></pre></td></tr></table></figure>
 
 
-
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-      
-        
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2017/06/13/Hibernate%E5%AD%A6%E4%B9%A0/">Hibernate学习</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2017-06-13
-        </span>
-        
-          <span class="post-category">
-            
-              <a href="/categories/java/">java</a>
-            
-          </span>
-        
-        
-      </div>
-    </header>
-
-    
-    
-
-
-    <div class="post-content">
-      
-        
-        
-
-        
-          <h3 id="占位符（named-parameters）对order-by无效"><a href="#占位符（named-parameters）对order-by无效" class="headerlink" title="占位符（named parameters）对order by无效"></a>占位符（named parameters）对order by无效</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;对于最后两字段sortField和sortOrder设值时是没有效果的</span><br><span class="line">SELECT * FROM t_table WHERE column&#x3D;:param1 ORDER BY :sortField :sortOrder</span><br></pre></td></tr></table></figure>
-
-<h3 id="isDirty细节"><a href="#isDirty细节" class="headerlink" title="isDirty细节"></a>isDirty细节</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">def product &#x3D; Product.get(xxx)</span><br><span class="line">product.name &#x3D; &#39;anotherName&#39;</span><br><span class="line">product.save()</span><br><span class="line">product.isDirty() &#x2F;&#x2F;true</span><br><span class="line"></span><br><span class="line">def product &#x3D; Product.get(xxx)</span><br><span class="line">product.name &#x3D; &#39;anotherName&#39;</span><br><span class="line">product.save(flush:true)</span><br><span class="line">product.isDirty() &#x2F;&#x2F;false</span><br></pre></td></tr></table></figure>
-<p>hibernate 中entity get时会有个loadstate 来记录entity的初始状态,调用isDirty方法将比较当前 entity和loadstate来判断entity是否发生改变,然而当flush:true时,将刷新loadstate状态,从时调用isDirty将反回true.</p>
-<h3 id="Session-Flush"><a href="#Session-Flush" class="headerlink" title="Session Flush"></a>Session Flush</h3><ul>
-<li>HQL查询会导致session flush<br>所以在调用isDirty前进行HQL查询会导致isDirty始终返回false</li>
-</ul>
-<h3 id="flush与transaction的联系"><a href="#flush与transaction的联系" class="headerlink" title="flush与transaction的联系"></a>flush与transaction的联系</h3><p>flush后Hibernate会生成SQL语句并执行，但只有环绕的transaction提交后才会真正的同步到数据库</p>
 
         
       
