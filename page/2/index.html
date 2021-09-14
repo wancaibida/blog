@@ -235,6 +235,52 @@
     <header class="post-header">
       <h1 class="post-title">
         
+          <a class="post-link" href="/2020/07/23/Python3-logging%E7%94%A8%E6%B3%95/">Python3 logging用法</a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2020-07-23
+        </span>
+        
+          <span class="post-category">
+            
+              <a href="/categories/linux/">linux</a>
+            
+          </span>
+        
+        
+      </div>
+    </header>
+
+    
+    
+
+
+    <div class="post-content">
+      
+        
+        
+
+        
+          <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">import logging</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">log &#x3D; logging.getLogger()</span><br><span class="line">log.setLevel(logging.DEBUG)</span><br><span class="line"></span><br><span class="line">handler &#x3D; logging.StreamHandler(sys.stdout)</span><br><span class="line">handler.setLevel(logging.INFO)</span><br><span class="line">formatter &#x3D; logging.Formatter(&#39;[%(threadName)s] %(asctime)s - %(name)s - %(levelname)s - %(message)s&#39;)</span><br><span class="line">handler.setFormatter(formatter)</span><br><span class="line">log.addHandler(handler)</span><br><span class="line"></span><br><span class="line">log.info(&quot;Hello %s&quot;, &quot;world)</span><br></pre></td></tr></table></figure>
+        
+      
+    </div>
+
+    
+
+    
+
+  </article>
+
+      
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
           <a class="post-link" href="/2020/07/23/PostGIS%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/">PostGIS快速入门</a>
         
       </h1>
@@ -721,72 +767,6 @@
 
 <p>按上述代码修改后，再也没有发生OutOfMemoryError。对于问题1，目前发现<a href="https://commons.apache.org/proper/commons-imaging/whyimaging.html" target="_blank" rel="noopener">apache commons-imaging</a>似乎可以解决这问题，有时间去尝试下，到时候再来更新本文。</p>
 <h2 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h2><p><a href="https://coderanch.com/t/416485/java/Java-BufferedImage-OutOfMemoryError" target="_blank" rel="noopener">https://coderanch.com/t/416485/java/Java-BufferedImage-OutOfMemoryError</a></p>
-
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-      
-        
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2019/11/28/Kubernetes%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AEJVM%E5%86%85%E5%AD%98/">Kubernetes环境配置JVM内存</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2019-11-28
-        </span>
-        
-          <span class="post-category">
-            
-              <a href="/categories/linux/">linux</a>
-            
-          </span>
-        
-        
-      </div>
-    </header>
-
-    
-    
-
-
-    <div class="post-content">
-      
-        
-        
-
-        
-          <p>我们知道JVM在docker容器环境中是无法正确检测到可用内存的，最近正好遇到了一个与之相关的问题，在此记录一下。</p>
-<p>遇到问题的项目技术栈为JDK 8 + Spring Boot + Tomcat，部署在docker环境。项目运行过程中出现了<code>java.lang.OutOfMemoryError: Java heap space</code>异常，当时项目的部署文件如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">apiVersion: apps&#x2F;v1</span><br><span class="line">kind: StatefulSet</span><br><span class="line">metadata:</span><br><span class="line">  name: api-deployment</span><br><span class="line">  labels:</span><br><span class="line">    app: api</span><br><span class="line">spec:</span><br><span class="line">  serviceName: api-app</span><br><span class="line">  replicas: 2</span><br><span class="line">  selector:</span><br><span class="line">    matchLabels:</span><br><span class="line">      app: api</span><br><span class="line">  template:</span><br><span class="line">    metadata:</span><br><span class="line">      labels:</span><br><span class="line">        app: api</span><br><span class="line">    spec:</span><br><span class="line">      terminationGracePeriodSeconds: 30</span><br><span class="line">      containers:</span><br><span class="line">        - image: ...</span><br><span class="line">          imagePullPolicy: &quot;Always&quot;</span><br><span class="line">          name: api</span><br><span class="line">          ports:</span><br><span class="line">            - containerPort: 8080</span><br><span class="line">          livenessProbe:</span><br><span class="line">            httpGet:</span><br><span class="line">              path: &#x2F;</span><br><span class="line">              port: 8080</span><br><span class="line">            initialDelaySeconds: 300</span><br><span class="line">            periodSeconds: 5</span><br><span class="line">          readinessProbe:</span><br><span class="line">            httpGet:</span><br><span class="line">              path: &#x2F;</span><br><span class="line">              port: 8080</span><br><span class="line">            initialDelaySeconds: 60</span><br><span class="line">            periodSeconds: 5</span><br><span class="line">          securityContext:</span><br><span class="line">            capabilities:</span><br><span class="line">              add:</span><br><span class="line">                - SYS_PTRACE </span><br><span class="line">          envFrom:</span><br><span class="line">            - secretRef:</span><br><span class="line">                name: secret</span><br></pre></td></tr></table></figure>
-<p>问题应该出在k8s内存设置与JVM的配置这边，网上查询资料后发现tomcat可以通过<code>CATALINA_OPTS</code>环境变量来设置JVM参数，<code>UseCGroupMemoryLimitForHeap</code> 可以让JVM自动检测容器的可用内存，<code>MaxRAMFraction</code> 为容器内存和堆内存的比例，比如容器内存为2G，MaxRAMFraction为2，则最大堆内存为2G/2=1G，这里将<code>MaxRAMFraction</code>设置为2比较安全，设置了这两个参数后，JVM就能通过检测容器的内存来自动调整堆内存大小，不用再显示设置堆内存了。</p>
-<p>更新后的配置文件里加了如下代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">          env:</span><br><span class="line">              - name: CATALINA_OPTS</span><br><span class="line">                value: &quot;-XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -XX:MaxRAMFraction&#x3D;2&quot;</span><br><span class="line">          resources:</span><br><span class="line">            requests:</span><br><span class="line">              memory: &quot;512Mi&quot;</span><br></pre></td></tr></table></figure>
-
-<p>项目运行一段时间后发现问题依旧，研究了下<code>UseCGroupMemoryLimitForHeap</code>参数，发现它是通过读取系统<code>/sys/fs/cgroup/memory/memory.limit_in_bytes</code>文件来检测内存的，登录到容器里查看了下该文件，发现里面是一个很大的值：<code>9223372036854771712</code>，等于没有内存限制，查了下资料发现这个字段是通过k8s文件中的<code>resources-&gt;limits</code>的这个属性来配置的，更新文件，加了如下代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">limits:</span><br><span class="line">  memory: &quot;2048Mi&quot;</span><br></pre></td></tr></table></figure>
-
-<p>观察一段时间后内存就没再溢出，最终完整配置文件如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">apiVersion: apps&#x2F;v1</span><br><span class="line">kind: StatefulSet</span><br><span class="line">metadata:</span><br><span class="line">  name: api-deployment</span><br><span class="line">  labels:</span><br><span class="line">    app: api</span><br><span class="line">spec:</span><br><span class="line">  serviceName: api-app</span><br><span class="line">  replicas: 2</span><br><span class="line">  selector:</span><br><span class="line">    matchLabels:</span><br><span class="line">      app: api</span><br><span class="line">  template:</span><br><span class="line">    metadata:</span><br><span class="line">      labels:</span><br><span class="line">        app: api</span><br><span class="line">    spec:</span><br><span class="line">      terminationGracePeriodSeconds: 30</span><br><span class="line">      containers:</span><br><span class="line">        - image: ...</span><br><span class="line">          imagePullPolicy: &quot;Always&quot;</span><br><span class="line">          name: api</span><br><span class="line">          ports:</span><br><span class="line">            - containerPort: 8080</span><br><span class="line">          livenessProbe:</span><br><span class="line">            httpGet:</span><br><span class="line">              path: &#x2F;</span><br><span class="line">              port: 8080</span><br><span class="line">            initialDelaySeconds: 300</span><br><span class="line">            periodSeconds: 5</span><br><span class="line">          readinessProbe:</span><br><span class="line">            httpGet:</span><br><span class="line">              path: &#x2F;</span><br><span class="line">              port: 8080</span><br><span class="line">            initialDelaySeconds: 60</span><br><span class="line">            periodSeconds: 5</span><br><span class="line">          securityContext:</span><br><span class="line">            capabilities:</span><br><span class="line">              add:</span><br><span class="line">                - SYS_PTRACE </span><br><span class="line">          env:</span><br><span class="line">              - name: CATALINA_OPTS</span><br><span class="line">                value: &quot;-XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -XX:MaxRAMFraction&#x3D;2&quot;</span><br><span class="line">          envFrom:</span><br><span class="line">            - secretRef:</span><br><span class="line">                name: secret</span><br><span class="line">          resources:</span><br><span class="line">            requests:</span><br><span class="line">              memory: &quot;512Mi&quot;</span><br><span class="line">            limits:</span><br><span class="line">              memory: &quot;2048Mi&quot;</span><br></pre></td></tr></table></figure>
-
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
-<li><a href="https://github.com/docker-library/tomcat/issues/157" target="_blank" rel="noopener">https://github.com/docker-library/tomcat/issues/157</a></li>
-<li><a href="https://blog.csanchez.org/2017/05/31/running-a-jvm-in-a-container-without-getting-killed/" target="_blank" rel="noopener">https://blog.csanchez.org/2017/05/31/running-a-jvm-in-a-container-without-getting-killed/</a></li>
-<li><a href="https://www.logicbig.com/how-to/java-command/jvm-option-list.html" target="_blank" rel="noopener">https://www.logicbig.com/how-to/java-command/jvm-option-list.html</a></li>
-<li><a href="https://medium.com/adorsys/jvm-memory-settings-in-a-container-environment-64b0840e1d9e" target="_blank" rel="noopener">https://medium.com/adorsys/jvm-memory-settings-in-a-container-environment-64b0840e1d9e</a></li>
-<li><a href="https://stackoverflow.com/a/53826135/1776024" target="_blank" rel="noopener">https://stackoverflow.com/a/53826135/1776024</a></li>
-</ul>
 
         
       
