@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://w2x.me/"/>
-  <updated>2021-09-14T02:07:12.395Z</updated>
+  <updated>2021-11-16T02:33:21.926Z</updated>
   <id>https://w2x.me/</id>
   
   <author>
@@ -17,11 +17,38 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>AWS S3 Static Website Hosting 404</title>
+    <link href="https://w2x.me/2021/11/16/AWS-S3-Static-Website-Hosting-404/"/>
+    <id>https://w2x.me/2021/11/16/AWS-S3-Static-Website-Hosting-404/</id>
+    <published>2021-11-16T02:29:00.000Z</published>
+    <updated>2021-11-16T02:33:21.926Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;公司的前端项目是以静态化网页的方式部署在aws s3上的, 由于前端项目是用react写的,  页面的路由是前端代码控制,页面实际是不存在于s3中的, 所以每次刷新网页的时候控制台会产生一条404错误, 研究了下这个错误可以在cloudfront那里修复.&lt;/p&gt;
+&lt;p&gt;解
+      
+    
+    </summary>
+    
+    
+      <category term="linux" scheme="https://w2x.me/categories/linux/"/>
+    
+    
+      <category term="aws" scheme="https://w2x.me/tags/aws/"/>
+    
+      <category term="s3" scheme="https://w2x.me/tags/s3/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Github Actions动态密钥名称</title>
     <link href="https://w2x.me/2021/09/14/Github-Actions%E5%8A%A8%E6%80%81%E5%AF%86%E9%92%A5%E5%90%8D%E7%A7%B0/"/>
     <id>https://w2x.me/2021/09/14/Github-Actions%E5%8A%A8%E6%80%81%E5%AF%86%E9%92%A5%E5%90%8D%E7%A7%B0/</id>
     <published>2021-09-14T02:05:00.000Z</published>
-    <updated>2021-09-14T02:07:12.395Z</updated>
+    <updated>2021-11-16T02:33:21.930Z</updated>
     
     <summary type="html">
     
@@ -48,7 +75,7 @@
     <link href="https://w2x.me/2021/07/29/Spring-Data-JPA%E4%BF%9D%E5%AD%98jsob%E7%B1%BB%E5%9E%8B%E6%95%B0%E6%8D%AE/"/>
     <id>https://w2x.me/2021/07/29/Spring-Data-JPA%E4%BF%9D%E5%AD%98jsob%E7%B1%BB%E5%9E%8B%E6%95%B0%E6%8D%AE/</id>
     <published>2021-07-29T13:10:00.000Z</published>
-    <updated>2021-09-14T02:07:12.395Z</updated>
+    <updated>2021-11-16T02:33:21.930Z</updated>
     
     <summary type="html">
     
@@ -74,7 +101,7 @@
     <link href="https://w2x.me/2021/06/28/Terraform-connection-ssh-private-key%E7%94%A8%E6%B3%95/"/>
     <id>https://w2x.me/2021/06/28/Terraform-connection-ssh-private-key%E7%94%A8%E6%B3%95/</id>
     <published>2021-06-28T13:54:00.000Z</published>
-    <updated>2021-09-14T02:07:12.395Z</updated>
+    <updated>2021-11-16T02:33:21.930Z</updated>
     
     <summary type="html">
     
@@ -99,7 +126,7 @@
     <link href="https://w2x.me/2021/03/25/MIUI%E7%B3%BB%E7%BB%9F%E4%B8%8BTasker%E4%BF%9D%E6%8C%81%E5%90%8E%E5%8F%B0%E5%B8%B8%E9%A9%BB%E7%9A%84%E6%96%B9%E6%B3%95/"/>
     <id>https://w2x.me/2021/03/25/MIUI%E7%B3%BB%E7%BB%9F%E4%B8%8BTasker%E4%BF%9D%E6%8C%81%E5%90%8E%E5%8F%B0%E5%B8%B8%E9%A9%BB%E7%9A%84%E6%96%B9%E6%B3%95/</id>
     <published>2021-03-25T14:48:00.000Z</published>
-    <updated>2021-09-14T02:07:12.395Z</updated>
+    <updated>2021-11-16T02:33:21.930Z</updated>
     
     <summary type="html">
     
@@ -128,7 +155,7 @@
     <link href="https://w2x.me/2021/03/25/Terraform-multiple-line-script-example/"/>
     <id>https://w2x.me/2021/03/25/Terraform-multiple-line-script-example/</id>
     <published>2021-03-25T13:23:00.000Z</published>
-    <updated>2021-09-14T02:07:12.395Z</updated>
+    <updated>2021-11-16T02:33:21.930Z</updated>
     
     <summary type="html">
     
@@ -152,7 +179,7 @@
     <link href="https://w2x.me/2021/02/25/Chrome%E6%B8%85%E9%99%A4DNS%E7%BC%93%E5%AD%98/"/>
     <id>https://w2x.me/2021/02/25/Chrome%E6%B8%85%E9%99%A4DNS%E7%BC%93%E5%AD%98/</id>
     <published>2021-02-25T13:17:00.000Z</published>
-    <updated>2021-09-14T02:07:12.395Z</updated>
+    <updated>2021-11-16T02:33:21.930Z</updated>
     
     <summary type="html">
     
@@ -183,7 +210,7 @@
     <link href="https://w2x.me/2020/12/27/macOS%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AEPodman-2-x/"/>
     <id>https://w2x.me/2020/12/27/macOS%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AEPodman-2-x/</id>
     <published>2020-12-27T12:16:00.000Z</published>
-    <updated>2021-09-14T02:07:12.395Z</updated>
+    <updated>2021-11-16T02:33:21.930Z</updated>
     
     <summary type="html">
     
@@ -212,7 +239,7 @@
     <link href="https://w2x.me/2020/12/17/%E6%9F%902ray%E7%99%BD%E5%90%8D%E5%8D%95%E8%B7%AF%E7%94%B1%E6%AD%A3%E7%A1%AE%E5%86%99%E6%B3%95/"/>
     <id>https://w2x.me/2020/12/17/%E6%9F%902ray%E7%99%BD%E5%90%8D%E5%8D%95%E8%B7%AF%E7%94%B1%E6%AD%A3%E7%A1%AE%E5%86%99%E6%B3%95/</id>
     <published>2020-12-17T13:31:00.000Z</published>
-    <updated>2021-09-14T02:07:12.399Z</updated>
+    <updated>2021-11-16T02:33:21.930Z</updated>
     
     <summary type="html">
     
@@ -237,7 +264,7 @@
     <link href="https://w2x.me/2020/09/23/SQL%E5%88%86%E9%A1%B5%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/"/>
     <id>https://w2x.me/2020/09/23/SQL%E5%88%86%E9%A1%B5%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/</id>
     <published>2020-09-23T03:17:00.000Z</published>
-    <updated>2021-09-14T02:07:12.395Z</updated>
+    <updated>2021-11-16T02:33:21.930Z</updated>
     
     <summary type="html">
     
@@ -266,7 +293,7 @@
     <link href="https://w2x.me/2020/07/23/Google-Cloud-BigQuery-Create-Partition-Table-From-Existing-Table/"/>
     <id>https://w2x.me/2020/07/23/Google-Cloud-BigQuery-Create-Partition-Table-From-Existing-Table/</id>
     <published>2020-07-23T12:35:00.000Z</published>
-    <updated>2021-09-14T02:07:12.395Z</updated>
+    <updated>2021-11-16T02:33:21.930Z</updated>
     
     <summary type="html">
     
@@ -290,7 +317,7 @@
     <link href="https://w2x.me/2020/07/23/Python3-logging%E7%94%A8%E6%B3%95/"/>
     <id>https://w2x.me/2020/07/23/Python3-logging%E7%94%A8%E6%B3%95/</id>
     <published>2020-07-23T12:31:00.000Z</published>
-    <updated>2021-09-14T02:07:12.395Z</updated>
+    <updated>2021-11-16T02:33:21.930Z</updated>
     
     <summary type="html">
     
@@ -314,7 +341,7 @@
     <link href="https://w2x.me/2020/07/23/PostGIS%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/"/>
     <id>https://w2x.me/2020/07/23/PostGIS%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/</id>
     <published>2020-07-23T12:30:00.000Z</published>
-    <updated>2021-09-14T02:07:12.395Z</updated>
+    <updated>2021-11-16T02:33:21.930Z</updated>
     
     <summary type="html">
     
@@ -340,7 +367,7 @@
     <link href="https://w2x.me/2020/06/03/Caddyfile-v2-example/"/>
     <id>https://w2x.me/2020/06/03/Caddyfile-v2-example/</id>
     <published>2020-06-03T13:10:00.000Z</published>
-    <updated>2021-09-14T02:07:12.395Z</updated>
+    <updated>2021-11-16T02:33:21.930Z</updated>
     
     <summary type="html">
     
@@ -364,7 +391,7 @@
     <link href="https://w2x.me/2020/06/01/Openwrt%E7%8E%AF%E5%A2%83%E4%B8%8B%E6%9F%902ray-too-many-open-files-%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3/"/>
     <id>https://w2x.me/2020/06/01/Openwrt%E7%8E%AF%E5%A2%83%E4%B8%8B%E6%9F%902ray-too-many-open-files-%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3/</id>
     <published>2020-06-01T13:07:00.000Z</published>
-    <updated>2021-09-14T02:07:12.395Z</updated>
+    <updated>2021-11-16T02:33:21.930Z</updated>
     
     <summary type="html">
     
@@ -389,7 +416,7 @@
     <link href="https://w2x.me/2020/05/14/Kubernetes-Create-User/"/>
     <id>https://w2x.me/2020/05/14/Kubernetes-Create-User/</id>
     <published>2020-05-14T13:18:00.000Z</published>
-    <updated>2021-09-14T02:07:12.395Z</updated>
+    <updated>2021-11-16T02:33:21.930Z</updated>
     
     <summary type="html">
     
@@ -413,7 +440,7 @@
     <link href="https://w2x.me/2020/04/14/Dockerfile-multiple-stage-example/"/>
     <id>https://w2x.me/2020/04/14/Dockerfile-multiple-stage-example/</id>
     <published>2020-04-14T13:18:00.000Z</published>
-    <updated>2021-09-14T02:07:12.395Z</updated>
+    <updated>2021-11-16T02:33:21.930Z</updated>
     
     <summary type="html">
     
@@ -435,7 +462,7 @@
     <link href="https://w2x.me/2020/02/17/Openwrt%E4%B8%8Bdnsmasq%E9%85%8D%E7%BD%AE/"/>
     <id>https://w2x.me/2020/02/17/Openwrt%E4%B8%8Bdnsmasq%E9%85%8D%E7%BD%AE/</id>
     <published>2020-02-17T13:42:00.000Z</published>
-    <updated>2021-09-14T02:07:12.395Z</updated>
+    <updated>2021-11-16T02:33:21.930Z</updated>
     
     <summary type="html">
     
@@ -464,7 +491,7 @@
     <link href="https://w2x.me/2020/02/09/Openwrt%E4%B8%8B%E6%97%A0%E6%B3%95%E8%AE%BF%E9%97%AEmedium-com%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/"/>
     <id>https://w2x.me/2020/02/09/Openwrt%E4%B8%8B%E6%97%A0%E6%B3%95%E8%AE%BF%E9%97%AEmedium-com%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</id>
     <published>2020-02-09T13:57:00.000Z</published>
-    <updated>2021-09-14T02:07:12.395Z</updated>
+    <updated>2021-11-16T02:33:21.930Z</updated>
     
     <summary type="html">
     
@@ -491,7 +518,7 @@
     <link href="https://w2x.me/2019/12/10/Bitbucket-pipeline%E4%BC%A0%E9%80%92%E6%96%87%E4%BB%B6%E5%86%85%E5%AE%B9%E5%8F%98%E9%87%8F/"/>
     <id>https://w2x.me/2019/12/10/Bitbucket-pipeline%E4%BC%A0%E9%80%92%E6%96%87%E4%BB%B6%E5%86%85%E5%AE%B9%E5%8F%98%E9%87%8F/</id>
     <published>2019-12-10T13:15:00.000Z</published>
-    <updated>2021-09-14T02:07:12.395Z</updated>
+    <updated>2021-11-16T02:33:21.930Z</updated>
     
     <summary type="html">
     
@@ -509,37 +536,6 @@
       <category term="bitbucket" scheme="https://w2x.me/tags/bitbucket/"/>
     
       <category term="pipeline" scheme="https://w2x.me/tags/pipeline/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Java BufferedImage OutOfMemoryError</title>
-    <link href="https://w2x.me/2019/12/06/Java-BufferedImage-OutOfMemoryError/"/>
-    <id>https://w2x.me/2019/12/06/Java-BufferedImage-OutOfMemoryError/</id>
-    <published>2019-12-06T04:10:00.000Z</published>
-    <updated>2021-09-14T02:07:12.395Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;最近遇到了BufferedImage OutOfMemoryError的问题，在此记录一下。&lt;/p&gt;
-&lt;p&gt;事情的起因是项目中有个功能需要将多张图片合并为一张，流程如下：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;有三个图片文件，&lt;code&gt;File A,File B,File C&lt;/co
-      
-    
-    </summary>
-    
-    
-      <category term="java" scheme="https://w2x.me/categories/java/"/>
-    
-    
-      <category term="java" scheme="https://w2x.me/tags/java/"/>
-    
-      <category term="bufferedimage" scheme="https://w2x.me/tags/bufferedimage/"/>
-    
-      <category term="outofmemoryerror" scheme="https://w2x.me/tags/outofmemoryerror/"/>
     
   </entry>
   

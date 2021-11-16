@@ -235,6 +235,57 @@
     <header class="post-header">
       <h1 class="post-title">
         
+          <a class="post-link" href="/2021/11/16/AWS-S3-Static-Website-Hosting-404/">AWS S3 Static Website Hosting 404</a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2021-11-16
+        </span>
+        
+          <span class="post-category">
+            
+              <a href="/categories/linux/">linux</a>
+            
+          </span>
+        
+        
+      </div>
+    </header>
+
+    
+    
+
+
+    <div class="post-content">
+      
+        
+        
+
+        
+          <p>公司的前端项目是以静态化网页的方式部署在aws s3上的, 由于前端项目是用react写的,  页面的路由是前端代码控制,页面实际是不存在于s3中的, 所以每次刷新网页的时候控制台会产生一条404错误, 研究了下这个错误可以在cloudfront那里修复.</p>
+<p>解决办法:<br>Cloudfront-&gt;选择项目的cdn-&gt;Error Pages-&gt;Create custom error response</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Http error code      -&gt; 404</span><br><span class="line">Custom error resonse -&gt; Yes</span><br><span class="line">Response page path   -&gt; &#x2F;index.html</span><br><span class="line">Http Response code   -&gt; 200:OK</span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/E33CB21F09C63BB1BC91833BD1A2B348.png" alt="Custom error response"></p>
+
+        
+      
+    </div>
+
+    
+
+    
+
+  </article>
+
+      
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
           <a class="post-link" href="/2021/09/14/Github-Actions%E5%8A%A8%E6%80%81%E5%AF%86%E9%92%A5%E5%90%8D%E7%A7%B0/">Github Actions动态密钥名称</a>
         
       </h1>
@@ -1054,52 +1105,6 @@
 <li><a href="https://blog.jooq.org/2013/11/18/faster-sql-pagination-with-keysets-continued/" target="_blank" rel="noopener">https://blog.jooq.org/2013/11/18/faster-sql-pagination-with-keysets-continued/</a></li>
 </ul>
 
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-      
-        
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2020/07/23/Google-Cloud-BigQuery-Create-Partition-Table-From-Existing-Table/">Google Cloud BigQuery Create Partition Table From Existing Table</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2020-07-23
-        </span>
-        
-          <span class="post-category">
-            
-              <a href="/categories/linux/">linux</a>
-            
-          </span>
-        
-        
-      </div>
-    </header>
-
-    
-    
-
-
-    <div class="post-content">
-      
-        
-        
-
-        
-          <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">create table [schema-name].copy</span><br><span class="line">partition by date([timestamp-column])</span><br><span class="line">as select * from [schema-name].[table-name];</span><br><span class="line">drop table [schema-name].[table-name];</span><br></pre></td></tr></table></figure>
         
       
     </div>

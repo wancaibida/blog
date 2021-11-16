@@ -17,8 +17,12 @@
 
 
 
+  <meta name="description" content="AWS S3 Static Website Hosting 404"/>
 
 
+
+
+  <meta name="keywords" content="aws, s3, Charles' Blog" />
 
 
 
@@ -38,7 +42,7 @@
 
 
 
-<link rel="canonical" href="https://w2x.me/archives/2019/07/"/>
+<link rel="canonical" href="https://w2x.me/2021/11/16/AWS-S3-Static-Website-Hosting-404/"/>
 
 
 
@@ -96,11 +100,7 @@
   window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":true};
 </script>
 
-    <title>
-  
-    Archives - Charles' Blog
-  
-</title>
+    <title> AWS S3 Static Website Hosting 404 - Charles' Blog </title>
   <meta name="generator" content="Hexo 4.2.1"><link rel="alternate" href="/atom.xml" title="Charles' Blog" type="application/atom+xml">
 </head>
 
@@ -231,59 +231,114 @@
           <div id="content" class="content">
             
   
-  
-  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          AWS S3 Static Website Hosting 404
+        
+      </h1>
 
-  <section id="archive" class="archive">
-    
-      
-        <div class="archive-title">
-          <span class="archive-post-counter">
-            65 Posts In Total
+      <div class="post-meta">
+        <span class="post-time">
+          2021-11-16
+        </span>
+        
+          <span class="post-category">
+            
+              <a href="/categories/linux/">linux</a>
+            
           </span>
-        </div>
+        
+        
+      </div>
+    </header>
+
+    
+    
+
+
+    <div class="post-content">
+      
+        <p>公司的前端项目是以静态化网页的方式部署在aws s3上的, 由于前端项目是用react写的,  页面的路由是前端代码控制,页面实际是不存在于s3中的, 所以每次刷新网页的时候控制台会产生一条404错误, 研究了下这个错误可以在cloudfront那里修复.</p>
+<p>解决办法:<br>Cloudfront-&gt;选择项目的cdn-&gt;Error Pages-&gt;Create custom error response</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Http error code      -&gt; 404</span><br><span class="line">Custom error resonse -&gt; Yes</span><br><span class="line">Response page path   -&gt; &#x2F;index.html</span><br><span class="line">Http Response code   -&gt; 200:OK</span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/E33CB21F09C63BB1BC91833BD1A2B348.png" alt="Custom error response"></p>
+
+      
+    </div>
+
+    
+      
+      
+
+  <div class="post-copyright">
+    <p class="copyright-item">
+      <span>Author: </span>
+      <a href="https://w2x.me">大丈夫没问题</a>
+    </p>
+    <p class="copyright-item">
+      <span>Link: </span>
+      <a href="https://w2x.me/2021/11/16/AWS-S3-Static-Website-Hosting-404/">https://w2x.me/2021/11/16/AWS-S3-Static-Website-Hosting-404/</a>
+    </p>
+    <p class="copyright-item">
+      <span>License: </span>
+      
+      <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+    </p>
+  </div>
+
+
+
+      
       
     
 
     
-      
+      <footer class="post-footer">
         
-        
-
-        
-          
-          <div class="collection-title">
-            <h2 class="archive-year">2019</h2>
+          <div class="post-tags">
+            
+              <a href="/tags/aws/">aws</a>
+            
+              <a href="/tags/s3/">s3</a>
+            
           </div>
         
-      
-
-      <div class="archive-post">
-        <span class="archive-post-time">
-          
-            07-25
-          
-        </span>
-        <span class="archive-post-title">
-          <a href="/2019/07/25/zsh%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%8E%86%E5%8F%B2%E5%90%8C%E6%AD%A5%E6%8F%92%E4%BB%B6%E6%8E%A8%E8%8D%90/" class="archive-post-link">
-            Zsh命令行历史同步插件推荐
-          </a>
-        </span>
-      </div>
+        
+        
+  <nav class="post-nav">
     
-  </section>
-
-  
-  <nav class="pagination">
     
+      <a class="next" href="/2021/09/14/Github-Actions%E5%8A%A8%E6%80%81%E5%AF%86%E9%92%A5%E5%90%8D%E7%A7%B0/">
+        <span class="next-text nav-default">Github Actions动态密钥名称</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
     
   </nav>
 
 
+      </footer>
+    
+
+  </article>
 
 
           </div>
           
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
 
         </div>
       </main>
@@ -367,6 +422,27 @@
     </div>
 
     
+  
+  <script type="text/javascript">
+    var disqus_config = function () {
+        this.page.url = 'https://w2x.me/2021/11/16/AWS-S3-Static-Website-Hosting-404/';
+        this.page.identifier = '2021/11/16/AWS-S3-Static-Website-Hosting-404/';
+        this.page.title = 'AWS S3 Static Website Hosting 404';
+    };
+    (function() {
+    var d = document, s = d.createElement('script');
+
+    s.src = '//w2x-me.disqus.com/embed.js';
+
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();  
+  </script>
+
+  
+
+  
+
 
 
     
