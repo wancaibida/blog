@@ -17,8 +17,12 @@
 
 
 
+  <meta name="description" content="Openwrt中Firewall - Custom Rules fwmark命令不起作用的问题"/>
 
 
+
+
+  <meta name="keywords" content="linux, openwrt, Charles' Blog" />
 
 
 
@@ -38,7 +42,7 @@
 
 
 
-<link rel="canonical" href="https://w2x.me/archives/2019/12/"/>
+<link rel="canonical" href="https://w2x.me/2021/12/30/Openwrt中Firewall-Custom-Rules-fwmark命令不起作用的问题/"/>
 
 
 
@@ -96,11 +100,7 @@
   window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":true};
 </script>
 
-    <title>
-  
-    Archives - Charles' Blog
-  
-</title>
+    <title> Openwrt中Firewall - Custom Rules fwmark命令不起作用的问题 - Charles' Blog </title>
   <meta name="generator" content="Hexo 4.2.1"><link rel="alternate" href="/atom.xml" title="Charles' Blog" type="application/atom+xml">
 </head>
 
@@ -231,79 +231,122 @@
           <div id="content" class="content">
             
   
-  
-  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          Openwrt中Firewall - Custom Rules fwmark命令不起作用的问题
+        
+      </h1>
 
-  <section id="archive" class="archive">
-    
-      
-        <div class="archive-title">
-          <span class="archive-post-counter">
-            66 Posts In Total
+      <div class="post-meta">
+        <span class="post-time">
+          2021-12-30
+        </span>
+        
+          <span class="post-category">
+            
+              <a href="/categories/linux/">linux</a>
+            
           </span>
-        </div>
+        
+        
+      </div>
+    </header>
+
+    
+    
+
+
+    <div class="post-content">
+      
+        <p>路由器设置了透明代理, 但是每次重启路由器后代理就是失效了, 发现Custom Rules中<code>ip rule add fwmark 1 table 100</code> 这个命令不知道啥原因在重启后会被清除, 导致代理失败.</p>
+<p>解决办法就是编辑 <code>/etc/config/network</code></p>
+<p>添加以下内容</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">config rule</span><br><span class="line">	option mark   &#39;0x1&#39;</span><br><span class="line">	option lookup &#39;100&#39;</span><br><span class="line"></span><br><span class="line">config route</span><br><span class="line">	option interface &#39;loopback&#39;</span><br><span class="line">	option target &#39;0.0.0.0&#39;</span><br><span class="line">	option netmask &#39;0.0.0.0&#39;</span><br><span class="line">	option table &#39;100&#39;</span><br><span class="line">	option type &#39;local&#39;</span><br></pre></td></tr></table></figure>
+
+<p>代替Custom Rules的这两条命令:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ip rule add fwmark 1 table 100</span><br><span class="line">ip route add local 0.0.0.0&#x2F;0 dev lo table 100</span><br></pre></td></tr></table></figure>
+
+<p>参考:</p>
+<ul>
+<li><a href="https://forum.openwrt.org/t/equivalent-of-ip-route-rule-to-be-saved-in-etc-config-network/76593" target="_blank" rel="noopener">https://forum.openwrt.org/t/equivalent-of-ip-route-rule-to-be-saved-in-etc-config-network/76593</a></li>
+<li><a href="https://openwrt.org/docs/guide-user/network/ucicheatsheet#ipv4_routes" target="_blank" rel="noopener">https://openwrt.org/docs/guide-user/network/ucicheatsheet#ipv4_routes</a></li>
+</ul>
+
+      
+    </div>
+
+    
+      
+      
+
+  <div class="post-copyright">
+    <p class="copyright-item">
+      <span>Author: </span>
+      <a href="https://w2x.me">大丈夫没问题</a>
+    </p>
+    <p class="copyright-item">
+      <span>Link: </span>
+      <a href="https://w2x.me/2021/12/30/Openwrt%E4%B8%ADFirewall-Custom-Rules-fwmark%E5%91%BD%E4%BB%A4%E4%B8%8D%E8%B5%B7%E4%BD%9C%E7%94%A8%E7%9A%84%E9%97%AE%E9%A2%98/">https://w2x.me/2021/12/30/Openwrt%E4%B8%ADFirewall-Custom-Rules-fwmark%E5%91%BD%E4%BB%A4%E4%B8%8D%E8%B5%B7%E4%BD%9C%E7%94%A8%E7%9A%84%E9%97%AE%E9%A2%98/</a>
+    </p>
+    <p class="copyright-item">
+      <span>License: </span>
+      
+      <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+    </p>
+  </div>
+
+
+
+      
       
     
 
     
-      
+      <footer class="post-footer">
         
-        
-
-        
-          
-          <div class="collection-title">
-            <h2 class="archive-year">2019</h2>
+          <div class="post-tags">
+            
+              <a href="/tags/linux/">linux</a>
+            
+              <a href="/tags/openwrt/">openwrt</a>
+            
           </div>
         
-      
-
-      <div class="archive-post">
-        <span class="archive-post-time">
-          
-            12-10
-          
-        </span>
-        <span class="archive-post-title">
-          <a href="/2019/12/10/Bitbucket-pipeline%E4%BC%A0%E9%80%92%E6%96%87%E4%BB%B6%E5%86%85%E5%AE%B9%E5%8F%98%E9%87%8F/" class="archive-post-link">
-            Bitbucket pipeline传递文件内容变量
-          </a>
-        </span>
-      </div>
-    
-      
         
         
-
-        
-      
-
-      <div class="archive-post">
-        <span class="archive-post-time">
-          
-            12-06
-          
-        </span>
-        <span class="archive-post-title">
-          <a href="/2019/12/06/Java-BufferedImage-OutOfMemoryError/" class="archive-post-link">
-            Java BufferedImage OutOfMemoryError
-          </a>
-        </span>
-      </div>
+  <nav class="post-nav">
     
-  </section>
-
-  
-  <nav class="pagination">
     
+      <a class="next" href="/2021/11/16/AWS-S3-Static-Website-Hosting-404/">
+        <span class="next-text nav-default">AWS S3 Static Website Hosting 404</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
     
   </nav>
 
 
+      </footer>
+    
+
+  </article>
 
 
           </div>
           
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
 
         </div>
       </main>
@@ -387,6 +430,27 @@
     </div>
 
     
+  
+  <script type="text/javascript">
+    var disqus_config = function () {
+        this.page.url = 'https://w2x.me/2021/12/30/Openwrt%E4%B8%ADFirewall-Custom-Rules-fwmark%E5%91%BD%E4%BB%A4%E4%B8%8D%E8%B5%B7%E4%BD%9C%E7%94%A8%E7%9A%84%E9%97%AE%E9%A2%98/';
+        this.page.identifier = '2021/12/30/Openwrt中Firewall-Custom-Rules-fwmark命令不起作用的问题/';
+        this.page.title = 'Openwrt中Firewall - Custom Rules fwmark命令不起作用的问题';
+    };
+    (function() {
+    var d = document, s = d.createElement('script');
+
+    s.src = '//w2x-me.disqus.com/embed.js';
+
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();  
+  </script>
+
+  
+
+  
+
 
 
     

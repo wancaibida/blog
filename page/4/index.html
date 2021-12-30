@@ -235,6 +235,80 @@
     <header class="post-header">
       <h1 class="post-title">
         
+          <a class="post-link" href="/2019/06/20/AWS-Cloudformation-%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95/">AWS Cloudformation 踩坑记录</a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2019-06-20
+        </span>
+        
+          <span class="post-category">
+            
+              <a href="/categories/linux/">linux</a>
+            
+          </span>
+        
+        
+      </div>
+    </header>
+
+    
+    
+
+
+    <div class="post-content">
+      
+        
+        
+
+        
+          <p>最近用cloudformation时遇到了一些坑，在此记录一下。</p>
+<h2 id="Conditions变量无法直接当布尔类型使用"><a href="#Conditions变量无法直接当布尔类型使用" class="headerlink" title="Conditions变量无法直接当布尔类型使用"></a>Conditions变量无法直接当布尔类型使用</h2><p><a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/conditions-section-structure.html" target="_blank" rel="noopener">Conditions</a>可以动态控制一些资源的创建：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">Conditions: </span><br><span class="line">  CreateProdResources: !Equals [ !Ref EnvType, prod ]</span><br><span class="line">Resources: </span><br><span class="line">  EC2Instance: </span><br><span class="line">    Type: &quot;AWS::EC2::Instance&quot;</span><br><span class="line">    Properties: </span><br><span class="line">      ImageId: !FindInMap [RegionMap, !Ref &quot;AWS::Region&quot;, AMI]</span><br><span class="line">  MountPoint: </span><br><span class="line">    Type: &quot;AWS::EC2::VolumeAttachment&quot;</span><br><span class="line">    Condition: CreateProdResources</span><br><span class="line">    Properties: </span><br><span class="line">      InstanceId: </span><br><span class="line">        !Ref EC2Instance</span><br><span class="line">      VolumeId: </span><br><span class="line">        !Ref NewVolume</span><br><span class="line">      Device: &#x2F;dev&#x2F;sdh</span><br><span class="line">  NewVolume: </span><br><span class="line">    Type: &quot;AWS::EC2::Volume&quot;</span><br><span class="line">    Condition: CreateProdResources</span><br><span class="line">    Properties: </span><br><span class="line">      Size: 100</span><br><span class="line">      AvailabilityZone: </span><br><span class="line">        !GetAtt EC2Instance.AvailabilityZone</span><br></pre></td></tr></table></figure>
+
+<p>但是如果在其他地方像这样使用会报<code>Unresolved resource dependencies CreateResources</code>错误</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;xxx&#x2F;xx&#x2F;xx.conf:</span><br><span class="line">  source:</span><br><span class="line">    !Sub https:&#x2F;&#x2F;$&#123;bucket&#125;.s3.amazonaws.com&#x2F;$&#123;prefix&#125;&#x2F;xx.conf</span><br><span class="line">  context:</span><br><span class="line">    create_resources: !Ref CreateResources</span><br><span class="line">  mode: &quot;000644&quot;</span><br><span class="line">  owner: root</span><br><span class="line">  group: root</span><br></pre></td></tr></table></figure>
+<p>解决办法就时将<code>create_resources: !Ref CreateResources</code> 改成 <code>create_resources: !If [CreateResources, &quot;true output &quot;, &quot;false output&quot;]</code></p>
+<h2 id="aws-resource-init-files-传递布尔变量"><a href="#aws-resource-init-files-传递布尔变量" class="headerlink" title="aws-resource-init-files 传递布尔变量"></a>aws-resource-init-files 传递布尔变量</h2><p>AWS::CloudFormation::Init中 <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-init.html#aws-resource-init-files" target="_blank" rel="noopener">files</a>属性可以用来创建文件，<code>files</code>的<code>context</code>属性可以传递变量，来动态生成文件内容.<br>AWS文档里说文件是通过类似<a href="http://mustache.github.io/mustache.5.html" target="_blank" rel="noopener">mustache</a>的方式来处理的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">A typical Mustache template:</span><br><span class="line"></span><br><span class="line">Hello &#123;&#123;name&#125;&#125;</span><br><span class="line">You have just won &#123;&#123;value&#125;&#125; dollars!</span><br><span class="line">&#123;&#123;#in_ca&#125;&#125;</span><br><span class="line">Well, &#123;&#123;taxed_value&#125;&#125; dollars, after taxes.</span><br><span class="line">&#123;&#123;&#x2F;in_ca&#125;&#125;</span><br><span class="line">Given the following hash:</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  &quot;name&quot;: &quot;Chris&quot;,</span><br><span class="line">  &quot;value&quot;: 10000,</span><br><span class="line">  &quot;taxed_value&quot;: 10000 - (10000 * 0.4),</span><br><span class="line">  &quot;in_ca&quot;: true</span><br><span class="line">&#125;</span><br><span class="line">Will produce the following:</span><br><span class="line"></span><br><span class="line">Hello Chris</span><br><span class="line">You have just won 10000 dollars!</span><br><span class="line">Well, 6000.0 dollars, after taxes.</span><br></pre></td></tr></table></figure>
+
+<p>这里有个坑就是布尔类型在cloudformation里时当做字符类型来传递的，AWS官方认为这是一个feature而不是bug: <a href="https://forums.aws.amazon.com/thread.jspa?messageID=898706&#898706" target="_blank" rel="noopener">What you have observed is a known behaviour with the CloudFormation servie</a><br>例如：</p>
+<p>xxx.conf</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123;#create_resources&#125;&#125;</span><br><span class="line">this is true</span><br><span class="line">&#123;&#123;&#x2F;create_resources&#125;&#125;</span><br><span class="line"></span><br><span class="line">&#123;&#123;^create_resources&#125;&#125;</span><br><span class="line">this is false</span><br><span class="line">&#123;&#123;&#x2F;create_resources&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>yaml配置文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;xxx.conf:</span><br><span class="line">  authentication: S3BucketAccess</span><br><span class="line">  source:</span><br><span class="line">    !Sub https:&#x2F;&#x2F;$&#123;bucket&#125;.s3.amazonaws.com&#x2F;$&#123;prefix&#125;&#x2F;xxx.conf</span><br><span class="line">  context:</span><br><span class="line">    create_resources: !If [CreateResources, true, false]</span><br><span class="line">  mode: &quot;000644&quot;</span><br><span class="line">  owner: root</span><br><span class="line">  group: root</span><br></pre></td></tr></table></figure>
+
+<p>这里无论 <code>CreateResources</code> 是 <code>true</code> 还是 <code>false</code>，文件内容始终会是 <code>this is true</code>，因为配置文件里的 <code>true</code> 和 <code>false</code> 都被转成了字符类型。</p>
+<p>这里的解决办法比较hack，就是将<code>!If [CreateResources, true, false]</code>改成<code>!If [CreateResources, [1], []]</code>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;xxx.conf:</span><br><span class="line">  authentication: S3BucketAccess</span><br><span class="line">  source:</span><br><span class="line">    !Sub https:&#x2F;&#x2F;$&#123;bucket&#125;.s3.amazonaws.com&#x2F;$&#123;prefix&#125;&#x2F;xxx.conf</span><br><span class="line">  context:</span><br><span class="line">    create_resources: !If [CreateResources, [1], []]</span><br><span class="line">  mode: &quot;000644&quot;</span><br><span class="line">  owner: root</span><br><span class="line">  group: root</span><br></pre></td></tr></table></figure>
+
+<p>这里主要参考了 <code>mustache</code> 文档里 <code>Inverted Sections</code> : <a href="https://mustache.github.io/mustache.5.html" target="_blank" rel="noopener">https://mustache.github.io/mustache.5.html</a></p>
+<h2 id="aws-resource-init-资源更新问题"><a href="#aws-resource-init-资源更新问题" class="headerlink" title="aws-resource-init 资源更新问题"></a>aws-resource-init 资源更新问题</h2><p><a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-init.html#aws-resource-init-sources" target="_blank" rel="noopener">aws-resource-init-sources</a>可以用来下载压缩文件并解压到EC2指定目录，但这里有个问题就是如果目标文件夹已存在，cloudformation会将两文件夹内容合并而不是替换文件夹！比如AWS部署的项目使用的依赖<code>LibraryA 1.0</code>，将library升级到<code>Library A 1.1</code>并通过cloudformation source下载并解压新本版的项目到目标目录后，目标目录的项目文件夹里会同时存在<code>Library A</code>的<code>1.0</code>和<code>1.1</code>版本。</p>
+<p>解决办法也很简单，在用sources下载前将目标文件夹移除。</p>
+<p>AWS平台的服务总有一些奇怪的限制或bug，调试时总会花不少时间，在此记录一下，希望能帮助到遇到相同问题的人，节约大家时间。</p>
+<h2 id="Update"><a href="#Update" class="headerlink" title="Update"></a>Update</h2><ul>
+<li>2019-07-07 添加aws-resource-init资源更新问题</li>
+</ul>
+
+        
+      
+    </div>
+
+    
+
+    
+
+  </article>
+
+      
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
           <a class="post-link" href="/2019/06/13/Deskmini-310-%E9%BB%91%E8%8B%B9%E6%9E%9C%E6%8A%98%E8%85%BE%E8%AE%B0/">Deskmini 310 黑苹果折腾记</a>
         
       </h1>
@@ -867,78 +941,6 @@
 
         
           <p>前几天入手了一台wr1200js路由器，到手后成功刷上了openwrt。但重启后发现路由器的配置都丢失了，连管理密码都丢了，网上好多人刷了openwrt后也遇到这样的问题，有说法是路由器闪存读写次数过多坏了，但这刚买的因该不会是这问题，后来在重新刷了下<a href="http://downloads.openwrt.org/releases/18.06.2/targets/ramips/mt7621/openwrt-18.06.2-ramips-mt7621-youhua_wr1200js-squashfs-sysupgrade.bin" target="_blank" rel="noopener">sysupgrade.bin</a>就没这问题了，可能是openwrt在某些条件下会触发这问题。</p>
-
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-      
-        
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2019/02/26/%E8%B7%AF%E7%94%B1%E5%99%A8%E7%9B%B8%E5%85%B3%E7%9A%84%E4%B8%80%E4%BA%9B%E7%A0%94%E7%A9%B6/">路由器相关的一些研究</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2019-02-26
-        </span>
-        
-          <span class="post-category">
-            
-              <a href="/categories/linux/">linux</a>
-            
-          </span>
-        
-        
-      </div>
-    </header>
-
-    
-    
-
-
-    <div class="post-content">
-      
-        
-        
-
-        
-          <p>家中房间里的5G信号不好，每次都得手动切换到2.4G信号，有点麻烦，所以想在房间里弄一台AP，来实现无线无缝漫游，期间做了不少研究，故在此记录一下。</p>
-<h2 id="路由器-AP"><a href="#路由器-AP" class="headerlink" title="路由器/AP"></a>路由器/AP</h2><p>网上看了一圈AP的价格都不便宜，可能是家用AP需求少且大部分是商用的原因，关键还要上POE。论坛好多推荐<code>ubnt</code>的，看了下普通版都要700+rmb。</p>
-<p>千兆路由器好一点的基本是200左右的价格，但这个价位的厂家路由系统比较挫，还不能刷机。在再加点钱都赶上京东618 ac66u b1 499的价格了。 </p>
-<p>那有没有又便宜要好的路由呢，V站好多人都推荐这几款：</p>
-<ul>
-<li>斐讯K2P</li>
-<li>联想Newifi系列</li>
-<li>友华wr1200js</li>
-</ul>
-<h3 id="斐讯K2P"><a href="#斐讯K2P" class="headerlink" title="斐讯K2P"></a>斐讯K2P</h3><p>这个路由器现在都涨到120+了，如果要买的话要买a1版本的。</p>
-<p>优点是做工好，有千兆网口，信号貌似是最好的。</p>
-<p>缺点是现在比较难买，刷机的话要先上恩山论坛网友开发的<a href="https://breed.hackpascal.net/" target="_blank" rel="noopener">breed</a>, breed 就是路由器上的bootloader，breed一开始是基于u-boot的，现在好像是作者自主开发的，但这东西不开源，存在安全风险。固件可以刷padavan，padavan最初是由这个固件<a href="https://bitbucket.org/padavan/rt-n56u" target="_blank" rel="noopener">https://bitbucket.org/padavan/rt-n56u</a>修改过来的，比较有名的是荒野无灯的，但这个也没开源。github上也有基于padavan开源的，不放心的可以拿来自己编译。</p>
-<h3 id="联想Newifi"><a href="#联想Newifi" class="headerlink" title="联想Newifi"></a>联想Newifi</h3><p>联想这边就看了newifi3，这款路由器配置比k2p还要好，价格比k2p还要便宜，某宝的价格才80+，但这款的bootloader被官方锁了，如果要刷第三方固件的话要先越狱，恩山有越狱文件。刷机也是breed+恩山上一大堆网友上传的固件，风险自负，还有一个缺点就是这款信号比较差。</p>
-<h3 id="友华wr1200js"><a href="#友华wr1200js" class="headerlink" title="友华wr1200js"></a>友华wr1200js</h3><p>友华wr1200js配置和k2p差不多，但做工、信号没有k2p好，最终选择了这款，某宝138入手。这款路由器最大的优点是bootloader没有锁，可以直接上传第三方固件！！还有一个是openwrt完美支持，固件<a href="http://downloads.openwrt.org/releases/18.06.2/targets/ramips/mt7621/openwrt-18.06.2-ramips-mt7621-youhua_wr1200js-initramfs-kernel.bin" target="_blank" rel="noopener">下载地址</a>。</p>
-<h2 id="Openwrt-和-NAT"><a href="#Openwrt-和-NAT" class="headerlink" title="Openwrt 和 NAT"></a>Openwrt 和 NAT</h2><p>喜欢路由器刷机的都知道openwrt，路由器刷了openwrt基本上就告别了硬件nat（貌似MT7621是支持的），由路由器CPU来实现nat，由于路由器CPU的性能都比较弱如果再加上一些附带的功能，路由器CPU就有点力不从心了，这是就推荐openwrt x86了。</p>
-<h2 id="MESH网络"><a href="#MESH网络" class="headerlink" title="MESH网络"></a>MESH网络</h2><p>研究了下mesh网络，研究下来一些mesh设备是通过在开一个无线频道来实现组网的，貌似无线组网的效果都不怎么好，要走有线回程才靠谱。</p>
-<p>一些实现方案：</p>
-<ul>
-<li><a href="https://qmp.cat/Home" target="_blank" rel="noopener">qMp</a></li>
-<li><a href="https://openwrt.org/docs/guide-user/network/wifi/mesh/80211s" target="_blank" rel="noopener">wpad</a></li>
-</ul>
-<h2 id="无线漫游"><a href="#无线漫游" class="headerlink" title="无线漫游"></a>无线漫游</h2><p>比较省钱的无线漫游方式就是路由器设置成AP模式，要相同SSID，要隔开几个频道。</p>
-<p>专业的AP都带管理功能的。</p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://www.v2ex.com/t/339779" target="_blank" rel="noopener">MT7621 路由性能评测</a></p>
-<p><a href="https://www.jianshu.com/p/bbf372fa8f62" target="_blank" rel="noopener">300m，600m还是1200m——读懂无线路由器的速度标称</a></p>
-<p><a href="https://zhuanlan.zhihu.com/p/43278913" target="_blank" rel="noopener">如何选购无线路由器？有几个坑一定要避免</a></p>
 
         
       

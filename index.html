@@ -235,6 +235,65 @@
     <header class="post-header">
       <h1 class="post-title">
         
+          <a class="post-link" href="/2021/12/30/Openwrt%E4%B8%ADFirewall-Custom-Rules-fwmark%E5%91%BD%E4%BB%A4%E4%B8%8D%E8%B5%B7%E4%BD%9C%E7%94%A8%E7%9A%84%E9%97%AE%E9%A2%98/">Openwrt中Firewall - Custom Rules fwmark命令不起作用的问题</a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2021-12-30
+        </span>
+        
+          <span class="post-category">
+            
+              <a href="/categories/linux/">linux</a>
+            
+          </span>
+        
+        
+      </div>
+    </header>
+
+    
+    
+
+
+    <div class="post-content">
+      
+        
+        
+
+        
+          <p>路由器设置了透明代理, 但是每次重启路由器后代理就是失效了, 发现Custom Rules中<code>ip rule add fwmark 1 table 100</code> 这个命令不知道啥原因在重启后会被清除, 导致代理失败.</p>
+<p>解决办法就是编辑 <code>/etc/config/network</code></p>
+<p>添加以下内容</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">config rule</span><br><span class="line">	option mark   &#39;0x1&#39;</span><br><span class="line">	option lookup &#39;100&#39;</span><br><span class="line"></span><br><span class="line">config route</span><br><span class="line">	option interface &#39;loopback&#39;</span><br><span class="line">	option target &#39;0.0.0.0&#39;</span><br><span class="line">	option netmask &#39;0.0.0.0&#39;</span><br><span class="line">	option table &#39;100&#39;</span><br><span class="line">	option type &#39;local&#39;</span><br></pre></td></tr></table></figure>
+
+<p>代替Custom Rules的这两条命令:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ip rule add fwmark 1 table 100</span><br><span class="line">ip route add local 0.0.0.0&#x2F;0 dev lo table 100</span><br></pre></td></tr></table></figure>
+
+<p>参考:</p>
+<ul>
+<li><a href="https://forum.openwrt.org/t/equivalent-of-ip-route-rule-to-be-saved-in-etc-config-network/76593" target="_blank" rel="noopener">https://forum.openwrt.org/t/equivalent-of-ip-route-rule-to-be-saved-in-etc-config-network/76593</a></li>
+<li><a href="https://openwrt.org/docs/guide-user/network/ucicheatsheet#ipv4_routes" target="_blank" rel="noopener">https://openwrt.org/docs/guide-user/network/ucicheatsheet#ipv4_routes</a></li>
+</ul>
+
+        
+      
+    </div>
+
+    
+
+    
+
+  </article>
+
+      
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
           <a class="post-link" href="/2021/11/16/AWS-S3-Static-Website-Hosting-404/">AWS S3 Static Website Hosting 404</a>
         
       </h1>
@@ -685,426 +744,6 @@
 
 <p>最近发现<code>gstatic.com</code>域名无法访问了，研究发现<code>gstatic.com</code>域名是包含在<code>getsite:cn</code>里面的，正确写法如下：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">&quot;routing&quot;: &#123;</span><br><span class="line">  &quot;rules&quot;: [</span><br><span class="line">    &#123;</span><br><span class="line">      &quot;type&quot;: &quot;field&quot;,</span><br><span class="line">      &quot;outboundTag&quot;: &quot;Direct&quot;,</span><br><span class="line">      &quot;domain&quot;: [</span><br><span class="line">        &quot;geosite:private&quot;,</span><br><span class="line">        &quot;geosite:tld-cn&quot;</span><br><span class="line">      ]</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      &quot;type&quot;: &quot;field&quot;,</span><br><span class="line">      &quot;outboundTag&quot;: &quot;Proxy&quot;,</span><br><span class="line">      &quot;domain&quot;: [</span><br><span class="line">        &quot;geosite:geolocation-!cn&quot;</span><br><span class="line">      ]</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      &quot;type&quot;: &quot;field&quot;,</span><br><span class="line">      &quot;outboundTag&quot;: &quot;Direct&quot;,</span><br><span class="line">      &quot;domain&quot;: [</span><br><span class="line">        &quot;geosite:cn&quot;</span><br><span class="line">      ]</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-      
-        
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2020/09/23/SQL%E5%88%86%E9%A1%B5%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">SQL分页性能优化</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2020-09-23
-        </span>
-        
-          <span class="post-category">
-            
-              <a href="/categories/database/">database</a>
-            
-          </span>
-        
-        
-      </div>
-    </header>
-
-    
-    
-
-
-    <div class="post-content">
-      
-        
-        
-
-        
-          <p>JDBC的分页是通过offset+limit实现的，数据库是通过抓取所有数据并跳过前面n行来数据来实现offset功能的，越到后面跳过的数据越多offset越耗时:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE players AS</span><br><span class="line">SELECT generate_series(1, 10000000)                                     AS id,</span><br><span class="line">       uuid_in(md5(random()::TEXT || clock_timestamp()::TEXT)::CSTRING) AS username,</span><br><span class="line">       floor(random() * 100)                                            AS score;</span><br><span class="line"></span><br><span class="line">CREATE UNIQUE INDEX players_id_uindex</span><br><span class="line">    ON players (id);</span><br></pre></td></tr></table></figure>
-
-<p>OFFSET + LIMIT:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM players ORDER BY id OFFSET 10 LIMIT 10; &#x2F;&#x2F; Execution Time: 0.034 ms</span><br><span class="line">SELECT * FROM players ORDER BY id OFFSET 500000 LIMIT 10; &#x2F;&#x2F; Execution Time: 115.706 ms</span><br><span class="line">SELECT * FROM players ORDER BY id OFFSET 1000000 LIMIT 10; &#x2F;&#x2F; Execution Time: 235.941 ms</span><br><span class="line">SELECT * FROM players ORDER BY id OFFSET 5000000 LIMIT 10; &#x2F;&#x2F; Execution Time: 1212.642 ms</span><br><span class="line">SELECT * FROM players ORDER BY id OFFSET 9000000 LIMIT 10; &#x2F;&#x2F; Execution Time: 2181.703 ms</span><br></pre></td></tr></table></figure>
-
-
-<p>解决办法就是用<code>keyset pagination</code>，用表里面一些唯一的列用来分页：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM players WHERE id &gt; 10 ORDER BY id LIMIT 10; &#x2F;&#x2F; Execution Time: 0.033 ms</span><br><span class="line">SELECT * FROM players WHERE id &gt; 500000 ORDER BY id LIMIT 10; &#x2F;&#x2F; Execution Time: 0.043 ms</span><br><span class="line">SELECT * FROM players WHERE id &gt; 1000000 ORDER BY id LIMIT 10; &#x2F;&#x2F; Execution Time: 0.041 ms</span><br><span class="line">SELECT * FROM players WHERE id &gt; 5000000 ORDER BY id LIMIT 10; &#x2F;&#x2F; Execution Time: 0.037 ms</span><br><span class="line">SELECT * FROM players WHERE id &gt; 9000000 ORDER BY id LIMIT 10; &#x2F;&#x2F; Execution Time: 0.069 ms</span><br></pre></td></tr></table></figure>
-
-<p>实际情况中可能会以score排序：</p>
-<p>创建索引</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CREATE INDEX players_score_username_index ON players (score DESC, username DESC);</span><br></pre></td></tr></table></figure>
-
-<p>OFFSET + LIMIT</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM players ORDER BY score DESC, username DESC OFFSET 500000 LIMIT 10; &#x2F;&#x2F;Execution Time: 1508.534 ms</span><br></pre></td></tr></table></figure>
-
-<p>Keyset pagination</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM players WHERE (score, username) &lt; (94, &#39;fdf62b1a-5b4e-c561-38ad-74ac4f099a46&#39;) ORDER BY score DESC, username DESC LIMIT 10; &#x2F;&#x2F;Execution Time: 0.077 ms</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">(score, username) &lt; (94, &#39;fdf62b1a-5b4e-c561-38ad-74ac4f099a46&#39;)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 效果等同于</span><br><span class="line">score &lt; 94 OR (score &#x3D; 94 AND username &lt; &#39;fdf62b1a-5b4e-c561-38ad-74ac4f099a46&#39;)</span><br></pre></td></tr></table></figure>
-
-<h2 id="进阶"><a href="#进阶" class="headerlink" title="进阶"></a>进阶</h2><p>找出分页边界，这里的关键点是你要找出一列或者多列组成的唯一的列，如果你只按score排序的话，score会有重复的值，会导致排序结果不一致。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">SELECT p.id,</span><br><span class="line">       p.username,</span><br><span class="line">       p.score,</span><br><span class="line">       CASE row_number()</span><br><span class="line">            OVER (ORDER BY p.score DESC , p.username DESC ) % 10</span><br><span class="line">           WHEN 0 THEN 1</span><br><span class="line">           ELSE 0</span><br><span class="line">           END page_boundary</span><br><span class="line">FROM players AS p</span><br><span class="line">ORDER BY p.score DESC, p.username DESC</span><br></pre></td></tr></table></figure>
-<p>查询结果：</p>
-<table>
-<thead>
-<tr>
-<th align="left">id</th>
-<th align="left">username</th>
-<th align="left">score</th>
-<th align="left">page_boundary</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">6603631</td>
-<td align="left">ffffa267-7102-d2e9-0316-572c0044ca4f</td>
-<td align="left">99</td>
-<td align="left">0</td>
-</tr>
-<tr>
-<td align="left">3647464</td>
-<td align="left">ffff44d0-f54a-9139-afb0-f3d188c79a77</td>
-<td align="left">99</td>
-<td align="left">0</td>
-</tr>
-<tr>
-<td align="left">422584</td>
-<td align="left">ffff378c-b897-2498-8133-9d88183e52ec</td>
-<td align="left">99</td>
-<td align="left">0</td>
-</tr>
-<tr>
-<td align="left">6213135</td>
-<td align="left">fffe9b37-c685-4d5f-7781-31489e3b04ea</td>
-<td align="left">99</td>
-<td align="left">0</td>
-</tr>
-<tr>
-<td align="left">7930940</td>
-<td align="left">fffbde40-2009-8faf-4423-d28116f8dfee</td>
-<td align="left">99</td>
-<td align="left">0</td>
-</tr>
-<tr>
-<td align="left">1078914</td>
-<td align="left">fffb2654-23d1-e7f4-cf83-d4298b3c7208</td>
-<td align="left">99</td>
-<td align="left">0</td>
-</tr>
-<tr>
-<td align="left">9984059</td>
-<td align="left">fffb0de3-366c-5d42-ce61-9f7ee197707b</td>
-<td align="left">99</td>
-<td align="left">0</td>
-</tr>
-<tr>
-<td align="left">798388</td>
-<td align="left">fffac15d-a418-83eb-9597-487aa0a9136b</td>
-<td align="left">99</td>
-<td align="left">0</td>
-</tr>
-<tr>
-<td align="left">9247069</td>
-<td align="left">fff8cea2-378d-7bb8-1954-3bc6e6971eee</td>
-<td align="left">99</td>
-<td align="left">0</td>
-</tr>
-<tr>
-<td align="left">1711860</td>
-<td align="left">fff79537-86b8-5bd1-a474-717f151e0448</td>
-<td align="left">99</td>
-<td align="left">1</td>
-</tr>
-<tr>
-<td align="left">4319563</td>
-<td align="left">fff786e7-75b4-5cd7-09c1-eb4dc690dbbc</td>
-<td align="left">99</td>
-<td align="left">0</td>
-</tr>
-<tr>
-<td align="left">6021293</td>
-<td align="left">fff774fb-cf17-d02e-96b0-15555cb36b39</td>
-<td align="left">99</td>
-<td align="left">0</td>
-</tr>
-<tr>
-<td align="left">987629</td>
-<td align="left">fff756f7-e76b-8e8b-9941-c39061dac542</td>
-<td align="left">99</td>
-<td align="left">0</td>
-</tr>
-<tr>
-<td align="left">149766</td>
-<td align="left">fff75386-890f-af96-1c4c-64df0f6f4546</td>
-<td align="left">99</td>
-<td align="left">0</td>
-</tr>
-<tr>
-<td align="left">5546133</td>
-<td align="left">fff6ebcb-f3fb-d4b3-6b33-b56c718d44e4</td>
-<td align="left">99</td>
-<td align="left">0</td>
-</tr>
-<tr>
-<td align="left">5167740</td>
-<td align="left">fff6ce5a-b4c1-5363-554b-a285b6917054</td>
-<td align="left">99</td>
-<td align="left">0</td>
-</tr>
-<tr>
-<td align="left">5931868</td>
-<td align="left">fff5d7a6-1b0d-cf87-e0df-2440a53a7e05</td>
-<td align="left">99</td>
-<td align="left">0</td>
-</tr>
-<tr>
-<td align="left">4577984</td>
-<td align="left">fff55361-9b07-dfc6-9d1a-5fc08cdec7a6</td>
-<td align="left">99</td>
-<td align="left">0</td>
-</tr>
-<tr>
-<td align="left">4013672</td>
-<td align="left">fff4c37a-7ddf-6042-6b8f-eb9d7f8ea691</td>
-<td align="left">99</td>
-<td align="left">0</td>
-</tr>
-<tr>
-<td align="left">7863996</td>
-<td align="left">fff47c1f-18d8-9980-72fb-e51213ff0f17</td>
-<td align="left">99</td>
-<td align="left">1</td>
-</tr>
-</tbody></table>
-<p>找出每一页的最后一条数据</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">SELECT p.id,</span><br><span class="line">       p.username,</span><br><span class="line">       p.score,</span><br><span class="line">       page_boundary,</span><br><span class="line">       row_number()</span><br><span class="line">       OVER (ORDER BY p.score DESC , p.username DESC) + 1 page_number</span><br><span class="line">FROM (</span><br><span class="line">         SELECT p.id,</span><br><span class="line">                p.username,</span><br><span class="line">                p.score,</span><br><span class="line">                CASE row_number()</span><br><span class="line">                     OVER (ORDER BY p.score DESC , p.username DESC ) % 10</span><br><span class="line">                    WHEN 0 THEN 1</span><br><span class="line">                    ELSE 0</span><br><span class="line">                    END page_boundary</span><br><span class="line">         FROM players AS p</span><br><span class="line">         ORDER BY p.score DESC, p.username DESC</span><br><span class="line">     ) AS p</span><br><span class="line">WHERE p.page_boundary &#x3D; 1;</span><br></pre></td></tr></table></figure>
-
-<p>查询结果：</p>
-<table>
-<thead>
-<tr>
-<th align="left">id</th>
-<th align="left">username</th>
-<th align="left">score</th>
-<th align="left">page_boundary</th>
-<th align="left">page_number</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">1711860</td>
-<td align="left">fff79537-86b8-5bd1-a474-717f151e0448</td>
-<td align="left">99</td>
-<td align="left">1</td>
-<td align="left">2</td>
-</tr>
-<tr>
-<td align="left">7863996</td>
-<td align="left">fff47c1f-18d8-9980-72fb-e51213ff0f17</td>
-<td align="left">99</td>
-<td align="left">1</td>
-<td align="left">3</td>
-</tr>
-<tr>
-<td align="left">7016430</td>
-<td align="left">ffe9a2c3-f257-24f2-e6f1-f7219c3581ea</td>
-<td align="left">99</td>
-<td align="left">1</td>
-<td align="left">4</td>
-</tr>
-<tr>
-<td align="left">994965</td>
-<td align="left">ffe61629-a620-7fcb-af3f-4c2c15821b77</td>
-<td align="left">99</td>
-<td align="left">1</td>
-<td align="left">5</td>
-</tr>
-<tr>
-<td align="left">9267095</td>
-<td align="left">ffe1b897-24ac-61d0-a5c2-9103a43b4e77</td>
-<td align="left">99</td>
-<td align="left">1</td>
-<td align="left">6</td>
-</tr>
-<tr>
-<td align="left">936851</td>
-<td align="left">ffda271d-5c69-1a4b-061f-077d75b77f49</td>
-<td align="left">99</td>
-<td align="left">1</td>
-<td align="left">7</td>
-</tr>
-<tr>
-<td align="left">9772528</td>
-<td align="left">ffd521da-c0bf-9909-77a1-9bce8e2c39a6</td>
-<td align="left">99</td>
-<td align="left">1</td>
-<td align="left">8</td>
-</tr>
-<tr>
-<td align="left">3913178</td>
-<td align="left">ffccfdeb-5608-c02e-6dd8-fe372245ee2b</td>
-<td align="left">99</td>
-<td align="left">1</td>
-<td align="left">9</td>
-</tr>
-<tr>
-<td align="left">3757222</td>
-<td align="left">ffc54f77-1f21-d63c-d660-a35910625bfe</td>
-<td align="left">99</td>
-<td align="left">1</td>
-<td align="left">10</td>
-</tr>
-<tr>
-<td align="left">9150019</td>
-<td align="left">ffbe0ffe-db67-44e2-2e84-41d0b54467b6</td>
-<td align="left">99</td>
-<td align="left">1</td>
-<td align="left">11</td>
-</tr>
-</tbody></table>
-<p>所以如果我们要查询第二页的数据，执行下面的sql即可：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM players WHERE (score, username) &lt; (99, &#39;fff79537-86b8-5bd1-a474-717f151e0448&#39;) ORDER BY score DESC, username DESC;</span><br></pre></td></tr></table></figure>
-
-<p>查询结果：</p>
-<table>
-<thead>
-<tr>
-<th align="left">id</th>
-<th align="left">username</th>
-<th align="left">score</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">4319563</td>
-<td align="left">fff786e7-75b4-5cd7-09c1-eb4dc690dbbc</td>
-<td align="left">99</td>
-</tr>
-<tr>
-<td align="left">6021293</td>
-<td align="left">fff774fb-cf17-d02e-96b0-15555cb36b39</td>
-<td align="left">99</td>
-</tr>
-<tr>
-<td align="left">987629</td>
-<td align="left">fff756f7-e76b-8e8b-9941-c39061dac542</td>
-<td align="left">99</td>
-</tr>
-<tr>
-<td align="left">149766</td>
-<td align="left">fff75386-890f-af96-1c4c-64df0f6f4546</td>
-<td align="left">99</td>
-</tr>
-<tr>
-<td align="left">5546133</td>
-<td align="left">fff6ebcb-f3fb-d4b3-6b33-b56c718d44e4</td>
-<td align="left">99</td>
-</tr>
-<tr>
-<td align="left">5167740</td>
-<td align="left">fff6ce5a-b4c1-5363-554b-a285b6917054</td>
-<td align="left">99</td>
-</tr>
-<tr>
-<td align="left">5931868</td>
-<td align="left">fff5d7a6-1b0d-cf87-e0df-2440a53a7e05</td>
-<td align="left">99</td>
-</tr>
-<tr>
-<td align="left">4577984</td>
-<td align="left">fff55361-9b07-dfc6-9d1a-5fc08cdec7a6</td>
-<td align="left">99</td>
-</tr>
-<tr>
-<td align="left">4013672</td>
-<td align="left">fff4c37a-7ddf-6042-6b8f-eb9d7f8ea691</td>
-<td align="left">99</td>
-</tr>
-<tr>
-<td align="left">7863996</td>
-<td align="left">fff47c1f-18d8-9980-72fb-e51213ff0f17</td>
-<td align="left">99</td>
-</tr>
-</tbody></table>
-<p>OFFSET + LIMIT:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM players ORDER BY score DESC, username DESC OFFSET 10 LIMIT 10;</span><br></pre></td></tr></table></figure>
-
-<p>查询结果：</p>
-<table>
-<thead>
-<tr>
-<th align="left">id</th>
-<th align="left">username</th>
-<th align="left">score</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">4319563</td>
-<td align="left">fff786e7-75b4-5cd7-09c1-eb4dc690dbbc</td>
-<td align="left">99</td>
-</tr>
-<tr>
-<td align="left">6021293</td>
-<td align="left">fff774fb-cf17-d02e-96b0-15555cb36b39</td>
-<td align="left">99</td>
-</tr>
-<tr>
-<td align="left">987629</td>
-<td align="left">fff756f7-e76b-8e8b-9941-c39061dac542</td>
-<td align="left">99</td>
-</tr>
-<tr>
-<td align="left">149766</td>
-<td align="left">fff75386-890f-af96-1c4c-64df0f6f4546</td>
-<td align="left">99</td>
-</tr>
-<tr>
-<td align="left">5546133</td>
-<td align="left">fff6ebcb-f3fb-d4b3-6b33-b56c718d44e4</td>
-<td align="left">99</td>
-</tr>
-<tr>
-<td align="left">5167740</td>
-<td align="left">fff6ce5a-b4c1-5363-554b-a285b6917054</td>
-<td align="left">99</td>
-</tr>
-<tr>
-<td align="left">5931868</td>
-<td align="left">fff5d7a6-1b0d-cf87-e0df-2440a53a7e05</td>
-<td align="left">99</td>
-</tr>
-<tr>
-<td align="left">4577984</td>
-<td align="left">fff55361-9b07-dfc6-9d1a-5fc08cdec7a6</td>
-<td align="left">99</td>
-</tr>
-<tr>
-<td align="left">4013672</td>
-<td align="left">fff4c37a-7ddf-6042-6b8f-eb9d7f8ea691</td>
-<td align="left">99</td>
-</tr>
-<tr>
-<td align="left">7863996</td>
-<td align="left">fff47c1f-18d8-9980-72fb-e51213ff0f17</td>
-<td align="left">99</td>
-</tr>
-</tbody></table>
-<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
-<li><a href="https://vladmihalcea.com/resultset-statement-fetching-with-jdbc-and-hibernate/" target="_blank" rel="noopener">https://vladmihalcea.com/resultset-statement-fetching-with-jdbc-and-hibernate/</a></li>
-<li><a href="https://use-the-index-luke.com/no-offset" target="_blank" rel="noopener">https://use-the-index-luke.com/no-offset</a></li>
-<li><a href="https://uxdesign.cc/why-facebook-says-cursor-pagination-is-the-greatest-d6b98d86b6c0" target="_blank" rel="noopener">https://uxdesign.cc/why-facebook-says-cursor-pagination-is-the-greatest-d6b98d86b6c0</a></li>
-<li><a href="https://medium.com/swlh/how-to-implement-cursor-pagination-like-a-pro-513140b65f32" target="_blank" rel="noopener">https://medium.com/swlh/how-to-implement-cursor-pagination-like-a-pro-513140b65f32</a></li>
-<li><a href="https://www.postgresql.org/docs/10/tutorial-window.html" target="_blank" rel="noopener">https://www.postgresql.org/docs/10/tutorial-window.html</a></li>
-<li><a href="https://blog.jooq.org/2013/10/26/faster-sql-paging-with-jooq-using-the-seek-method" target="_blank" rel="noopener">https://blog.jooq.org/2013/10/26/faster-sql-paging-with-jooq-using-the-seek-method</a></li>
-<li><a href="https://www.citusdata.com/blog/2016/03/30/five-ways-to-paginate/" target="_blank" rel="noopener">https://www.citusdata.com/blog/2016/03/30/five-ways-to-paginate/</a></li>
-<li><a href="https://blog.jooq.org/2013/11/18/faster-sql-pagination-with-keysets-continued/" target="_blank" rel="noopener">https://blog.jooq.org/2013/11/18/faster-sql-pagination-with-keysets-continued/</a></li>
-</ul>
-
         
       
     </div>
