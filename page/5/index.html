@@ -235,6 +235,53 @@
     <header class="post-header">
       <h1 class="post-title">
         
+          <a class="post-link" href="/2019/02/27/%E8%AE%B0wr1200js%E5%88%B7%E6%9C%BA%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/">记wr1200js刷机遇到的问题</a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2019-02-27
+        </span>
+        
+          <span class="post-category">
+            
+              <a href="/categories/linux/">linux</a>
+            
+          </span>
+        
+        
+      </div>
+    </header>
+
+    
+    
+
+
+    <div class="post-content">
+      
+        
+        
+
+        
+          <p>前几天入手了一台wr1200js路由器，到手后成功刷上了openwrt。但重启后发现路由器的配置都丢失了，连管理密码都丢了，网上好多人刷了openwrt后也遇到这样的问题，有说法是路由器闪存读写次数过多坏了，但这刚买的因该不会是这问题，后来在重新刷了下<a href="http://downloads.openwrt.org/releases/18.06.2/targets/ramips/mt7621/openwrt-18.06.2-ramips-mt7621-youhua_wr1200js-squashfs-sysupgrade.bin" target="_blank" rel="noopener">sysupgrade.bin</a>就没这问题了，可能是openwrt在某些条件下会触发这问题。</p>
+
+        
+      
+    </div>
+
+    
+
+    
+
+  </article>
+
+      
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
           <a class="post-link" href="/2019/02/26/%E8%B7%AF%E7%94%B1%E5%99%A8%E7%9B%B8%E5%85%B3%E7%9A%84%E4%B8%80%E4%BA%9B%E7%A0%94%E7%A9%B6/">路由器相关的一些研究</a>
         
       </h1>
@@ -1034,77 +1081,6 @@
 <p>由于到了0.4这一步这边是会个循环，0110 0110 …<br>加上尾数部分，最终存储格式如下：<br>    <span style="color:blue"><em>0</em></span> <span style="color:red"><em>1000 0110</em></span> <span style="color:green"><em>01011011011001100110011</em></span></p>
 <p>我们可以通过<code>Float.floatToIntBits(173.7)</code>来验证结果：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Float.floatToIntBits(173.7) &#x3D; 1127068467</span><br><span class="line">1127068467用二进制表示，就是</span><br><span class="line">0 10000110 01011011011001100110011</span><br></pre></td></tr></table></figure>
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-      
-        
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2018/04/01/Grails-3-2-11-Bugs/">Grails 3.2.11 Bugs</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2018-04-01
-        </span>
-        
-          <span class="post-category">
-            
-              <a href="/categories/java/">java</a>
-            
-          </span>
-        
-        
-      </div>
-    </header>
-
-    
-    
-
-
-    <div class="post-content">
-      
-        
-        
-
-        
-          <ul>
-<li>Functional Testing setup无法回滚</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">class BaseFunctionalTest extends GebSpec &#123;</span><br><span class="line">    def setup() &#123;</span><br><span class="line">        Dog dog &#x3D; new Dog(name:&#39;xxxx&#39;)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;需要手动删除</span><br><span class="line">    def cleanup() &#123;</span><br><span class="line">        Dog.findByName(&#39;xxxx&#39;)?.delete()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>JSON Views循环渲染bug</li>
-</ul>
-<p>如果多个GORM实体存在循环引用，则会产生stackover flow异常，如下代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Class A &#123;</span><br><span class="line">    static hasMany &#x3D; [children: B]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Class B &#123;</span><br><span class="line">    A parent</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">def a &#x3D; new A()</span><br><span class="line">def b &#x3D; new B(parent:a)</span><br><span class="line">a.addToChildren(b)</span><br><span class="line"></span><br><span class="line">json g.render(a, [deep: true])</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>isDirty方法实际上时通过检测类属性指向的引用是否改变来实现的，假如是属性内部的属性发生改变，isDirty方法实际是检测不到的。如：</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">class Person&#123;</span><br><span class="line">    String firstName</span><br><span class="line">    String lastName</span><br><span class="line">    Address address</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Address&#123;</span><br><span class="line">    String city</span><br><span class="line">    String street</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Address address &#x3D; new Address(&#39;shanghai&#39;,&#39;street&#39;)</span><br><span class="line">Person person &#x3D; new Person(&#39;fname&#39;,&#39;lname&#39;,address)</span><br><span class="line"></span><br><span class="line">person.save()</span><br><span class="line">person.firstName &#x3D; &#39;xxxx&#39;</span><br><span class="line">person.isDirty() &#x3D;&#x3D; true</span><br><span class="line">person.isDirty(&#39;firstName&#39;) &#x3D;&#x3D; true</span><br><span class="line"></span><br><span class="line">person.save()</span><br><span class="line">address.city &#x3D; &#39;beijing&#39;</span><br><span class="line">person.isDirty(&#39;address&#39;) &#x3D;&#x3D; false</span><br><span class="line">person.isDirty() &#x3D;&#x3D; false</span><br><span class="line"></span><br><span class="line">person.address.isDirty() &#x3D;&#x3D; true</span><br><span class="line">person.address.isDirty(&#39;city&#39;) &#x3D;&#x3D; true</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>build test data plugin 不支持自定义约束的属性，就算在<code>TestDataConfig.groovy</code>中设置了也没用，如：</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">testDataConfig &#123;</span><br><span class="line">    sampleData &#123;</span><br><span class="line">        Dog &#123;</span><br><span class="line">            name &#x3D; &#123; -&gt;</span><br><span class="line">                UUID.randomUUID().toString().toUpperCase().replace(&#39;-&#39;, &#39;&#39;)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Class Dog &#123;</span><br><span class="line">    String owner</span><br><span class="line">    String name</span><br><span class="line">    </span><br><span class="line">    static constraints &#x3D; &#123;</span><br><span class="line">            name validator: &#123; val, obj -&gt;</span><br><span class="line">            ...</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Dog dog &#x3D; Dog.build()</span><br><span class="line">dog.name &#x3D;&#x3D; &#39;name&#39;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>one-to-many关联中，用left join的方式从many的一方查找出来one，one关联的many对象不正确，如：</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">class Person &#123;</span><br><span class="line">    static hasMany &#x3D; [dogs:Dog]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Dog &#123;</span><br><span class="line">    String name</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Dog a &#x3D; new Dog(&#39;A&#39;)</span><br><span class="line">Dog b &#x3D; new Dog(&#39;B&#39;)</span><br><span class="line"></span><br><span class="line">Person p &#x3D; new Person(&#39;P&#39;)</span><br><span class="line">person.addToDogs(a)</span><br><span class="line">person.addToDogs(b)</span><br><span class="line">person.save()</span><br><span class="line"></span><br><span class="line">Collection&lt;Person&gt; result &#x3D; Person.withCriteria &#123;</span><br><span class="line">    createAlias(&#39;dogs&#39;, &#39;d&#39;, org.hibernate.sql.JoinType.LEFT_OUTER_JOIN)</span><br><span class="line">    eq(&#39;d.name&#39;, &#39;A&#39;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">result[0].dogs.size() &#x3D;&#x3D; 1</span><br><span class="line"></span><br><span class="line">result &#x3D; Person.withCriteria &#123;</span><br><span class="line">    dogs &#123;</span><br><span class="line">        eq(&#39;name&#39;,&#39;A&#39;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">result[0].dogs.size() &#x3D;&#x3D; 2</span><br></pre></td></tr></table></figure>
-
-
         
       
     </div>

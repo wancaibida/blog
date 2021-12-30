@@ -235,6 +235,62 @@
     <header class="post-header">
       <h1 class="post-title">
         
+          <a class="post-link" href="/2021/12/30/Deskmin-H470-%E5%8D%8A%E5%B9%B4%E4%BD%BF%E7%94%A8%E4%BD%93%E9%AA%8C/">Deskmin H470 半年使用体验</a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2021-12-30
+        </span>
+        
+          <span class="post-category">
+            
+              <a href="/categories/linux/">linux</a>
+            
+          </span>
+        
+        
+      </div>
+    </header>
+
+    
+    
+
+
+    <div class="post-content">
+      
+        
+        
+
+        
+          <p>今年4月份组装了一台黑苹果放公司, 配置为deskmini h470/i7 10700/64G/1TSSD, 原来那台2015款的macbook pro就开会的时候用用了.</p>
+<p>系统很稳定, 几乎没有异常重启过. 遇到的小问题有几个:</p>
+<ol>
+<li>接4k显示器的时偶尔会间歇黑屏, 手动进入睡眠在唤醒后似乎可以解决这问题?</li>
+<li>有一次公司停电后重启后蓝牙失效, 不知到是不是因为天线没有接好的原因, 拆机把天线的螺丝拧紧后蓝牙又好了</li>
+<li>有一阶段发现系统每次唤醒后网速变得很慢, 起初以为是网卡的原因, 后来发现是项目程序在上传文件把带宽给用完了, 为这问题还折腾了好久🤣 .　</li>
+</ol>
+<p>一开始买的网卡是cs2两天线的版本,后来又换成了2cs 三天线版本, 2cs版本的话天线不能买的太粗, 不然放不下, 我是淘宝买了两根粗的加自带的一根天线.</p>
+<p>EFI使用的是这为大佬的: <a href="https://github.com/paranoid2006/ASRock-Deskmini-H470-Hackintosh" target="_blank" rel="noopener">https://github.com/paranoid2006/ASRock-Deskmini-H470-Hackintosh</a></p>
+<p>有了<a href="/2019/06/13/Deskmini-310-黑苹果折腾记/">上次</a>的安装经历, 这次的安装过程就很简单了, 制作usb安装盘-&gt;替换掉安装盘里的efi-&gt;安装系统-&gt;系统安装成功后在替换系统的efi-&gt;修改三码-&gt;完成.</p>
+
+        
+      
+    </div>
+
+    
+
+    
+
+  </article>
+
+      
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
           <a class="post-link" href="/2021/12/30/Openwrt%E4%B8%ADFirewall-Custom-Rules-fwmark%E5%91%BD%E4%BB%A4%E4%B8%8D%E8%B5%B7%E4%BD%9C%E7%94%A8%E7%9A%84%E9%97%AE%E9%A2%98/">Openwrt中Firewall - Custom Rules fwmark命令不起作用的问题</a>
         
       </h1>
@@ -694,56 +750,6 @@
 <li><a href="https://github.com/containers/podman/blob/master/docs/tutorials/mac_win_client.md" target="_blank" rel="noopener">Podman Remote clients for MacOS and Windows</a></li>
 </ul>
 
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-      
-        
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2020/12/17/%E6%9F%902ray%E7%99%BD%E5%90%8D%E5%8D%95%E8%B7%AF%E7%94%B1%E6%AD%A3%E7%A1%AE%E5%86%99%E6%B3%95/">某2ray白名单路由正确写法</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2020-12-17
-        </span>
-        
-          <span class="post-category">
-            
-              <a href="/categories/linux/">linux</a>
-            
-          </span>
-        
-        
-      </div>
-    </header>
-
-    
-    
-
-
-    <div class="post-content">
-      
-        
-        
-
-        
-          <p>之前一直用的<a href="https://github.com/Loyalsoldier/v2ray-rules-dat" target="_blank" rel="noopener">Loyalsoldier</a>的路由规则文件，路由是这么写的：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&quot;routing&quot;: &#123;</span><br><span class="line">    &quot;rules&quot;: [</span><br><span class="line">        &#123;</span><br><span class="line">            &quot;type&quot;: &quot;field&quot;,</span><br><span class="line">            &quot;outboundTag&quot;: &quot;direct&quot;,</span><br><span class="line">            &quot;domain&quot;: [</span><br><span class="line">                &quot;geosite:private&quot;,</span><br><span class="line">                &quot;geosite:apple-cn&quot;,</span><br><span class="line">                &quot;geosite:cn&quot;</span><br><span class="line">            ]</span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">            &quot;type&quot;: &quot;field&quot;,</span><br><span class="line">            &quot;outboundTag&quot;: &quot;direct&quot;,</span><br><span class="line">            &quot;ip&quot;: [</span><br><span class="line">                &quot;geoip:private&quot;,</span><br><span class="line">                &quot;geoip:cn&quot;</span><br><span class="line">            ]</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>最近发现<code>gstatic.com</code>域名无法访问了，研究发现<code>gstatic.com</code>域名是包含在<code>getsite:cn</code>里面的，正确写法如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">&quot;routing&quot;: &#123;</span><br><span class="line">  &quot;rules&quot;: [</span><br><span class="line">    &#123;</span><br><span class="line">      &quot;type&quot;: &quot;field&quot;,</span><br><span class="line">      &quot;outboundTag&quot;: &quot;Direct&quot;,</span><br><span class="line">      &quot;domain&quot;: [</span><br><span class="line">        &quot;geosite:private&quot;,</span><br><span class="line">        &quot;geosite:tld-cn&quot;</span><br><span class="line">      ]</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      &quot;type&quot;: &quot;field&quot;,</span><br><span class="line">      &quot;outboundTag&quot;: &quot;Proxy&quot;,</span><br><span class="line">      &quot;domain&quot;: [</span><br><span class="line">        &quot;geosite:geolocation-!cn&quot;</span><br><span class="line">      ]</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      &quot;type&quot;: &quot;field&quot;,</span><br><span class="line">      &quot;outboundTag&quot;: &quot;Direct&quot;,</span><br><span class="line">      &quot;domain&quot;: [</span><br><span class="line">        &quot;geosite:cn&quot;</span><br><span class="line">      ]</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
         
       
     </div>

@@ -235,6 +235,102 @@
     <header class="post-header">
       <h1 class="post-title">
         
+          <a class="post-link" href="/2019/06/22/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%EF%BC%88%E7%AC%AC%E4%B8%83%E7%89%88%EF%BC%89%E4%B9%A0%E9%A2%984-13%E8%AE%A1%E7%AE%97%E8%BF%87%E7%A8%8B/">计算机网络（第七版）习题4-13计算过程</a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2019-06-22
+        </span>
+        
+          <span class="post-category">
+            
+              <a href="/categories/linux/">linux</a>
+            
+          </span>
+        
+        
+      </div>
+    </header>
+
+    
+    
+
+
+    <div class="post-content">
+      
+        
+        
+
+        
+          <p>网上计算机网络的习题答案不是复制黏贴就是排版糟糕，简直不是给人看的。今天做这题目花了不少时间，就顺便把计算过程记录下来，希望帮助到对这题有疑惑的人。</p>
+<p>包含IP部分，首部长度正好为为5个4字节。</p>
+<ol>
+<li>现将数据转换成二进制格式</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">0100 0101 0000 0000 0000 0000 0001 1100</span><br><span class="line">0000 0000 0000 0001 0000 0000 0000 0000</span><br><span class="line">0000 0100 0001 0001</span><br><span class="line">0000 1010 0000 1100 0000 1110 0000 0101</span><br><span class="line">0000 1100 0000 0110 0000 0111 0000 1001</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>计算 <code>0100 0101 0000 0000</code> + <code>0000 0000 0001 1100</code></li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">0100 0101 0000 0000</span><br><span class="line">+</span><br><span class="line">0000 0000 0001 1100</span><br><span class="line">&#x3D;</span><br><span class="line">0100 0101 0001 1100</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>计算 <code>0100 0101 0001 1100</code> + <code>0000 0000 0000 0001</code></li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">0100 0101 0001 1100</span><br><span class="line">+</span><br><span class="line">0000 0000 0000 0001</span><br><span class="line">&#x3D;</span><br><span class="line">0100 0101 0001 1101</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>计算 <code>0100 0101 0001 1101</code> + <code>0000 0000 0000 0000</code></li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">0100 0101 0001 1101</span><br><span class="line">+</span><br><span class="line">0000 0000 0000 0000</span><br><span class="line">&#x3D;</span><br><span class="line">0100 0101 0001 1101</span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>计算<code>0100 0101 0001 1101</code> + <code>0000 0100 0001 0001</code></li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">0100 0101 0001 1101</span><br><span class="line">+</span><br><span class="line">0000 0100 0001 0001</span><br><span class="line">&#x3D;</span><br><span class="line">0100 1001 0010 1110</span><br></pre></td></tr></table></figure>
+
+<ol start="6">
+<li>计算 <code>0100 1001 0010 1110</code> + <code>0000 1010 0000 1100</code></li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">0100 1001 0010 1110</span><br><span class="line">+</span><br><span class="line">0000 1010 0000 1100</span><br><span class="line">&#x3D;</span><br><span class="line">0101 0011 0011 1010</span><br></pre></td></tr></table></figure>
+
+<ol start="7">
+<li>计算 <code>0101 0011 0011 1010</code> + <code>0000 1110 0000 0101</code></li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">0101 0011 0011 1010</span><br><span class="line">+</span><br><span class="line">0000 1110 0000 0101</span><br><span class="line">&#x3D;</span><br><span class="line">0110 0001 0011 1111</span><br></pre></td></tr></table></figure>
+
+<ol start="8">
+<li>计算 <code>0110 0001 0011 1111</code> + <code>0000 1100 0000 0110</code></li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">0110 0001 0011 1111</span><br><span class="line">+</span><br><span class="line">0000 1100 0000 0110</span><br><span class="line">&#x3D;</span><br><span class="line">0110 1101 0100 0101</span><br></pre></td></tr></table></figure>
+
+<ol start="9">
+<li>计算 <code>0110 1101 0100 0101</code> + <code>0000 0111 0000 1001</code></li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">0110 1101 0100 0101</span><br><span class="line">+</span><br><span class="line">0000 0111 0000 1001</span><br><span class="line">&#x3D;</span><br><span class="line">0111 0100 0100 1110</span><br></pre></td></tr></table></figure>
+
+<ol start="10">
+<li>将上面的结果取反得出：</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1000 1011 1011 0001</span><br></pre></td></tr></table></figure>
+        
+      
+    </div>
+
+    
+
+    
+
+  </article>
+
+      
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
           <a class="post-link" href="/2019/06/20/AWS-Cloudformation-%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95/">AWS Cloudformation 踩坑记录</a>
         
       </h1>
@@ -894,53 +990,6 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">language: node_js</span><br><span class="line"></span><br><span class="line">node_js: </span><br><span class="line">  - 11.10.0</span><br><span class="line"></span><br><span class="line">cache: npm</span><br><span class="line"></span><br><span class="line">script:</span><br><span class="line">  - .&#x2F;node_modules&#x2F;hexo&#x2F;bin&#x2F;hexo generate</span><br><span class="line"></span><br><span class="line">deploy:</span><br><span class="line">  provider: pages</span><br><span class="line">  skip-cleanup: true</span><br><span class="line">  keep-history: true</span><br><span class="line">  github-token: $GITHUB_TOKEN</span><br><span class="line">  local-dir: public</span><br><span class="line">  repo: wancaibida&#x2F;blog</span><br><span class="line">  target-branch: master</span><br><span class="line">  on:</span><br><span class="line">    branch: master</span><br><span class="line"></span><br><span class="line">notifications:</span><br><span class="line">  email:</span><br><span class="line">    recipients:</span><br><span class="line">      - wancaibida@gmail.com</span><br><span class="line">    on_success: always</span><br></pre></td></tr></table></figure>
 
 <p>设置下github pages的仓库名称，在github上创建一个权限为<code>public_repo</code> 的token给travis用就好了。</p>
-
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-      
-        
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2019/02/27/%E8%AE%B0wr1200js%E5%88%B7%E6%9C%BA%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/">记wr1200js刷机遇到的问题</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2019-02-27
-        </span>
-        
-          <span class="post-category">
-            
-              <a href="/categories/linux/">linux</a>
-            
-          </span>
-        
-        
-      </div>
-    </header>
-
-    
-    
-
-
-    <div class="post-content">
-      
-        
-        
-
-        
-          <p>前几天入手了一台wr1200js路由器，到手后成功刷上了openwrt。但重启后发现路由器的配置都丢失了，连管理密码都丢了，网上好多人刷了openwrt后也遇到这样的问题，有说法是路由器闪存读写次数过多坏了，但这刚买的因该不会是这问题，后来在重新刷了下<a href="http://downloads.openwrt.org/releases/18.06.2/targets/ramips/mt7621/openwrt-18.06.2-ramips-mt7621-youhua_wr1200js-squashfs-sysupgrade.bin" target="_blank" rel="noopener">sysupgrade.bin</a>就没这问题了，可能是openwrt在某些条件下会触发这问题。</p>
 
         
       
